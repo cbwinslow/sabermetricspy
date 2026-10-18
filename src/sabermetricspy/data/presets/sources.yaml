@@ -83,26 +83,26 @@ presets:
     constant_rules:
       pitches: 1
     value_rules:
+      # Bunt attempts (foul_bunt, missed_bunt) are not swings: FanGraphs excludes them (its Pitch Info Swing%
+      # equals the no-bunt count over located pitches exactly; tests/golden/plate_discipline.yaml).
       - source_col: "description"
         values:
           - "swinging_strike"
           - "swinging_strike_blocked"
           - "foul"
           - "foul_tip"
-          - "foul_bunt"
-          - "missed_bunt"
           - "hit_into_play"
           - "hit_into_play_no_out"
           - "hit_into_play_score"
         target_col: "swings"
       - source_col: "description"
-        values: ["swinging_strike", "swinging_strike_blocked", "missed_bunt"]
+        values: ["swinging_strike", "swinging_strike_blocked"]
         target_col: "whiffs"
       - source_col: "description"
         values: ["called_strike", "automatic_strike"]
         target_col: "called_strikes"
       - source_col: "description"
-        values: ["foul", "foul_bunt"]
+        values: ["foul"]
         target_col: "fouls"
       - source_col: "events"
         values:
@@ -200,6 +200,10 @@ presets:
         min_val: 1.0
         max_val: 9.0
         target_col: "zone_pitches"
+      - source_col: "zone"
+        min_val: 1.0
+        max_val: 14.0
+        target_col: "located_pitches"
       - source_col: "launch_speed"
         min_val: 95.0
         max_val: 200.0

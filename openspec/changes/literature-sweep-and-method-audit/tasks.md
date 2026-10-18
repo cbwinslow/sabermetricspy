@@ -22,8 +22,8 @@
 
 ## 5. Plate discipline (18 metrics)
 
-- [ ] 5.1 Establish whether a public pitch-level Statcast sample can be retrieved without circumventing protection; if so record a small sample with source and date and compute counts through the library's statcast preset, otherwise record the limitation. Verify the recorded sample (or the written limitation) is in the repository with provenance.
-- [ ] 5.2 Retrieve FanGraphs Library definitions for the plate-discipline rates and compare the library's formulas and denominators (Swing%, Z/O-Swing%, Contact%, Z/O-Contact%, Zone%, SwStr%, CStr%, CSW%, Whiff%, Foul%, F-Strike%, F-Swing%, BIP%, PutAway%, 2K-Chase%, Meatball Swing%) with them and, where possible, with published per-player rates. Verify audit entries are resolved with evidence tiers and golden tests pass for any numeric comparison.
+- [x] 5.1 Establish whether a public pitch-level Statcast sample can be retrieved without circumventing protection; if so record a small sample with source and date and compute counts through the library's statcast preset, otherwise record the limitation. Verify the recorded sample (or the written limitation) is in the repository with provenance.
+- [x] 5.2 Retrieve FanGraphs Library definitions for the plate-discipline rates and compare the library's formulas and denominators (Swing%, Z/O-Swing%, Contact%, Z/O-Contact%, Zone%, SwStr%, CStr%, CSW%, Whiff%, Foul%, F-Strike%, F-Swing%, BIP%, PutAway%, 2K-Chase%, Meatball Swing%) with them and, where possible, with published per-player rates. Verify audit entries are resolved with evidence tiers and golden tests pass for any numeric comparison.
 
 ## 6. Pitch physics and Statcast expected (17 metrics)
 

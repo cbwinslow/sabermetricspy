@@ -88,9 +88,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: 3 * TBF / outs. A library-defined rate used by xERA; no published standard definition was found.
   bip_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: Batted-ball events over swings. A library-defined rate with no published standard found.
   bsr:
     status: approximate
     evidence: primary
@@ -115,17 +116,20 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   contact_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Foul tips count as contact; fouls count as contact, as FanGraphs does.
   cstr_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: Called strikes (including automatic strikes) over all pitches reproduces the FanGraphs CStr% for Tarik Skubal 2024 exactly (501/2,868; tests/golden/plate_discipline.yaml).
   csw_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. CSW% = CStr% + SwStr% (FanGraphs C+SwStr%).
   der:
     status: approximate
     evidence: primary
@@ -180,17 +184,20 @@ metrics:
     source_url: https://library.fangraphs.com/principles/park-factors/
     note: 'Same difference as ERA-: league-specific FIP and FanGraphs'' park adjustment versus MLB-wide values (1 to 2.5 points in the golden fixtures).'
   foul_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://tht.fangraphs.com/introducing-plate-discipline-stats/
+    note: Fouls over swings. A library-defined rate; no published definition was found. FanGraphs counts fouls as contact, which this metric does too.
   fp_strike_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: First-pitch strikes over plate appearances reproduces the FanGraphs F-Strike% for Tarik Skubal 2024 exactly (517/753; tests/golden/plate_discipline.yaml). The statcast preset does not derive the first-pitch columns; supply first_pitch_strikes and pa.
   fp_swing_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: First-pitch swings over plate appearances, the analogue of F-Strike%. A library-defined rate; FanGraphs' F-Swing% was not retrievable, and the statcast preset does not derive first-pitch columns.
   fpct:
     status: unverified
     source_url: ''
@@ -298,17 +305,20 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml). Formula (H+BB+HBP-R)/(H+BB+HBP-1.4*HR).
   meatball_swing_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://blogs.fangraphs.com/looking-into-the-heart-zone/
+    note: Swings over meatball (heart-zone) pitches. Baseball Savant publishes Meatball Swing% but its heart-zone boundaries were not retrievable, so the caller must supply meatball counts under their own definition.
   o_contact_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Largest observed gap on the sample (0.25 points).
   o_swing_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Pitches without a tracked location are no longer counted as out of the zone (corrected, ADR-0028).
   obp:
     status: matches
     evidence: golden
@@ -369,9 +379,10 @@ metrics:
     source_url: https://library.fangraphs.com/pitching/batted-ball/
     note: Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8. FanGraphs divides by Pull+Cent+Oppo (equal to GB+FB+LD+BU in every fixture row), not by GB+FB+LD; the library previously divided by bbe and was corrected to the direction total (ADR-0028).
   putaway_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: secondary
+    source_url: https://www.mlb.com/glossary/statcast/putaway-percentage
+    note: 'Strikeouts over two-strike pitches, the Statcast glossary''s PutAway% (confirmed only by a secondary source: a search summary of the glossary entry, since the page itself was not retrievable). The statcast preset does not derive the two-strike columns.'
   pythag_luck:
     status: unverified
     source_url: ''
@@ -484,13 +495,15 @@ metrics:
     source_url: https://baseballsavant.mlb.com/csv-docs
     note: The 8-32 degree launch-angle window applied by the statcast preset matches the Baseball Savant glossary.
   swing_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Bunt attempts are not swings (corrected from counting them, ADR-0028).
   swstr_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Swinging strikes include blocked swinging strikes and exclude foul tips.
   ta:
     status: matches
     evidence: primary
@@ -510,9 +523,10 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   two_strike_chase_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: O-Swing% restricted to two-strike pitches. A library-defined rate; no published 2K-Chase% definition was found, and the statcast preset does not derive the two-strike columns.
   ubb:
     status: matches
     evidence: primary
@@ -527,9 +541,10 @@ metrics:
     source_url: https://library.fangraphs.com/offense/bsr/
     note: FanGraphs describes wGDP but publishes no formula; the library's league GIDP rate and run value are unsourced defaults.
   whiff_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: Swinging strikes over swings; the FanGraphs Library states that whiff rate uses swings as the denominator (unlike SwStr%). FanGraphs does not publish a Whiff% column to compare; the sample value (about 28.4%) equals one minus the Contact% above.
   whiff_per_100:
     status: unverified
     source_url: ''
@@ -618,17 +633,20 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   z_contact_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: 'Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. '
   z_swing_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Pitches without a tracked location are neither in nor out of the zone (corrected, ADR-0028).
   zone_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Divides by located pitches when out-of-zone pitches are supplied (corrected, ADR-0028); FanGraphs' plain Zone% uses Baseball Info Solutions zones and cannot be reproduced from Savant data.
 models:
   WARFramework.calculate_pitcher_war_df:
     status: approximate

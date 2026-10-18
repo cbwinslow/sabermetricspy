@@ -1,0 +1,50 @@
+# Plate-discipline reference for one pitcher-season: Tarik Skubal, 2024 regular season (2,868 pitches).
+# Pitch-level input: tests/fixtures/statcast/skubal_2024_pitches.csv (Baseball Savant statcast_search CSV, retrieved 2026-10-18).
+# Published values: FanGraphs pitcher leaderboard (type=5), retrieved 2026-10-18.
+# FanGraphs publishes three families: plain (Zone%, O-Swing%, ...: Baseball Info Solutions zone and tracking, not reproducible
+# from Savant data), pi* (Pitch Info) and sc* (Statcast zones). Only the Savant-derived values are compared numerically.
+entries:
+- id: skubal_2024_plate_discipline
+  player: Tarik Skubal
+  season: 2024
+  mlbam_id: 669373
+  sample: tests/fixtures/statcast/skubal_2024_pitches.csv
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=5&season=2024&qual=150 (PlayerName=Tarik Skubal)
+  sample_url: https://baseballsavant.mlb.com/statcast_search/csv (hfSea=2024|, hfGT=R|, player_type=pitcher, pitchers_lookup[]=669373, type=details)
+  retrieved: '2026-10-18'
+  counts:
+    pitches: 2868
+    strikes: 1985
+    balls: 883
+    located_pitches: 2838
+    plate_appearances: 753
+    sample_first_pitches: 754
+    first_pitch_strikes: 517
+  published:
+    cstr_pct: 0.17468619
+    swing_pct_pi: 0.51515152
+    zone_pct_sc: 0.55375397
+    o_swing_pct_sc: 0.30884676
+    z_swing_pct_sc: 0.68109484
+    o_contact_pct_sc: 0.51406650
+    z_contact_pct_sc: 0.78971963
+    contact_pct: 0.71670047
+    swstr_pct: 0.14609484
+    csw_pct: 0.32078103
+    f_strike_pct: 0.68658699
+  tolerance:
+    cstr_pct: 1.0e-8
+    f_strike_pct: 1.0e-8
+    swing_pct_pi: 0.001
+    zone_pct_sc: 0.002
+    o_swing_pct_sc: 0.001
+    z_swing_pct_sc: 0.001
+    o_contact_pct_sc: 0.003
+    z_contact_pct_sc: 0.001
+    contact_pct: 0.001
+    swstr_pct: 0.001
+    csw_pct: 0.001
+  note: 'FanGraphs TBF is 753; the Savant export has 754 first pitches (one plate appearance is not credited to the pitcher by FanGraphs). The 517 first-pitch strikes agree, so F-Strike% = 517/753.'
+  tolerance_rule: 'cstr_pct and f_strike_pct are exact counts over the same pitches (501/2868, 517/753). The rest compare a Savant-derived
+    rate with a FanGraphs rate built on its own pitch classification (FanGraphs excludes bunts and uses 2,838 located pitches);
+    the observed bound on this sample is 0.25 percentage points (O-Contact%), under 0.15 for the others. Bunt attempts are excluded from swings, as FanGraphs does.'

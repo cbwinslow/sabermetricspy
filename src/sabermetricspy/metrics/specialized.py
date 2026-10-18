@@ -71,13 +71,19 @@ def calc_o_swing_pct(ctx: EvalContext) -> nw.Expr:
         category=Category.PLATE_DISCIPLINE,
         kind=ImplKind.DETERMINISTIC,
         required_columns=("zone_pitches", "pitches"),
+        optional_columns=("out_zone_pitches",),
         direction=Direction.HIGHER_IS_BETTER,
-        formula_latex=r"Zone\% = \frac{ZonePitches}{Pitches}",
+        formula_latex=r"Zone\% = \frac{ZonePitches}{ZonePitches + OutZonePitches}",
         citation="FanGraphs Library (Plate Discipline)",
-        description="Percentage of pitches seen or thrown inside the strike zone.",
+        description=(
+            "Percentage of located pitches seen or thrown inside the strike zone; "
+            "divides by all pitches when out-of-zone pitches are not supplied."
+        ),
     )
 )
 def calc_zone_pct(ctx: EvalContext) -> nw.Expr:
+    if "out_zone_pitches" in ctx.available_columns:
+        return safe_div(nw.col("zone_pitches"), nw.col("zone_pitches") + nw.col("out_zone_pitches"))
     return safe_div(nw.col("zone_pitches"), nw.col("pitches"))
 
 

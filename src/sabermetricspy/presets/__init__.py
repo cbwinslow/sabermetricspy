@@ -175,16 +175,24 @@ class SourceTranslator(BaseModel):
         # Statcast zone/swing/contact/barrel composites
         if {"pitches", "zone_pitches", "swings", "whiffs"}.issubset(cols_now):
             is_z = nw.col("zone_pitches") == 1
+            # A pitch without a tracked location is neither in nor out of the zone.
+            has_loc = "located_pitches" in cols_now
+            is_out = (nw.col("located_pitches") == 1) & ~is_z if has_loc else ~is_z
             is_sw = nw.col("swings") == 1
             is_ct = is_sw & (nw.col("whiffs") == 0)
+            out_pitches = (
+                nw.col("located_pitches") - nw.col("zone_pitches")
+                if has_loc
+                else nw.col("pitches") - nw.col("zone_pitches")
+            )
             post_exprs.extend(
                 [
-                    (nw.col("pitches") - nw.col("zone_pitches")).alias("out_zone_pitches"),
+                    out_pitches.alias("out_zone_pitches"),
                     (nw.col("swings") - nw.col("whiffs")).alias("contacts"),
                     nw.when(is_z & is_sw).then(1).otherwise(0).alias("zone_swings"),
-                    nw.when((~is_z) & is_sw).then(1).otherwise(0).alias("out_zone_swings"),
+                    nw.when(is_out & is_sw).then(1).otherwise(0).alias("out_zone_swings"),
                     nw.when(is_z & is_ct).then(1).otherwise(0).alias("zone_contacts"),
-                    nw.when((~is_z) & is_ct).then(1).otherwise(0).alias("out_zone_contacts"),
+                    nw.when(is_out & is_ct).then(1).otherwise(0).alias("out_zone_contacts"),
                 ]
             )
 
