@@ -1,0 +1,90 @@
+# Golden counting-stat fixtures for 1B, TB and BB/K (FanGraphs leaderboard 2024 rows; B-Ref TB for Judge), retrieved 2026-10-18.
+entries:
+- id: judge_2024_counting
+  player: Aaron Judge
+  season: 2024
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=0&season=2024&qual=400 (PlayerName=Aaron Judge)
+  retrieved: '2026-10-18'
+  inputs:
+    ab: 559
+    h: 180
+    b2: 36
+    b3: 1
+    hr: 58
+    bb: 133
+    so: 171
+  published:
+    b1: 85
+    tb: 392
+    bb_to_k: 0.777777777
+  tolerance:
+    b1: 0
+    tb: 1.0e-06
+    bb_to_k: 1.0e-08
+  note: tb is the published SLG times AB (an integer within 1e-6); Baseball-Reference lists TB 392 for Judge 2024 (https://www.baseball-reference.com/players/j/judgeaa01.shtml)
+- id: witt_2024_counting
+  player: Bobby Witt
+  season: 2024
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=0&season=2024&qual=400 (PlayerName=Bobby Witt)
+  retrieved: '2026-10-18'
+  inputs:
+    ab: 636
+    h: 211
+    b2: 45
+    b3: 11
+    hr: 32
+    bb: 57
+    so: 106
+  published:
+    b1: 123
+    tb: 374
+    bb_to_k: 0.537735849
+  tolerance:
+    b1: 0
+    tb: 1.0e-06
+    bb_to_k: 1.0e-08
+  note: tb is the published SLG times AB (an integer within 1e-6)
+- id: ohtani_2024_counting
+  player: Shohei Ohtani
+  season: 2024
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=0&season=2024&qual=400 (PlayerName=Shohei Ohtani)
+  retrieved: '2026-10-18'
+  inputs:
+    ab: 636
+    h: 197
+    b2: 38
+    b3: 7
+    hr: 54
+    bb: 81
+    so: 162
+  published:
+    b1: 98
+    tb: 411
+    bb_to_k: 0.5
+  tolerance:
+    b1: 0
+    tb: 1.0e-06
+    bb_to_k: 1.0e-08
+  note: tb is the published SLG times AB (an integer within 1e-6)
+- id: soto_2024_counting
+  player: Juan Soto
+  season: 2024
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=0&season=2024&qual=400 (PlayerName=Juan Soto)
+  retrieved: '2026-10-18'
+  inputs:
+    ab: 576
+    h: 166
+    b2: 31
+    b3: 4
+    hr: 41
+    bb: 129
+    so: 119
+  published:
+    b1: 90
+    tb: 328
+    bb_to_k: 1.084033613
+  tolerance:
+    b1: 0
+    tb: 1.0e-06
+    bb_to_k: 1.0e-08
+  note: tb is the published SLG times AB (an integer within 1e-6)

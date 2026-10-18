@@ -272,7 +272,7 @@ def calc_gpa(ctx: EvalContext) -> nw.Expr:
         optional_columns=("hbp", "sb", "cs", "gidp"),
         requires=(Metric.TB,),
         direction=Direction.HIGHER_IS_BETTER,
-        formula_latex=r"TA = \frac{TB + BB + HBP + SB - CS}{AB - H + CS + GIDP}",
+        formula_latex=r"TA = \frac{TB + BB + HBP + SB}{AB - H + CS + GIDP}",
         citation="Boswell, T. (1978) Inside Sports / The Washington Post (Total Average)",
         description="Total Average measuring total bases gained per offensive out made.",
     )
@@ -282,6 +282,6 @@ def calc_ta(ctx: EvalContext) -> nw.Expr:
     sb = nw.col("sb") if "sb" in ctx.available_columns else nw.lit(0)
     cs = nw.col("cs") if "cs" in ctx.available_columns else nw.lit(0)
     gidp = nw.col("gidp") if "gidp" in ctx.available_columns else nw.lit(0)
-    num = nw.col("tb") + nw.col("bb") + hbp + sb - cs
+    num = nw.col("tb") + nw.col("bb") + hbp + sb
     den = nw.col("ab") - nw.col("h") + cs + gidp
     return safe_div(num, den)

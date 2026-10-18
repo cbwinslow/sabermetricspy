@@ -51,6 +51,22 @@ class WOBAWeights(BaseModel):
     lg_slg: float = Field(default=0.410, description="League average SLG for OPS+")
     lg_k_pct: float = Field(default=0.226, description="League average strikeout rate (SO/PA)")
     lg_bb_pct: float = Field(default=0.083, description="League average walk rate (BB/PA)")
+    lg_bb_pct_nl: float | None = Field(
+        default=None,
+        description="NL walk rate excluding pitchers, the BB%+ denominator (None when unsourced)",
+    )
+    lg_bb_pct_al: float | None = Field(
+        default=None,
+        description="AL walk rate excluding pitchers, the BB%+ denominator (None when unsourced)",
+    )
+    lg_k_pct_nl: float | None = Field(
+        default=None,
+        description="NL strikeout rate excluding pitchers, the K%+ denominator (None when unsourced)",
+    )
+    lg_k_pct_al: float | None = Field(
+        default=None,
+        description="AL strikeout rate excluding pitchers, the K%+ denominator (None when unsourced)",
+    )
     lg_gidp_rate: float = Field(
         default=0.105, description="League average GIDP rate per GIDP opportunity"
     )
@@ -69,6 +85,24 @@ class WOBAWeights(BaseModel):
         if key == "AL" and self.lg_wrc_per_pa_al is not None:
             return self.lg_wrc_per_pa_al
         return self.lg_wrc_per_pa
+
+    def bb_pct_for(self, league: str) -> float:
+        """Walk rate for `league` ("AL", "NL", otherwise the MLB-wide `lg_bb_pct`)."""
+        key = league.upper()
+        if key == "NL" and self.lg_bb_pct_nl is not None:
+            return self.lg_bb_pct_nl
+        if key == "AL" and self.lg_bb_pct_al is not None:
+            return self.lg_bb_pct_al
+        return self.lg_bb_pct
+
+    def k_pct_for(self, league: str) -> float:
+        """Strikeout rate for `league` ("AL", "NL", otherwise the MLB-wide `lg_k_pct`)."""
+        key = league.upper()
+        if key == "NL" and self.lg_k_pct_nl is not None:
+            return self.lg_k_pct_nl
+        if key == "AL" and self.lg_k_pct_al is not None:
+            return self.lg_k_pct_al
+        return self.lg_k_pct
 
 
 class SIERACoefficients(BaseModel):

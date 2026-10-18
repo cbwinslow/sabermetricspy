@@ -1,0 +1,164 @@
+# Golden K%+ / BB%+ fixtures for batters (FanGraphs leaderboard type=23). The league denominator is the player's own league
+# (AL or NL) non-pitcher BB%/K% for that season (tests/golden/league_bb_k_snapshot.yaml); established by recomputation for all rows.
+# tolerance 1e-4 on the index: FanGraphs stores the league rate to about 9 digits.
+entries:
+- id: judge_2024_indices
+  player: Aaron Judge
+  season: 2024
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=23&season=2024&qual=400 (PlayerName=Aaron Judge)
+  retrieved: '2026-10-18'
+  inputs:
+    pa: 704
+    bb: 133
+    so: 171
+  published:
+    bb_pct: 0.188920454
+    k_pct: 0.242897727
+    bat_bb_pct_plus: 232.5308811909044
+    bat_k_pct_plus: 107.61807719575758
+  tolerance:
+    bb_pct: 1.0e-08
+    k_pct: 1.0e-08
+    bat_bb_pct_plus: 0.0001
+    bat_k_pct_plus: 0.0001
+- id: witt_2024_indices
+  player: Bobby Witt
+  season: 2024
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=23&season=2024&qual=400 (PlayerName=Bobby Witt)
+  retrieved: '2026-10-18'
+  inputs:
+    pa: 709
+    bb: 57
+    so: 106
+  published:
+    bb_pct: 0.080394922
+    k_pct: 0.149506346
+    bat_bb_pct_plus: 98.95329838628287
+    bat_k_pct_plus: 66.24016487846195
+  tolerance:
+    bb_pct: 1.0e-08
+    k_pct: 1.0e-08
+    bat_bb_pct_plus: 0.0001
+    bat_k_pct_plus: 0.0001
+- id: ohtani_2024_indices
+  player: Shohei Ohtani
+  season: 2024
+  league: NL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=23&season=2024&qual=400 (PlayerName=Shohei Ohtani)
+  retrieved: '2026-10-18'
+  inputs:
+    pa: 731
+    bb: 81
+    so: 162
+  published:
+    bb_pct: 0.110807113
+    k_pct: 0.221614227
+    bat_bb_pct_plus: 134.47013821718713
+    bat_k_pct_plus: 98.1119284913102
+  tolerance:
+    bb_pct: 1.0e-08
+    k_pct: 1.0e-08
+    bat_bb_pct_plus: 0.0001
+    bat_k_pct_plus: 0.0001
+- id: soto_2024_indices
+  player: Juan Soto
+  season: 2024
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=23&season=2024&qual=400 (PlayerName=Juan Soto)
+  retrieved: '2026-10-18'
+  inputs:
+    pa: 713
+    bb: 129
+    so: 119
+  published:
+    bb_pct: 0.180925666
+    k_pct: 0.16690042
+    bat_bb_pct_plus: 222.6905750768059
+    bat_k_pct_plus: 73.94676971828709
+  tolerance:
+    bb_pct: 1.0e-08
+    k_pct: 1.0e-08
+    bat_bb_pct_plus: 0.0001
+    bat_k_pct_plus: 0.0001
+- id: trout_2016_indices
+  player: Mike Trout
+  season: 2016
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=23&season=2016&qual=400 (PlayerName=Mike Trout)
+  retrieved: '2026-10-18'
+  inputs:
+    pa: 681
+    bb: 116
+    so: 137
+  published:
+    bb_pct: 0.170337738
+    k_pct: 0.201174743
+    bat_bb_pct_plus: 212.39391321596872
+    bat_k_pct_plus: 97.38140556454073
+  tolerance:
+    bb_pct: 1.0e-08
+    k_pct: 1.0e-08
+    bat_bb_pct_plus: 0.0001
+    bat_k_pct_plus: 0.0001
+- id: bryant_2016_indices
+  player: Kris Bryant
+  season: 2016
+  league: NL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=23&season=2016&qual=400 (PlayerName=Kris Bryant)
+  retrieved: '2026-10-18'
+  inputs:
+    pa: 699
+    bb: 75
+    so: 154
+  published:
+    bb_pct: 0.107296137
+    k_pct: 0.220314735
+    bat_bb_pct_plus: 124.16708446135469
+    bat_k_pct_plus: 107.38518584273568
+  tolerance:
+    bb_pct: 1.0e-08
+    k_pct: 1.0e-08
+    bat_bb_pct_plus: 0.0001
+    bat_k_pct_plus: 0.0001
+- id: betts_2016_indices
+  player: Mookie Betts
+  season: 2016
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=23&season=2016&qual=400 (PlayerName=Mookie Betts)
+  retrieved: '2026-10-18'
+  inputs:
+    pa: 730
+    bb: 49
+    so: 80
+  published:
+    bb_pct: 0.067123287
+    k_pct: 0.109589041
+    bat_bb_pct_plus: 83.69594290284967
+    bat_k_pct_plus: 53.048084903233025
+  tolerance:
+    bb_pct: 1.0e-08
+    k_pct: 1.0e-08
+    bat_bb_pct_plus: 0.0001
+    bat_k_pct_plus: 0.0001
+- id: altuve_2016_indices
+  player: Jose Altuve
+  season: 2016
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=23&season=2016&qual=400 (PlayerName=Jose Altuve)
+  retrieved: '2026-10-18'
+  inputs:
+    pa: 717
+    bb: 60
+    so: 70
+  published:
+    bb_pct: 0.083682008
+    k_pct: 0.097629009
+    bat_bb_pct_plus: 104.34299148019686
+    bat_k_pct_plus: 47.258666662212164
+  tolerance:
+    bb_pct: 1.0e-08
+    k_pct: 1.0e-08
+    bat_bb_pct_plus: 0.0001
+    bat_k_pct_plus: 0.0001

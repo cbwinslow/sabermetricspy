@@ -320,7 +320,7 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (
         Metric.TA,
         dict(**BAT, hbp=1, sb=3, cs=1, gidp=2),
-        (TB + 12 + 1 + 3 - 1) / (100 - 30 + 1 + 2),
+        (TB + 12 + 1 + 3) / (100 - 30 + 1 + 2),
         {},
     ),
     # ---- expectancy ----

@@ -12,8 +12,8 @@
 
 ## 3. Batting and weighted offense (18 metrics)
 
-- [ ] 3.1 Retrieve the primary-source definitions for `b1`, `tb`, `xbh`, `ubb`, `seca`, `gpa`, `ta`, `rc_basic`, `rc27`, `xbh_pct`, `hr_pct`, `r_per_pa`, `rbi_per_pa`, `bb_to_k`, `k_to_bb`, `k_minus_bb_pct`, `bat_k_pct_plus`, and `bat_bb_pct_plus` (Tango wiki pages, FanGraphs Library, Baseball-Reference glossary), quoting each formula with its URL in working notes. Verify each metric has at least one fetched primary definition.
-- [ ] 3.2 Add golden fixtures where a published value exists (FanGraphs batter leaderboard rates such as BB/K, K-BB%, K%+ and BB%+ if exposed, and Tango wiki worked examples for GPA, Total Average, Secondary Average, Runs Created), compare, and update the audit entries; fix or label differences with before/after values. Verify the golden tests and `tests/test_metric_values.py` pass.
+- [x] 3.1 Retrieve the primary-source definitions for `b1`, `tb`, `xbh`, `ubb`, `seca`, `gpa`, `ta`, `rc_basic`, `rc27`, `xbh_pct`, `hr_pct`, `r_per_pa`, `rbi_per_pa`, `bb_to_k`, `k_to_bb`, `k_minus_bb_pct`, `bat_k_pct_plus`, and `bat_bb_pct_plus` (Tango wiki pages, FanGraphs Library, Baseball-Reference glossary), quoting each formula with its URL in working notes. Verify each metric has at least one fetched primary definition.
+- [x] 3.2 Add golden fixtures where a published value exists (FanGraphs batter leaderboard rates such as BB/K, K-BB%, K%+ and BB%+ if exposed, and Tango wiki worked examples for GPA, Total Average, Secondary Average, Runs Created), compare, and update the audit entries; fix or label differences with before/after values. Verify the golden tests and `tests/test_metric_values.py` pass.
 
 ## 4. Pitching, DIPS, and indexed pitching (16 metrics)
 

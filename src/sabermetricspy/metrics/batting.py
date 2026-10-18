@@ -388,7 +388,7 @@ def calc_rbi_per_pa(ctx: EvalContext) -> nw.Expr:
     )
 )
 def calc_bat_k_pct_plus(ctx: EvalContext) -> nw.Expr:
-    return safe_div(100.0 * nw.col("k_pct"), ctx.weights.lg_k_pct)
+    return safe_div(100.0 * nw.col("k_pct"), ctx.weights.k_pct_for(ctx.season_context.league))
 
 
 @register_metric(
@@ -406,4 +406,4 @@ def calc_bat_k_pct_plus(ctx: EvalContext) -> nw.Expr:
     )
 )
 def calc_bat_bb_pct_plus(ctx: EvalContext) -> nw.Expr:
-    return safe_div(100.0 * nw.col("bb_pct"), ctx.weights.lg_bb_pct)
+    return safe_div(100.0 * nw.col("bb_pct"), ctx.weights.bb_pct_for(ctx.season_context.league))

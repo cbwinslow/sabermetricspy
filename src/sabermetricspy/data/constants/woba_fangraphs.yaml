@@ -31,7 +31,11 @@ seasons:
     lg_wrc_per_pa: 0.11819191651552544
     lg_wrc_per_pa_nl: 0.1185206962562608
     lg_wrc_per_pa_al: 0.11786166680455043
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.085421598
+    lg_bb_pct_al: 0.082724234
+    lg_k_pct_nl: 0.218965122
+    lg_k_pct_al: 0.225401347
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2024:
     season: 2024
@@ -60,7 +64,11 @@ seasons:
     lg_wrc_per_pa: 0.11701334558708483
     lg_wrc_per_pa_nl: 0.11958075047281264
     lg_wrc_per_pa_al: 0.11442403596329677
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.082402768
+    lg_bb_pct_al: 0.081245321
+    lg_k_pct_nl: 0.225878988
+    lg_k_pct_al: 0.225703465
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2023:
     season: 2023
@@ -89,7 +97,11 @@ seasons:
     lg_wrc_per_pa: 0.12185976453321005
     lg_wrc_per_pa_nl: 0.12389142338858447
     lg_wrc_per_pa_al: 0.11982089745021328
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.088124932
+    lg_bb_pct_al: 0.083725131
+    lg_k_pct_nl: 0.223164515
+    lg_k_pct_al: 0.231378694
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2022:
     season: 2022
@@ -118,7 +130,11 @@ seasons:
     lg_wrc_per_pa: 0.11436816178004151
     lg_wrc_per_pa_nl: 0.11619975953850493
     lg_wrc_per_pa_al: 0.11252974971181079
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.08355266
+    lg_bb_pct_al: 0.079603742
+    lg_k_pct_nl: 0.226137211
+    lg_k_pct_al: 0.222179416
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2021:
     season: 2021
@@ -147,7 +163,11 @@ seasons:
     lg_wrc_per_pa: 0.1248139148137384
     lg_wrc_per_pa_nl: 0.12730552309284274
     lg_wrc_per_pa_al: 0.12243400292539305
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.091854078
+    lg_bb_pct_al: 0.084754373
+    lg_k_pct_nl: 0.223021333
+    lg_k_pct_al: 0.228772751
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2020:
     season: 2020
@@ -176,7 +196,11 @@ seasons:
     lg_wrc_per_pa: 0.12547649607096376
     lg_wrc_per_pa_nl: 0.1277684099551802
     lg_wrc_per_pa_al: 0.12319187689223998
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.092716428
+    lg_bb_pct_al: 0.090499639
+    lg_k_pct_nl: 0.231068136
+    lg_k_pct_al: 0.23756906
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2019:
     season: 2019
@@ -205,7 +229,11 @@ seasons:
     lg_wrc_per_pa: 0.12982124169937956
     lg_wrc_per_pa_nl: 0.13193671658330686
     lg_wrc_per_pa_al: 0.12780974724430744
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.088599002
+    lg_bb_pct_al: 0.085018718
+    lg_k_pct_nl: 0.21858418
+    lg_k_pct_al: 0.22864581
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2018:
     season: 2018
@@ -234,7 +262,11 @@ seasons:
     lg_wrc_per_pa: 0.1207816476643151
     lg_wrc_per_pa_nl: 0.12207161991777354
     lg_wrc_per_pa_al: 0.11954561837833298
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.089759309
+    lg_bb_pct_al: 0.083014229
+    lg_k_pct_nl: 0.215815168
+    lg_k_pct_al: 0.21791915
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2017:
     season: 2017
@@ -263,7 +295,11 @@ seasons:
     lg_wrc_per_pa: 0.12589606816700225
     lg_wrc_per_pa_nl: 0.12854147367658145
     lg_wrc_per_pa_al: 0.12338002991108608
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.089979829
+    lg_bb_pct_al: 0.084224787
+    lg_k_pct_nl: 0.210009914
+    lg_k_pct_al: 0.212940985
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2016:
     season: 2016
@@ -292,7 +328,11 @@ seasons:
     lg_wrc_per_pa: 0.1215760958080101
     lg_wrc_per_pa_nl: 0.12315917202292656
     lg_wrc_per_pa_al: 0.12006428841605987
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.086412702
+    lg_bb_pct_al: 0.08019897
+    lg_k_pct_nl: 0.205163058
+    lg_k_pct_al: 0.206584344
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2015:
     season: 2015
@@ -321,7 +361,11 @@ seasons:
     lg_wrc_per_pa: 0.11610934857632066
     lg_wrc_per_pa_nl: 0.11652116709417315
     lg_wrc_per_pa_al: 0.11571890761917518
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.079471038
+    lg_bb_pct_al: 0.076919713
+    lg_k_pct_nl: 0.199305939
+    lg_k_pct_al: 0.198065256
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2014:
     season: 2014
@@ -350,7 +394,11 @@ seasons:
     lg_wrc_per_pa: 0.11105120038229922
     lg_wrc_per_pa_nl: 0.11225200982510468
     lg_wrc_per_pa_al: 0.10991915693966489
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.078267398
+    lg_bb_pct_al: 0.077150075
+    lg_k_pct_nl: 0.200023101
+    lg_k_pct_al: 0.197138314
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2013:
     season: 2013
@@ -379,7 +427,11 @@ seasons:
     lg_wrc_per_pa: 0.11305944429407025
     lg_wrc_per_pa_nl: 0.11246893537323337
     lg_wrc_per_pa_al: 0.11361517491654244
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.079922722
+    lg_bb_pct_al: 0.081373578
+    lg_k_pct_nl: 0.189733092
+    lg_k_pct_al: 0.196848518
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2012:
     season: 2012
@@ -408,7 +460,11 @@ seasons:
     lg_wrc_per_pa: 0.11809614192805934
     lg_wrc_per_pa_nl: 0.11917544093312901
     lg_wrc_per_pa_al: 0.11693291128246813
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.082535768
+    lg_bb_pct_al: 0.080294182
+    lg_k_pct_nl: 0.192021109
+    lg_k_pct_al: 0.192046341
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2011:
     season: 2011
@@ -437,7 +493,11 @@ seasons:
     lg_wrc_per_pa: 0.11594614537853247
     lg_wrc_per_pa_nl: 0.11549820022109052
     lg_wrc_per_pa_al: 0.11643018253012698
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.084197864
+    lg_bb_pct_al: 0.081001729
+    lg_k_pct_nl: 0.18325923
+    lg_k_pct_al: 0.17946873
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2010:
     season: 2010
@@ -466,7 +526,11 @@ seasons:
     lg_wrc_per_pa: 0.11877477057407307
     lg_wrc_per_pa_nl: 0.11981346203660702
     lg_wrc_per_pa_al: 0.11765644137266078
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.088372143
+    lg_bb_pct_al: 0.085128537
+    lg_k_pct_nl: 0.18454562
+    lg_k_pct_al: 0.174560936
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2009:
     season: 2009
@@ -495,7 +559,11 @@ seasons:
     lg_wrc_per_pa: 0.12394546445124016
     lg_wrc_per_pa_nl: 0.12307025810138421
     lg_wrc_per_pa_al: 0.12488719615791116
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.09273231
+    lg_bb_pct_al: 0.088108151
+    lg_k_pct_nl: 0.174872122
+    lg_k_pct_al: 0.174106477
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2008:
     season: 2008
@@ -524,7 +592,11 @@ seasons:
     lg_wrc_per_pa: 0.12440465488390998
     lg_wrc_per_pa_nl: 0.12553022071104195
     lg_wrc_per_pa_al: 0.12318823568942026
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.091138408
+    lg_bb_pct_al: 0.085963987
+    lg_k_pct_nl: 0.171434325
+    lg_k_pct_al: 0.168388619
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2007:
     season: 2007
@@ -553,7 +625,11 @@ seasons:
     lg_wrc_per_pa: 0.12771526736470945
     lg_wrc_per_pa_nl: 0.129833163160374
     lg_wrc_per_pa_al: 0.12541134492474557
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.088297715
+    lg_bb_pct_al: 0.085652566
+    lg_k_pct_nl: 0.164439261
+    lg_k_pct_al: 0.166996216
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2006:
     season: 2006
@@ -582,7 +658,11 @@ seasons:
     lg_wrc_per_pa: 0.12998009726666218
     lg_wrc_per_pa_nl: 0.13075100655261532
     lg_wrc_per_pa_al: 0.12914472418952683
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.088819403
+    lg_bb_pct_al: 0.082864959
+    lg_k_pct_nl: 0.164275754
+    lg_k_pct_al: 0.161414393
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2005:
     season: 2005
@@ -611,7 +691,11 @@ seasons:
     lg_wrc_per_pa: 0.12390921288992178
     lg_wrc_per_pa_nl: 0.12557867010776233
     lg_wrc_per_pa_al: 0.12210825244805677
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.087853086
+    lg_bb_pct_al: 0.078504672
+    lg_k_pct_nl: 0.161096077
+    lg_k_pct_al: 0.157840083
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2004:
     season: 2004
@@ -640,7 +724,11 @@ seasons:
     lg_wrc_per_pa: 0.12835197235558365
     lg_wrc_per_pa_nl: 0.1289302761624205
     lg_wrc_per_pa_al: 0.1277319213988287
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.090470791
+    lg_bb_pct_al: 0.084981651
+    lg_k_pct_nl: 0.163372998
+    lg_k_pct_al: 0.163532873
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2003:
     season: 2003
@@ -669,7 +757,11 @@ seasons:
     lg_wrc_per_pa: 0.1267765005416655
     lg_wrc_per_pa_nl: 0.12830239306505553
     lg_wrc_per_pa_al: 0.12513409472181972
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.090210683
+    lg_bb_pct_al: 0.082599383
+    lg_k_pct_nl: 0.161247073
+    lg_k_pct_al: 0.15705565
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2002:
     season: 2002
@@ -698,7 +790,11 @@ seasons:
     lg_wrc_per_pa: 0.12412978012344016
     lg_wrc_per_pa_nl: 0.125040509371875
     lg_wrc_per_pa_al: 0.12314723480658635
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.093315119
+    lg_bb_pct_al: 0.0841978
+    lg_k_pct_nl: 0.163408178
+    lg_k_pct_al: 0.162477692
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2001:
     season: 2001
@@ -725,7 +821,11 @@ seasons:
     lg_wrc_per_pa: 0.1284705657448561
     lg_wrc_per_pa_nl: 0.13069722868145656
     lg_wrc_per_pa_al: 0.1260792456671235
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.089548254
+    lg_bb_pct_al: 0.082949203
+    lg_k_pct_nl: 0.171483786
+    lg_k_pct_al: 0.164786148
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   2000:
     season: 2000
@@ -752,7 +852,11 @@ seasons:
     lg_wrc_per_pa: 0.1358873502272719
     lg_wrc_per_pa_nl: 0.13605471072600345
     lg_wrc_per_pa_al: 0.13570770071046812
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.100013655
+    lg_bb_pct_al: 0.095732085
+    lg_k_pct_nl: 0.161937876
+    lg_k_pct_al: 0.156554095
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   1999:
     season: 1999
@@ -779,7 +883,11 @@ seasons:
     lg_wrc_per_pa: 0.13465658076315057
     lg_wrc_per_pa_nl: 0.1355788101252826
     lg_wrc_per_pa_al: 0.13365926905639167
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.098315225
+    lg_bb_pct_al: 0.09387806
+    lg_k_pct_nl: 0.159838345
+    lg_k_pct_al: 0.157129397
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   1998:
     season: 1998
@@ -806,7 +914,11 @@ seasons:
     lg_wrc_per_pa: 0.12800752000384427
     lg_wrc_per_pa_nl: 0.12651027332934664
     lg_wrc_per_pa_al: 0.1296087946726352
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.090064689
+    lg_bb_pct_al: 0.087879201
+    lg_k_pct_nl: 0.164808273
+    lg_k_pct_al: 0.163048178
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   1997:
     season: 1997
@@ -833,7 +945,11 @@ seasons:
     lg_wrc_per_pa: 0.127235301912214
     lg_wrc_per_pa_nl: 0.1267960982547811
     lg_wrc_per_pa_al: 0.12764574152665895
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.091441298
+    lg_bb_pct_al: 0.090491355
+    lg_k_pct_nl: 0.164577298
+    lg_k_pct_al: 0.165195632
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   1996:
     season: 1996
@@ -860,7 +976,11 @@ seasons:
     lg_wrc_per_pa: 0.13285722366443126
     lg_wrc_per_pa_nl: 0.12646536883817142
     lg_wrc_per_pa_al: 0.13870171403638396
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.088986666
+    lg_bb_pct_al: 0.095753928
+    lg_k_pct_nl: 0.16412744
+    lg_k_pct_al: 0.156636576
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   1995:
     season: 1995
@@ -887,7 +1007,11 @@ seasons:
     lg_wrc_per_pa: 0.12860596997239493
     lg_wrc_per_pa_nl: 0.12645800326143336
     lg_wrc_per_pa_al: 0.1305929358567824
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.088909295
+    lg_bb_pct_al: 0.096001217
+    lg_k_pct_nl: 0.160837148
+    lg_k_pct_al: 0.153586733
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   1994:
     season: 1994
@@ -914,7 +1038,11 @@ seasons:
     lg_wrc_per_pa: 0.13063251939141635
     lg_wrc_per_pa_nl: 0.1287421547324778
     lg_wrc_per_pa_al: 0.13238495240681541
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.087538371
+    lg_bb_pct_al: 0.094932054
+    lg_k_pct_nl: 0.154554547
+    lg_k_pct_al: 0.153764988
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   1993:
     season: 1993
@@ -941,7 +1069,11 @@ seasons:
     lg_wrc_per_pa: 0.12330700640747863
     lg_wrc_per_pa_nl: 0.12355407808377385
     lg_wrc_per_pa_al: 0.12307728828962923
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.085171448
+    lg_bb_pct_al: 0.091418783
+    lg_k_pct_nl: 0.144723914
+    lg_k_pct_al: 0.147873251
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   1992:
     season: 1992
@@ -968,7 +1100,11 @@ seasons:
     lg_wrc_per_pa: 0.11131568342781685
     lg_wrc_per_pa_nl: 0.10936079465320468
     lg_wrc_per_pa_al: 0.11286631960861587
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.084723874
+    lg_bb_pct_al: 0.08866893
+    lg_k_pct_nl: 0.144388984
+    lg_k_pct_al: 0.140346434
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   1991:
     season: 1991
@@ -995,7 +1131,11 @@ seasons:
     lg_wrc_per_pa: 0.11600682548397682
     lg_wrc_per_pa_nl: 0.11338799770158205
     lg_wrc_per_pa_al: 0.11806986254963876
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.088158315
+    lg_bb_pct_al: 0.088543217
+    lg_k_pct_nl: 0.146596097
+    lg_k_pct_al: 0.14825548
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"
   1990:
     season: 1990
@@ -1022,5 +1162,9 @@ seasons:
     lg_wrc_per_pa: 0.1151453511100707
     lg_wrc_per_pa_nl: 0.11646982322620075
     lg_wrc_per_pa_al: 0.11408360386181321
-    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals and non-pitcher wRC/PA from FanGraphs leaderboards (team=0,ss; pos=np)"
+    lg_bb_pct_nl: 0.087631324
+    lg_bb_pct_al: 0.088401566
+    lg_k_pct_nl: 0.140421104
+    lg_k_pct_al: 0.146984546
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% from FanGraphs leaderboards (team=0,ss; pos=np)"
     retrieved: "2026-10-18"

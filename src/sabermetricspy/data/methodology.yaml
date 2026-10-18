@@ -25,9 +25,10 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   b1:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: 1B = H - 2B - 3B - HR reproduces the FanGraphs leaderboard 1B for 4 hitters (tests/golden/batting_counting.yaml).
   ba_minus_xba:
     status: unverified
     source_url: ''
@@ -48,13 +49,15 @@ metrics:
     source_url: https://tangotiger.net/wiki_archive/Base_Runs.html
     note: Reproduces Smyth's version 1 (multiplier 1.02) when only basic columns are supplied and version 2 (adds HBP, IBB, SB, CS, GDP; multiplier 1.1) when any of those columns is present. Verified against the published formulas, not numerically.
   bat_bb_pct_plus:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: 'Reproduces the FanGraphs batter BB%+ for 8 hitters in 2016 and 2024 (tests/golden/batting_indices.yaml): BB% divided by the BB% of the player''s own league (AL or NL, non-pitchers). The library formerly used the MLB-wide rate and was corrected (ADR-0028).'
   bat_k_pct_plus:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: 'Reproduces the FanGraphs batter K%+ for 8 hitters in 2016 and 2024 (tests/golden/batting_indices.yaml): K% divided by the K% of the player''s own league (AL or NL, non-pitchers). The library formerly used the MLB-wide rate and was corrected (ADR-0028).'
   bauer_units:
     status: unverified
     source_url: ''
@@ -74,9 +77,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
   bb_to_k:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: BB / SO reproduces the FanGraphs leaderboard BB/K for 4 hitters in 2024 (tests/golden/batting_counting.yaml).
   bf_per_ip:
     status: unverified
     source_url: ''
@@ -197,9 +201,10 @@ metrics:
     source_url: https://library.fangraphs.com/pitching/batted-ball/
     note: Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8.
   gpa:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://tangotiger.net/wiki_archive/Gross_Production_Average.html
+    note: (1.8*OBP + SLG) / 4, as published on the Tango wiki and Wikipedia (Aaron Gleeman, 2003). No worked example is published.
   h_per_9:
     status: unverified
     source_url: ''
@@ -218,9 +223,10 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   hr_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Home runs per plate appearance. No retrieved primary source defines HR% (FanGraphs and Baseball-Reference publish AB/HR and HR/FB); the per-PA form is a library-defined rate.
   hr_per_9:
     status: matches
     evidence: golden
@@ -245,9 +251,10 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   k_minus_bb_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://library.fangraphs.com/pitching/rate-stats
+    note: K% minus BB%, with K% and BB% as the FanGraphs Library defines them (per plate appearance); FanGraphs publishes the same difference as K-BB% for pitchers.
   k_pct:
     status: matches
     evidence: golden
@@ -263,9 +270,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
   k_to_bb:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Reciprocal of BB/K (checked against the FanGraphs BB/K leaderboard in tests/golden/batting_counting.yaml); pitcher K/BB is checked separately.
   kwera:
     status: approximate
     evidence: primary
@@ -379,25 +387,29 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   r_per_pa:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Runs scored per plate appearance. A library-defined rate; no published standard was found.
   ra9:
     status: unverified
     source_url: ''
     note: Not yet audited against a primary source.
   rbi_per_pa:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: RBI per plate appearance. A library-defined rate; no published standard was found.
   rc27:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://en.wikipedia.org/wiki/Runs_created
+    note: Scales Runs Created to 27 outs, as Wikipedia describes RC/27. The out estimate AB - H + SH + SF + CS + GIDP is the common convention but no retrieved primary source states it, so the denominator is a documented assumption.
   rc_basic:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://tangotiger.net/wiki_archive/Runs_Created.html
+    note: James's basic Runs Created (H + BB) * TB / (AB + BB), as on the Tango wiki and Wikipedia. Baseball-Reference's glossary lists a basic variant with HBP and SF added to the walk and opportunity terms; this is the original form.
   rc_tech:
     status: matches
     evidence: primary
@@ -428,9 +440,10 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   seca:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://tangotiger.net/wiki_archive/Secondary_Average.html
+    note: (TB - H + BB + SB - CS) / AB, as published on the Tango wiki and Wikipedia (created by Bill James). The published page has no worked example, so no numeric check exists.
   siera:
     status: approximate
     evidence: primary
@@ -464,13 +477,15 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   ta:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://tangotiger.net/wiki_archive/Total_Average.html
+    note: (TB + BB + HBP + SB) / (AB - H + CS + GIDP), as on the Tango wiki and Wikipedia (Boswell). The library formerly subtracted CS in the numerator and was corrected (ADR-0028). No worked example is published.
   tb:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: TB = 1B + 2*2B + 3*3B + 4*HR reproduces the published slugging times AB for 4 hitters and Baseball-Reference's TB 392 for Judge 2024 (tests/golden/batting_counting.yaml).
   tc:
     status: unverified
     source_url: ''
@@ -484,9 +499,10 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   ubb:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://library.fangraphs.com/offense/woba/
+    note: BB - IBB, the unintentional walk term in the FanGraphs wOBA definition; falls back to BB when IBB is absent.
   vaa:
     status: unverified
     source_url: ''
@@ -550,13 +566,15 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   xbh:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://en.wikipedia.org/wiki/Extra-base_hit
+    note: 'Doubles plus triples plus home runs, the definition of an extra-base hit (Wikipedia: any base hit on which the batter advances past first base).'
   xbh_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://en.wikipedia.org/wiki/Extra-base_hit
+    note: Extra-base hits per plate appearance. The published share-of-hits form (SABR, 1997; Wikipedia's McGwire comparison) divides by hits, and no standard per-PA rate was found, so this is a library-defined rate.
   xbt_pct:
     status: unverified
     source_url: ''
