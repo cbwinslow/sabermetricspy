@@ -103,9 +103,10 @@ metrics:
     source_url: https://library.fangraphs.com/offense/bsr/
     note: FanGraphs defines BsR = wSB + UBR + wGDP. UBR must be supplied by the caller and FanGraphs publishes no formula for wGDP (see wgdp).
   catcher_cs_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/players/c/contrwi01.shtml
+    note: CS / (SB + CS) against reproduces Baseball-Reference's caught-stealing percentage for Willson Contreras 2024 (22.9). tests/golden/fielding_team_expectancy.yaml
   cent_pct:
     status: matches
     evidence: golden
@@ -117,9 +118,10 @@ metrics:
     source_url: https://en.wikipedia.org/wiki/Complete_game
     note: CG / GS, the complete-game share of starts, as implied by Wikipedia's complete-game table; confirmed only by a secondary source; no primary source states the formula.
   clutch:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/misc/clutch/
+    note: (WPA/pLI - WPA/LI) per FanGraphs' clutch definition reproduces the published Clutch score for the five batters within 1e-5. tests/golden/fielding_team_expectancy.yaml
   contact_pct:
     status: approximate
     evidence: golden
@@ -171,9 +173,10 @@ metrics:
     source_url: https://www.baseball-reference.com/players/m/martipe02.shtml
     note: 'Formula 100 * lgERA * PF / ERA matches Wikipedia''s ERA+. Against Baseball-Reference ERA+ (tests/golden/era_plus.yaml) the library runs 2-6% low (Pedro Martinez 2000: 276.6 vs 291; Randy Johnson 2001: 184.7 vs 188; Tarik Skubal 2024: 172.3 vs 174) because Baseball-Reference uses the pitcher''s own league ERA and its own park factor, whereas the library uses the MLB-wide ERA and a caller-supplied factor (the same difference as ERA-).'
   err_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: secondary
+    source_url: https://library.fangraphs.com/defense/
+    note: Errors over total chances, the complement of fielding percentage; verified through fpct (a secondary check, since no site publishes it separately).
   fb_pct:
     status: matches
     evidence: golden
@@ -205,9 +208,10 @@ metrics:
     source_url: https://library.fangraphs.com/offense/plate-discipline/
     note: First-pitch swings over plate appearances, the analogue of F-Strike%. A library-defined rate; FanGraphs' F-Swing% was not retrievable, and the statcast preset does not derive first-pitch columns.
   fpct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/players/w/wittbo02.shtml
+    note: (PO + A) / (PO + A + E) reproduces the published .974 for Witt 2024. tests/golden/fielding_team_expectancy.yaml
   gb_pct:
     status: matches
     evidence: golden
@@ -374,9 +378,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: SO / BB reproduces the FanGraphs K/BB for 16 pitcher seasons (tests/golden/pitching_indices.yaml).
   pli:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/misc/li
+    note: 'Average leverage index, the sum of LI over plate appearances divided by PA (Tango''s definition: the average is 1); reproduces FanGraphs'' pLI for the five checked batters. tests/golden/fielding_team_expectancy.yaml'
   pu_pct:
     status: approximate
     evidence: primary
@@ -393,17 +398,20 @@ metrics:
     source_url: https://baseballsavant.mlb.com/leaderboard/pitch-arsenal-stats
     note: Strikeouts over two-strike pitches reproduces Savant's pitch-arsenal put_away for the four-seamer, sinker and changeup exactly (24.51, 23.63, 30.83 vs 24.5, 23.6, 30.8). The statcast preset does not derive the two-strike columns. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   pythag_luck:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/teams/NYY/2024.shtml
+    note: Actual wins minus pythagorean wins; the pythagorean side is checked against Baseball-Reference for three teams. tests/golden/fielding_team_expectancy.yaml
   pythag_win_pct:
-    status: unverified
-    source_url: https://www.baseball-reference.com/about/war_explained_runs_to_wins.shtml
-    note: Classic exponent fixed at 1.83 (SeasonContext.pythag_exponent); not checked against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://en.wikipedia.org/wiki/Pythagorean_expectation
+    note: RS^x / (RS^x + RA^x) with the default Pythagenpat exponent (ADR-0027) gives Baseball-Reference's pythagorean wins for NYY 96, BAL 90 and COL 59 once rounded. With exponent 2 at least one team misses. tests/golden/fielding_team_expectancy.yaml
   pythag_wins:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://en.wikipedia.org/wiki/Pythagorean_expectation
+    note: Pythagorean win percentage times games reproduces Baseball-Reference's expected wins for NYY 96, BAL 90 and COL 59. tests/golden/fielding_team_expectancy.yaml
   pythagenpat_win_pct:
     status: approximate
     evidence: primary
@@ -450,30 +458,35 @@ metrics:
     source_url: https://www.baseball-reference.com/about/bat_glossary.shtml
     note: Matches the technical Runs Created formula in the Baseball-Reference glossary.
   rew:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://library.fangraphs.com/misc/wpa/
+    note: REW is wins from WPA/LI-style leverage; FanGraphs' published REW implies a player-specific runs-per-win that the library does not model, so values can differ from the site.
   rf_per_9:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/players/w/wittbo02.shtml
+    note: 9 x (PO + A) / innings, with innings from outs (4181 outs), reproduces Baseball-Reference's RF/9 (3.67). tests/golden/fielding_team_expectancy.yaml
   rf_per_g:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/players/w/wittbo02.shtml
+    note: (PO + A) / games reproduces Baseball-Reference's RF/G for Witt (3.55). tests/golden/fielding_team_expectancy.yaml
   run_diff:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/teams/NYY/2024.shtml
+    note: RS - RA reproduces the published run differential for the 2024 Yankees, Orioles and Rockies. tests/golden/fielding_team_expectancy.yaml
   rv_per_100:
     status: matches
     evidence: golden
     source_url: https://baseballsavant.mlb.com/leaderboard/pitch-arsenal-stats
     note: 100 times the pitcher's run value over pitches reproduces Savant's run_value_per_100 for the four-seamer, sinker and changeup (2.06, 1.54, 0.96 vs 2.1, 1.5, 1.0) when the run value is the negative of Savant's delta_run_exp (the batting side's change). The statcast preset does not derive pitch_rv_sum, so the caller supplies it with that sign. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   sb_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/players/w/wittbo02.shtml
+    note: SB / (SB + CS) reproduces Baseball-Reference's SB% for Bobby Witt Jr. 2024 (72.1). tests/golden/fielding_team_expectancy.yaml
   seca:
     status: matches
     evidence: primary
@@ -525,9 +538,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: TB = 1B + 2*2B + 3*3B + 4*HR reproduces the published slugging times AB for 4 hitters and Baseball-Reference's TB 392 for Judge 2024 (tests/golden/batting_counting.yaml).
   tc:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/players/w/wittbo02.shtml
+    note: PO + A + E reproduces Baseball-Reference's total chances for Witt at shortstop 2024 (583). tests/golden/fielding_team_expectancy.yaml
   total_break:
     status: approximate
     evidence: secondary
@@ -549,9 +563,10 @@ metrics:
     source_url: https://en.wikipedia.org/wiki/PITCHf/x
     note: Arctangent of vertical over longitudinal velocity at the front of home plate from the constant-acceleration (9-parameter) trajectory, evaluated by a fifth-order series. The model is standard (Nathan; Wikipedia PITCHf/x) but no published VAA player value was retrieved and the primary derivation was not accessible, so the implementation is unchecked numerically.
   wgdp:
-    status: unverified
-    source_url: https://library.fangraphs.com/offense/bsr/
-    note: FanGraphs describes wGDP but publishes no formula; the library's league GIDP rate and run value are unsourced defaults.
+    status: approximate
+    evidence: secondary
+    source_url: https://library.fangraphs.com/offense/wgdp/
+    note: Runs from avoiding double plays relative to league opportunity. The formula follows the FanGraphs description, but its league constant was not sourced (out of scope of this change), so no published value was reproduced.
   whiff_pct:
     status: approximate
     evidence: golden
@@ -568,9 +583,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
   win_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/teams/NYY/2024.shtml
+    note: W / (W + L) reproduces the published .580, .562 and .377 for those teams. tests/golden/fielding_team_expectancy.yaml
   woba:
     status: matches
     evidence: golden
@@ -582,9 +598,10 @@ metrics:
     source_url: https://baseballsavant.mlb.com/leaderboard/expected_statistics
     note: 'wOBA minus xwOBA: 0.2462 - 0.2586 = -0.0124 against Savant''s published -0.013 (computed from the rounded 0.246 and 0.259), within the rounding of the inputs. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).'
   wpa_li:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/misc/wpa/
+    note: WPA/LI as the sum of per-PA WPA divided by LI; supplied as a sum and reproduces FanGraphs' value for five batters. tests/golden/fielding_team_expectancy.yaml
   wraa:
     status: matches
     evidence: golden
@@ -621,9 +638,10 @@ metrics:
     source_url: https://en.wikipedia.org/wiki/Extra-base_hit
     note: Extra-base hits per plate appearance. The published share-of-hits form (SABR, 1997; Wikipedia's McGwire comparison) divides by hits, and no standard per-PA rate was found, so this is a library-defined rate.
   xbt_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://blogs.fangraphs.com/ultimate-base-running-primer/
+    note: Extra bases taken over opportunities; the definition is standard but FanGraphs and Baseball-Reference publish rates, not the opportunity counts, so the recomputation gate cannot be run and no published value was reproduced.
   xera:
     status: approximate
     evidence: golden

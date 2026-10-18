@@ -32,8 +32,8 @@
 
 ## 7. Fielding, baserunning, team, expectancy (18 metrics)
 
-- [ ] 7.1 Retrieve Tango wiki and FanGraphs definitions for `tc`, `fpct`, `err_pct`, `rf_per_g`, `rf_per_9`, `catcher_cs_pct`, `sb_pct`, `xbt_pct`, `wgdp`, `run_diff`, `win_pct`, `pythag_win_pct`, `pythag_wins`, `pythag_luck`, `pli`, `wpa_li`, `clutch`, and `rew`; compare formulas. Verify each metric has a fetched definition.
-- [ ] 7.2 Add worked-example or leaderboard fixtures where available (Pythagorean win percentage and luck for published team seasons, FanGraphs pLI, Clutch, REW and WPA/LI values), compare, and update the audit entries; fix or label differences. Verify golden tests pass or divergences are documented.
+- [x] 7.1 Retrieve Tango wiki and FanGraphs definitions for `tc`, `fpct`, `err_pct`, `rf_per_g`, `rf_per_9`, `catcher_cs_pct`, `sb_pct`, `xbt_pct`, `wgdp`, `run_diff`, `win_pct`, `pythag_win_pct`, `pythag_wins`, `pythag_luck`, `pli`, `wpa_li`, `clutch`, and `rew`; compare formulas. Verify each metric has a fetched definition.
+- [x] 7.2 Add worked-example or leaderboard fixtures where available (Pythagorean win percentage and luck for published team seasons, FanGraphs pLI, Clutch, REW and WPA/LI values), compare, and update the audit entries; fix or label differences. Verify golden tests pass or divergences are documented.
 
 ## 8. Models (16 entries)
 

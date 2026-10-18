@@ -1,0 +1,45 @@
+# Golden fixtures for fielding, baserunning, team and expectancy metrics, retrieved 2026-10-18.
+# Baseball-Reference player/team pages (2024) and the FanGraphs win-probability leaderboard (type=3).
+fielding:
+- id: witt_2024_ss
+  player: Bobby Witt Jr. (SS, 2024)
+  source_url: https://www.baseball-reference.com/players/w/wittbo02.shtml
+  retrieved: '2026-10-18'
+  inputs: {g: 160, inn: '1393.2', inn_outs_fld: 4181, po: 207, a: 361, e: 15, sb: 31, cs: 12}
+  published: {tc: 583, fpct: 0.974, rf_per_9: 3.67, rf_per_g: 3.55, sb_pct: 0.721}
+  tolerance: {tc: 0, fpct: 0.0005, rf_per_9: 0.005, rf_per_g: 0.005, sb_pct: 0.0005}
+  note: 'Baseball-Reference prints innings as 1393.2 (1393 and two thirds = 4,181 outs). SB% 72.1 is from its Advanced Batting table.'
+- id: contreras_2024_c
+  player: Willson Contreras (C, 2024)
+  source_url: https://www.baseball-reference.com/players/c/contrwi01.shtml
+  retrieved: '2026-10-18'
+  inputs: {g: 51, inn: '431.2', inn_outs_fld: 1295, po: 359, a: 21, e: 3, sb: 37, cs: 11}
+  published: {tc: 383, fpct: 0.992, catcher_cs_pct: 0.229}
+  tolerance: {tc: 0, fpct: 0.0005, catcher_cs_pct: 0.0005}
+  note: 'Opposing runners: SB 37, CS 11 in the catcher fielding table, so CS% = 11/48 = 22.9.'
+team:
+- id: nyy_2024
+  source_url: https://www.baseball-reference.com/teams/NYY/2024.shtml
+  retrieved: '2026-10-18'
+  inputs: {w: 94, l: 68, rs: 815, ra: 668}
+  published: {win_pct: 0.580, pythag_wins: 96}
+- id: bal_2024
+  source_url: https://www.baseball-reference.com/teams/BAL/2024.shtml
+  retrieved: '2026-10-18'
+  inputs: {w: 91, l: 71, rs: 786, ra: 699}
+  published: {win_pct: 0.562, pythag_wins: 90}
+- id: col_2024
+  source_url: https://www.baseball-reference.com/teams/COL/2024.shtml
+  retrieved: '2026-10-18'
+  inputs: {w: 61, l: 101, rs: 682, ra: 929}
+  published: {win_pct: 0.377, pythag_wins: 59}
+  note: Baseball-Reference prints the Pythagorean record as whole wins (96-66, 90-72, 59-103), so the comparison is on rounded wins; its exponent is 1.83 (an exponent of 2 gives 97, 91 and 57 here).
+expectancy:
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&type=3&season=2024&qual=400
+  retrieved: '2026-10-18'
+  batters:
+  - {player: Aaron Judge, pa: 704, wpa: 6.17204475402832, re24: 96.762001037597656, rew: 10.102310180664063, pli: 0.92144733667373657, wpa_li: 9.4731531143188477, clutch: -2.7749463819533062}
+  - {player: Bobby Witt Jr., pa: 709, wpa: 4.9864306449890137, re24: 63.744998931884766, rew: 6.3191542625427246, pli: 0.94069230556488037, wpa_li: 5.7002739906311035, clutch: -0.3994645596507036}
+  - {player: Shohei Ohtani, pa: 731, wpa: 7.3071460723876953, re24: 81.4447021484375, rew: 8.38737678527832, pli: 0.98195099830627441, wpa_li: 7.9605979919433594, clutch: -0.51914105061789506}
+  - {player: Juan Soto, pa: 713, wpa: 5.98081636428833, re24: 69.944000244140625, rew: 7.3084139823913574, pli: 0.86370313167572021, wpa_li: 7.4689512252807617, clutch: -0.54433077996107926}
+  - {player: Gunnar Henderson, pa: 719, wpa: 3.0245347023010254, re24: 34.162399291992188, rew: 3.7363176345825195, pli: 0.87860476970672607, wpa_li: 3.2449018955230713, clutch: 0.19752729059505114}
