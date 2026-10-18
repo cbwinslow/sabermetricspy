@@ -27,8 +27,8 @@
 
 ## 6. Pitch physics and Statcast expected (17 metrics)
 
-- [ ] 6.1 Retrieve the Baseball Savant and FanGraphs definitions for `avg_velo`, `avg_spin`, `avg_extension`, `effective_velo`, `ivb`, `hb`, `total_break`, `vaa`, `haa`, `bauer_units`, `rv_per_100`, and `whiff_per_100`, checking sign conventions and units (pitcher versus catcher perspective, feet versus inches). Verify each metric has a fetched definition and any sign or unit mismatch is recorded.
-- [ ] 6.2 Check `xba`, `xslg`, `xwoba`, `ba_minus_xba`, and `woba_minus_xwoba` against Savant's definitions (denominators such as `woba_denom`) and published leaderboard values; fix or label differences. Verify the audit entries are resolved and golden tests pass.
+- [x] 6.1 Retrieve the Baseball Savant and FanGraphs definitions for `avg_velo`, `avg_spin`, `avg_extension`, `effective_velo`, `ivb`, `hb`, `total_break`, `vaa`, `haa`, `bauer_units`, `rv_per_100`, and `whiff_per_100`, checking sign conventions and units (pitcher versus catcher perspective, feet versus inches). Verify each metric has a fetched definition and any sign or unit mismatch is recorded.
+- [x] 6.2 Check `xba`, `xslg`, `xwoba`, `ba_minus_xba`, and `woba_minus_xwoba` against Savant's definitions (denominators such as `woba_denom`) and published leaderboard values; fix or label differences. Verify the audit entries are resolved and golden tests pass.
 
 ## 7. Fielding, baserunning, team, expectancy (18 metrics)
 

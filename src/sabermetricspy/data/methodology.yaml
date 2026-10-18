@@ -8,31 +8,35 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
   avg_ev:
+    status: approximate
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/csv-docs
+    note: 'ev_sum / ev_count over tracked batted balls (balls in play; foul balls with a tracked speed are excluded, ADR-0028). On the recorded sample the mean is 86.92 mph against FanGraphs'' EV of 87.45: FanGraphs appears to drop the slowest rollers (omitting the four slowest reproduces it to 0.002 mph) but publishes no rule. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).'
+  avg_extension:
     status: matches
     evidence: primary
     source_url: https://baseballsavant.mlb.com/csv-docs
-    note: 'Mean of tracked exit velocities, ev_sum / ev_count, as Savant defines exit velocity (miles per hour, tracked by Statcast). No numeric check was possible: leaderboards publish only the mean, not the sum or count of tracked balls.'
-  avg_extension:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    note: Mean of Savant's release_extension (feet, as tracked by Statcast). Savant's extension leaderboard was not retrievable, so no published player value was compared.
   avg_spin:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/pitch-arsenals
+    note: Mean release spin rate reproduces Savant's pitch-arsenal average spin for all six pitch types to the whole rpm (FF 2,226.2 vs 2,226). Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   avg_velo:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/pitch-arsenals
+    note: Mean release speed reproduces Savant's pitch-arsenal average speed for all six pitch types (FF 96.85 vs 96.9, SI 96.61 vs 96.6, SL, CH, CU, FS) to Savant's one decimal. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   b1:
     status: matches
     evidence: golden
     source_url: https://www.fangraphs.com/leaders/major-league
     note: 1B = H - 2B - 3B - HR reproduces the FanGraphs leaderboard 1B for 4 hitters (tests/golden/batting_counting.yaml).
   ba_minus_xba:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/expected_statistics
+    note: AVG minus xBA, so it inherits xBA's shortfall against the player-season leaderboard (about 0.0014 for the recorded sample; tests/golden/pitch_arsenal.yaml).
   babip:
     status: matches
     evidence: golden
@@ -40,9 +44,9 @@ metrics:
     note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml). Formula (H-HR)/(AB-K-HR+SF) matches the FanGraphs Library.
   barrel_pct:
     status: approximate
-    evidence: primary
+    evidence: golden
     source_url: https://www.mlb.com/glossary/statcast/barrel
-    note: The barrel zone is approximated from the glossary anchor (98 mph with 26-30 degrees) with linear widening; Savant's exact classification may differ.
+    note: The barrel zone is approximated from the glossary anchor (98 mph at 26-30 degrees) with linear widening. On the recorded sample the library finds 28 barrels against Statcast's 32 (FanGraphs Barrels, tests/golden/pitch_arsenal.yaml), so it undercounts by about 12%.
   base_runs:
     status: matches
     evidence: primary
@@ -59,9 +63,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: 'Reproduces the FanGraphs batter K%+ for 8 hitters in 2016 and 2024 (tests/golden/batting_indices.yaml): K% divided by the K% of the player''s own league (AL or NL, non-pitchers). The library formerly used the MLB-wide rate and was corrected (ADR-0028).'
   bauer_units:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: secondary
+    source_url: https://swarthmorephoenix.com/2018/02/01/understanding-spin-rate-and-baseballs-tech-upgrade/
+    note: Spin rate in rpm divided by velocity in mph; secondary sources (student press, coaching pieces) attribute it to Driveline Baseball and agree on the formula, but no Driveline primary source was found. Built on avg_spin and avg_velo, which are checked against Savant.
   bb_pct:
     status: matches
     evidence: golden
@@ -146,9 +151,10 @@ metrics:
     source_url: https://sabr.org/journal/article/the-many-flavors-of-dips-a-history-and-an-overview/
     note: (HR + BB + HBP + SO) / TBF, McCracken's original 'balls kept out of play' formula as printed in the SABR survey of DIPS. No published player values were retrieved.
   effective_velo:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://baseballsavant.mlb.com/csv-docs
+    note: Mean of Savant's effective_speed field (derived from release extension). The library averages the supplied field and does not recompute it; no published player value was compared.
   era:
     status: matches
     evidence: golden
@@ -223,18 +229,20 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: 27 * H / outs reproduces the FanGraphs H/9 for 16 pitcher seasons (2001, 2016, 2024; tests/golden/pitching_indices.yaml) within 1e-5.
   haa:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://en.wikipedia.org/wiki/PITCHf/x
+    note: Horizontal analogue of VAA. The statcast preset does not derive haa_sum and haa_count, so the caller must supply them; no published value was retrieved.
   hard_hit_pct:
     status: matches
-    evidence: primary
+    evidence: golden
     source_url: https://baseballsavant.mlb.com/csv-docs
-    note: The >= 95 mph threshold applied by the statcast preset matches the Baseball Savant glossary.
+    note: Exit velocity of at least 95 mph (Savant's hard-hit definition) over batted-ball events reproduces FanGraphs' HardHit and HardHit% exactly for Skubal 2024 (162 of 481 = 0.33680) now that foul balls are excluded (ADR-0028). Savant's pitch-arsenal hard_hit_percent uses an undocumented denominator and is not reproduced. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   hb:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/pitch-movement
+    note: Mean pfx_x times 12 inches reproduces Savant's pitcher_break_x for Skubal's four-seamer (6.49 vs 6.5). pfx_x is from the catcher's perspective, so the sign depends on the pitcher's handedness; only a left-handed pitcher was checked. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   hr_pct:
     status: approximate
     evidence: secondary
@@ -261,9 +269,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
   ivb:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/pitch-movement
+    note: Mean pfx_z times 12 inches reproduces Savant's induced vertical break for Skubal's four-seamer (16.26 vs 16.2; Savant rounds to one decimal). Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   k_minus_bb_pct:
     status: matches
     evidence: primary
@@ -380,9 +389,9 @@ metrics:
     note: Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8. FanGraphs divides by Pull+Cent+Oppo (equal to GB+FB+LD+BU in every fixture row), not by GB+FB+LD; the library previously divided by bbe and was corrected to the direction total (ADR-0028).
   putaway_pct:
     status: matches
-    evidence: secondary
-    source_url: https://www.mlb.com/glossary/statcast/putaway-percentage
-    note: 'Strikeouts over two-strike pitches, the Statcast glossary''s PutAway% (confirmed only by a secondary source: a search summary of the glossary entry, since the page itself was not retrievable). The statcast preset does not derive the two-strike columns.'
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/pitch-arsenal-stats
+    note: Strikeouts over two-strike pitches reproduces Savant's pitch-arsenal put_away for the four-seamer, sinker and changeup exactly (24.51, 23.63, 30.83 vs 24.5, 23.6, 30.8). The statcast preset does not derive the two-strike columns. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   pythag_luck:
     status: unverified
     source_url: ''
@@ -457,9 +466,10 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   rv_per_100:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/pitch-arsenal-stats
+    note: 100 times the pitcher's run value over pitches reproduces Savant's run_value_per_100 for the four-seamer, sinker and changeup (2.06, 1.54, 0.96 vs 2.1, 1.5, 1.0) when the run value is the negative of Savant's delta_run_exp (the batting side's change). The statcast preset does not derive pitch_rv_sum, so the caller supplies it with that sign. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   sb_pct:
     status: unverified
     source_url: ''
@@ -493,7 +503,7 @@ metrics:
     status: matches
     evidence: primary
     source_url: https://baseballsavant.mlb.com/csv-docs
-    note: The 8-32 degree launch-angle window applied by the statcast preset matches the Baseball Savant glossary.
+    note: Launch angle from 8 to 32 degrees (Savant's sweet-spot definition) over batted-ball events; foul balls are excluded (ADR-0028). No published player value was compared.
   swing_pct:
     status: approximate
     evidence: golden
@@ -519,9 +529,10 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   total_break:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://baseballsavant.mlb.com/leaderboard/pitch-movement
+    note: Magnitude of the mean IVB and HB vectors, sqrt(IVB^2 + HB^2). A library-defined combination; no published total-break definition was found, and the magnitude of the means is not the mean of per-pitch magnitudes.
   two_strike_chase_pct:
     status: approximate
     evidence: secondary
@@ -533,22 +544,24 @@ metrics:
     source_url: https://library.fangraphs.com/offense/woba/
     note: BB - IBB, the unintentional walk term in the FanGraphs wOBA definition; falls back to BB when IBB is absent.
   vaa:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://en.wikipedia.org/wiki/PITCHf/x
+    note: Arctangent of vertical over longitudinal velocity at the front of home plate from the constant-acceleration (9-parameter) trajectory, evaluated by a fifth-order series. The model is standard (Nathan; Wikipedia PITCHf/x) but no published VAA player value was retrieved and the primary derivation was not accessible, so the implementation is unchecked numerically.
   wgdp:
     status: unverified
     source_url: https://library.fangraphs.com/offense/bsr/
     note: FanGraphs describes wGDP but publishes no formula; the library's league GIDP rate and run value are unsourced defaults.
   whiff_pct:
-    status: matches
-    evidence: primary
+    status: approximate
+    evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: Swinging strikes over swings; the FanGraphs Library states that whiff rate uses swings as the denominator (unlike SwStr%). FanGraphs does not publish a Whiff% column to compare; the sample value (about 28.4%) equals one minus the Contact% above.
+    note: Swinging strikes over swings, counting foul tips as contact as FanGraphs does. Savant's whiff percent counts foul tips as misses and bunts as swings, so it is higher (four-seamer 27.7 against 23.3 here; counting foul tips as misses gives 27.66). The sources differ, so the metric is labeled approximate; define a custom translator to use Savant's convention. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   whiff_per_100:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/plate-discipline/
+    note: 100 times swinging strikes per pitch (FanGraphs SwStr% x 100). Within 0.1 points of FanGraphs on the recorded sample (tests/golden/plate_discipline.yaml). Savant counts foul tips as misses and so would report more.
   whip:
     status: matches
     evidence: golden
@@ -564,9 +577,10 @@ metrics:
     source_url: https://library.fangraphs.com/offense/woba/
     note: Matches the FanGraphs formula (uBB, HBP, 1B-HR weighted over AB+BB-IBB+SF+HBP) and published wOBA within weight rounding (tests/golden/batting.yaml).
   woba_minus_xwoba:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/expected_statistics
+    note: 'wOBA minus xwOBA: 0.2462 - 0.2586 = -0.0124 against Savant''s published -0.013 (computed from the rounded 0.246 and 0.259), within the rounding of the inputs. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).'
   wpa_li:
     status: unverified
     source_url: ''
@@ -592,9 +606,10 @@ metrics:
     source_url: https://library.fangraphs.com/offense/bsr/
     note: Formula matches FanGraphs, but lg_wsb (league stolen-base runs per opportunity) is not bundled and defaults to 0, so the league adjustment is omitted unless supplied.
   xba:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/pitch-arsenal-stats
+    note: Sum of Savant's estimated_ba_using_speedangle over at-bats reproduces the pitch-arsenal est_ba per pitch type (FF 0.196, SI 0.210, CH 0.201) but runs 0.0014 under the player-season leaderboard (0.2036 vs 0.205), which also uses sprint speed that the pitch-level field omits. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   xbh:
     status: matches
     evidence: primary
@@ -611,9 +626,9 @@ metrics:
     note: Not yet audited against a primary source.
   xera:
     status: approximate
-    evidence: primary
+    evidence: golden
     source_url: https://baseballsavant.mlb.com/csv-docs
-    note: Baseball Savant defines xERA only as a 1:1 translation of xwOBA to the ERA scale and publishes no formula. The library's lgERA + (xwOBA - lgwOBA)/wOBA-scale * 9 * BF/IP is its own translation, so it is not expected to reproduce Savant's published xERA, and no numeric check was possible (xwOBA allowed is not on the FanGraphs leaderboard).
+    note: Baseball Savant defines xERA only as a 1:1 translation of xwOBA to the ERA scale and publishes no formula. The library's lgERA + (xwOBA - lgwOBA)/wOBA-scale * 9 * BF/IP gives 2.62 for Skubal 2024 against Savant's 2.68 (and FanGraphs' 2.685), 0.06 runs low (tests/golden/pitch_arsenal.yaml).
   xfip:
     status: matches
     evidence: primary
@@ -625,13 +640,15 @@ metrics:
     source_url: https://library.fangraphs.com/principles/park-factors/
     note: Inherits the ERA-/FIP- league and park-adjustment differences; not checked numerically.
   xslg:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/pitch-arsenal-stats
+    note: Reproduces the pitch-arsenal est_slg per pitch type (FF 0.321, SI 0.313, CH 0.304) but runs 0.0024 under the player-season leaderboard (0.3296 vs 0.332) because the pitch-level field omits sprint speed. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   xwoba:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/expected_statistics
+    note: Reproduces the player-season est_woba (0.2586 vs 0.259) and the pitch-arsenal est_woba per pitch type (FF 0.262, SI 0.252, CH 0.230) within Savant's three-decimal rounding. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   z_contact_pct:
     status: approximate
     evidence: golden

@@ -198,7 +198,19 @@ class SourceTranslator(BaseModel):
 
         if "launch_speed" in cols_now:
             ls = nw.col("launch_speed").cast(nw.Float64)
-            has_ls = ~ls.is_null()
+            # Statcast also tracks exit velocity on foul balls; contact-quality metrics are defined on
+            # batted-ball events (balls in play) only.
+            in_play = nw.col("bbe") == 1 if "bbe" in created_cols else None
+            has_ls = ~ls.is_null() if in_play is None else (~ls.is_null()) & in_play
+            if in_play is not None:
+                for rule_col in ("hard_hit_bbe", "sweet_spot_bbe"):
+                    if rule_col in created_cols:
+                        post_exprs.append(
+                            nw.when(in_play & (nw.col(rule_col) == 1))
+                            .then(1)
+                            .otherwise(0)
+                            .alias(rule_col)
+                        )
             post_exprs.extend(
                 [
                     nw.when(has_ls).then(ls).otherwise(0.0).alias("ev_sum"),

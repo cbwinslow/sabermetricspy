@@ -1,0 +1,39 @@
+# Published Baseball Savant / FanGraphs values for Tarik Skubal, 2024 regular season, retrieved 2026-10-18.
+# Pitch-level input: tests/fixtures/statcast/skubal_2024_pitches.csv (same sample as plate_discipline.yaml).
+# Savant leaderboards round to 1 decimal (velocity), whole rpm, 3 decimals (expected rates); tolerances reflect that.
+sources:
+  movement: https://baseballsavant.mlb.com/leaderboard/pitch-movement?year=2024&pitch_type=FF&min=q&csv=true
+  arsenal_speed: https://baseballsavant.mlb.com/leaderboard/pitch-arsenals?year=2024&min=100&type=avg_speed&csv=true
+  arsenal_spin: https://baseballsavant.mlb.com/leaderboard/pitch-arsenals?year=2024&min=100&type=avg_spin&csv=true
+  arsenal_stats: https://baseballsavant.mlb.com/leaderboard/pitch-arsenal-stats?type=pitcher&year=2024&min=100&csv=true
+  expected: https://baseballsavant.mlb.com/leaderboard/expected_statistics?type=pitcher&year=2024&filterType=bip&min=q&csv=true
+  fangraphs_statcast: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=24&season=2024&qual=150 (PlayerName=Tarik Skubal)
+retrieved: '2026-10-18'
+pitch_types:
+  FF: {pitches: 941, avg_speed: 96.9, avg_spin: 2226, rv_per_100: 2.1, run_value: 19, whiff_percent: 27.7, put_away: 24.5, est_ba: 0.196, est_slg: 0.321, est_woba: 0.262}
+  SI: {pitches: 584, avg_speed: 96.6, avg_spin: 2116, rv_per_100: 1.5, run_value: 9, whiff_percent: 16.0, put_away: 23.6, est_ba: 0.210, est_slg: 0.313, est_woba: 0.252}
+  SL: {avg_speed: 88.7, avg_spin: 2105}
+  CH: {pitches: 767, avg_speed: 86.3, avg_spin: 1689, rv_per_100: 1.0, run_value: 7, whiff_percent: 46.4, put_away: 30.8, est_ba: 0.201, est_slg: 0.304, est_woba: 0.230}
+  CU: {avg_speed: 78.5, avg_spin: 2322}
+  FS: {avg_speed: 86.8, avg_spin: 930}
+movement_ff:
+  pitcher_break_z_induced: 16.2
+  pitcher_break_x: 6.5
+season:
+  pa: 753
+  bip: 481
+  ba: 0.201
+  est_ba: 0.205
+  slg: 0.311
+  est_slg: 0.332
+  woba: 0.246
+  est_woba: 0.259
+  xera: 2.68
+fangraphs_statcast:
+  ev: 87.4467246960888
+  hard_hit: 162
+  hard_hit_pct: 0.33679834
+  barrels: 32
+  barrel_pct: 0.06652807
+  events: 481
+  max_ev: 113.0
