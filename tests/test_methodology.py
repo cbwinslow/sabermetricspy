@@ -111,8 +111,10 @@ def test_known_approximations_are_labeled(name: str) -> None:
     assert metric_entries()[name].status in (ReferenceStatus.APPROXIMATE, ReferenceStatus.DIVERGENT)
 
 
-def test_speed_score_is_labeled_divergent() -> None:
-    assert metric_entries()["speed_score"].status is ReferenceStatus.DIVERGENT
+def test_speed_score_records_the_four_factor_form() -> None:
+    entry = metric_entries()["speed_score"]
+    assert entry.status is ReferenceStatus.MATCHES
+    assert "six-factor" in entry.note
 
 
 def test_siera_identifies_the_2010_version_and_the_revised_one() -> None:

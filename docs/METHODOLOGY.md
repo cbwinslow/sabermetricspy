@@ -8,7 +8,7 @@ Status key: **matches** (agrees with the published method and, where a published
 | :-- | :-- | :-- | :-- | :-- | :-- |
 | `bsr` | BsR | baserunning | approximate | [source](https://library.fangraphs.com/offense/bsr/) | FanGraphs defines BsR = wSB + UBR + wGDP. UBR must be supplied by the caller and FanGraphs publishes no formula for wGDP (see wgdp). |
 | `sb_pct` | SB% | baserunning | unverified |  | Not yet audited against a primary source. |
-| `speed_score` | Spd | baserunning | divergent |  | Documented as (f1+...+f5)/5 but implements four factors (stolen-base percentage, attempt rate, triples, runs scored); omits the GIDP factor and leaves strikeouts out of the triples denominator, so it is not Bill James's Speed Score. |
+| `speed_score` | Spd | baserunning | matches | [source](https://blogs.fangraphs.com/speed-score/) | Implements the four-factor form (stolen-base percentage, attempt rate, triples, runs scored; each limited to 0-10) confirmed by Wikipedia, FanGraphs and a calculator page. James's original six-factor form also averages GIDP and defensive position and range; those constants rest on a single secondary source and are not implemented. |
 | `wgdp` | wGDP | baserunning | unverified | [source](https://library.fangraphs.com/offense/bsr/) | FanGraphs describes wGDP but publishes no formula; the library's league GIDP rate and run value are unsourced defaults. |
 | `wsb` | wSB | baserunning | approximate | [source](https://library.fangraphs.com/offense/bsr/) | Formula matches FanGraphs, but lg_wsb (league stolen-base runs per opportunity) is not bundled and defaults to 0, so the league adjustment is omitted unless supplied. |
 | `xbt_pct` | XBT% | baserunning | unverified |  | Not yet audited against a primary source. |

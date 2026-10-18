@@ -10,6 +10,8 @@ Findings from the primary-source audit (see proposal.md for motivation). Each wa
 - **wRC+** follows FanGraphs' shape but divides by `lg_r_per_pa`; FanGraphs divides by AL/NL wRC/PA excluding pitchers. With the true 2001 constants and park factor 1.0 the library gives about 243 against 234.59; the implied non-pitcher denominator is roughly .130. `SeasonContext.park_factor` defaults to 100.
 - **Approximations** (read from code and sources): pitcher WAR uses a flat .380 replacement win% and `lg_fip` as RA9; position WAR uses 20 runs/600 PA and PA-scaled positional runs; OPS+/ERA+ apply a single 1/PF; BaseRuns uses Smyth version 2 terms with the version 1 multiplier 1.02 (version 2 is 1.1); Pythagenpat exponent 0.287 vs Baseball-Reference 0.285; SIERA is the original 2010 BP formula labeled `fangraphs_standard`; Marcel pitchers should use 3/2/1 weights and the docstring's 134 IP is unsupported; barrel zone widening is approximate.
 - **Verified correct:** wOBA, wRAA, wRC, BABIP, OBP, LOB%, DICE (secondary sources), technical RC, hard-hit 95 mph, sweet-spot 8-32 degrees, and the SIERA sign rule. wSB matches the FanGraphs formula but its league constant is unsourced (approximate), and kwERA matches the original Tango/GuyM form while published variants differ (approximate). An earlier draft listed both as verified; that was corrected during implementation.
+- **Speed Score** documents `(f1+...+f5)/5` but implements four factors with the wrong triples denominator (no SO, divisor 0.002 instead of 0.0016), total BB replaced by uBB in the attempt-rate denominator, and no 0-10 clamping. Bill James's original has six factors (adds GIDP and defensive position); the four-factor version is confirmed by Wikipedia, FanGraphs commentary and a calculator page, while the F5/F6 constants rest on one secondary source.
+- **Pitcher WAR** currently uses a flat .380 replacement and league FIP as RA9. FanGraphs documents the method (library page and a complete Stroman 2016 worked example). A prototype outside the library reproduces every number of the worked example (ifFIP constant 3.342, FIPR9 4.166, dRPW 9.607, WAR 3.602). Against the live 2016 leaderboard it differs by up to about 0.2 WAR for 11 pitchers with no input variant (basic vs FIP park factor, own vs MLB league, infield flies on/off) explaining the gap, so FanGraphs' current calculation has refinements that are not published. Per-year league corrections (WARIP) are published only for 2016 (-0.000682902; the page says -0.0007 to -0.0012 typically).
 - **Tooling constraints:** the FanGraphs API and `curl` hit a Cloudflare challenge; the WebFetch tool returned the Guts! table, library pages, and leaderboard rows. Its output is model-summarized, so every value is recomputed before use. Baseball-Reference `/bullpen` pages return 403; its glossary and WAR pages are reachable.
 - The Gemini session's "exact match" audit table (Judge, Cole, Skubal, Burnes) was never encoded in the repo and is treated as unverified.
 
@@ -57,6 +59,12 @@ Findings from the primary-source audit (see proposal.md for motivation). Each wa
 
 14. **Windows encoding:** reproduce first; fix in the library only if the error originates there, otherwise document `PYTHONIOENCODING`.
 
+15. **Speed Score implements the four-factor form exactly**, clamps each factor to 0-10, and documents that the six-factor form (GIDP, defensive position) is not implemented because its constants rest on a single secondary source. `so` becomes a required column.
+
+16. **Pitcher WAR is rebuilt as the documented FanGraphs algorithm, validated on the worked example.** Run-environment inputs live in `data/constants/pitcher_war.yaml` (AL/NL totals including infield flies, 1990-2025, plus the 2016 correction), mirrored by a test snapshot and checked for AL+NL = MLB. The method is vectorized with Narwhals; league (AL/NL) and FIP park factor come from row columns or the `SeasonContext`. Mixed-role rows use the page's blended replacement; the guidance to value roles separately is documented, and mixed-role leaderboard differences are recorded as divergences. The league correction is applied only where sourced or supplied. *Alternative:* fit a correction per season to the leaderboard; rejected because the leaderboard does not follow a constant per-inning correction, so a fitted value would be a number with no source. *Alternative:* keep the flat-replacement approximation; rejected at the user's request.
+
+17. **Honest status for pitcher WAR:** `approximate`, with a note that it implements the documented method exactly (worked example) while live leaderboard values differ by up to about 0.2 WAR and corrections exist for 2016 only.
+
 ## Risks / Trade-offs
 
 - [Model-summarized fetch output mis-transcribes a value] → Recompute from raw inputs (decision 4); cross-check Guts! against a second fetch of the same table and against recomputed wOBA.
@@ -65,6 +73,7 @@ Findings from the primary-source audit (see proposal.md for motivation). Each wa
 - [Cannot obtain non-pitcher league wRC/PA for every season] → The constant is optional; fallback is explicit and labeled; wRC+ golden entries are limited to seasons where it is sourced.
 - [Hand-entering about 36 seasons is error prone] → Load from a single snapshot and verify with automated field-by-field comparison plus cFIP/wOBA identity checks.
 - [Labeling many metrics `UNVERIFIED` looks bad] → That is the truthful state; the table makes the remaining audit work visible and drives the follow-on literature change.
+- [Pitcher WAR may still disagree with FanGraphs' live numbers] → Reported as measured (about 0.2 WAR), recorded as approximate, tested against the published example exactly and the leaderboard with a stated tolerance.
 - [Scope is larger than the first plan] → Pitcher WAR rewrite and the literature sweep are explicitly deferred.
 
 ## Migration Plan

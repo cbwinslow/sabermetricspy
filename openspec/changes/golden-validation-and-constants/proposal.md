@@ -23,9 +23,11 @@ The Bonds 2001 gap that started this is now explained: the wOBA and wRAA gaps co
 - Add per-metric value tests and a guard that fails when a registered metric has no value assertion.
 - Add a reference-status label on every metric spec (matches published method, approximate, divergent, unverified) and a `docs/METHODOLOGY.md` table of metric, source, and status with URLs. Metrics found approximate are labeled, not silently changed: pitcher WAR, position-player WAR, OPS+, ERA+, BaseRuns (version 2 terms with the version 1 multiplier), Pythagenpat exponent (0.287 vs Baseball-Reference's 0.285; made configurable), SIERA (original 2010 formula labeled `fangraphs_standard`), Marcel pitchers (3/2/1 weights, unsupported 134 IP), and the barrel zone.
 - Fix the Windows `UnicodeEncodeError` on printing results if it originates in the library.
+- **Added after the audit (user request):** make Speed Score follow Bill James's published four-factor formulas (correct denominators, 0-10 clamping), and rebuild pitcher WAR on the documented FanGraphs method (ifFIP with infield flies, FIP-to-RA9 conversion, FIP park factor, AL/NL league FIP, dynamic runs per win, 0.12/0.03 replacement wins per game, reliever leverage multiplier, optional league correction), validated step by step against FanGraphs' published Stroman 2016 worked example and compared with live leaderboard WAR.
 
 **Out of scope, recorded as follow-on changes:**
-- Rewriting pitcher WAR to the FanGraphs method (ifFIP, FIP-to-RA9 adjustment, dynamic runs per win, 0.12/0.03 replacement wins per game, leverage multiplier, league correction).
+- Reproducing FanGraphs' *current* leaderboard pitcher WAR exactly: the documented method matches the published worked example, but live 2016 values differ by up to about 0.2 WAR for reasons FanGraphs does not publish, and per-year league corrections are published only for 2016.
+- Position-player WAR, Speed Score's six-factor form (GIDP and defensive position), and the other approximate metrics.
 - The literature sweep: review of `baseballr`, OpenAlex/arXiv baseball ML papers, Tom Tango's book and blog, and the Retrosheet research page, to add and verify further published methods.
 
 Citations: Tango/Lichtman/Dolphin (2007) *The Book*; FanGraphs Library (wOBA, wRC+, FIP, xFIP, WAR, BsR, BABIP) and Guts!; Baseball-Reference glossary and WAR explained; Swartz/Seidman (2010) SIERA; Smyth BaseRuns Primer; Tango (2004) Marcel; Baseball Savant glossary.
@@ -37,6 +39,7 @@ Citations: Tango/Lichtman/Dolphin (2007) *The Book*; FanGraphs Library (wOBA, wR
 - `seasonal-constants`: coverage, provenance, and lookup behavior of bundled seasonal weights and league constants, including missing-data handling.
 - `published-formula-conformance`: metric definitions that must follow the published method (walk term in FIP/xFIP, league denominator in wRC+).
 - `metric-method-fidelity`: reference-status labeling of every metric and the published methodology table.
+- `pitcher-war`: FanGraphs-method pitcher WAR with sourced AL/NL run-environment constants, validated against the published worked example.
 
 ### Modified Capabilities
 <!-- None. The existing specs do not state the formulas or constants affected here. -->

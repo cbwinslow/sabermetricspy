@@ -39,6 +39,21 @@ wRC+ SHALL divide the park- and league-adjusted runs per PA by the league wRC/PA
 - **WHEN** wRC+ is calculated for a season without the constant
 - **THEN** the result uses league R/PA and the metric's caveat states the fallback
 
+### Requirement: Speed Score follows Bill James's four-factor definition
+Speed Score SHALL average four factors, each limited to the range 0 to 10: stolen-base percentage `20*((SB+3)/(SB+CS+7)-0.4)`, attempt frequency `sqrt((SB+CS)/(1B+BB+HBP))/0.07`, triples rate `(3B/(AB-HR-SO))/0.0016`, and runs scored `25*((R-HR)/(H+BB+HBP-HR)-0.1)`.
+
+#### Scenario: Factors are clamped
+- **WHEN** a factor falls below 0 or above 10
+- **THEN** it is limited to 0 or 10 before averaging
+
+#### Scenario: Hand-computed example
+- **WHEN** Speed Score is calculated for SB 10, CS 2, 1B 100, BB 60, HBP 4, 3B 5, HR 20, AB 500, SO 100, H 150, R 90
+- **THEN** the result equals the average of the four published factor values
+
+#### Scenario: Missing strikeout column
+- **WHEN** the strikeout column is absent
+- **THEN** the calculation reports the missing required column instead of silently omitting strikeouts
+
 ### Requirement: Park factor is explicit
 Metrics that adjust for park SHALL document that a park factor of 100 means no adjustment, and the documentation and examples MUST show how to supply the published park factor.
 

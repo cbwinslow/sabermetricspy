@@ -39,6 +39,20 @@
 - [x] 5.3 Record the follow-on changes as proposals or notes: FanGraphs-method pitcher WAR, and the literature sweep (`baseballr`, OpenAlex/arXiv, Tango, Retrosheet research). Verify `openspec list` or the ADR references them.
 - [x] 5.4 Run the full gate: `uv run ruff check .`, `uv run ruff format --check .`, `uv run pyright`, `uv run pytest`, `openspec validate --all`. Verify all are clean.
 
+## 6. Speed Score
+
+- [x] 6.1 Write failing tests for Speed Score: the hand-computed four-factor example, clamping at 0 and 10, a missing `so` column, and zero denominators giving null. Verify they fail against the current implementation.
+- [x] 6.2 Implement the four-factor Speed Score (total BB and HBP in the attempt-rate denominator, `AB-HR-SO` triples denominator with divisor 0.0016, each factor clipped to 0-10, mean of four), correct the registry formula text, add `so` to the required columns, and update the audit entry (status, note naming the unimplemented six-factor form). Verify the new tests, the value table, and the methodology document pass.
+
+## 7. Pitcher WAR
+
+- [ ] 7.1 Store AL/NL pitching totals with infield flies for 1990-2025 as `tests/golden/league_war_totals_snapshot.yaml` and the bundled `data/constants/pitcher_war.yaml` (with the 2016 correction and its source); add tests that AL+NL equals the MLB league-totals snapshot and that bundled equals the snapshot. Verify the tests pass and fail on an altered value.
+- [ ] 7.2 Add the pitcher-WAR constants model and loader (derived MLB ifFIP constant, league ERA/RA9, AL/NL/MLB league FIP, correction, infield flies zero before 2002, nearest-season warning). Verify the loader reproduces the worked-example constants (ifFIP constant 3.34, lgRA9 - lgERA 0.33, AL ifFIP 4.23) from the 2016 data.
+- [ ] 7.3 Write failing tests: the Stroman 2016 worked example step by step, the reliever leverage path, the mixed-role blend, missing-column errors, and league and park-factor handling per row. Verify they fail against the current flat-replacement implementation.
+- [ ] 7.4 Implement `WARFramework.calculate_pitcher_war_df` as the documented FanGraphs method (vectorized, league from a column or the context, FIP park factor from a column or the context, optional correction override) and update the example script and benchmark. Verify the worked-example, reliever and mixed-role tests, the existing suite, ruff and pyright pass.
+- [ ] 7.5 Add `tests/golden/pitcher_war.yaml` (2016 starters and relievers from the FanGraphs leaderboard with RAR, WAR, role, park factor, source, tolerance; mixed-role divergence recorded) and a comparison test. Verify observed differences are within the stated tolerance and the divergence entry still diverges.
+- [ ] 7.6 Update the audit data, regenerate `docs/METHODOLOGY.md`, the pitcher-WAR docstring, ADR-0027 (including the numeric change and the measured leaderboard difference), and the README note. Verify the methodology consistency tests and `openspec validate --strict` pass.
+
 ## Workflow follow-up
 
 - Archive with `openspec archive golden-validation-and-constants --yes` after review.

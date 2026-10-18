@@ -403,9 +403,9 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
   speed_score:
-    status: divergent
-    source_url: ''
-    note: Documented as (f1+...+f5)/5 but implements four factors (stolen-base percentage, attempt rate, triples, runs scored); omits the GIDP factor and leaves strikeouts out of the triples denominator, so it is not Bill James's Speed Score.
+    status: matches
+    source_url: https://blogs.fangraphs.com/speed-score/
+    note: Implements the four-factor form (stolen-base percentage, attempt rate, triples, runs scored; each limited to 0-10) confirmed by Wikipedia, FanGraphs and a calculator page. James's original six-factor form also averages GIDP and defensive position and range; those constants rest on a single secondary source and are not implemented.
   sv_pct:
     status: unverified
     source_url: ''

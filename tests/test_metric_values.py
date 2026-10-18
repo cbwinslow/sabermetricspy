@@ -69,13 +69,14 @@ BASE_RUNS = (30 + 12 + 1 - 4 - 0.5 * 2) * _BR_B / (_BR_B + (100 - 30 + 1 + 2)) +
 
 WSB_1B = 100 - 20 - 2 - 15  # singles in the speed/wSB line: h=100,b2=20,b3=2,hr=15
 SPEED = (
-    ((10 + 3) / (10 + 2 + 7) - 0.4) * 20  # f1: stolen-base percentage
-    + (10 + 2)
-    / (100 + 55 + 4)
-    / 0.07  # f2: attempt rate (1B=100, uBB=55, HBP=4) -- see METHODOLOGY
-    + 5 / (500 - 20) / 0.002  # f3: triples rate (code omits SO from the denominator)
-    + ((90 - 20) / (150 + 60 + 4 - 20) - 0.1) / 0.04  # f4: runs scored
-) / 4.0
+    (  # Bill James four-factor Speed Score; 1B=100, BB=60, HBP=4, SO=100, each factor within 0-10
+        ((10 + 3) / (10 + 2 + 7) - 0.4) * 20  # f1: stolen-base percentage
+        + math.sqrt((10 + 2) / (100 + 60 + 4)) / 0.07  # f2: attempt rate
+        + (5 / (500 - 20 - 100)) / 0.0016  # f3: triples rate
+        + 25 * ((90 - 20) / (150 + 60 + 4 - 20) - 0.1)  # f4: runs scored
+    )
+    / 4.0
+)
 
 # (metric, inputs, expected, SeasonContext kwargs)
 CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
@@ -247,7 +248,7 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     ),
     (
         Metric.SPEED_SCORE,
-        dict(sb=10, cs=2, h=150, b2=25, b3=5, hr=20, bb=60, ab=500, r=90, ibb=5, hbp=4),
+        dict(sb=10, cs=2, h=150, b2=25, b3=5, hr=20, bb=60, ab=500, r=90, ibb=5, hbp=4, so=100),
         SPEED,
         {},
     ),
