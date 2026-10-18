@@ -1,0 +1,493 @@
+# Golden reference fixtures: FanGraphs leaderboard rows retrieved 2026-10-18. Each entry records its source, retrieval date and tolerance.
+entries:
+- id: johnson_2001
+  player: Randy Johnson
+  team: ARI
+  season: 2001
+  park_factor: 104.0
+  park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001 (Basic 5yr)
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2001&qual=100 (PlayerName=Randy Johnson)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '249.2'
+    outs: 749
+    bf: 994
+    h: 181
+    r: 74
+    er: 69
+    hr: 19
+    bb: 71
+    ibb: 2
+    hbp: 18
+    so: 372
+  published:
+    era: 2.487316371223717
+    fip: 2.1279085437378074
+    whip: 1.0093457738299143
+    k_per_9: 13.409879566597432
+    bb_per_9: 2.559412497925854
+    lob_pct: 0.80525883
+    era_minus: 55.00765386312676
+    fip_minus: 47.27248267196947
+  tolerance:
+    era: 1.0e-06
+    fip: 0.0005
+    whip: 1.0e-06
+    k_per_9: 1.0e-06
+    bb_per_9: 1.0e-06
+    lob_pct: 1.0e-07
+    era_minus: 0.5
+    fip_minus: 0.5
+  tolerance_rule: 'era, whip, k_per_9, bb_per_9, hr_per_9: 1e-6 because FanGraphs stores innings pitched with ~1e-6 precision;
+    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus/fip_minus: see divergence.'
+  divergence:
+    era_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+    fip_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+- id: schilling_2001
+  player: Curt Schilling
+  team: ARI
+  season: 2001
+  park_factor: 104.0
+  park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001 (Basic 5yr)
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2001&qual=100 (PlayerName=Curt Schilling)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '256.2'
+    outs: 770
+    bf: 1021
+    h: 237
+    r: 86
+    er: 85
+    hr: 37
+    bb: 39
+    ibb: 0
+    hbp: 1
+    so: 293
+  published:
+    era: 2.9805195986470645
+    fip: 3.1075783901340066
+    whip: 1.0753247179432546
+    k_per_9: 10.274026381218706
+    bb_per_9: 1.3675325217321825
+    lob_pct: 0.84813499
+    era_minus: 65.91497258307433
+    fip_minus: 69.48222011972422
+  tolerance:
+    era: 1.0e-06
+    fip: 0.0005
+    whip: 1.0e-06
+    k_per_9: 1.0e-06
+    bb_per_9: 1.0e-06
+    lob_pct: 1.0e-07
+    era_minus: 0.5
+    fip_minus: 0.5
+  tolerance_rule: 'era, whip, k_per_9, bb_per_9, hr_per_9: 1e-6 because FanGraphs stores innings pitched with ~1e-6 precision;
+    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus/fip_minus: see divergence.'
+  divergence:
+    era_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+    fip_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+- id: mussina_2001
+  player: Mike Mussina
+  team: NYY
+  season: 2001
+  park_factor: 98.0
+  park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001 (Basic 5yr)
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2001&qual=100 (PlayerName=Mike Mussina)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '228.2'
+    outs: 686
+    bf: 909
+    h: 202
+    r: 87
+    er: 80
+    hr: 20
+    bb: 42
+    ibb: 2
+    hbp: 4
+    so: 214
+  published:
+    era: 3.1486879766105456
+    fip: 2.917941497017448
+    whip: 1.0670553698513516
+    k_per_9: 8.42274033743321
+    bb_per_9: 1.6530611877205366
+    lob_pct: 0.73181818
+    era_minus: 71.79678892720268
+    fip_minus: 66.20673301438221
+  tolerance:
+    era: 1.0e-06
+    fip: 0.0005
+    whip: 1.0e-06
+    k_per_9: 1.0e-06
+    bb_per_9: 1.0e-06
+    lob_pct: 1.0e-07
+    era_minus: 0.5
+    fip_minus: 0.5
+  tolerance_rule: 'era, whip, k_per_9, bb_per_9, hr_per_9: 1e-6 because FanGraphs stores innings pitched with ~1e-6 precision;
+    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus/fip_minus: see divergence.'
+  divergence:
+    era_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+    fip_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+- id: maddux_2001
+  player: Greg Maddux
+  team: ATL
+  season: 2001
+  park_factor: 98.0
+  park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001 (Basic 5yr)
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2001&qual=100 (PlayerName=Greg Maddux)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '233.0'
+    outs: 699
+    bf: 927
+    h: 220
+    r: 86
+    er: 79
+    hr: 20
+    bb: 27
+    ibb: 10
+    hbp: 7
+    so: 173
+  published:
+    era: 3.051501946084873
+    fip: 3.117806352776162
+    whip: 1.0600857674865876
+    k_per_9: 6.682402995856748
+    bb_per_9: 1.0429183866366023
+    lob_pct: 0.74336283
+    era_minus: 71.06534016656157
+    fip_minus: 71.44487431198824
+  tolerance:
+    era: 1.0e-06
+    fip: 0.0005
+    whip: 1.0e-06
+    k_per_9: 1.0e-06
+    bb_per_9: 1.0e-06
+    lob_pct: 1.0e-07
+    era_minus: 0.5
+    fip_minus: 0.5
+  tolerance_rule: 'era, whip, k_per_9, bb_per_9, hr_per_9: 1e-6 because FanGraphs stores innings pitched with ~1e-6 precision;
+    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus/fip_minus: see divergence.'
+  divergence:
+    era_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+    fip_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+- id: morris_2001
+  player: Matt Morris
+  team: STL
+  season: 2001
+  park_factor: 98.0
+  park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001 (Basic 5yr)
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2001&qual=100 (PlayerName=Matt Morris)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '216.1'
+    outs: 649
+    bf: 909
+    h: 218
+    r: 86
+    er: 76
+    hr: 13
+    bb: 54
+    ibb: 3
+    hbp: 13
+    so: 185
+  published:
+    era: 3.161787216502175
+    fip: 3.0491368293762213
+    whip: 1.257318893111976
+    k_per_9: 7.696455724380295
+    bb_per_9: 2.2465330222515454
+    lob_pct: 0.74587706
+    era_minus: 73.80781276051033
+    fip_minus: 68.99404963231106
+  tolerance:
+    era: 1.0e-06
+    fip: 0.0005
+    whip: 1.0e-06
+    k_per_9: 1.0e-06
+    bb_per_9: 1.0e-06
+    lob_pct: 1.0e-07
+    era_minus: 0.5
+    fip_minus: 0.5
+  tolerance_rule: 'era, whip, k_per_9, bb_per_9, hr_per_9: 1e-6 because FanGraphs stores innings pitched with ~1e-6 precision;
+    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus/fip_minus: see divergence.'
+  divergence:
+    era_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+    fip_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+- id: bradley_2016
+  player: Archie Bradley
+  team: ARI
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2016&qual=100&sortstat=IBB (PlayerName=Archie
+    Bradley)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '141.2'
+    outs: 425
+    er: 79
+    hr: 16
+    bb: 67
+    ibb: 8
+    hbp: 4
+    so: 143
+  published:
+    era: 5.018823349220784
+    fip: 4.099501525100129
+  tolerance:
+    era: 1.0e-06
+    fip: 0.0005
+  tolerance_rule: 'er derived from published ERA and IP (integer); fip: cFIP published to 3 decimals (0.0005).'
+  info:
+    xfip: 4.1009139487582775
+    era_minus: 114.41955418864084
+    fip_minus: 97.99924673674765
+- id: koehler_2016
+  player: Tom Koehler
+  team: MIA
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2016&qual=100&sortstat=IBB (PlayerName=Tom
+    Koehler)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '176.2'
+    outs: 530
+    er: 85
+    hr: 22
+    bb: 83
+    ibb: 7
+    hbp: 5
+    so: 147
+  published:
+    era: 4.330188554578426
+    fip: 4.59561694489802
+  tolerance:
+    era: 1.0e-06
+    fip: 0.0005
+  tolerance_rule: 'er derived from published ERA and IP (integer); fip: cFIP published to 3 decimals (0.0005).'
+  info:
+    xfip: 4.692632051144642
+    era_minus: 109.61863648664047
+    fip_minus: 114.03618961607322
+- id: conley_2016
+  player: Adam Conley
+  team: MIA
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2016&qual=100&sortstat=IBB (PlayerName=Adam
+    Conley)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '133.1'
+    outs: 400
+    er: 57
+    hr: 13
+    bb: 62
+    ibb: 7
+    hbp: 11
+    so: 124
+  published:
+    era: 3.8474997064590677
+    fip: 4.196560302734381
+  tolerance:
+    era: 1.0e-06
+    fip: 0.0005
+  tolerance_rule: 'er derived from published ERA and IP (integer); fip: cFIP published to 3 decimals (0.0005).'
+  info:
+    xfip: 4.840337110651481
+    era_minus: 97.39937796908556
+    fip_minus: 104.21973706876209
+- id: perdomo_2016
+  player: Luis Perdomo
+  team: SDP
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2016&qual=100&sortstat=IBB (PlayerName=Luis
+    Perdomo)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '146.2'
+    outs: 440
+    er: 93
+    hr: 23
+    bb: 46
+    ibb: 7
+    hbp: 7
+    so: 105
+  published:
+    era: 5.706817761265573
+    fip: 4.8374693491439285
+  tolerance:
+    era: 1.0e-06
+    fip: 0.0005
+  tolerance_rule: 'er derived from published ERA and IP (integer); fip: cFIP published to 3 decimals (0.0005).'
+  info:
+    xfip: 4.0026081322688984
+    era_minus: 141.15686471291497
+    fip_minus: 118.1304494139162
+- id: fernandez_2016
+  player: Jose Fernandez
+  team: MIA
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2016&qual=100&sortstat=IBB (PlayerName=Jose
+    Fernandez)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '182.1'
+    outs: 547
+    er: 58
+    hr: 13
+    bb: 55
+    ibb: 6
+    hbp: 6
+    so: 253
+  published:
+    era: 2.8628883229096562
+    fip: 2.301953482980782
+  tolerance:
+    era: 1.0e-06
+    fip: 0.0005
+  tolerance_rule: 'er derived from published ERA and IP (integer); fip: cFIP published to 3 decimals (0.0005).'
+  info:
+    xfip: 2.5626194488389573
+    era_minus: 72.4739605251288
+    fip_minus: 57.61402756074515
+- id: pedro_martinez_2000
+  player: Pedro Martinez
+  team: BOS
+  season: 2000
+  park_factor: 101.0
+  park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2000 (Basic 5yr)
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2000&qual=100 (PlayerName=Pedro Martinez)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '217.0'
+    outs: 651
+    bf: 817
+    h: 128
+    r: 44
+    er: 42
+    hr: 17
+    bb: 32
+    ibb: 0
+    hbp: 14
+    so: 284
+  published:
+    era: 1.7419354838709677
+    fip: 2.1710342213854816
+    whip: 0.7373271889400922
+    k_per_9: 11.778801843317972
+    bb_per_9: 1.327188940092166
+    hr_per_9: 0.7050691244239631
+    k_pct: 0.34761322
+    bb_pct: 0.03916769
+    lob_pct: 0.86551265
+    era_minus: 35.12049826433139
+    fip_minus: 47.61200950327603
+  tolerance:
+    era: 1.0e-06
+    fip: 0.0005
+    whip: 1.0e-06
+    k_per_9: 1.0e-06
+    bb_per_9: 1.0e-06
+    hr_per_9: 1.0e-06
+    k_pct: 1.0e-07
+    bb_pct: 1.0e-07
+    lob_pct: 1.0e-07
+    era_minus: 0.5
+    fip_minus: 0.5
+  tolerance_rule: see 2001 entries.
+  info:
+    war: 9.374988555908203
+  divergence:
+    era_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+    fip_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+- id: skubal_2024
+  player: Tarik Skubal
+  team: DET
+  season: 2024
+  park_factor: 101.0
+  park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2024 (Basic 5yr)
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2024&qual=100 (PlayerName=Tarik Skubal)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '192.0'
+    outs: 576
+    bf: 753
+    h: 142
+    r: 54
+    er: 51
+    hr: 15
+    bb: 35
+    ibb: 0
+    hbp: 9
+    so: 228
+  published:
+    era: 2.390625
+    fip: 2.4946047782897955
+    whip: 0.921875
+    k_per_9: 10.6875
+    bb_per_9: 1.640625
+    hr_per_9: 0.703125
+    k_pct: 0.30278884
+    bb_pct: 0.04648074
+    lob_pct: 0.8
+    era_minus: 58.996619531517865
+    fip_minus: 59.58118460592332
+  tolerance:
+    era: 1.0e-06
+    fip: 0.0005
+    whip: 1.0e-06
+    k_per_9: 1.0e-06
+    bb_per_9: 1.0e-06
+    hr_per_9: 1.0e-06
+    k_pct: 1.0e-07
+    bb_pct: 1.0e-07
+    lob_pct: 1.0e-07
+    era_minus: 0.5
+    fip_minus: 0.5
+  tolerance_rule: see 2001 entries.
+  info:
+    xfip: 2.8256122650811455
+    war: 6.0445942878723145
+  divergence:
+    era_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.
+    fip_minus: FanGraphs evaluates ERA-/FIP- against the pitcher's own league (AL/NL) ERA/FIP and its own park adjustment;
+      the library uses the MLB-wide league ERA/FIP times the Guts! 5-year park factor / 100, so it differs by about 1-2.5
+      points. Observed on every 2000, 2001 and 2024 entry; reference status for ERA-/FIP- is approximate.

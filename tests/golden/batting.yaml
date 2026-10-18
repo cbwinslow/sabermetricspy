@@ -1,0 +1,161 @@
+# Golden reference fixtures: FanGraphs leaderboard rows retrieved 2026-10-18. Each entry records its source, retrieval date and tolerance.
+entries:
+- id: bonds_2001
+  player: Barry Bonds
+  team: SFG
+  season: 2001
+  league: NL
+  park_factor: 96.0
+  park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001 (Basic 5yr)
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&season=2001&qual=300 (PlayerName=Barry Bonds)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    pa: 664
+    ab: 476
+    h: 156
+    b2: 32
+    b3: 2
+    hr: 73
+    bb: 177
+    ibb: 35
+    hbp: 9
+    sf: 2
+    so: 93
+  published:
+    avg: 0.327731092
+    obp: 0.51506024
+    slg: 0.863445378
+    ops: 1.378505618
+    iso: 0.535714286
+    babip: 0.266025641
+    k_pct: 0.14006024
+    bb_pct: 0.266566265
+    woba: 0.536696215217936
+    wraa: 117.67847717808644
+    wrc: 200.07072038458745
+    wrc_plus: 234.5899112490663
+  tolerance:
+    avg: 1.0e-08
+    obp: 1.0e-08
+    slg: 1.0e-08
+    ops: 1.0e-08
+    iso: 1.0e-08
+    babip: 1.0e-08
+    k_pct: 1.0e-08
+    bb_pct: 1.0e-08
+    woba: 0.000245
+    wraa: 0.468
+    wrc: 0.8
+    wrc_plus: 1.626
+  tolerance_rule: 'avg..bb_pct: 1e-8 (published to 10 digits); woba: 0.0005 * (weighted events)/denominator (3-decimal Guts!
+    weights); wraa/wrc: propagated from woba bound plus 0.0005 for lg_woba and lg_r_per_pa; wrc_plus: propagated wrc bound
+    plus 0.3% for FanGraphs'' non-pitcher league aggregation and park-factor rounding (documented residual).'
+  info:
+    war: 12.47550378671356
+- id: mcgwire_1998
+  player: Mark McGwire
+  team: STL
+  season: 1998
+  league: NL
+  park_factor: 99.0
+  park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=1998 (Basic 5yr)
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&season=1998&qual=300 (PlayerName=Mark McGwire)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    pa: 681
+    ab: 509
+    h: 152
+    b2: 21
+    b3: 0
+    hr: 70
+    bb: 162
+    ibb: 28
+    hbp: 6
+    sf: 4
+    so: 155
+  published:
+    avg: 0.298624754
+    obp: 0.469897209
+    slg: 0.752455795
+    ops: 1.222353004
+    iso: 0.453831041
+    babip: 0.284722222
+    k_pct: 0.227606461
+    bb_pct: 0.237885462
+    woba: 0.4924731135916016
+    wraa: 91.70353207928147
+    wrc: 175.9779881556055
+    wrc_plus: 204.97065888872265
+  tolerance:
+    avg: 1.0e-08
+    obp: 1.0e-08
+    slg: 1.0e-08
+    ops: 1.0e-08
+    iso: 1.0e-08
+    babip: 1.0e-08
+    k_pct: 1.0e-08
+    bb_pct: 1.0e-08
+    woba: 0.0002246
+    wraa: 0.451
+    wrc: 0.791
+    wrc_plus: 1.533
+  tolerance_rule: 'avg..bb_pct: 1e-8 (published to 10 digits); woba: 0.0005 * (weighted events)/denominator (3-decimal Guts!
+    weights); wraa/wrc: propagated from woba bound plus 0.0005 for lg_woba and lg_r_per_pa; wrc_plus: propagated wrc bound
+    plus 0.3% for FanGraphs'' non-pitcher league aggregation and park-factor rounding (documented residual).'
+  info:
+    war: 8.464378435596712
+- id: judge_2022
+  player: Aaron Judge
+  team: NYY
+  season: 2022
+  league: AL
+  park_factor: 100.0
+  park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2022 (Basic 5yr)
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&season=2022&qual=300 (PlayerName=Aaron Judge)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    pa: 696
+    ab: 570
+    h: 177
+    b2: 28
+    b3: 0
+    hr: 62
+    bb: 111
+    ibb: 19
+    hbp: 6
+    sf: 5
+    so: 175
+  published:
+    avg: 0.310526315
+    obp: 0.424855491
+    slg: 0.685964912
+    ops: 1.110820403
+    iso: 0.375438597
+    babip: 0.340236686
+    k_pct: 0.251436781
+    bb_pct: 0.159482758
+    woba: 0.45819641417238366
+    wraa: 82.08243445725579
+    wrc: 161.66756508917948
+    wrc_plus: 206.15483678377262
+  tolerance:
+    avg: 1.0e-08
+    obp: 1.0e-08
+    slg: 1.0e-08
+    ops: 1.0e-08
+    iso: 1.0e-08
+    babip: 1.0e-08
+    k_pct: 1.0e-08
+    bb_pct: 1.0e-08
+    woba: 0.0002053
+    wraa: 0.423
+    wrc: 0.771
+    wrc_plus: 1.602
+  tolerance_rule: 'avg..bb_pct: 1e-8 (published to 10 digits); woba: 0.0005 * (weighted events)/denominator (3-decimal Guts!
+    weights); wraa/wrc: propagated from woba bound plus 0.0005 for lg_woba and lg_r_per_pa; wrc_plus: propagated wrc bound
+    plus 0.3% for FanGraphs'' non-pitcher league aggregation and park-factor rounding (documented residual).'
+  info:
+    war: 11.066903269555796

@@ -17,10 +17,10 @@
 
 ## 3. Golden fixtures and value tests
 
-- [ ] 3.1 Create `tests/golden/batting.yaml` and `tests/golden/pitching.yaml` from the retrieved FanGraphs rows (Bonds 2001; Johnson, Schilling, Mussina, Maddux, Morris 2001; Bradley, Koehler, Conley, Perdomo, Fernandez 2016) plus a pre-2000 and a 2020s hitter, each with source URL, retrieval date, and tolerance. Verify a structure test rejects a missing URL or date.
-- [ ] 3.2 Add a recomputation gate test: wOBA and FIP of each fixture row reproduced from its raw inputs within tolerance. Verify it passes for all rows and fails for a deliberately altered value.
-- [ ] 3.3 Add `tests/test_golden_values.py` asserting every published metric within tolerance, with failure messages naming metric, expected, actual, and source. Verify it passes, with any documented divergences listed.
-- [ ] 3.4 Remove the threshold assertions (`woba > 0.530`, `wrc_plus > 230`) from `test_golden_barry_bonds_2001_and_pedro_martinez_2000`. Verify the full suite passes and run one batting and one pitching fixture on Polars, pandas, and PyArrow to confirm agreement within 1e-9.
+- [x] 3.1 Create `tests/golden/batting.yaml` and `tests/golden/pitching.yaml` from the retrieved FanGraphs rows (Bonds 2001; Johnson, Schilling, Mussina, Maddux, Morris 2001; Bradley, Koehler, Conley, Perdomo, Fernandez 2016) plus a pre-2000 and a 2020s hitter, each with source URL, retrieval date, and tolerance. Verify a structure test rejects a missing URL or date.
+- [x] 3.2 Add a recomputation gate test: wOBA and FIP of each fixture row reproduced from its raw inputs within tolerance. Verify it passes for all rows and fails for a deliberately altered value.
+- [x] 3.3 Add `tests/test_golden_values.py` asserting every published metric within tolerance, with failure messages naming metric, expected, actual, and source. Verify it passes, with any documented divergences listed.
+- [x] 3.4 Remove the threshold assertions (`woba > 0.530`, `wrc_plus > 230`) from `test_golden_barry_bonds_2001_and_pedro_martinez_2000`. Verify the full suite passes and run one batting and one pitching fixture on Polars, pandas, and PyArrow to confirm agreement within 1e-9.
 - [ ] 3.5 Add hand-computed value tests for every registered metric not covered by fixtures (table of metric, small input, expected value, derivation in a comment) and a coverage guard failing on any uncovered metric. Verify the guard fails when an entry is temporarily removed.
 - [ ] 3.6 Add a Hypothesis identity test for rates built from summed counts (`OPS = OBP + SLG`, `ISO = SLG - AVG`). Verify with `uv run pytest -k identity`.
 

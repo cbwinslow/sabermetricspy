@@ -152,8 +152,7 @@ def test_golden_barry_bonds_2001_and_pedro_martinez_2000() -> None:
     assert math.isclose(row["slg"], 411 / 476, abs_tol=1e-4)  # .8634
     assert math.isclose(row["ops"], row["obp"] + row["slg"], abs_tol=1e-6)  # 1.3785
     assert math.isclose(row["iso"], row["slg"] - row["avg"], abs_tol=1e-6)  # .5357
-    assert row["woba"] > 0.530
-    assert row["wrc_plus"] > 230.0
+    # Exact published-value checks (wOBA, wRAA, wRC, wRC+) live in tests/test_golden_values.py.
 
     # Pedro Martinez 2000 historical stats:
     # IP=217.0 (651 outs), ER=42, RA=44, H=128, BB=32, IBB=0, HBP=14, HR=17, SO=284, BF=817
@@ -182,9 +181,8 @@ def test_golden_barry_bonds_2001_and_pedro_martinez_2000() -> None:
     assert math.isclose(prow["era"], 1.7419, abs_tol=1e-3)
     assert math.isclose(prow["whip"], 0.7373, abs_tol=1e-3)
     assert math.isclose(prow["k_per_9"], 11.7788, abs_tol=1e-3)
-    assert math.isclose(prow["fip"], 2.17, abs_tol=0.02)
-    assert prow["era_plus"] > 280.0
-    assert prow["fip_minus"] < 46.0
+    assert math.isclose(prow["fip"], 2.1710342213854816, abs_tol=5e-4)  # FanGraphs FIP, 2000
+    # ERA+ / FIP- are approximate (see METHODOLOGY); published-value checks are in tests/test_golden_values.py.
 
 
 # ==============================================================================
