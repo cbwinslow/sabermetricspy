@@ -137,3 +137,94 @@ class SeasonContext(BaseModel):
     )
     weights: WOBAWeights | None = None
     siera_coeffs: SIERACoefficients = Field(default_factory=SIERACoefficients)
+
+
+class LeagueRunEnvironment(BaseModel):
+    """One league's pitching totals for a season (the inputs to FanGraphs' league FIP)."""
+
+    model_config = ConfigDict(frozen=True)
+
+    outs: int = Field(..., description="Innings pitched x 3")
+    r: int = Field(..., description="Runs allowed")
+    er: int = Field(..., description="Earned runs allowed")
+    hr: int
+    bb: int
+    hbp: int
+    so: int
+    iffb: int | None = Field(
+        default=None, description="Infield flies; None when not published (before 2002)"
+    )
+
+    @property
+    def ip(self) -> float:
+        """True decimal innings pitched."""
+        return self.outs / 3.0
+
+    @property
+    def iffip_numerator(self) -> float:
+        """13 HR + 3 (BB + HBP) - 2 (K + IFFB), treating unpublished infield flies as zero."""
+        return 13.0 * self.hr + 3.0 * (self.bb + self.hbp) - 2.0 * (self.so + (self.iffb or 0))
+
+    def __add__(self, other: LeagueRunEnvironment) -> LeagueRunEnvironment:
+        iffb = (
+            None
+            if self.iffb is None and other.iffb is None
+            else (self.iffb or 0) + (other.iffb or 0)
+        )
+        return LeagueRunEnvironment(
+            outs=self.outs + other.outs,
+            r=self.r + other.r,
+            er=self.er + other.er,
+            hr=self.hr + other.hr,
+            bb=self.bb + other.bb,
+            hbp=self.hbp + other.hbp,
+            so=self.so + other.so,
+            iffb=iffb,
+        )
+
+
+class PitcherWARConstants(BaseModel):
+    """League run environment and derived constants for FanGraphs-method pitcher WAR in one season."""
+
+    model_config = ConfigDict(frozen=True)
+
+    season: int
+    al: LeagueRunEnvironment
+    nl: LeagueRunEnvironment
+    war_ip_correction: float | None = Field(
+        default=None,
+        description="League correction in wins per inning (published by FanGraphs for 2016 only)",
+    )
+    source: str = ""
+    retrieved: str | None = None
+
+    @property
+    def mlb(self) -> LeagueRunEnvironment:
+        """MLB-wide totals (AL + NL)."""
+        return self.al + self.nl
+
+    @property
+    def lg_era(self) -> float:
+        """MLB league ERA."""
+        return 9.0 * self.mlb.er / self.mlb.ip
+
+    @property
+    def lg_ra9(self) -> float:
+        """MLB league runs allowed per nine innings."""
+        return 9.0 * self.mlb.r / self.mlb.ip
+
+    @property
+    def ra9_minus_era(self) -> float:
+        """Adjustment that moves an ERA-scale estimator to the RA9 scale."""
+        return self.lg_ra9 - self.lg_era
+
+    @property
+    def iffip_constant(self) -> float:
+        """MLB ifFIP constant: league ERA minus league ifFIP before the constant (not Guts! cFIP)."""
+        return self.lg_era - self.mlb.iffip_numerator / self.mlb.ip
+
+    def league_fipr9(self, league: str) -> float:
+        """League (AL, NL, or MLB-wide) FIP on the RA9 scale at park factor 100, using the MLB constant."""
+        key = league.upper()
+        env = self.al if key == "AL" else self.nl if key == "NL" else self.mlb
+        return env.iffip_numerator / env.ip + self.iffip_constant + self.ra9_minus_era

@@ -10,9 +10,10 @@ from typing import Any
 
 import yaml
 
-from sabermetricspy.types.context import ParkFactor, SeasonContext, WOBAWeights
+from sabermetricspy.types.context import ParkFactor, PitcherWARConstants, SeasonContext, WOBAWeights
 
 _WARNED_FALLBACKS: set[tuple[int, int]] = set()
+_WARNED_WAR_FALLBACKS: set[tuple[int, int]] = set()
 
 
 @lru_cache(maxsize=1)
@@ -93,3 +94,43 @@ def resolve_context(context: SeasonContext | None = None, season: int = 2024) ->
     if context.weights is None:
         return context.model_copy(update={"weights": get_woba_weights(context.season)})
     return context
+
+
+@lru_cache(maxsize=1)
+def _load_pitcher_war_table() -> dict[int, PitcherWARConstants]:
+    """Load bundled pitcher_war.yaml (AL/NL pitching totals per season)."""
+    yaml_path = resources.files("sabermetricspy").joinpath("data/constants/pitcher_war.yaml")
+    raw: dict[str, Any] = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+    table: dict[int, PitcherWARConstants] = {}
+    for year, entry in raw["seasons"].items():
+        table[int(year)] = PitcherWARConstants.model_validate(
+            {
+                "season": int(year),
+                "al": entry["al"],
+                "nl": entry["nl"],
+                "war_ip_correction": entry.get("war_ip_correction"),
+                "source": entry.get("source", ""),
+                "retrieved": entry.get("retrieved"),
+            }
+        )
+    return table
+
+
+def get_pitcher_war_constants(season: int = 2024) -> PitcherWARConstants:
+    """Retrieve the league run environment for FanGraphs-method pitcher WAR.
+
+    An unbundled season returns the nearest bundled season labeled with the requested season and emits a
+    `UserWarning` (once per requested/substituted pair).
+    """
+    table = _load_pitcher_war_table()
+    if season in table:
+        return table[season]
+    nearest_year = min(table.keys(), key=lambda y: abs(y - season))
+    if (season, nearest_year) not in _WARNED_WAR_FALLBACKS:
+        _WARNED_WAR_FALLBACKS.add((season, nearest_year))
+        warnings.warn(
+            f"No bundled pitcher-WAR constants for season {season}; using season {nearest_year} instead.",
+            UserWarning,
+            stacklevel=2,
+        )
+    return table[nearest_year].model_copy(update={"season": season, "war_ip_correction": None})

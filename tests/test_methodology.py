@@ -124,20 +124,20 @@ def test_siera_identifies_the_2010_version_and_the_revised_one() -> None:
 
 def test_models_with_known_differences_are_labeled() -> None:
     models = model_entries()
-    assert models["WARFramework.calculate_pitcher_war_df"].status is ReferenceStatus.DIVERGENT
-    assert (
-        "not the fanGraphs".lower() in models["WARFramework.calculate_pitcher_war_df"].note.lower()
-    )
+    pitcher = models["WARFramework.calculate_pitcher_war_df"]
+    assert pitcher.status is ReferenceStatus.APPROXIMATE
+    assert "worked example" in pitcher.note and "0.2 WAR" in pitcher.note
     assert models["WARFramework.calculate_position_player_*"].status is ReferenceStatus.APPROXIMATE
     assert models["MarcelProjector (pitchers)"].status is ReferenceStatus.DIVERGENT
     assert "134" in models["MarcelProjector (pitchers)"].note
 
 
-def test_pitcher_war_docstring_states_it_is_not_the_published_method() -> None:
+def test_pitcher_war_docstring_names_the_published_method_and_its_limits() -> None:
     from sabermetricspy.value import WARFramework
 
     doc = WARFramework.calculate_pitcher_war_df.__doc__ or ""
-    assert "NOT the FanGraphs or Baseball-Reference method" in doc
+    assert "FanGraphs Library" in doc and "worked example" in doc
+    assert "separately" in doc and "0.2 WAR" in doc
 
 
 def test_siera_coefficients_are_labeled_with_their_source_version() -> None:

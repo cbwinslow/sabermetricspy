@@ -1,0 +1,764 @@
+# League run environment for FanGraphs-method pitcher WAR: AL and NL pitching totals per season.
+# outs = innings pitched x 3. iffb is null before 2002 (not published) and treated as zero.
+# war_ip_correction (wins per inning) is published by FanGraphs for 2016 only; other seasons are uncorrected.
+# Verified by tests: AL + NL equals the MLB league-totals snapshot, and the 2016 values reproduce the
+# FanGraphs Stroman worked example.
+seasons:
+  2025:
+    al:
+      outs: 64693
+      r: 10663
+      er: 9810
+      hr: 2888
+      bb: 7760
+      hbp: 930
+      so: 20560
+      iffb: 2421
+    nl:
+      outs: 64532
+      r: 10951
+      er: 10093
+      hr: 2762
+      bb: 7619
+      hbp: 998
+      so: 20085
+      iffb: 2282
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2024:
+    al:
+      outs: 64617
+      r: 10530
+      er: 9620
+      hr: 2759
+      bb: 7453
+      hbp: 1023
+      so: 20660
+      iffb: 2556
+    nl:
+      outs: 64732
+      r: 10813
+      er: 9921
+      hr: 2694
+      bb: 7476
+      hbp: 997
+      so: 20537
+      iffb: 2284
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2023:
+    al:
+      outs: 64733
+      r: 11110
+      er: 10262
+      hr: 2935
+      bb: 7844
+      hbp: 1063
+      so: 21328
+      iffb: 2312
+    nl:
+      outs: 64529
+      r: 11322
+      er: 10476
+      hr: 2933
+      bb: 7975
+      hbp: 1049
+      so: 20515
+      iffb: 2230
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2022:
+    al:
+      outs: 64676
+      r: 10215
+      er: 9302
+      hr: 2579
+      bb: 7286
+      hbp: 964
+      so: 20170
+      iffb: 2446
+    nl:
+      outs: 64550
+      r: 10602
+      er: 9691
+      hr: 2636
+      bb: 7567
+      hbp: 1082
+      so: 20642
+      iffb: 2228
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2021:
+    al:
+      outs: 64048
+      r: 11141
+      er: 10262
+      hr: 3043
+      bb: 7741
+      hbp: 989
+      so: 20983
+      iffb: 2353
+    nl:
+      outs: 63797
+      r: 10869
+      er: 9937
+      hr: 2901
+      bb: 8053
+      hbp: 1123
+      so: 21162
+      iffb: 2010
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2020:
+    al:
+      outs: 23338
+      r: 4159
+      er: 3825
+      hr: 1160
+      bb: 3024
+      hbp: 399
+      so: 7776
+      iffb: 798
+    nl:
+      outs: 23068
+      r: 4185
+      er: 3829
+      hr: 1144
+      bb: 3068
+      hbp: 422
+      so: 7810
+      iffb: 681
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2019:
+    al:
+      outs: 65072
+      r: 12018
+      er: 11127
+      hr: 3490
+      bb: 7921
+      hbp: 963
+      so: 21241
+      iffb: 2325
+    nl:
+      outs: 65198
+      r: 11449
+      er: 10611
+      hr: 3286
+      bb: 7974
+      hbp: 1021
+      so: 21582
+      iffb: 2034
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2018:
+    al:
+      outs: 64982
+      r: 11075
+      er: 10277
+      hr: 2932
+      bb: 7666
+      hbp: 996
+      so: 20425
+      iffb: 2401
+    nl:
+      outs: 65485
+      r: 10555
+      er: 9774
+      hr: 2653
+      bb: 8020
+      hbp: 926
+      so: 20782
+      iffb: 2142
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2017:
+    al:
+      outs: 64892
+      r: 11337
+      er: 10517
+      hr: 3145
+      bb: 7721
+      hbp: 855
+      so: 19946
+      iffb: 2288
+    nl:
+      outs: 64879
+      r: 11245
+      er: 10430
+      hr: 2960
+      bb: 8108
+      hbp: 908
+      so: 20158
+      iffb: 2001
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2016:
+    al:
+      outs: 64833
+      r: 10856
+      er: 10104
+      hr: 2934
+      bb: 7280
+      hbp: 771
+      so: 19244
+      iffb: 2320
+    nl:
+      outs: 65086
+      r: 10888
+      er: 10057
+      hr: 2676
+      bb: 7808
+      hbp: 880
+      so: 19738
+      iffb: 1914
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+    war_ip_correction: -0.000682902
+    war_ip_correction_source: https://library.fangraphs.com/war/calculating-war-pitchers/ (WARIP for 2016)
+  2015:
+    al:
+      outs: 65083
+      r: 10422
+      er: 9672
+      hr: 2554
+      bb: 6961
+      hbp: 820
+      so: 18423
+      iffb: 2284
+    nl:
+      outs: 65140
+      r: 10225
+      er: 9436
+      hr: 2355
+      bb: 7112
+      hbp: 782
+      so: 19023
+      iffb: 1831
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2014:
+    al:
+      outs: 65396
+      r: 10052
+      er: 9251
+      hr: 2151
+      bb: 7017
+      hbp: 832
+      so: 18588
+      iffb: 2320
+    nl:
+      outs: 65445
+      r: 9709
+      er: 8878
+      hr: 2035
+      bb: 7003
+      hbp: 820
+      so: 18853
+      iffb: 1898
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2013:
+    al:
+      outs: 65418
+      r: 10436
+      er: 9675
+      hr: 2509
+      bb: 7421
+      hbp: 736
+      so: 18536
+      iffb: 2317
+    nl:
+      outs: 65542
+      r: 9819
+      er: 9075
+      hr: 2152
+      bb: 7219
+      hbp: 800
+      so: 18174
+      iffb: 1981
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2012:
+    al:
+      outs: 60855
+      r: 9980
+      er: 9212
+      hr: 2453
+      bb: 6815
+      hbp: 735
+      so: 16711
+      iffb: 2217
+    nl:
+      outs: 69211
+      r: 11037
+      er: 10128
+      hr: 2481
+      bb: 7894
+      hbp: 759
+      so: 19715
+      iffb: 2160
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2011:
+    al:
+      outs: 60850
+      r: 10036
+      er: 9202
+      hr: 2224
+      bb: 6949
+      hbp: 758
+      so: 15655
+      iffb: 2472
+    nl:
+      outs: 69732
+      r: 10772
+      er: 9865
+      hr: 2328
+      bb: 8069
+      hbp: 796
+      so: 18833
+      iffb: 2522
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2010:
+    al:
+      outs: 60651
+      r: 10027
+      er: 9299
+      hr: 2218
+      bb: 7270
+      hbp: 726
+      so: 15350
+      iffb: 2216
+    nl:
+      outs: 69265
+      r: 11281
+      er: 10326
+      hr: 2395
+      bb: 8508
+      hbp: 823
+      so: 18956
+      iffb: 2374
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2009:
+    al:
+      outs: 60520
+      r: 10793
+      er: 10006
+      hr: 2494
+      bb: 7592
+      hbp: 737
+      so: 15386
+      iffb: 2362
+    nl:
+      outs: 69296
+      r: 11626
+      er: 10773
+      hr: 2548
+      bb: 9028
+      hbp: 853
+      so: 18205
+      iffb: 2494
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2008:
+    al:
+      outs: 60667
+      r: 10609
+      er: 9788
+      hr: 2246
+      bb: 7470
+      hbp: 793
+      so: 14925
+      iffb: 2409
+    nl:
+      outs: 69406
+      r: 11976
+      er: 11042
+      hr: 2632
+      bb: 8867
+      hbp: 879
+      so: 17959
+      iffb: 2528
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2007:
+    al:
+      outs: 60535
+      r: 10934
+      er: 10123
+      hr: 2256
+      bb: 7439
+      hbp: 813
+      so: 14890
+      iffb: 2310
+    nl:
+      outs: 69742
+      r: 12388
+      er: 11460
+      hr: 2701
+      bb: 8640
+      hbp: 942
+      so: 17299
+      iffb: 2717
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2006:
+    al:
+      outs: 60363
+      r: 11041
+      er: 10204
+      hr: 2518
+      bb: 7128
+      hbp: 779
+      so: 14397
+      iffb: 2444
+    nl:
+      outs: 69411
+      r: 12558
+      er: 11554
+      hr: 2868
+      bb: 8719
+      hbp: 1038
+      so: 17258
+      iffb: 2714
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2005:
+    al:
+      outs: 60540
+      r: 10616
+      er: 9779
+      hr: 2401
+      bb: 6768
+      hbp: 843
+      so: 13814
+      iffb: 2570
+    nl:
+      outs: 69157
+      r: 11709
+      er: 10833
+      hr: 2616
+      bb: 8439
+      hbp: 954
+      so: 16830
+      iffb: 2668
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2004:
+    al:
+      outs: 60744
+      r: 11316
+      er: 10432
+      hr: 2591
+      bb: 7520
+      hbp: 904
+      so: 14505
+      iffb: 2701
+    nl:
+      outs: 69438
+      r: 12060
+      er: 11095
+      hr: 2860
+      bb: 8702
+      hbp: 946
+      so: 17323
+      iffb: 2769
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2003:
+    al:
+      outs: 60674
+      r: 11061
+      er: 10180
+      hr: 2500
+      bb: 7111
+      hbp: 893
+      so: 13735
+      iffb: 2647
+    nl:
+      outs: 69331
+      r: 11917
+      er: 11006
+      hr: 2707
+      bb: 8778
+      hbp: 956
+      so: 17066
+      iffb: 2772
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2002:
+    al:
+      outs: 60492
+      r: 10862
+      er: 10006
+      hr: 2457
+      bb: 7290
+      hbp: 863
+      so: 14020
+      iffb: 2722
+    nl:
+      outs: 69315
+      r: 11546
+      er: 10563
+      hr: 2602
+      bb: 8956
+      hbp: 883
+      so: 17374
+      iffb: 2815
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2001:
+    al:
+      outs: 60639
+      r: 11013
+      er: 10063
+      hr: 2483
+      bb: 7269
+      hbp: 937
+      so: 14474
+      iffb: null
+    nl:
+      outs: 69223
+      r: 12186
+      er: 11184
+      hr: 2975
+      bb: 8537
+      hbp: 953
+      so: 17930
+      iffb: null
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  2000:
+    al:
+      outs: 60423
+      r: 11950
+      er: 11014
+      hr: 2696
+      bb: 8390
+      hbp: 681
+      so: 14033
+      iffb: null
+    nl:
+      outs: 69310
+      r: 13021
+      er: 11904
+      hr: 2997
+      bb: 9847
+      hbp: 892
+      so: 17323
+      iffb: null
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  1999:
+    al:
+      outs: 60229
+      r: 11853
+      er: 10868
+      hr: 2619
+      bb: 8296
+      hbp: 795
+      so: 13913
+      iffb: null
+    nl:
+      outs: 69403
+      r: 12838
+      er: 11739
+      hr: 2909
+      bb: 9595
+      hbp: 784
+      so: 17206
+      iffb: null
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  1998:
+    al:
+      outs: 60584
+      r: 11354
+      er: 10446
+      hr: 2479
+      bb: 7704
+      hbp: 766
+      so: 14341
+      iffb: null
+    nl:
+      outs: 69720
+      r: 11943
+      er: 10941
+      hr: 2585
+      bb: 8743
+      hbp: 821
+      so: 17552
+      iffb: null
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  1997:
+    al:
+      outs: 60595
+      r: 11177
+      er: 10261
+      hr: 2468
+      bb: 7859
+      hbp: 680
+      so: 14440
+      iffb: null
+    nl:
+      outs: 60767
+      r: 10427
+      er: 9468
+      hr: 2172
+      bb: 7807
+      hbp: 769
+      so: 15497
+      iffb: null
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  1996:
+    al:
+      outs: 60815
+      r: 12208
+      er: 11260
+      hr: 2742
+      bb: 8592
+      hbp: 721
+      so: 14056
+      iffb: null
+    nl:
+      outs: 60867
+      r: 10623
+      er: 9520
+      hr: 2220
+      bb: 7501
+      hbp: 683
+      so: 15252
+      iffb: null
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  1995:
+    al:
+      outs: 53928
+      r: 10225
+      er: 9428
+      hr: 2164
+      bb: 7572
+      hbp: 595
+      so: 12116
+      iffb: null
+    nl:
+      outs: 54168
+      r: 9329
+      er: 8394
+      hr: 1917
+      bb: 6668
+      hbp: 624
+      so: 13309
+      iffb: null
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  1994:
+    al:
+      outs: 42688
+      r: 8330
+      er: 7600
+      hr: 1774
+      bb: 5938
+      hbp: 425
+      so: 9619
+      iffb: null
+    nl:
+      outs: 43069
+      r: 7422
+      er: 6731
+      hr: 1532
+      bb: 5193
+      hbp: 451
+      so: 10147
+      iffb: null
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  1993:
+    al:
+      outs: 60667
+      r: 10674
+      er: 9741
+      hr: 2074
+      bb: 8006
+      hbp: 633
+      so: 12952
+      iffb: null
+    nl:
+      outs: 60855
+      r: 10190
+      er: 9120
+      hr: 1956
+      bb: 7104
+      hbp: 567
+      so: 13358
+      iffb: null
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  1992:
+    al:
+      outs: 60987
+      r: 9802
+      er: 8921
+      hr: 1776
+      bb: 7704
+      hbp: 585
+      so: 12196
+      iffb: null
+    nl:
+      outs: 52501
+      r: 7539
+      er: 6823
+      hr: 1262
+      bb: 5978
+      hbp: 395
+      so: 11342
+      iffb: null
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  1991:
+    al:
+      outs: 61146
+      r: 10172
+      er: 9290
+      hr: 1953
+      bb: 7730
+      hbp: 538
+      so: 12944
+      iffb: null
+    nl:
+      outs: 52163
+      r: 7955
+      er: 7124
+      hr: 1430
+      bb: 6254
+      hbp: 367
+      so: 11446
+      iffb: null
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'
+  1990:
+    al:
+      outs: 60547
+      r: 9746
+      er: 8783
+      hr: 1796
+      bb: 7631
+      hbp: 509
+      so: 12689
+      iffb: null
+    nl:
+      outs: 52144
+      r: 8173
+      er: 7334
+      hr: 1521
+      bb: 6221
+      hbp: 352
+      so: 11164
+      iffb: null
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-18'

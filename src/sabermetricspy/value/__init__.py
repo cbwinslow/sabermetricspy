@@ -8,7 +8,7 @@ import narwhals as nw
 from narwhals.typing import IntoFrame
 from pydantic import BaseModel, ConfigDict
 
-from sabermetricspy.constants import resolve_context
+from sabermetricspy.constants import get_pitcher_war_constants, resolve_context
 from sabermetricspy.schema import normalize_columns, safe_div
 from sabermetricspy.telemetry import profiled
 from sabermetricspy.types.context import SeasonContext
@@ -108,39 +108,100 @@ class WARFramework:
         self,
         df: IntoFrame,
         *,
-        run_estimator_col: str = "fip",
-        replacement_level_win_pct: float = 0.380,
+        league_correction_per_ip: float | None = None,
     ) -> Any:
-        """Compute an approximate Pitcher WAR over a DataFrame from FIP or RA9.
+        """Compute pitcher WAR with the method documented on the FanGraphs Library ("WAR for Pitchers").
 
-        This is NOT the FanGraphs or Baseball-Reference method. FanGraphs uses ifFIP, a FIP-to-RA9 adjustment,
-        dynamic runs per win, replacement of 0.12 (starters) / 0.03 (relievers) wins per game, a leverage
-        multiplier for relievers and a league correction; this uses a flat `replacement_level_win_pct` and the
-        league FIP as league RA9. Adds `pitcher_rar` and `pitcher_war` columns to the native DataFrame.
+        Steps (validated against FanGraphs' published Stroman 2016 worked example):
+
+        1. ifFIP = (13 HR + 3 (BB + HBP) - 2 (K + IFFB)) / IP + the MLB ifFIP constant.
+        2. FIPR9 = ifFIP + (lgRA9 - lgERA); pFIPR9 = FIPR9 / (FIP park factor / 100).
+        3. RAAP9 = league FIPR9 (AL, NL, or MLB) - pFIPR9, where league FIPR9 uses that league's totals
+           with the MLB constant.
+        4. dRPW = (((18 - IP/G) * lgFIPR9 + (IP/G) * pFIPR9) / 18 + 2) * 1.5.
+        5. WAR = (RAAP9 / dRPW + replacement) * IP / 9, with replacement = 0.03 (1 - GS/G) + 0.12 GS/G.
+        6. Pure relievers (GS = 0) are multiplied by (1 + gmLI) / 2.
+        7. League correction: `league_correction_per_ip` wins per inning, defaulting to the value FanGraphs
+           publishes (2016 only) and to zero elsewhere, so other seasons are uncorrected (typically about
+           -0.0007 to -0.0012 wins per inning, i.e. about -0.15 WAR over 200 IP).
+
+        Required columns: `outs` (or `ip`), `g`, `gs`, `hr`, `bb`, `hbp`, `so`. Optional: `iffb` or `pu` (infield flies; zero when
+        absent), `gmli` (1.0 when absent), `league` ("AL"/"NL"; defaults to the context league, with MLB-wide
+        totals otherwise) and `fip_park_factor` (the FIP column of the FanGraphs Guts! park factors; defaults
+        to the context park factor, where 100 means no adjustment).
+
+        FanGraphs values starters and relievers separately for pitchers who do both; give each role its own
+        row to reproduce that. A single mixed row uses the blended replacement level from the same page and
+        is less accurate. Live FanGraphs leaderboard values for 2016 differ from this documented method by up
+        to about 0.2 WAR for reasons FanGraphs does not publish (see docs/METHODOLOGY.md).
+
+        Adds `pitcher_if_fip`, `pitcher_fipr9`, `pitcher_pfipr9`, `pitcher_raap9`, `pitcher_drpw`,
+        `pitcher_rar` (runs above replacement before leverage and correction) and `pitcher_war`.
         """
-        assert self.context.weights is not None
-        w = self.context.weights
-        pf = self.context.park_factor / 100.0
+        consts = get_pitcher_war_constants(self.context.season)
         nw_df = normalize_columns(nw.from_native(df))
+        cols = set(nw_df.columns)
+        required = ("outs", "g", "gs", "hr", "bb", "hbp", "so")
+        missing = [c for c in required if c not in cols]
+        if missing:
+            raise ValueError(f"Pitcher WAR requires columns {list(required)}; missing {missing}.")
 
-        ip_expr = nw.col("outs").cast(nw.Float64) / 3.0
-        park_adj_est = safe_div(nw.col(run_estimator_col), pf)
-        if w.lg_fip is None:
-            raise ValueError(
-                f"Pitcher WAR requires a sourced league FIP/RA9 for season {w.season}; none is bundled."
+        correction = league_correction_per_ip
+        if correction is None:
+            correction = consts.war_ip_correction or 0.0
+
+        ip = nw.col("outs").cast(nw.Float64) / 3.0
+        # `iffb` (infield flies) is normalized to the canonical `pu` column by the alias registry.
+        iffb = nw.col("pu").fill_null(0).cast(nw.Float64) if "pu" in cols else nw.lit(0.0)
+        gmli = nw.col("gmli").cast(nw.Float64) if "gmli" in cols else nw.lit(1.0)
+        pf = (
+            nw.col("fip_park_factor").cast(nw.Float64) / 100.0
+            if "fip_park_factor" in cols
+            else nw.lit(self.context.park_factor / 100.0)
+        )
+
+        if_fip = (
+            safe_div(
+                13.0 * nw.col("hr")
+                + 3.0 * (nw.col("bb") + nw.col("hbp"))
+                - 2.0 * (nw.col("so") + iffb),
+                ip,
             )
-        lg_ra9 = w.lg_fip
-        rpw = w.lg_r_per_w
+            + consts.iffip_constant
+        )
+        fipr9 = if_fip + consts.ra9_minus_era
+        pfipr9 = safe_div(fipr9, pf)
 
-        # Runs above average per 9 IP = lg_ra9 - park_adj_est
-        # Replacement level offset in runs per 9 IP = (0.500 - replacement_level_win_pct) * rpw
-        rep_offset_per_9 = (0.500 - replacement_level_win_pct) * rpw
-        runs_above_rep_per_9 = (lg_ra9 - park_adj_est) + rep_offset_per_9
-        rar_expr = (runs_above_rep_per_9 * (ip_expr / 9.0)).alias("pitcher_rar")
-        war_expr = (rar_expr / rpw).alias("pitcher_war")
+        if "league" in cols:
+            league = nw.col("league").str.to_uppercase()
+            lg_fipr9 = (
+                nw.when(league == "AL")
+                .then(consts.league_fipr9("AL"))
+                .when(league == "NL")
+                .then(consts.league_fipr9("NL"))
+                .otherwise(consts.league_fipr9("MLB"))
+            )
+        else:
+            lg_fipr9 = nw.lit(consts.league_fipr9(self.context.league))
 
-        out_nw = nw_df.with_columns(rar_expr).with_columns(war_expr)
-        return nw.to_native(out_nw)
+        raap9 = lg_fipr9 - pfipr9
+        ip_per_g = safe_div(ip, nw.col("g"))
+        drpw = (((18.0 - ip_per_g) * lg_fipr9 + ip_per_g * pfipr9) / 18.0 + 2.0) * 1.5
+        start_share = safe_div(nw.col("gs"), nw.col("g"))
+        replacement = 0.03 * (1.0 - start_share) + 0.12 * start_share
+        wins_per_game = safe_div(raap9, drpw) + replacement
+        multiplier = nw.when(nw.col("gs") == 0).then((1.0 + gmli) / 2.0).otherwise(1.0)
+
+        out = nw_df.with_columns(
+            if_fip.alias("pitcher_if_fip"),
+            fipr9.alias("pitcher_fipr9"),
+            pfipr9.alias("pitcher_pfipr9"),
+            raap9.alias("pitcher_raap9"),
+            drpw.alias("pitcher_drpw"),
+            ((raap9 + replacement * drpw) * ip / 9.0).alias("pitcher_rar"),
+            (wins_per_game * ip / 9.0 * multiplier + correction * ip).alias("pitcher_war"),
+        )
+        return nw.to_native(out)
 
     @profiled(category="valuation")
     def calculate_position_player_df(

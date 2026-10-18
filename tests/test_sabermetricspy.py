@@ -709,7 +709,19 @@ def test_all_registered_metrics_and_suites_audit() -> None:
     assert "wRAA" in sp.formula(Metric.WRC_PLUS)
     assert len(sp.search_metrics(requires_column="hr")) > 5
     assert sp.get_park_factor("COL").basic_5yr > 105
-    pit_war_df = sp.WARFramework(season=2024).calculate_pitcher_war_df(res_all.df)
+    pit_line = pl.DataFrame(
+        {
+            "player_id": ["p"],
+            "outs": [540],
+            "g": [30],
+            "gs": [30],
+            "hr": [20],
+            "bb": [40],
+            "hbp": [5],
+            "so": [180],
+        }
+    )
+    pit_war_df = sp.WARFramework(season=2024).calculate_pitcher_war_df(pit_line)
     assert "pitcher_war" in pit_war_df.columns
     re24_fitted = sp.RunExpectancyMatrix(prior_strength=10.0).fit(
         pl.DataFrame(

@@ -50,16 +50,26 @@ def main() -> None:
     )
 
     # Vectorized DataFrame Pitcher WAR Calculation
+    # 2016 lines from the FanGraphs leaderboard (league and FIP park factor per row).
     pitcher_df = pl.DataFrame(
         {
-            "player_id": ["Tarik Skubal", "Chris Sale", "Zack Wheeler"],
-            "outs": [576, 533, 600],
-            "fip": [2.49, 2.38, 2.95],
+            "player_id": ["Clayton Kershaw", "Jose Fernandez", "Kenley Jansen"],
+            "league": ["NL", "NL", "NL"],
+            "fip_park_factor": [98.0, 97.0, 98.0],
+            "outs": [447, 547, 206],
+            "g": [21, 29, 71],
+            "gs": [21, 29, 0],
+            "hr": [8, 13, 4],
+            "bb": [11, 55, 11],
+            "hbp": [2, 6, 2],
+            "so": [172, 253, 104],
+            "iffb": [16, 10, 11],
+            "gmli": [0.88, 0.87, 1.64],
         }
     )
-    pitcher_war = war_engine.calculate_pitcher_war_df(pitcher_df)
-    print("\n[2] Vectorized Pitcher fWAR Table:")
-    print(pitcher_war.select("player_id", "outs", "fip", "pitcher_rar", "pitcher_war"))
+    pitcher_war = WARFramework(season=2016).calculate_pitcher_war_df(pitcher_df)
+    print("\n[2] Vectorized Pitcher WAR (FanGraphs method; FanGraphs shows 6.35 / 6.35 / 3.06):")
+    print(pitcher_war.select("player_id", "pitcher_if_fip", "pitcher_rar", "pitcher_war"))
 
     # 2. Tom Tango's Marcel the Monkey Forecasting System
     history_df = pl.DataFrame(

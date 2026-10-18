@@ -469,7 +469,12 @@ def _ensure_builtin_benchmarks() -> None:
             {
                 "player_id": idx.cast(pl.Utf8),
                 "outs": pl.repeat(540, rows, eager=True),
-                "fip": (3.20 + (idx % 20).cast(pl.Float64) * 0.1),
+                "g": pl.repeat(30, rows, eager=True),
+                "gs": pl.repeat(30, rows, eager=True),
+                "hr": (idx % 25),
+                "bb": (idx % 60),
+                "hbp": (idx % 8),
+                "so": (100 + idx % 120),
             }
         )
         fw = WARFramework(season=2024)

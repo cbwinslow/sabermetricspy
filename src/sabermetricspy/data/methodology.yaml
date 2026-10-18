@@ -548,9 +548,9 @@ metrics:
     note: Not yet audited against a primary source.
 models:
   WARFramework.calculate_pitcher_war_df:
-    status: divergent
+    status: approximate
     source_url: https://library.fangraphs.com/war/calculating-war-pitchers/
-    note: Not the FanGraphs or Baseball-Reference method. FanGraphs uses ifFIP, a FIP-to-RA9 adjustment, dynamic runs per win, replacement of 0.12 (starters) / 0.03 (relievers) wins per game, a leverage multiplier and a league correction; the library uses a flat .380 replacement win percentage and league FIP as league RA9. Rewrite is a follow-on change.
+    note: Implements the documented FanGraphs method (ifFIP, FIP-to-RA9, FIP park factor, AL/NL league FIP, dynamic runs per win, 0.12/0.03 replacement wins per game, reliever leverage multiplier) and reproduces every figure of FanGraphs' published Stroman 2016 worked example. Live 2016 leaderboard WAR differs by up to about 0.2 WAR for reasons FanGraphs does not publish; the league correction is published for 2016 only, so other seasons are uncorrected (typically about -0.15 WAR per 200 IP); mixed starter/reliever rows use the page's blended replacement and are less accurate than valuing each role separately.
   WARFramework.calculate_position_player_*:
     status: approximate
     source_url: https://library.fangraphs.com/war/war-position-players/
