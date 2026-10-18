@@ -61,7 +61,7 @@ def reference_war(
         "raap9": raap9,
         "drpw": drpw,
         "war": war + correction_per_ip * ip,
-        "rar": (raap9 + replacement * drpw) * ip / 9,
+        "rar": (raap9 + replacement * drpw) * ip / 9 * ((1 + gmli) / 2 if gs == 0 else 1.0),
     }
 
 

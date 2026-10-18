@@ -42,6 +42,8 @@ what it claimed to reproduce:
    supplied (version 2). **Pythagenpat** gains `SeasonContext.pythagenpat_exponent` (default 0.287; Baseball-Reference
    uses 0.285). **SIERA** coefficients are labeled `baseball_prospectus_2010`.
 8. **`CalculationResult.__repr__` is ASCII-safe**, fixing `UnicodeEncodeError` when printing on cp1252 consoles.
+9. **Speed Score is Bill James's four-factor definition**: total BB and HBP in the attempt-rate denominator, `AB-HR-SO` triples denominator with divisor 0.0016, each factor limited to 0-10 (NaN preserved), mean of four, `so` required. The six-factor form (GIDP, defensive position) is not implemented because its constants rest on a single secondary source.
+10. **Pitcher WAR is the documented FanGraphs method** (library page + the complete Stroman 2016 worked example): ifFIP with infield flies and the MLB ifFIP constant, FIPR9 = ifFIP + (lgRA9 - lgERA), FIP park factor, AL/NL league FIP, dynamic runs per win, 0.12/0.03 replacement wins per game, reliever leverage multiplier (1 + gmLI) / 2, and an optional league correction. Inputs are bundled AL/NL pitching totals 1990-2025 (`data/constants/pitcher_war.yaml`, AL + NL = MLB checked). Every figure of the worked example is reproduced. Against 29 live leaderboard pitchers (2016 and 2024), 27 are within 0.25 WAR (median under 0.1); exceptions are one mixed starter/reliever line (FanGraphs values roles separately) and one unexplained starter (+0.42). No input variant (basic vs FIP park factor, own vs MLB league, infield flies on/off) explains the 2016 residuals, and FanGraphs publishes the league correction for 2016 only, so other seasons are uncorrected (typically about -0.15 WAR per 200 IP).
 
 ## Consequences: numeric changes
 | Quantity | Before | After |
@@ -52,12 +54,15 @@ what it claimed to reproduce:
 | Maddux 2001 FIP (published 3.1178) | 2.9889 | 3.1177 |
 | BaseRuns on the shared test line (basic + extra columns) | 17.8619 | 18.5333 |
 | xFIP for seasons before 2002 | invented 0.115 HR/FB | null |
+| Speed Score on a 10 SB, 2 CS, 150 H, 500 AB, 90 R line | 4.62 (no square root in the attempt rate, wrong triples denominator, unclamped) | 6.07 |
+| Pitcher WAR, Stroman 2016 (FanGraphs 3.6) | different method (flat .380 replacement), not comparable | 3.60 |
+| Pitcher WAR, Fernandez 2016 (FanGraphs 6.35) | different method, not comparable | 6.15 |
 
 2000, 2001 and 2020-2025 constants changed throughout; 1990-1999 and 2002-2019 were added.
 
 ## Not in this change (follow-on changes)
-- Rewriting pitcher WAR to the FanGraphs method (ifFIP, FIP-to-RA9, dynamic runs per win, 0.12/0.03 replacement wins
-  per game, leverage multiplier, league correction).
+- Reproducing FanGraphs' live pitcher WAR exactly (unpublished refinements; per-year league corrections other than 2016) and
+  valuing mixed starter/reliever lines by role from split statistics.
 - The literature sweep: review of `baseballr`, OpenAlex/arXiv baseball ML papers, Tom Tango's book and blog, and the
   Retrosheet research page, to audit the 97 unverified metrics and add further published methods.
 - Sourcing `lg_wsb`, `lg_gidp_rate` and `r_gidp`, and league-specific ERA-/FIP-/ERA+.

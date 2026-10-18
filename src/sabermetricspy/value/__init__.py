@@ -136,7 +136,7 @@ class WARFramework:
         to about 0.2 WAR for reasons FanGraphs does not publish (see docs/METHODOLOGY.md).
 
         Adds `pitcher_if_fip`, `pitcher_fipr9`, `pitcher_pfipr9`, `pitcher_raap9`, `pitcher_drpw`,
-        `pitcher_rar` (runs above replacement before leverage and correction) and `pitcher_war`.
+        `pitcher_rar` (runs above replacement including the reliever leverage multiplier, before the league correction) and `pitcher_war`.
         """
         consts = get_pitcher_war_constants(self.context.season)
         nw_df = normalize_columns(nw.from_native(df))
@@ -198,7 +198,7 @@ class WARFramework:
             pfipr9.alias("pitcher_pfipr9"),
             raap9.alias("pitcher_raap9"),
             drpw.alias("pitcher_drpw"),
-            ((raap9 + replacement * drpw) * ip / 9.0).alias("pitcher_rar"),
+            ((raap9 + replacement * drpw) * ip / 9.0 * multiplier).alias("pitcher_rar"),
             (wins_per_game * ip / 9.0 * multiplier + correction * ip).alias("pitcher_war"),
         )
         return nw.to_native(out)

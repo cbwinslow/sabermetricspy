@@ -50,8 +50,8 @@
 - [x] 7.2 Add the pitcher-WAR constants model and loader (derived MLB ifFIP constant, league ERA/RA9, AL/NL/MLB league FIP, correction, infield flies zero before 2002, nearest-season warning). Verify the loader reproduces the worked-example constants (ifFIP constant 3.34, lgRA9 - lgERA 0.33, AL ifFIP 4.23) from the 2016 data.
 - [x] 7.3 Write failing tests: the Stroman 2016 worked example step by step, the reliever leverage path, the mixed-role blend, missing-column errors, and league and park-factor handling per row. Verify they fail against the current flat-replacement implementation.
 - [x] 7.4 Implement `WARFramework.calculate_pitcher_war_df` as the documented FanGraphs method (vectorized, league from a column or the context, FIP park factor from a column or the context, optional correction override) and update the example script and benchmark. Verify the worked-example, reliever and mixed-role tests, the existing suite, ruff and pyright pass.
-- [ ] 7.5 Add `tests/golden/pitcher_war.yaml` (2016 starters and relievers from the FanGraphs leaderboard with RAR, WAR, role, park factor, source, tolerance; mixed-role divergence recorded) and a comparison test. Verify observed differences are within the stated tolerance and the divergence entry still diverges.
-- [ ] 7.6 Update the audit data, regenerate `docs/METHODOLOGY.md`, the pitcher-WAR docstring, ADR-0027 (including the numeric change and the measured leaderboard difference), and the README note. Verify the methodology consistency tests and `openspec validate --strict` pass.
+- [x] 7.5 Add `tests/golden/pitcher_war.yaml` (2016 starters and relievers from the FanGraphs leaderboard with RAR, WAR, role, park factor, source, tolerance; mixed-role divergence recorded) and a comparison test. Verify observed differences are within the stated tolerance and the divergence entry still diverges.
+- [x] 7.6 Update the audit data, regenerate `docs/METHODOLOGY.md`, the pitcher-WAR docstring, ADR-0027 (including the numeric change and the measured leaderboard difference), and the README note. Verify the methodology consistency tests and `openspec validate --strict` pass.
 
 ## Workflow follow-up
 
