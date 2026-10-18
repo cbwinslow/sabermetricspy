@@ -1,53 +1,60 @@
-# Published FanGraphs Guts! Seasonal Constants & Linear Weights
-# Source: https://www.fangraphs.com/guts.aspx?type=cn
-# Citations: Tom Tango (The Book, 2007), FanGraphs Library
+# Seasonal wOBA/FIP linear weights and league constants (MLB).
+# Authority: FanGraphs Guts! (weights, scales, runs/PA, runs/win, cFIP) and FanGraphs league-total leaderboard rows
+# (league ERA/FIP/xFIP/HR-FB, OBP/SLG, K%/BB%). Verified against tests/golden snapshots by tests/test_constants.py.
+# Fields with no published source for a season are omitted (lg_xfip and lg_hr_per_fb before 2002), never defaulted.
 seasons:
   2025:
     season: 2025
     league: "MLB"
-    lg_woba: 0.310
-    woba_scale: 1.242
-    w_bb: 0.689
-    w_hbp: 0.720
-    w_1b: 0.883
-    w_2b: 1.254
-    w_3b: 1.590
-    w_hr: 2.050
-    r_sb: 0.200
-    r_cs: -0.405
-    lg_r_per_pa: 0.116
-    lg_r_per_w: 9.721
-    c_fip: 3.160
-    lg_era: 4.08
-    lg_fip: 4.08
-    lg_xfip: 4.08
-    lg_hr_per_fb: 0.114
-    lg_obp: 0.312
-    lg_slg: 0.399
-    source: "FanGraphs Guts!"
+    lg_woba: 0.313
+    woba_scale: 1.232
+    w_bb: 0.691
+    w_hbp: 0.722
+    w_1b: 0.882
+    w_2b: 1.252
+    w_3b: 1.584
+    w_hr: 2.037
+    r_sb: 0.2
+    r_cs: -0.41
+    lg_r_per_pa: 0.118
+    lg_r_per_w: 9.774
+    c_fip: 3.135
+    lg_era: 4.158491361224783
+    lg_fip: 4.158491020145353
+    lg_xfip: 4.158491082736808
+    lg_hr_per_fb: 0.118595327
+    lg_obp: 0.315150484
+    lg_slg: 0.403809023
+    lg_k_pct: 0.2221948886155528
+    lg_bb_pct: 0.0840727073937406
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
   2024:
     season: 2024
     league: "MLB"
-    lg_woba: 0.310
+    lg_woba: 0.31
     woba_scale: 1.242
     w_bb: 0.689
-    w_hbp: 0.720
+    w_hbp: 0.72
     w_1b: 0.882
     w_2b: 1.254
-    w_3b: 1.590
-    w_hr: 2.050
-    r_sb: 0.200
+    w_3b: 1.59
+    w_hr: 2.05
+    r_sb: 0.2
     r_cs: -0.405
-    lg_r_per_pa: 0.115
-    lg_r_per_w: 9.695
+    lg_r_per_pa: 0.117
+    lg_r_per_w: 9.683
     c_fip: 3.166
-    lg_era: 4.07
-    lg_fip: 4.07
-    lg_xfip: 4.07
-    lg_hr_per_fb: 0.113
-    lg_obp: 0.312
-    lg_slg: 0.399
-    source: "FanGraphs Guts!"
+    lg_era: 4.07894181840083
+    lg_fip: 4.078941491380367
+    lg_xfip: 4.0789415404871905
+    lg_hr_per_fb: 0.116308335
+    lg_obp: 0.3121107
+    lg_slg: 0.399219241
+    lg_k_pct: 0.2258000865995429
+    lg_bb_pct: 0.08182560605977561
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
   2023:
     season: 2023
     league: "MLB"
@@ -59,41 +66,47 @@ seasons:
     w_2b: 1.244
     w_3b: 1.569
     w_hr: 2.004
-    r_sb: 0.200
+    r_sb: 0.2
     r_cs: -0.422
     lg_r_per_pa: 0.122
     lg_r_per_w: 10.028
     c_fip: 3.255
-    lg_era: 4.33
-    lg_fip: 4.33
-    lg_xfip: 4.33
-    lg_hr_per_fb: 0.127
-    lg_obp: 0.320
-    lg_slg: 0.414
-    source: "FanGraphs Guts!"
+    lg_era: 4.331714250563033
+    lg_fip: 4.331714183169497
+    lg_xfip: 4.331714103691482
+    lg_hr_per_fb: 0.127180909
+    lg_obp: 0.320134655
+    lg_slg: 0.414157817
+    lg_k_pct: 0.22727914656933038
+    lg_bb_pct: 0.0859242602007561
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
   2022:
     season: 2022
     league: "MLB"
-    lg_woba: 0.310
+    lg_woba: 0.31
     woba_scale: 1.259
     w_bb: 0.689
-    w_hbp: 0.720
+    w_hbp: 0.72
     w_1b: 0.884
     w_2b: 1.261
     w_3b: 1.601
     w_hr: 2.072
-    r_sb: 0.200
-    r_cs: -0.400
+    r_sb: 0.2
+    r_cs: -0.397
     lg_r_per_pa: 0.114
     lg_r_per_w: 9.524
     c_fip: 3.112
-    lg_era: 3.96
-    lg_fip: 3.96
-    lg_xfip: 3.96
-    lg_hr_per_fb: 0.114
-    lg_obp: 0.312
-    lg_slg: 0.395
-    source: "FanGraphs Guts!"
+    lg_era: 3.96832714563721
+    lg_fip: 3.968326946984303
+    lg_xfip: 3.968326882531523
+    lg_hr_per_fb: 0.113874574
+    lg_obp: 0.311551424
+    lg_slg: 0.394861285
+    lg_k_pct: 0.2241777074681959
+    lg_bb_pct: 0.08158657965855909
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
   2021:
     season: 2021
     league: "MLB"
@@ -105,84 +118,800 @@ seasons:
     w_2b: 1.242
     w_3b: 1.568
     w_hr: 2.007
-    r_sb: 0.200
+    r_sb: 0.2
     r_cs: -0.419
     lg_r_per_pa: 0.121
     lg_r_per_w: 9.973
-    c_fip: 3.170
-    lg_era: 4.26
-    lg_fip: 4.26
-    lg_xfip: 4.26
-    lg_hr_per_fb: 0.136
-    lg_obp: 0.317
-    lg_slg: 0.411
-    source: "FanGraphs Guts!"
+    c_fip: 3.17
+    lg_era: 4.265892667856131
+    lg_fip: 4.265892485031086
+    lg_xfip: 4.26589257176309
+    lg_hr_per_fb: 0.135720157
+    lg_obp: 0.317089341
+    lg_slg: 0.410773059
+    lg_k_pct: 0.2317990066935435
+    lg_bb_pct: 0.08686756463917016
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
   2020:
     season: 2020
     league: "MLB"
-    lg_woba: 0.320
-    woba_scale: 1.186
+    lg_woba: 0.32
+    woba_scale: 1.185
     w_bb: 0.699
     w_hbp: 0.728
     w_1b: 0.883
     w_2b: 1.238
     w_3b: 1.558
     w_hr: 1.979
-    r_sb: 0.200
+    r_sb: 0.2
     r_cs: -0.435
     lg_r_per_pa: 0.125
-    lg_r_per_w: 10.165
+    lg_r_per_w: 10.282
     c_fip: 3.191
-    lg_era: 4.44
-    lg_fip: 4.44
-    lg_xfip: 4.44
-    lg_hr_per_fb: 0.148
-    lg_obp: 0.322
-    lg_slg: 0.418
-    source: "FanGraphs Guts!"
+    lg_era: 4.45326082190745
+    lg_fip: 4.453260589077529
+    lg_xfip: 4.453260575790558
+    lg_hr_per_fb: 0.148329363
+    lg_obp: 0.321832843
+    lg_slg: 0.417685922
+    lg_k_pct: 0.23435479505608517
+    lg_bb_pct: 0.09160075782636153
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2019:
+    season: 2019
+    league: "MLB"
+    lg_woba: 0.32
+    woba_scale: 1.157
+    w_bb: 0.69
+    w_hbp: 0.719
+    w_1b: 0.87
+    w_2b: 1.217
+    w_3b: 1.529
+    w_hr: 1.94
+    r_sb: 0.2
+    r_cs: -0.435
+    lg_r_per_pa: 0.126
+    lg_r_per_w: 10.296
+    c_fip: 3.214
+    lg_era: 4.505458267287775
+    lg_fip: 4.505458112356738
+    lg_xfip: 4.505458206097483
+    lg_hr_per_fb: 0.15301583
+    lg_obp: 0.322694959
+    lg_slg: 0.434848875
+    lg_k_pct: 0.2295942439254541
+    lg_bb_pct: 0.08522057088936069
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2018:
+    season: 2018
+    league: "MLB"
+    lg_woba: 0.315
+    woba_scale: 1.226
+    w_bb: 0.69
+    w_hbp: 0.72
+    w_1b: 0.88
+    w_2b: 1.247
+    w_3b: 1.578
+    w_hr: 2.031
+    r_sb: 0.2
+    r_cs: -0.407
+    lg_r_per_pa: 0.117
+    lg_r_per_w: 9.714
+    c_fip: 3.16
+    lg_era: 4.149532424656503
+    lg_fip: 4.14953235349528
+    lg_xfip: 4.149532346902846
+    lg_hr_per_fb: 0.127047315
+    lg_obp: 0.318144078
+    lg_slg: 0.409418975
+    lg_k_pct: 0.22257330978346
+    lg_bb_pct: 0.0847255305473185
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2017:
+    season: 2017
+    league: "MLB"
+    lg_woba: 0.321
+    woba_scale: 1.185
+    w_bb: 0.693
+    w_hbp: 0.723
+    w_1b: 0.877
+    w_2b: 1.232
+    w_3b: 1.552
+    w_hr: 1.98
+    r_sb: 0.2
+    r_cs: -0.423
+    lg_r_per_pa: 0.122
+    lg_r_per_w: 10.048
+    c_fip: 3.158
+    lg_era: 4.358208254048818
+    lg_fip: 4.358208480290457
+    lg_xfip: 4.358208495113422
+    lg_hr_per_fb: 0.136831252
+    lg_obp: 0.324461419
+    lg_slg: 0.425912168
+    lg_k_pct: 0.2164332550797377
+    lg_bb_pct: 0.08542594241614722
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2016:
+    season: 2016
+    league: "MLB"
+    lg_woba: 0.318
+    woba_scale: 1.212
+    w_bb: 0.691
+    w_hbp: 0.721
+    w_1b: 0.878
+    w_2b: 1.242
+    w_3b: 1.569
+    w_hr: 2.015
+    r_sb: 0.2
+    r_cs: -0.41
+    lg_r_per_pa: 0.118
+    lg_r_per_w: 9.778
+    c_fip: 3.147
+    lg_era: 4.1898955292896805
+    lg_fip: 4.189895147431938
+    lg_xfip: 4.189895015868069
+    lg_hr_per_fb: 0.128123144
+    lg_obp: 0.321583094
+    lg_slg: 0.417411105
+    lg_k_pct: 0.21119641125383987
+    lg_bb_pct: 0.08174366253650238
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2015:
+    season: 2015
+    league: "MLB"
+    lg_woba: 0.313
+    woba_scale: 1.251
+    w_bb: 0.687
+    w_hbp: 0.718
+    w_1b: 0.881
+    w_2b: 1.256
+    w_3b: 1.594
+    w_hr: 2.065
+    r_sb: 0.2
+    r_cs: -0.392
+    lg_r_per_pa: 0.112
+    lg_r_per_w: 9.421
+    c_fip: 3.134
+    lg_era: 3.9617889170185556
+    lg_fip: 3.961788523374833
+    lg_xfip: 3.9617885132489814
+    lg_hr_per_fb: 0.113513388
+    lg_obp: 0.316790482
+    lg_slg: 0.404579183
+    lg_k_pct: 0.20392425950432125
+    lg_bb_pct: 0.07663905634792269
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2014:
+    season: 2014
+    league: "MLB"
+    lg_woba: 0.31
+    woba_scale: 1.304
+    w_bb: 0.689
+    w_hbp: 0.722
+    w_1b: 0.892
+    w_2b: 1.283
+    w_3b: 1.635
+    w_hr: 2.135
+    r_sb: 0.2
+    r_cs: -0.377
+    lg_r_per_pa: 0.107
+    lg_r_per_w: 9.117
+    c_fip: 3.132
+    lg_era: 3.741052414162447
+    lg_fip: 3.7410522109500697
+    lg_xfip: 3.741052191620162
+    lg_hr_per_fb: 0.095073701
+    lg_obp: 0.313683495
+    lg_slg: 0.386368302
+    lg_k_pct: 0.2035633508764299
+    lg_bb_pct: 0.0762254795354704
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2013:
+    season: 2013
+    league: "MLB"
+    lg_woba: 0.314
+    woba_scale: 1.277
+    w_bb: 0.69
+    w_hbp: 0.722
+    w_1b: 0.888
+    w_2b: 1.271
+    w_3b: 1.616
+    w_hr: 2.101
+    r_sb: 0.2
+    r_cs: -0.384
+    lg_r_per_pa: 0.11
+    lg_r_per_w: 9.264
+    c_fip: 3.048
+    lg_era: 3.865684482010205
+    lg_fip: 3.8656843117932826
+    lg_xfip: 3.8656842879390774
+    lg_hr_per_fb: 0.10508872
+    lg_obp: 0.317602812
+    lg_slg: 0.396471367
+    lg_k_pct: 0.19856982128175169
+    lg_bb_pct: 0.07918992600285603
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2012:
+    season: 2012
+    league: "MLB"
+    lg_woba: 0.315
+    woba_scale: 1.245
+    w_bb: 0.691
+    w_hbp: 0.722
+    w_1b: 0.884
+    w_2b: 1.257
+    w_3b: 1.593
+    w_hr: 2.058
+    r_sb: 0.2
+    r_cs: -0.398
+    lg_r_per_pa: 0.114
+    lg_r_per_w: 9.544
+    c_fip: 3.094
+    lg_era: 4.014731288750079
+    lg_fip: 4.014731100488703
+    lg_xfip: 4.014731086659994
+    lg_hr_per_fb: 0.112942361
+    lg_obp: 0.318956409
+    lg_slg: 0.405322811
+    lg_k_pct: 0.1977749906341114
+    lg_bb_pct: 0.07986252504357175
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2011:
+    season: 2011
+    league: "MLB"
+    lg_woba: 0.316
+    woba_scale: 1.264
+    w_bb: 0.694
+    w_hbp: 0.726
+    w_1b: 0.89
+    w_2b: 1.27
+    w_3b: 1.611
+    w_hr: 2.086
+    r_sb: 0.2
+    r_cs: -0.394
+    lg_r_per_pa: 0.112
+    lg_r_per_w: 9.454
+    c_fip: 3.025
+    lg_era: 3.9424195794375896
+    lg_fip: 3.942419320943429
+    lg_xfip: 3.942419334993419
+    lg_hr_per_fb: 0.096635176
+    lg_obp: 0.320559408
+    lg_slg: 0.399010289
+    lg_k_pct: 0.1861750654538584
+    lg_bb_pct: 0.08107101406245783
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2010:
+    season: 2010
+    league: "MLB"
+    lg_woba: 0.321
+    woba_scale: 1.251
+    w_bb: 0.701
+    w_hbp: 0.732
+    w_1b: 0.895
+    w_2b: 1.27
+    w_3b: 1.608
+    w_hr: 2.072
+    r_sb: 0.2
+    r_cs: -0.403
+    lg_r_per_pa: 0.115
+    lg_r_per_w: 9.643
+    c_fip: 3.078
+    lg_era: 4.078597250379596
+    lg_fip: 4.078596836134164
+    lg_xfip: 4.078596735354323
+    lg_hr_per_fb: 0.093941553
+    lg_obp: 0.325473826
+    lg_slg: 0.402841194
+    lg_k_pct: 0.18488518105339175
+    lg_bb_pct: 0.08503230882820542
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2009:
+    season: 2009
+    league: "MLB"
+    lg_woba: 0.329
+    woba_scale: 1.21
+    w_bb: 0.707
+    w_hbp: 0.737
+    w_1b: 0.895
+    w_2b: 1.258
+    w_3b: 1.585
+    w_hr: 2.023
+    r_sb: 0.2
+    r_cs: -0.42
+    lg_r_per_pa: 0.12
+    lg_r_per_w: 9.994
+    c_fip: 3.097
+    lg_era: 4.321755746708027
+    lg_fip: 4.321755698611134
+    lg_xfip: 4.321755683643338
+    lg_hr_per_fb: 0.100979351
+    lg_obp: 0.332932452
+    lg_slg: 0.417759528
+    lg_k_pct: 0.17955516118858877
+    lg_bb_pct: 0.08883947423281074
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2008:
+    season: 2008
+    league: "MLB"
+    lg_woba: 0.328
+    woba_scale: 1.211
+    w_bb: 0.708
+    w_hbp: 0.739
+    w_1b: 0.896
+    w_2b: 1.259
+    w_3b: 1.587
+    w_hr: 2.024
+    r_sb: 0.2
+    r_cs: -0.422
+    lg_r_per_pa: 0.12
+    lg_r_per_w: 10.032
+    c_fip: 3.132
+    lg_era: 4.323803107412935
+    lg_fip: 4.323802981418046
+    lg_xfip: 4.323803031795174
+    lg_hr_per_fb: 0.101458017
+    lg_obp: 0.333073599
+    lg_slg: 0.416233789
+    lg_k_pct: 0.17525888579179347
+    lg_bb_pct: 0.08706983387606526
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2007:
+    season: 2007
+    league: "MLB"
+    lg_woba: 0.331
+    woba_scale: 1.192
+    w_bb: 0.711
+    w_hbp: 0.741
+    w_1b: 0.896
+    w_2b: 1.253
+    w_3b: 1.575
+    w_hr: 1.999
+    r_sb: 0.2
+    r_cs: -0.433
+    lg_r_per_pa: 0.124
+    lg_r_per_w: 10.25
+    c_fip: 3.24
+    lg_era: 4.473092284424998
+    lg_fip: 4.473092341081535
+    lg_xfip: 4.4730924256948175
+    lg_hr_per_fb: 0.096497887
+    lg_obp: 0.335783553
+    lg_slg: 0.42269479
+    lg_k_pct: 0.17065257153157357
+    lg_bb_pct: 0.08524411126956946
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2006:
+    season: 2006
+    league: "MLB"
+    lg_woba: 0.332
+    woba_scale: 1.17
+    w_bb: 0.708
+    w_hbp: 0.737
+    w_1b: 0.89
+    w_2b: 1.241
+    w_3b: 1.557
+    w_hr: 1.97
+    r_sb: 0.2
+    r_cs: -0.439
+    lg_r_per_pa: 0.125
+    lg_r_per_w: 10.365
+    c_fip: 3.147
+    lg_era: 4.526839267004963
+    lg_fip: 4.52683941531205
+    lg_xfip: 4.526839444930427
+    lg_hr_per_fb: 0.108230849
+    lg_obp: 0.336570082
+    lg_slg: 0.431872643
+    lg_k_pct: 0.1683140941452962
+    lg_bb_pct: 0.08426073131955485
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2005:
+    season: 2005
+    league: "MLB"
+    lg_woba: 0.326
+    woba_scale: 1.208
+    w_bb: 0.703
+    w_hbp: 0.733
+    w_1b: 0.89
+    w_2b: 1.252
+    w_3b: 1.578
+    w_hr: 2.017
+    r_sb: 0.2
+    r_cs: -0.419
+    lg_r_per_pa: 0.12
+    lg_r_per_w: 9.971
+    c_fip: 3.02
+    lg_era: 4.290955375286457
+    lg_fip: 4.290955024320586
+    lg_xfip: 4.2909550175097815
+    lg_hr_per_fb: 0.106094569
+    lg_obp: 0.330322329
+    lg_slg: 0.418920624
+    lg_k_pct: 0.16449268360763095
+    lg_bb_pct: 0.08162903797223743
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2004:
+    season: 2004
+    league: "MLB"
+    lg_woba: 0.33
+    woba_scale: 1.18
+    w_bb: 0.707
+    w_hbp: 0.737
+    w_1b: 0.89
+    w_2b: 1.244
+    w_3b: 1.563
+    w_hr: 1.983
+    r_sb: 0.2
+    r_cs: -0.434
+    lg_r_per_pa: 0.124
+    lg_r_per_w: 10.272
+    c_fip: 3.049
+    lg_era: 4.464741987427148
+    lg_fip: 4.464741676040344
+    lg_xfip: 4.464741708148376
+    lg_hr_per_fb: 0.112144341
+    lg_obp: 0.33510718
+    lg_slg: 0.427778408
+    lg_k_pct: 0.1688138793565257
+    lg_bb_pct: 0.08604055394374639
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2003:
+    season: 2003
+    league: "MLB"
+    lg_woba: 0.328
+    woba_scale: 1.194
+    w_bb: 0.706
+    w_hbp: 0.736
+    w_1b: 0.891
+    w_2b: 1.249
+    w_3b: 1.572
+    w_hr: 2.0
+    r_sb: 0.2
+    r_cs: -0.428
+    lg_r_per_pa: 0.123
+    lg_r_per_w: 10.158
+    c_fip: 3.032
+    lg_era: 4.400000272209828
+    lg_fip: 4.400000208033454
+    lg_xfip: 4.400000136456985
+    lg_hr_per_fb: 0.112161812
+    lg_obp: 0.332569115
+    lg_slg: 0.42205989
+    lg_k_pct: 0.1643166941408063
+    lg_bb_pct: 0.08476438924720857
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  2002:
+    season: 2002
+    league: "MLB"
+    lg_woba: 0.326
+    woba_scale: 1.211
+    w_bb: 0.704
+    w_hbp: 0.735
+    w_1b: 0.892
+    w_2b: 1.255
+    w_3b: 1.582
+    w_hr: 2.021
+    r_sb: 0.2
+    r_cs: -0.42
+    lg_r_per_pa: 0.12
+    lg_r_per_w: 9.991
+    c_fip: 2.962
+    lg_era: 4.278375107293243
+    lg_fip: 4.278374913127211
+    lg_xfip: 4.278374904043387
+    lg_hr_per_fb: 0.107084647
+    lg_obp: 0.331203304
+    lg_slg: 0.416655091
+    lg_k_pct: 0.16822870615974064
+    lg_bb_pct: 0.08705623878037672
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
   2001:
     season: 2001
     league: "MLB"
-    lg_woba: 0.333
+    lg_woba: 0.327
     woba_scale: 1.182
-    w_bb: 0.706
-    w_hbp: 0.736
+    w_bb: 0.704
+    w_hbp: 0.733
     w_1b: 0.887
-    w_2b: 1.244
-    w_3b: 1.564
-    w_hr: 1.980
-    r_sb: 0.200
-    r_cs: -0.437
-    lg_r_per_pa: 0.126
-    lg_r_per_w: 10.273
+    w_2b: 1.242
+    w_3b: 1.561
+    w_hr: 1.982
+    r_sb: 0.2
+    r_cs: -0.432
+    lg_r_per_pa: 0.124
+    lg_r_per_w: 10.235
     c_fip: 3.049
-    lg_era: 4.41
-    lg_fip: 4.41
-    lg_xfip: 4.41
-    lg_hr_per_fb: 0.115
-    lg_obp: 0.332
-    lg_slg: 0.427
-    source: "FanGraphs Guts!"
+    lg_era: 4.417528105109853
+    lg_fip: 4.417527973632282
+    lg_obp: 0.332202164
+    lg_slg: 0.426639556
+    lg_k_pct: 0.17330566489816876
+    lg_bb_pct: 0.08453491357179531
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
   2000:
     season: 2000
     league: "MLB"
-    lg_woba: 0.345
-    woba_scale: 1.135
-    w_bb: 0.717
-    w_hbp: 0.746
-    w_1b: 0.892
-    w_2b: 1.236
-    w_3b: 1.547
-    w_hr: 1.931
-    r_sb: 0.200
-    r_cs: -0.464
-    lg_r_per_pa: 0.133
-    lg_r_per_w: 10.749
+    lg_woba: 0.341
+    woba_scale: 1.147
+    w_bb: 0.722
+    w_hbp: 0.751
+    w_1b: 0.9
+    w_2b: 1.244
+    w_3b: 1.554
+    w_hr: 1.947
+    r_sb: 0.2
+    r_cs: -0.46
+    lg_r_per_pa: 0.131
+    lg_r_per_w: 10.795
     c_fip: 3.134
-    lg_era: 4.76
-    lg_fip: 4.76
-    lg_xfip: 4.76
-    lg_hr_per_fb: 0.120
-    lg_obp: 0.345
-    lg_slg: 0.437
-    source: "FanGraphs Guts!"
+    lg_era: 4.769688810816255
+    lg_fip: 4.769688609931811
+    lg_obp: 0.344916071
+    lg_slg: 0.437145077
+    lg_k_pct: 0.16480518866189078
+    lg_bb_pct: 0.09585253940639438
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  1999:
+    season: 1999
+    league: "MLB"
+    lg_woba: 0.341
+    woba_scale: 1.156
+    w_bb: 0.723
+    w_hbp: 0.752
+    w_1b: 0.902
+    w_2b: 1.249
+    w_3b: 1.561
+    w_hr: 1.959
+    r_sb: 0.2
+    r_cs: -0.456
+    lg_r_per_pa: 0.13
+    lg_r_per_w: 10.714
+    c_fip: 3.134
+    lg_era: 4.708629338774398
+    lg_fip: 4.708372839629438
+    lg_obp: 0.344534776
+    lg_slg: 0.433851069
+    lg_k_pct: 0.16405014444467875
+    lg_bb_pct: 0.09431604917445122
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  1998:
+    season: 1998
+    league: "MLB"
+    lg_woba: 0.331
+    woba_scale: 1.197
+    w_bb: 0.713
+    w_hbp: 0.742
+    w_1b: 0.898
+    w_2b: 1.257
+    w_3b: 1.58
+    w_hr: 2.007
+    r_sb: 0.2
+    r_cs: -0.432
+    lg_r_per_pa: 0.124
+    lg_r_per_w: 10.232
+    c_fip: 3.139
+    lg_era: 4.4315526508171095
+    lg_fip: 4.431852470062146
+    lg_obp: 0.335148695
+    lg_slg: 0.420185616
+    lg_k_pct: 0.16939304454972276
+    lg_bb_pct: 0.08735208514796797
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  1997:
+    season: 1997
+    league: "MLB"
+    lg_woba: 0.332
+    woba_scale: 1.201
+    w_bb: 0.714
+    w_hbp: 0.744
+    w_1b: 0.9
+    w_2b: 1.26
+    w_3b: 1.585
+    w_hr: 2.013
+    r_sb: 0.2
+    r_cs: -0.431
+    lg_r_per_pa: 0.123
+    lg_r_per_w: 10.21
+    c_fip: 3.109
+    lg_era: 4.389207794077854
+    lg_fip: 4.3894559508563855
+    lg_obp: 0.336825039
+    lg_slg: 0.419206248
+    lg_k_pct: 0.17054135501108003
+    lg_bb_pct: 0.08924410821403547
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  1996:
+    season: 1996
+    league: "MLB"
+    lg_woba: 0.335
+    woba_scale: 1.171
+    w_bb: 0.719
+    w_hbp: 0.748
+    w_1b: 0.901
+    w_2b: 1.252
+    w_3b: 1.568
+    w_hr: 1.975
+    r_sb: 0.2
+    r_cs: -0.45
+    lg_r_per_pa: 0.129
+    lg_r_per_w: 10.599
+    c_fip: 3.172
+    lg_era: 4.610871217936316
+    lg_fip: 4.61092306619333
+    lg_obp: 0.340453505
+    lg_slg: 0.426674574
+    lg_k_pct: 0.16533811723955072
+    lg_bb_pct: 0.09078703155234372
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  1995:
+    season: 1995
+    league: "MLB"
+    lg_woba: 0.333
+    woba_scale: 1.199
+    w_bb: 0.718
+    w_hbp: 0.748
+    w_1b: 0.903
+    w_2b: 1.263
+    w_3b: 1.587
+    w_hr: 2.011
+    r_sb: 0.2
+    r_cs: -0.437
+    lg_r_per_pa: 0.125
+    lg_r_per_w: 10.326
+    c_fip: 3.103
+    lg_era: 4.451543368061234
+    lg_fip: 4.451543040450574
+    lg_obp: 0.337843584
+    lg_slg: 0.417284877
+    lg_k_pct: 0.16224960594245164
+    lg_bb_pct: 0.09087254232529052
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  1994:
+    season: 1994
+    league: "MLB"
+    lg_woba: 0.333
+    woba_scale: 1.182
+    w_bb: 0.716
+    w_hbp: 0.745
+    w_1b: 0.899
+    w_2b: 1.254
+    w_3b: 1.573
+    w_hr: 1.988
+    r_sb: 0.2
+    r_cs: -0.442
+    lg_r_per_pa: 0.127
+    lg_r_per_w: 10.439
+    c_fip: 3.131
+    lg_era: 4.512016777754644
+    lg_fip: 4.511628676465312
+    lg_obp: 0.338701172
+    lg_slg: 0.424319373
+    lg_k_pct: 0.1587847336584112
+    lg_bb_pct: 0.08941783215378807
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  1993:
+    season: 1993
+    league: "MLB"
+    lg_woba: 0.327
+    woba_scale: 1.24
+    w_bb: 0.713
+    w_hbp: 0.744
+    w_1b: 0.905
+    w_2b: 1.278
+    w_3b: 1.613
+    w_hr: 2.063
+    r_sb: 0.2
+    r_cs: -0.418
+    lg_r_per_pa: 0.12
+    lg_r_per_w: 9.953
+    c_fip: 2.988
+    lg_era: 4.190574787616765
+    lg_fip: 4.190599234551692
+    lg_obp: 0.332289344
+    lg_slg: 0.403281375
+    lg_k_pct: 0.15071836117412524
+    lg_bb_pct: 0.08655851149148737
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  1992:
+    season: 1992
+    league: "MLB"
+    lg_woba: 0.317
+    woba_scale: 1.33
+    w_bb: 0.706
+    w_hbp: 0.739
+    w_1b: 0.912
+    w_2b: 1.311
+    w_3b: 1.67
+    w_hr: 2.178
+    r_sb: 0.2
+    r_cs: -0.381
+    lg_r_per_pa: 0.108
+    lg_r_per_w: 9.188
+    c_fip: 2.783
+    lg_era: 3.7456649296215168
+    lg_fip: 3.745640289849672
+    lg_obp: 0.322352393
+    lg_slg: 0.377277021
+    lg_k_pct: 0.14661309913108475
+    lg_bb_pct: 0.08522221184091687
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  1991:
+    season: 1991
+    league: "MLB"
+    lg_woba: 0.318
+    woba_scale: 1.297
+    w_bb: 0.707
+    w_hbp: 0.739
+    w_1b: 0.908
+    w_2b: 1.297
+    w_3b: 1.647
+    w_hr: 2.133
+    r_sb: 0.2
+    r_cs: -0.395
+    lg_r_per_pa: 0.113
+    lg_r_per_w: 9.479
+    c_fip: 2.856
+    lg_era: 3.911234121973908
+    lg_fip: 3.9112338822528345
+    lg_obp: 0.323352503
+    lg_slg: 0.384662194
+    lg_k_pct: 0.15173005860176925
+    lg_bb_pct: 0.08699438866285941
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"
+  1990:
+    season: 1990
+    league: "MLB"
+    lg_woba: 0.319
+    woba_scale: 1.299
+    w_bb: 0.707
+    w_hbp: 0.739
+    w_1b: 0.908
+    w_2b: 1.298
+    w_3b: 1.648
+    w_hr: 2.137
+    r_sb: 0.2
+    r_cs: -0.393
+    lg_r_per_pa: 0.112
+    lg_r_per_w: 9.44
+    c_fip: 2.808
+    lg_era: 3.8615241664474036
+    lg_fip: 3.8612846627486057
+    lg_obp: 0.324614783
+    lg_slg: 0.385408494
+    lg_k_pct: 0.14878739489508222
+    lg_bb_pct: 0.0864043514059732
+    source: "FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals from FanGraphs leaderboards (team=0,ss)"
+    retrieved: "2026-10-18"

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import warnings
 from functools import lru_cache
 from importlib import resources
 from pathlib import Path
@@ -10,6 +11,8 @@ from typing import Any
 import yaml
 
 from sabermetricspy.types.context import ParkFactor, SeasonContext, WOBAWeights
+
+_WARNED_FALLBACKS: set[tuple[int, int]] = set()
 
 
 @lru_cache(maxsize=1)
@@ -36,15 +39,30 @@ def _load_default_parks_table() -> dict[str, ParkFactor]:
     return {k.upper(): ParkFactor.model_validate(v) for k, v in parks_raw.items()}
 
 
+def bundled_constants() -> dict[int, WOBAWeights]:
+    """Return a copy of the bundled seasonal constants table keyed by season."""
+    return dict(_load_default_woba_table())
+
+
 def get_woba_weights(season: int = 2024) -> WOBAWeights:
     """Retrieve seasonal wOBA/FIP linear weights for a given season.
 
-    If the exact year is not in the bundled table, returns the nearest available season's weights.
+    If the exact year is not in the bundled table, returns the nearest available season's
+    constants labeled with the requested season and emits a `UserWarning` (once per
+    requested/substituted pair) naming both seasons.
     """
     table = _load_default_woba_table()
     if season in table:
         return table[season]
     nearest_year = min(table.keys(), key=lambda y: abs(y - season))
+    if (season, nearest_year) not in _WARNED_FALLBACKS:
+        _WARNED_FALLBACKS.add((season, nearest_year))
+        warnings.warn(
+            f"No bundled constants for season {season}; using season {nearest_year} constants instead. "
+            "Pass a SeasonContext with explicit weights for exact results.",
+            UserWarning,
+            stacklevel=2,
+        )
     base = table[nearest_year]
     return base.model_copy(update={"season": season})
 

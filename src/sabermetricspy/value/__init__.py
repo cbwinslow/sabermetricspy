@@ -117,6 +117,10 @@ class WARFramework:
 
         ip_expr = nw.col("outs").cast(nw.Float64) / 3.0
         park_adj_est = safe_div(nw.col(run_estimator_col), pf)
+        if w.lg_fip is None:
+            raise ValueError(
+                f"Pitcher WAR requires a sourced league FIP/RA9 for season {w.season}; none is bundled."
+            )
         lg_ra9 = w.lg_fip
         rpw = w.lg_r_per_w
 
@@ -170,15 +174,15 @@ class WARFramework:
         fld_expr = (
             nw.col(fielding_runs_col).cast(nw.Float64) if fielding_runs_col in cols else nw.lit(0.0)
         )
-        lg_expr = nw.col(league_runs_col).cast(nw.Float64) if league_runs_col in cols else nw.lit(0.0)
+        lg_expr = (
+            nw.col(league_runs_col).cast(nw.Float64) if league_runs_col in cols else nw.lit(0.0)
+        )
 
         if position_col in cols:
             pos_upper = nw.col(position_col).str.to_uppercase()
             pos_adj_expr: nw.Expr = nw.lit(0.0)
             for pos_code, adj_val in POSITIONAL_ADJUSTMENTS_PER_162.items():
-                pos_adj_expr = (
-                    nw.when(pos_upper == pos_code).then(adj_val).otherwise(pos_adj_expr)
-                )
+                pos_adj_expr = nw.when(pos_upper == pos_code).then(adj_val).otherwise(pos_adj_expr)
         else:
             pos_adj_expr = nw.lit(0.0)
 
@@ -200,4 +204,3 @@ class WARFramework:
         war_expr = (nw.col("runs_above_replacement") / rpw).alias("war")
         out_nw = out_nw.with_columns(war_expr)
         return nw.to_native(out_nw)
-

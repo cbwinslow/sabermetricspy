@@ -25,10 +25,22 @@ class WOBAWeights(BaseModel):
     lg_r_per_pa: float = Field(..., description="League runs per plate appearance")
     lg_r_per_w: float = Field(..., description="League runs per win (RPW)")
     c_fip: float = Field(..., description="Seasonal FIP constant")
-    lg_era: float = Field(default=4.15, description="League average ERA")
-    lg_fip: float = Field(default=4.15, description="League average FIP")
-    lg_xfip: float = Field(default=4.15, description="League average xFIP")
-    lg_hr_per_fb: float = Field(default=0.115, description="League HR/FB ratio for xFIP")
+    lg_era: float | None = Field(
+        default=None, description="League average ERA (None when unsourced)"
+    )
+    lg_fip: float | None = Field(
+        default=None, description="League average FIP (None when unsourced)"
+    )
+    lg_xfip: float | None = Field(
+        default=None, description="League average xFIP (None when unsourced)"
+    )
+    lg_hr_per_fb: float | None = Field(
+        default=None, description="League HR/FB ratio for xFIP (None when unsourced; 2002+ only)"
+    )
+    lg_wrc_per_pa: float | None = Field(
+        default=None,
+        description="League (AL/NL) wRC/PA excluding pitchers, the wRC+ denominator (None when unsourced)",
+    )
     lg_obp: float = Field(default=0.315, description="League average OBP for OPS+")
     lg_slg: float = Field(default=0.410, description="League average SLG for OPS+")
     lg_k_pct: float = Field(default=0.226, description="League average strikeout rate (SO/PA)")
@@ -41,6 +53,7 @@ class WOBAWeights(BaseModel):
         default=0.0, description="League stolen base runs per opportunity (1B + uBB + HBP)"
     )
     source: str = Field(default="FanGraphs Guts!", description="Provenance source")
+    retrieved: str | None = Field(default=None, description="Date the values were retrieved (ISO)")
 
 
 class SIERACoefficients(BaseModel):
@@ -68,7 +81,9 @@ class ParkFactor(BaseModel):
     park_id: str
     team_id: str
     season: int
-    basic_5yr: float = Field(default=100.0, description="5-year regressed park factor (100=neutral)")
+    basic_5yr: float = Field(
+        default=100.0, description="5-year regressed park factor (100=neutral)"
+    )
     basic_1yr: float = Field(default=100.0, description="1-year park factor (100=neutral)")
     hr_factor: float = Field(default=100.0, description="Home run park factor (100=neutral)")
     source: str = "FanGraphs"

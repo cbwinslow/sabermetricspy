@@ -2,11 +2,11 @@
 
 ## 1. Reference snapshot and constants
 
-- [ ] 1.1 Store the FanGraphs Guts! table (1990-2025) as `tests/golden/guts_snapshot.yaml` with source URL and retrieval date; re-fetch once and diff against the first copy. Verify the two copies agree and a structure test loads the file.
-- [ ] 1.2 Add `tests/test_constants.py` comparing every bundled field to the snapshot, rejecting identical `lg_era`/`lg_fip`/`lg_xfip`, and requiring `source` on each entry. Verify it fails on the current YAML (37 field differences) before any fix.
-- [ ] 1.3 Make `lg_era`, `lg_fip`, `lg_xfip`, `lg_hr_per_fb`, and `lg_wrc_per_pa` optional with per-entry `source`/`retrieved` in the constants model; remove invented defaults. Verify `WOBAWeights` validates entries with and without them and existing callers import cleanly.
-- [ ] 1.4 Rewrite `woba_fangraphs.yaml` from the snapshot for 1990-2025 and add league ERA/FIP and HR/FB (2002+) only where a source is cited. Verify the 1.2 test passes and the cFIP/league-wOBA identity checks pass within tolerance.
-- [ ] 1.5 Make `get_woba_weights()` emit a `UserWarning` once per requested/substituted pair for unbundled seasons. Verify with `pytest.warns` for a missing season and an error-on-warning filter for a bundled one.
+- [x] 1.1 Store the FanGraphs Guts! table (1990-2025) as `tests/golden/guts_snapshot.yaml` with source URL and retrieval date; re-fetch once and diff against the first copy. Verify the two copies agree and a structure test loads the file.
+- [x] 1.2 Add `tests/test_constants.py` comparing every bundled field to the snapshot, rejecting identical `lg_era`/`lg_fip`/`lg_xfip`, and requiring `source` on each entry. Verify it fails on the current YAML (37 field differences) before any fix.
+- [x] 1.3 Make `lg_era`, `lg_fip`, `lg_xfip`, `lg_hr_per_fb`, and `lg_wrc_per_pa` optional with per-entry `source`/`retrieved` in the constants model; remove invented defaults. Verify `WOBAWeights` validates entries with and without them and existing callers import cleanly.
+- [x] 1.4 Rewrite `woba_fangraphs.yaml` from the snapshot for 1990-2025 and add league ERA/FIP and HR/FB (2002+) only where a source is cited. Verify the 1.2 test passes and the cFIP/league-wOBA identity checks pass within tolerance.
+- [x] 1.5 Make `get_woba_weights()` emit a `UserWarning` once per requested/substituted pair for unbundled seasons. Verify with `pytest.warns` for a missing season and an error-on-warning filter for a bundled one.
 
 ## 2. Formula conformance
 

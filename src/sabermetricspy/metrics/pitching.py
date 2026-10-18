@@ -5,7 +5,7 @@ from __future__ import annotations
 import narwhals as nw
 
 from sabermetricspy.registry import EvalContext, MetricSpec, register_metric
-from sabermetricspy.schema import safe_div
+from sabermetricspy.schema import missing_constant, safe_div
 from sabermetricspy.types.enums import Category, Direction, ImplKind, Metric
 
 
@@ -318,6 +318,8 @@ def calc_fip(ctx: EvalContext) -> nw.Expr:
 def calc_xfip(ctx: EvalContext) -> nw.Expr:
     w = ctx.weights
     hbp = nw.col("hbp") if "hbp" in ctx.available_columns else nw.lit(0)
+    if w.lg_hr_per_fb is None:
+        return missing_constant()
     x_hr = nw.col("fb") * w.lg_hr_per_fb
     num = 13.0 * x_hr + 3.0 * (nw.col("ubb") + hbp) - 2.0 * nw.col("so")
     ip = nw.col("outs").cast(nw.Float64) / 3.0
@@ -384,8 +386,8 @@ def calc_siera(ctx: EvalContext) -> nw.Expr:
     net_gb_raw = nw.col("gb") - nw.col("fb") - pu
     net_gb_pa = safe_div(net_gb_raw, nw.col("bf"))
     # Sign-adjusted squared net_gb term: negative when net_gb > 0, positive when net_gb <= 0
-    net_gb_sq_signed = nw.when(net_gb_pa > 0.0).then(net_gb_pa * net_gb_pa).otherwise(
-        -(net_gb_pa * net_gb_pa)
+    net_gb_sq_signed = (
+        nw.when(net_gb_pa > 0.0).then(net_gb_pa * net_gb_pa).otherwise(-(net_gb_pa * net_gb_pa))
     )
     return (
         c.intercept
@@ -415,6 +417,8 @@ def calc_siera(ctx: EvalContext) -> nw.Expr:
     )
 )
 def calc_era_plus(ctx: EvalContext) -> nw.Expr:
+    if ctx.weights.lg_era is None:
+        return missing_constant()
     pf = ctx.season_context.park_factor / 100.0
     return safe_div(100.0 * ctx.weights.lg_era * pf, nw.col("era"))
 
@@ -434,6 +438,8 @@ def calc_era_plus(ctx: EvalContext) -> nw.Expr:
     )
 )
 def calc_era_minus(ctx: EvalContext) -> nw.Expr:
+    if ctx.weights.lg_era is None:
+        return missing_constant()
     pf = ctx.season_context.park_factor / 100.0
     return safe_div(100.0 * nw.col("era"), ctx.weights.lg_era * pf)
 
@@ -454,6 +460,8 @@ def calc_era_minus(ctx: EvalContext) -> nw.Expr:
     )
 )
 def calc_fip_minus(ctx: EvalContext) -> nw.Expr:
+    if ctx.weights.lg_fip is None:
+        return missing_constant()
     pf = ctx.season_context.park_factor / 100.0
     return safe_div(100.0 * nw.col("fip"), ctx.weights.lg_fip * pf)
 
@@ -474,6 +482,8 @@ def calc_fip_minus(ctx: EvalContext) -> nw.Expr:
     )
 )
 def calc_xfip_minus(ctx: EvalContext) -> nw.Expr:
+    if ctx.weights.lg_xfip is None:
+        return missing_constant()
     pf = ctx.season_context.park_factor / 100.0
     return safe_div(100.0 * nw.col("xfip"), ctx.weights.lg_xfip * pf)
 
@@ -621,6 +631,7 @@ def calc_dips_bop_pct(ctx: EvalContext) -> nw.Expr:
 )
 def calc_xera(ctx: EvalContext) -> nw.Expr:
     w = ctx.weights
+    if w.lg_era is None:
+        return missing_constant()
     runs_above_avg_per_pa = (nw.col("xwoba") - w.lg_woba) / w.woba_scale
     return w.lg_era + runs_above_avg_per_pa * 9.0 * nw.col("bf_per_ip")
-

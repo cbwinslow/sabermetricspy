@@ -80,6 +80,11 @@ def register_column_aliases_yaml(path_or_yaml: str | Path) -> None:
         register_column_aliases(aliases_block)
 
 
+def missing_constant() -> nw.Expr:
+    """Null Float64 expression returned by metrics whose sourced league constant is unavailable."""
+    return nw.lit(None, dtype=nw.Float64)
+
+
 def safe_div(numerator: nw.Expr | float, denominator: nw.Expr | float) -> nw.Expr:
     """Construct a zero-denominator-safe division expression in Narwhals.
 
@@ -96,11 +101,7 @@ def safe_div(numerator: nw.Expr | float, denominator: nw.Expr | float) -> nw.Exp
             return nw.lit(float("nan"))
         return num_f / float(denominator)
     den_f = denominator.cast(nw.Float64)
-    return (
-        nw.when((den_f != 0.0) & (~den_f.is_null()))
-        .then(num_f / den_f)
-        .otherwise(float("nan"))
-    )
+    return nw.when((den_f != 0.0) & (~den_f.is_null())).then(num_f / den_f).otherwise(float("nan"))
 
 
 def ip_notation_to_outs_scalar(ip_val: float | int | str | None) -> int | None:
@@ -216,9 +217,7 @@ def normalize_columns(
 
     # Auto-derive singles `b1` if `h`, `b2`, `b3`, `hr` exist and `b1` is missing
     if "b1" not in cols_after and {"h", "b2", "b3", "hr"}.issubset(cols_after):
-        derived_exprs.append(
-            (nw.col("h") - nw.col("b2") - nw.col("b3") - nw.col("hr")).alias("b1")
-        )
+        derived_exprs.append((nw.col("h") - nw.col("b2") - nw.col("b3") - nw.col("hr")).alias("b1"))
         cols_after.add("b1")
 
     # Auto-derive unintentional walks `ubb` if `bb` exists and `ubb` is missing
