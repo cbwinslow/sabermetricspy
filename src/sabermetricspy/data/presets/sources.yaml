@@ -1,0 +1,234 @@
+# Declarative YAML SourceTranslator Presets
+# Translates raw provider schemas (retrosheetpy, statcast, lahman, fangraphs, bref, or custom user schemas)
+# into canonical Tier 2 additive count and state columns without hardcoding provider logic in core equations.
+
+presets:
+  retrosheetpy_events:
+    name: "retrosheetpy_events"
+    description: "Translates retrosheetpy / chadwickpy 164-column cwevent play-by-play records into canonical additive count & state columns."
+    column_map:
+      BAT_ID: "player_id"
+      PIT_ID: "pitcher_id"
+      EVENT_OUTS_CT: "outs"
+      RBI_CT: "rbi"
+    boolean_to_int_rules:
+      - source_col: "AB_FL"
+        target_col: "ab"
+      - source_col: "SH_FL"
+        target_col: "sh"
+      - source_col: "SF_FL"
+        target_col: "sf"
+      - source_col: "BAT_EVENT_FL"
+        target_col: "bf"
+    value_rules:
+      - source_col: "H_CD"
+        values: [1]
+        target_col: "b1"
+      - source_col: "H_CD"
+        values: [2]
+        target_col: "b2"
+      - source_col: "H_CD"
+        values: [3]
+        target_col: "b3"
+      - source_col: "H_CD"
+        values: [4]
+        target_col: "hr"
+      - source_col: "H_CD"
+        values: [1, 2, 3, 4]
+        target_col: "h"
+      - source_col: "EVENT_CD"
+        values: [14]
+        target_col: "ubb"
+      - source_col: "EVENT_CD"
+        values: [15]
+        target_col: "ibb"
+      - source_col: "EVENT_CD"
+        values: [14, 15]
+        target_col: "bb"
+      - source_col: "EVENT_CD"
+        values: [16]
+        target_col: "hbp"
+      - source_col: "EVENT_CD"
+        values: [17]
+        target_col: "ci"
+      - source_col: "EVENT_CD"
+        values: [18]
+        target_col: "roe"
+      - source_col: "EVENT_CD"
+        values: [3]
+        target_col: "so"
+      - source_col: "BATTEDBALL_CD"
+        values: ["G"]
+        target_col: "gb"
+      - source_col: "BATTEDBALL_CD"
+        values: ["F"]
+        target_col: "fb"
+      - source_col: "BATTEDBALL_CD"
+        values: ["L"]
+        target_col: "ld"
+      - source_col: "BATTEDBALL_CD"
+        values: ["P"]
+        target_col: "pu"
+      - source_col: "BATTEDBALL_CD"
+        values: ["G", "F", "L", "P"]
+        target_col: "bbe"
+
+  statcast:
+    name: "statcast"
+    description: "Translates Baseball Savant Statcast pitch-level records into canonical pitch, contact, and plate-appearance counts."
+    column_map:
+      batter: "player_id"
+      pitcher: "pitcher_id"
+      game_year: "season"
+    constant_rules:
+      pitches: 1
+    value_rules:
+      - source_col: "description"
+        values:
+          - "swinging_strike"
+          - "swinging_strike_blocked"
+          - "foul"
+          - "foul_tip"
+          - "foul_bunt"
+          - "missed_bunt"
+          - "hit_into_play"
+          - "hit_into_play_no_out"
+          - "hit_into_play_score"
+        target_col: "swings"
+      - source_col: "description"
+        values: ["swinging_strike", "swinging_strike_blocked", "missed_bunt"]
+        target_col: "whiffs"
+      - source_col: "description"
+        values: ["called_strike", "automatic_strike"]
+        target_col: "called_strikes"
+      - source_col: "description"
+        values: ["foul", "foul_bunt"]
+        target_col: "fouls"
+      - source_col: "events"
+        values:
+          - "single"
+          - "double"
+          - "triple"
+          - "home_run"
+          - "strikeout"
+          - "strikeout_double_play"
+          - "field_out"
+          - "force_out"
+          - "grounded_into_double_play"
+          - "double_play"
+          - "triple_play"
+          - "fielders_choice"
+          - "fielders_choice_out"
+          - "field_error"
+          - "walk"
+          - "intent_walk"
+          - "hit_by_pitch"
+          - "sac_fly"
+          - "sac_bunt"
+          - "catcher_interf"
+        target_col: "pa"
+      - source_col: "events"
+        values:
+          - "single"
+          - "double"
+          - "triple"
+          - "home_run"
+          - "strikeout"
+          - "strikeout_double_play"
+          - "field_out"
+          - "force_out"
+          - "grounded_into_double_play"
+          - "double_play"
+          - "triple_play"
+          - "fielders_choice"
+          - "fielders_choice_out"
+          - "field_error"
+        target_col: "ab"
+      - source_col: "events"
+        values: ["single", "double", "triple", "home_run"]
+        target_col: "h"
+      - source_col: "events"
+        values: ["single"]
+        target_col: "b1"
+      - source_col: "events"
+        values: ["double"]
+        target_col: "b2"
+      - source_col: "events"
+        values: ["triple"]
+        target_col: "b3"
+      - source_col: "events"
+        values: ["home_run"]
+        target_col: "hr"
+      - source_col: "events"
+        values: ["walk", "intent_walk"]
+        target_col: "bb"
+      - source_col: "events"
+        values: ["intent_walk"]
+        target_col: "ibb"
+      - source_col: "events"
+        values: ["walk"]
+        target_col: "ubb"
+      - source_col: "events"
+        values: ["hit_by_pitch"]
+        target_col: "hbp"
+      - source_col: "events"
+        values: ["strikeout", "strikeout_double_play"]
+        target_col: "so"
+      - source_col: "events"
+        values: ["sac_fly"]
+        target_col: "sf"
+      - source_col: "events"
+        values: ["sac_bunt"]
+        target_col: "sh"
+      - source_col: "bb_type"
+        values: ["ground_ball"]
+        target_col: "gb"
+      - source_col: "bb_type"
+        values: ["fly_ball"]
+        target_col: "fb"
+      - source_col: "bb_type"
+        values: ["line_drive"]
+        target_col: "ld"
+      - source_col: "bb_type"
+        values: ["popup"]
+        target_col: "pu"
+      - source_col: "bb_type"
+        values: ["ground_ball", "fly_ball", "line_drive", "popup"]
+        target_col: "bbe"
+    range_rules:
+      - source_col: "zone"
+        min_val: 1.0
+        max_val: 9.0
+        target_col: "zone_pitches"
+      - source_col: "launch_speed"
+        min_val: 95.0
+        max_val: 200.0
+        target_col: "hard_hit_bbe"
+      - source_col: "launch_angle"
+        min_val: 8.0
+        max_val: 32.0
+        target_col: "sweet_spot_bbe"
+
+  lahman_batting:
+    name: "lahman_batting"
+    description: "Translates Sean Lahman Batting table columns (playerID, yearID, 2B, 3B, GIDP, etc.) into canonical columns."
+    column_map:
+      playerID: "player_id"
+      yearID: "season"
+      teamID: "team_id"
+      lgID: "league"
+      2B: "b2"
+      3B: "b3"
+      GIDP: "gidp"
+
+  lahman_pitching:
+    name: "lahman_pitching"
+    description: "Translates Sean Lahman Pitching table columns (IPouts, BFP, R, ER, etc.) into canonical columns."
+    column_map:
+      playerID: "player_id"
+      yearID: "season"
+      teamID: "team_id"
+      lgID: "league"
+      IPouts: "outs"
+      BFP: "bf"
+      R: "ra"

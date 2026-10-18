@@ -1,0 +1,77 @@
+"""Loader and registry for seasonal wOBA, FIP, and Park Factor constants from bundled YAML."""
+
+from __future__ import annotations
+
+from functools import lru_cache
+from importlib import resources
+from pathlib import Path
+from typing import Any
+
+import yaml
+
+from sabermetricspy.types.context import ParkFactor, SeasonContext, WOBAWeights
+
+
+@lru_cache(maxsize=1)
+def _load_default_woba_table() -> dict[int, WOBAWeights]:
+    """Load bundled woba_fangraphs.yaml constants table."""
+    pkg_files = resources.files("sabermetricspy")
+    yaml_path = pkg_files.joinpath("data/constants/woba_fangraphs.yaml")
+    raw: dict[str, Any] = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+    seasons_raw: dict[Any, Any] = raw.get("seasons", {})
+    table: dict[int, WOBAWeights] = {}
+    for yr, vals in seasons_raw.items():
+        year_int = int(yr)
+        table[year_int] = WOBAWeights.model_validate(vals)
+    return table
+
+
+@lru_cache(maxsize=1)
+def _load_default_parks_table() -> dict[str, ParkFactor]:
+    """Load bundled park_factors.yaml table."""
+    pkg_files = resources.files("sabermetricspy")
+    yaml_path = pkg_files.joinpath("data/constants/park_factors.yaml")
+    raw: dict[str, Any] = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+    parks_raw: dict[str, Any] = raw.get("parks", {})
+    return {k.upper(): ParkFactor.model_validate(v) for k, v in parks_raw.items()}
+
+
+def get_woba_weights(season: int = 2024) -> WOBAWeights:
+    """Retrieve seasonal wOBA/FIP linear weights for a given season.
+
+    If the exact year is not in the bundled table, returns the nearest available season's weights.
+    """
+    table = _load_default_woba_table()
+    if season in table:
+        return table[season]
+    nearest_year = min(table.keys(), key=lambda y: abs(y - season))
+    base = table[nearest_year]
+    return base.model_copy(update={"season": season})
+
+
+def get_park_factor(team_or_park: str) -> ParkFactor:
+    """Retrieve ParkFactor for a team abbreviation (e.g. 'COL', 'BOS') or park ID."""
+    table = _load_default_parks_table()
+    key = team_or_park.upper()
+    if key in table:
+        return table[key]
+    for pf in table.values():
+        if pf.park_id.upper() == key:
+            return pf
+    return ParkFactor(park_id=key, team_id=key, season=2024, basic_5yr=100.0, basic_1yr=100.0)
+
+
+def load_custom_constants_yaml(path: str | Path) -> dict[int, WOBAWeights]:
+    """Load user-supplied seasonal constants from an external YAML file."""
+    raw: dict[str, Any] = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
+    seasons_raw: dict[Any, Any] = raw.get("seasons", raw)
+    return {int(yr): WOBAWeights.model_validate(vals) for yr, vals in seasons_raw.items()}
+
+
+def resolve_context(context: SeasonContext | None = None, season: int = 2024) -> SeasonContext:
+    """Ensure a SeasonContext has populated WOBAWeights."""
+    if context is None:
+        return SeasonContext(season=season, weights=get_woba_weights(season))
+    if context.weights is None:
+        return context.model_copy(update={"weights": get_woba_weights(context.season)})
+    return context

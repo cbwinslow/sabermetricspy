@@ -1,0 +1,52 @@
+# MLB Ballpark Factors (100 = Neutral)
+# Source: FanGraphs 5-Year Regressed Park Factors
+parks:
+  COL:
+    park_id: "DEN02"
+    team_id: "COL"
+    season: 2024
+    basic_5yr: 112.0
+    basic_1yr: 111.0
+    hr_factor: 117.0
+  BOS:
+    park_id: "BOS07"
+    team_id: "BOS"
+    season: 2024
+    basic_5yr: 104.0
+    basic_1yr: 103.0
+    hr_factor: 98.0
+  CIN:
+    park_id: "CIN09"
+    team_id: "CIN"
+    season: 2024
+    basic_5yr: 105.0
+    basic_1yr: 104.0
+    hr_factor: 119.0
+  LAD:
+    park_id: "LOS03"
+    team_id: "LAD"
+    season: 2024
+    basic_5yr: 99.0
+    basic_1yr: 100.0
+    hr_factor: 110.0
+  NYY:
+    park_id: "NYC21"
+    team_id: "NYY"
+    season: 2024
+    basic_5yr: 100.0
+    basic_1yr: 100.0
+    hr_factor: 109.0
+  SEA:
+    park_id: "SEA03"
+    team_id: "SEA"
+    season: 2024
+    basic_5yr: 94.0
+    basic_1yr: 93.0
+    hr_factor: 95.0
+  SFG:
+    park_id: "SFO03"
+    team_id: "SFG"
+    season: 2024
+    basic_5yr: 96.0
+    basic_1yr: 96.0
+    hr_factor: 85.0

@@ -1,0 +1,24 @@
+# Tasks: Core Engine, Registry, Presets, Expectancy, and Metrics Suite
+
+- [x] 1. **Project Scaffolding & Environment Setup**
+  - [x] 1.1 Initialize `pyproject.toml`, `uv.lock`, and package layout under `src/sabermetricspy/`.
+  - [x] 1.2 Create `types/` module with 3-tier `StrEnum` definitions (`Stat`, `Metric`, `MetricSuite`, `Category`, `ImplKind`, `Direction`, `Handedness`, `PitchOutcome`, `PlayOutcome`, `BattedBallType`, `BaseState`) and frozen `SeasonContext` models.
+- [x] 2. **Schema, Innings Utilities, Bundled YAML Constants, & Presets**
+  - [x] 2.1 Implement `schema/` utilities: `ip_to_outs()`, `outs_to_ip()`, safe division `safe_div()`, and column alias resolution.
+  - [x] 2.2 Create bundled YAML seasonal constants (`woba_fangraphs.yaml`, `fip_constants.yaml`, `park_factors.yaml`) and `constants/` loader.
+  - [x] 2.3 Implement `presets/` for `retrosheetpy` (`events` and `gamelogs`), `statcast`, and `lahman`, plus custom YAML metric formula loader.
+- [x] 3. **Metric Registry & Two-Stage DAG Execution Engine**
+  - [x] 3.1 Implement `MetricSpec`, `@register_metric`, topological DAG resolver, and `MetricSuite` expansion in `registry/`.
+  - [x] 3.2 Implement `calculate()`, `calculate_suite()`, `calculate_available()`, and frozen `CalculationResult` in `engine/`.
+- [x] 4. **Comprehensive Sabermetric Formulas (`metrics/`)**
+  - [x] 4.1 Implement Traditional Batting (`AVG`, `OBP`, `SLG`, `OPS`, `ISO`, `BABIP`, `SECA`, `XBH_PCT`, `HR_PCT`, `BB_PCT`, `K_PCT`, `BB_TO_K`, `K_TO_BB`, `K_MINUS_BB_PCT`, `R_PER_PA`, `RBI_PER_PA`).
+  - [x] 4.2 Implement Weighted Offense & Run Estimators (`WOBA`, `WRAA`, `WRC`, `WRC_PLUS`, `OPS_PLUS`, `RC_BASIC`, `RC_TECH`, `BASE_RUNS`).
+  - [x] 4.3 Implement Traditional & Defense-Independent Pitching (`ERA`, `RA9`, `WHIP`, `H_PER_9`, `BB_PER_9`, `K_PER_9`, `HR_PER_9`, `LOB_PCT`, `FIP`, `XFIP`, `KWERA`, `SIERA`, `DICE`, `ERA_PLUS`, `ERA_MINUS`, `FIP_MINUS`, `XFIP_MINUS`).
+  - [x] 4.4 Implement Plate Discipline, Batted-Ball Quality, Baserunning, Fielding, and Team Pythagorean/Pythagenpat metrics.
+- [x] 5. **Expectancy Matrices, WAR Framework, Forecasting Models, & Uncertainty**
+  - [x] 5.1 Implement `RunExpectancyMatrix` (`RE24`), `CountExpectancyMatrix` (`RE288`), `LinearWeightsEstimator`, and `WinProbabilityModel` (`WPA`, `LI`) in `expectancy/`.
+  - [x] 5.2 Implement `WARFramework` (position players, FIP-based and RA9-based pitchers) in `value/`.
+  - [x] 5.3 Implement `MarcelProjector`, `Log5Model`, `MarkovChainModel`, `MonteCarloSimulator`, and `uncertainty/` intervals (analytical + seeded bootstrap).
+- [x] 6. **Verification & Quality Gates (TDD)**
+  - [x] 6.1 Write unit tests, `hypothesis` property-based mathematical identity tests, multi-backend tests (`Polars`, `pandas`, `PyArrow`, `DuckDB`), and golden cross-check tests against published FanGraphs / Baseball-Reference / Retrosheet values.
+  - [x] 6.2 Verify 100% pass on `uv run ruff check .`, `uv run pyright`, `uv run pytest`, and `openspec validate`.

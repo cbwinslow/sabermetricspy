@@ -1,0 +1,94 @@
+# Declarative Column Nomenclature & Alias Map
+# Maps canonical Tier 2 lower_snake_case columns to lists of provider/source aliases.
+# Users can extend this at runtime via register_column_aliases() or register_column_aliases_yaml().
+
+canonical_aliases:
+  # Batting & Plate Appearances
+  g: ["g", "games", "G", "B_G", "P_G"]
+  gs: ["gs", "games_started", "GS", "P_GS"]
+  pa: ["pa", "plate_appearances", "PA", "B_PA"]
+  bf: ["bf", "tbf", "batters_faced", "BF", "TBF", "BFP", "P_TBF"]
+  ab: ["ab", "at_bats", "AB", "B_AB"]
+  r: ["r", "runs", "R", "B_R"]
+  h: ["h", "hits", "H", "B_H"]
+  b1: ["b1", "1b", "1B", "singles", "B_1B"]
+  b2: ["b2", "2b", "2B", "doubles", "dbls", "B_2B"]
+  b3: ["b3", "3b", "3B", "triples", "trpls", "B_3B"]
+  hr: ["hr", "home_runs", "hrs", "HR", "B_HR", "P_HR"]
+  rbi: ["rbi", "rbis", "RBI", "B_RBI"]
+  bb: ["bb", "walks", "BB", "B_BB", "P_BB"]
+  ibb: ["ibb", "intentional_walks", "IBB", "B_IBB", "P_IBB"]
+  ubb: ["ubb", "unintentional_walks", "uBB"]
+  hbp: ["hbp", "hit_by_pitch", "HBP", "B_HP", "P_HP"]
+  so: ["so", "k", "K", "SO", "strikeouts", "B_SO", "P_SO"]
+  sf: ["sf", "sac_flies", "sacrifice_flies", "SF", "B_SF", "P_SF"]
+  sh: ["sh", "sac_hits", "sac_bunts", "SH", "B_SH", "P_SH"]
+  ci: ["ci", "catcher_interference", "CI", "B_XI"]
+  roe: ["roe", "reached_on_error", "ROE"]
+  gidp: ["gidp", "gdp", "GIDP", "GDP", "B_GDP"]
+  lob: ["lob", "left_on_base", "LOB"]
+
+  # Baserunning
+  sb: ["sb", "stolen_bases", "SB", "B_SB"]
+  cs: ["cs", "caught_stealing", "CS", "B_CS"]
+  pk: ["pk", "picked_off", "PK"]
+  oob: ["oob", "outs_on_base", "OOB"]
+
+  # Pitching
+  outs: ["outs", "outs_recorded", "ipouts", "IPouts", "P_OUT"]
+  er: ["er", "earned_runs", "ER", "P_ER"]
+  ra: ["ra", "runs_allowed", "RA", "P_R"]
+  w: ["w", "wins", "W", "P_W"]
+  l: ["l", "losses", "L", "P_L"]
+  cg: ["cg", "complete_games", "CG", "P_CG"]
+  sho: ["sho", "shutouts", "SHO", "ShO", "P_SHO"]
+  qs: ["qs", "quality_starts", "QS"]
+  sv: ["sv", "saves", "SV", "P_SV"]
+  bs: ["bs", "blown_saves", "BS"]
+  hld: ["hld", "holds", "HLD"]
+  wp: ["wp", "wild_pitches", "WP", "P_WP"]
+  bk: ["bk", "balks", "BK", "P_BK"]
+
+  # Plate Discipline & Pitches
+  pitches: ["pitches", "total_pitches", "Pitches"]
+  swings: ["swings", "Swings"]
+  whiffs: ["whiffs", "Whiffs", "swinging_strikes"]
+  called_strikes: ["called_strikes", "cstr", "CStr"]
+  fouls: ["fouls", "Fouls"]
+  contacts: ["contacts", "Contacts"]
+  zone_pitches: ["zone_pitches", "z_pitches", "Z-Pitches"]
+  out_zone_pitches: ["out_zone_pitches", "o_pitches", "O-Pitches"]
+  zone_swings: ["zone_swings", "z_swings", "Z-Swings"]
+  out_zone_swings: ["out_zone_swings", "o_swings", "O-Swings"]
+  zone_contacts: ["zone_contacts", "z_contacts", "Z-Contacts"]
+  out_zone_contacts: ["out_zone_contacts", "o_contacts", "O-Contacts"]
+  first_pitch_swings: ["first_pitch_swings", "f_swings"]
+  first_pitch_strikes: ["first_pitch_strikes", "f_strikes"]
+
+  # Batted Ball
+  bbe: ["bbe", "bip", "balls_in_play", "BBE", "BIP", "Events"]
+  gb: ["gb", "ground_balls", "GB"]
+  fb: ["fb", "fly_balls", "FB"]
+  ld: ["ld", "line_drives", "LD"]
+  pu: ["pu", "iffb", "popups", "PU", "IFFB"]
+  pull_bbe: ["pull_bbe", "pull", "Pull"]
+  cent_bbe: ["cent_bbe", "cent", "Cent"]
+  oppo_bbe: ["oppo_bbe", "oppo", "Oppo"]
+  hard_hit_bbe: ["hard_hit_bbe", "hard_hit", "HardHit"]
+  sweet_spot_bbe: ["sweet_spot_bbe", "sweet_spot", "SweetSpot"]
+  barrels: ["barrels", "Barrels"]
+  ev_sum: ["ev_sum"]
+  ev_count: ["ev_count"]
+  ev_max: ["ev_max", "max_ev", "maxEV"]
+
+  # Fielding
+  po: ["po", "putouts", "PO", "F_PO"]
+  a: ["a", "assists", "A", "F_A"]
+  e: ["e", "errors", "E", "F_E"]
+  dp: ["dp", "double_plays", "DP", "F_DP"]
+  tp: ["tp", "triple_plays", "TP", "F_TP"]
+  pb: ["pb", "passed_balls", "PB", "F_PB"]
+  inn_outs_fld: ["inn_outs_fld", "def_outs", "InnOuts"]
+
+  # Team
+  rs: ["rs", "runs_scored", "RS"]

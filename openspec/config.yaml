@@ -1,0 +1,31 @@
+schema: spec-driven
+
+context: |
+  Read openspec/project.md first (constitution), docs/ARCHITECTURE.md, docs/NAMING_CONVENTIONS.md,
+  docs/DECISIONS.md, AGENTS.md, and CLAUDE.md.
+  sabermetricspy is a high-performance, strongly-typed, dataframe-agnostic Python library for
+  computing baseball performance metrics, run/win expectancy matrices (RE24, RE288, WPA, LI),
+  weighted linear-weight offense (wOBA, wRAA, wRC+), defense-independent pitching (FIP, xFIP,
+  kwERA, SIERA), Statcast contact/movement features, composite player valuation (WAR framework),
+  and statistical forecasting models (Marcel, Log5, Pythagorean/Pythagenpat, BaseRuns, Markov
+  Chains, Monte Carlo simulations).
+  It executes vectorized column expressions via Narwhals across Polars, DuckDB, PyArrow, and
+  pandas, and integrates natively with retrosheetpy, chadwickpy, and Statcast schemas.
+
+rules:
+  proposal:
+    - "Clearly state which metric category, estimator family, or architectural layer is in scope."
+    - "Identify primary academic/sabermetric citations (e.g., Tango/Lichtman/Dolphin, McCracken, FanGraphs Library, Baseball-Reference, SABR) for every formula or model."
+  specs:
+    - "Follow the 3-tier naming convention in docs/NAMING_CONVENTIONS.md (UPPER_SNAKE_CASE StrEnums, lower_snake_case canonical columns/functions, authentic sabermetric display_name strings)."
+    - "Specify exact mathematical formulas, required/optional input columns, denominator zero-handling (NaN/null), and seasonal context requirements."
+  design:
+    - "Core formulas must be pure Narwhals column expressions—never per-row Python loops."
+    - "Ratios must always be computed from summed additive counts, never by averaging ratios."
+    - "Innings pitched must be stored and calculated as integer outs (1 IP = 3 outs)."
+    - "Stateless calculations return frozen CalculationResult objects; fitted models implement scikit-learn-style fit/predict/transform with frozen statsmodels-style Results objects."
+    - "Record new architectural decisions in docs/DECISIONS.md and docs/decisions/."
+  tasks:
+    - "Follow strict TDD: write unit tests, Hypothesis property-based mathematical identity tests, and golden cross-check tests against published leaderboards before or alongside implementation."
+    - "Verify across Polars, DuckDB, PyArrow, and pandas backends."
+    - "Run `uv run ruff check .`, `uv run pyright`, and `uv run pytest` before marking tasks complete."
