@@ -46,10 +46,10 @@
 
 ## 10. Literature catalogue and sweep procedure
 
-- [ ] 10.1 Write failing offline tests for `tools/literature_sweep.py` using recorded OpenAlex and arXiv responses (normalization, license capture, no full text stored, arXiv interval) and add the tool with the standard library only, no personal data, and a three-second arXiv interval. Verify the tests pass and `uv run pyright` covers `tools/`.
-- [ ] 10.2 Run the OpenAlex and arXiv queries recorded in the design (run expectancy, win probability, pitch quality, expected outcomes, catcher framing, fielding metrics, player projection, park factors, aging curves, and similar), save the metadata digest, and screen results for methods with a published formula. Verify the digest records query, date, and result counts.
-- [ ] 10.3 Review the Tango wiki archive and blog, the Retrosheet research page and Pavitt's bibliography, and the `baseballr` reference index for methods and coverage gaps. Verify the working notes list the pages examined with dates and what could not be retrieved (*The Book*).
-- [ ] 10.4 Write `docs/LITERATURE.md` (prioritized entries with the recorded fields, a rejected-with-reason list, the baseballr coverage analysis, and per-source coverage notes) and `docs/LITERATURE_SWEEP.md` (the procedure, terms, and how to rerun the tool). Verify a test checks every catalogue entry has the required fields and a primary-source URL.
+- [x] 10.1 Write failing offline tests for `tools/literature_sweep.py` using recorded OpenAlex and arXiv responses (normalization, license capture, no full text stored, arXiv interval) and add the tool with the standard library only, no personal data, and a three-second arXiv interval. Verify the tests pass and `uv run pyright` covers `tools/`.
+- [x] 10.2 Run the OpenAlex and arXiv queries recorded in the design (run expectancy, win probability, pitch quality, expected outcomes, catcher framing, fielding metrics, player projection, park factors, aging curves, and similar), save the metadata digest, and screen results for methods with a published formula. Verify the digest records query, date, and result counts.
+- [x] 10.3 Review the Tango wiki archive and blog, the Retrosheet research page and Pavitt's bibliography, and the `baseballr` reference index for methods and coverage gaps. Verify the working notes list the pages examined with dates and what could not be retrieved (*The Book*).
+- [x] 10.4 Write `docs/LITERATURE.md` (prioritized entries with the recorded fields, a rejected-with-reason list, the baseballr coverage analysis, and per-source coverage notes) and `docs/LITERATURE_SWEEP.md` (the procedure, terms, and how to rerun the tool). Verify a test checks every catalogue entry has the required fields and a primary-source URL.
 
 ## 11. Guards and final checks
 

@@ -1,0 +1,1784 @@
+{
+  "date": "2026-10-18",
+  "note": "Bibliographic metadata only; paper licenses are recorded as returned (null when the API gives none).",
+  "queries": [
+    {
+      "source": "openalex",
+      "query": "run expectancy",
+      "total_results": 2747,
+      "returned": 8,
+      "records": [
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2342861675",
+          "title": "Run expectancy and win expectancy in the Korea Baseball Organization (KBO) League",
+          "authors": [
+            "Hyung Woo Moon",
+            "Yong-Tae Woo",
+            "Yang Woo Shin"
+          ],
+          "year": 2016,
+          "venue": "Korean Journal of Applied Statistics",
+          "license": null,
+          "url": "https://doi.org/10.5351/kjas.2016.29.2.321",
+          "query": "run expectancy"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4240943815",
+          "title": "Runs expectancy",
+          "authors": [
+            "Jim Albert"
+          ],
+          "year": 2017,
+          "venue": "Chapman & Hall/CRC eBooks",
+          "license": null,
+          "url": "https://doi.org/10.1201/9781315149530-3",
+          "query": "run expectancy"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2592143469",
+          "title": "The “SUV” Statistic for Baseball and Football – Situational Underlying Value",
+          "authors": [
+            "Suv” Statistic for Baseball",
+            "Football – Situational Underlying Value Raymond H.V. Gallucci"
+          ],
+          "year": 2017,
+          "venue": "viXra",
+          "license": null,
+          "url": "https://vixra.org/pdf/1703.0010v1.pdf",
+          "query": "run expectancy"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2627074559",
+          "title": "Expectancy theory and major league baseball player compensation",
+          "authors": [
+            "Edward J. Leonard"
+          ],
+          "year": 2013,
+          "venue": "Journal of International Crisis and Risk Communication Research",
+          "license": null,
+          "url": "https://stars.library.ucf.edu/honorstheses1990-2015/1424",
+          "query": "run expectancy"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2139632960",
+          "title": "Analyzing Baseball Data with R",
+          "authors": [
+            "Philip Pallmann"
+          ],
+          "year": 2015,
+          "venue": "Journal of the Royal Statistical Society Series A (Statistics in Society)",
+          "license": null,
+          "url": "https://doi.org/10.1111/rssa.3_12138",
+          "query": "run expectancy"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4289284824",
+          "title": "Analyzing Baseball Data with R",
+          "authors": [
+            "Max Marchi",
+            "Jim Albert",
+            "Benjamin S. Baumer"
+          ],
+          "year": 2018,
+          "venue": "Chapman & Hall/CRC eBooks",
+          "license": null,
+          "url": "https://doi.org/10.1201/9781351107099",
+          "query": "run expectancy"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W3116508494",
+          "title": "Valuation of Pitcher's Skill Using Two-dimensional Kernel Density in Baseball",
+          "authors": [
+            "Kazuki Konda",
+            "Yoshiro Yamamoto"
+          ],
+          "year": 2020,
+          "venue": "International Conference on ICT and Knowledge Engineering",
+          "license": null,
+          "url": "https://doi.org/10.1109/ictke50349.2020.9289854",
+          "query": "run expectancy"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4236814112",
+          "title": "Visualizing Baseball",
+          "authors": [
+            "Tim Downie"
+          ],
+          "year": 2018,
+          "venue": "Journal of Statistical Software",
+          "license": "cc-by",
+          "url": "https://doi.org/10.18637/jss.v083.b03",
+          "query": "run expectancy"
+        }
+      ]
+    },
+    {
+      "source": "arxiv",
+      "query": "run expectancy",
+      "total_results": 2,
+      "returned": 2,
+      "records": [
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:2607.29041v1",
+          "title": "Baseball, An Extensive-Form Game-Theoretic Duel",
+          "authors": [
+            "Sebastian E. Ferrando",
+            "Eli Kohn"
+          ],
+          "year": 2026,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/2607.29041v1",
+          "query": "run expectancy"
+        },
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:2305.05752v2",
+          "title": "Evaluating plate discipline in Major League Baseball with Bayesian Additive Regression Trees",
+          "authors": [
+            "Ryan Yee",
+            "Sameer K. Deshpande"
+          ],
+          "year": 2023,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/2305.05752v2",
+          "query": "run expectancy"
+        }
+      ]
+    },
+    {
+      "source": "openalex",
+      "query": "win probability",
+      "total_results": 7739,
+      "returned": 8,
+      "records": [
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7106648465",
+          "title": "The Impacts of Increasingly Complex Matchup Models on Baseball Win Probability",
+          "authors": [
+            "Mott, Tristan",
+            "Bradshaw, Caleb",
+            "Grimsman, David",
+            "Christopher Archibald"
+          ],
+          "year": 2025,
+          "venue": "arXiv (Cornell University)",
+          "license": null,
+          "url": "http://arxiv.org/abs/2511.17733",
+          "query": "win probability"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4404799322",
+          "title": "Calculating Win Probability in Korean Professional Baseball Using Deep Learning",
+          "authors": [
+            "Karam Ko",
+            "Hwanam Lee",
+            "Sarang Go"
+          ],
+          "year": 2024,
+          "venue": "Asia-pacific Journal of Convergent Research Interchange",
+          "license": null,
+          "url": "http://dx.doi.org/10.47116/apjcri.2024.11.06",
+          "query": "win probability"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2804527534",
+          "title": "Pivot Points : Data Analysis of Win Probability Added In Pivotal Baseball Situations",
+          "authors": [
+            "Jonathon Ernest"
+          ],
+          "year": 2018,
+          "venue": null,
+          "license": null,
+          "url": "https://cache.kzoo.edu/handle/10920/35782",
+          "query": "win probability"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4396833153",
+          "title": "Enhancing Auto-Generated Baseball Highlights via Win Probability and Bias Injection Method",
+          "authors": [
+            "Kieun Park",
+            "Hajin Lim",
+            "Joonhwan Lee",
+            "Bongwon Suh"
+          ],
+          "year": 2024,
+          "venue": "CHI Conference on Human Factors in Computing Systems",
+          "license": "cc-by",
+          "url": "https://doi.org/10.1145/3613904.3642021",
+          "query": "win probability"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2953978681",
+          "title": "Automatic Generation of Baseball Game Digest by Using Win Probability Added",
+          "authors": [
+            "Kentaro KUDO",
+            "Kyohei OKAWA",
+            "Kei KANAZAWA",
+            "Hajime Murai"
+          ],
+          "year": 2019,
+          "venue": "Joho Chishiki Gakkaishi",
+          "license": null,
+          "url": "https://doi.org/10.2964/jsik_2019_033",
+          "query": "win probability"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4250088254",
+          "title": "Visualizing Baseball",
+          "authors": [
+            "Jim Albert"
+          ],
+          "year": 2017,
+          "venue": "Chapman & Hall/CRC eBooks",
+          "license": null,
+          "url": "https://doi.org/10.1201/9781315149530",
+          "query": "win probability"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2364109180",
+          "title": "An improvement to the baseball statistic “Pythagorean Wins”",
+          "authors": [
+            "Jay Heumann"
+          ],
+          "year": 2016,
+          "venue": "Journal of Sports Analytics",
+          "license": "cc-by-nc",
+          "url": "https://doi.org/10.3233/jsa-160018",
+          "query": "win probability"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W631741268",
+          "title": "A Mathematician at the Ballpark: Odds and Probabilities for Baseball Fans",
+          "authors": [
+            "Ken Ross"
+          ],
+          "year": 2004,
+          "venue": null,
+          "license": null,
+          "url": "https://openlibrary.org/books/OL3437705M/A_mathematician_at_the_ballpark",
+          "query": "win probability"
+        }
+      ]
+    },
+    {
+      "source": "arxiv",
+      "query": "win probability",
+      "total_results": 6,
+      "returned": 6,
+      "records": [
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:2511.17733v1",
+          "title": "The Impacts of Increasingly Complex Matchup Models on Baseball Win Probability",
+          "authors": [
+            "Tristan Mott",
+            "Caleb Bradshaw",
+            "David Grimsman",
+            "Christopher Archibald"
+          ],
+          "year": 2025,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/2511.17733v1",
+          "query": "win probability"
+        },
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:1906.05029v2",
+          "title": "A Bayesian Approach to In-Game Win Probability in Soccer",
+          "authors": [
+            "Pieter Robberechts",
+            "Jan Van Haaren",
+            "Jesse Davis"
+          ],
+          "year": 2019,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/1906.05029v2",
+          "query": "win probability"
+        },
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:2506.02351v1",
+          "title": "DIAMOND: An LLM-Driven Agent for Context-Aware Baseball Highlight Summarization",
+          "authors": [
+            "Jeonghun Kang",
+            "Soonmok Kwon",
+            "Joonseok Lee",
+            "Byung-Hak Kim"
+          ],
+          "year": 2025,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/2506.02351v1",
+          "query": "win probability"
+        },
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:2608.02081v1",
+          "title": "Isotonic Bradley-Terry Model for Paired Comparison Data",
+          "authors": [
+            "Ryoya Yamasaki"
+          ],
+          "year": 2026,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/2608.02081v1",
+          "query": "win probability"
+        },
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:2511.02815v1",
+          "title": "Assessing win strength in MLB win prediction models",
+          "authors": [
+            "Morgan Allen",
+            "Paul Savala"
+          ],
+          "year": 2025,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/2511.02815v1",
+          "query": "win probability"
+        },
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:2310.01184v4",
+          "title": "Applications of Improvements to the Pythagorean Won-Loss Expectation in Optimizing Rosters",
+          "authors": [
+            "Alexander F. Almeida",
+            "Kevin Dayaratna",
+            "Steven J. Miller",
+            "Andrew K. Yang"
+          ],
+          "year": 2023,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/2310.01184v4",
+          "query": "win probability"
+        }
+      ]
+    },
+    {
+      "source": "openalex",
+      "query": "pitch quality stuff model",
+      "total_results": 2987,
+      "returned": 8,
+      "records": [
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2677273479",
+          "title": "An Exploration of the First Pitch in Baseball",
+          "authors": [
+            "Ashley Spangler"
+          ],
+          "year": 2017,
+          "venue": "OhioLink ETD Center (Ohio Library and Information Network)",
+          "license": null,
+          "url": "http://rave.ohiolink.edu/etdc/view?acc_num=bgsu1490300154782369",
+          "query": "pitch quality stuff model"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7154221311",
+          "title": "Advanced Analytic and Pitch-Tracking Risk Factors for Capsulolabral Injuries in Major League Baseball Pitchers",
+          "authors": [
+            "Michael A. Mastroianni",
+            "Morgan R. Dillon",
+            "Kyle K. Obana",
+            "Cole R. Morrissette",
+            "Nicholas M. Frappa",
+            "Andrew J. Luzzi",
+            "Frank J. Alexander",
+            "Michael L. Knudsen",
+            "Christopher S. Ahmad"
+          ],
+          "year": 2026,
+          "venue": "Orthopaedic Journal of Sports Medicine",
+          "license": "cc-by-nc-nd",
+          "url": "https://doi.org/10.1177/23259671261425670",
+          "query": "pitch quality stuff model"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7123381341",
+          "title": "Prediction of Collegiate Pitching Performance from Longitudinal Neuromuscular Performance Testing Data",
+          "authors": [
+            "Evan Kroll",
+            "Arnel Aguinaldo",
+            "Jacob R. Goodin",
+            "Hillary A. Plummer"
+          ],
+          "year": 2026,
+          "venue": "TopSCHOLAR (Western Kentucky University)",
+          "license": null,
+          "url": "https://digitalcommons.wku.edu/ijesab/vol14/iss5/59",
+          "query": "pitch quality stuff model"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7117400339",
+          "title": "Game-Theoretically Optimal Strategies in Baseball",
+          "authors": [
+            "William Michael Melville"
+          ],
+          "year": 2025,
+          "venue": "ScholarsArchive  (Brigham Young University)",
+          "license": null,
+          "url": "https://scholarsarchive.byu.edu/etd/11101",
+          "query": "pitch quality stuff model"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7204777780",
+          "title": "Quantifying Pitcher Dominance: A Machine Learning Approach to Predicting Swinging Strikes from Statcast Pitching Data",
+          "authors": [
+            "Ruicheng Sha"
+          ],
+          "year": 2026,
+          "venue": "Applied and Computational Engineering",
+          "license": "cc-by",
+          "url": "https://doi.org/10.54254/2755-2721/2026.gf36448",
+          "query": "pitch quality stuff model"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7204278056",
+          "title": "Sidearm Deliveries Are Associated With Lower Shoulder and Elbow Injury Burden and a Favorable Performance Profile in Major League Baseball: A Cohort Study of 927 Pitchers (2020-2025)",
+          "authors": [
+            "Michael J. Dillon",
+            "Michael A. Mastroianni",
+            "Nicholas M. Frappa",
+            "Joseph Manzi",
+            "Samuel I. Fuller",
+            "William Curtis",
+            "Frank J. Alexander",
+            "Robert A. Ablove",
+            "Peter Nissen Chalmers",
+            "Christopher S. Ahmad"
+          ],
+          "year": 2026,
+          "venue": "Orthopaedic Journal of Sports Medicine",
+          "license": "cc-by",
+          "url": "https://doi.org/10.1177/23259671261470537",
+          "query": "pitch quality stuff model"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2529690302",
+          "title": "Media and literary representations of Latinos in baseball and baseball fiction",
+          "authors": [
+            "Mihir Dilip Parekh"
+          ],
+          "year": 2015,
+          "venue": "UTA ResearchCommons (University of Texas Arlington)",
+          "license": null,
+          "url": "http://hdl.handle.net/10106/25151",
+          "query": "pitch quality stuff model"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7167629386",
+          "title": "Analyzing waveforms and pitch quality with markerless biomechanics data",
+          "authors": [
+            "Miles H Okamoto"
+          ],
+          "year": 2022,
+          "venue": null,
+          "license": null,
+          "url": "https://hdl.handle.net/2152/136857",
+          "query": "pitch quality stuff model"
+        }
+      ]
+    },
+    {
+      "source": "arxiv",
+      "query": "pitch quality stuff model",
+      "total_results": 0,
+      "returned": 0,
+      "records": []
+    },
+    {
+      "source": "openalex",
+      "query": "expected batting average exit velocity launch angle",
+      "total_results": 96,
+      "returned": 8,
+      "records": [
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W3014530657",
+          "title": "The Prediction of Batting Averages in Major League Baseball",
+          "authors": [
+            "Sarah R. Bailey",
+            "Jason L. Loeppky",
+            "Tim B. Swartz"
+          ],
+          "year": 2020,
+          "venue": "Stats",
+          "license": "cc-by",
+          "url": "https://doi.org/10.3390/stats3020008",
+          "query": "expected batting average exit velocity launch angle"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4414881068",
+          "title": "Kinematic Analysis of Hitting: Launch Angle and Swing Velocity Differences in Elite vs. Amateur Softball Swing",
+          "authors": [
+            "Nur Rika Hasanah",
+            "Agus Rusdiana",
+            "Iwa Ikhwan Hidayat",
+            "Iman Imanudin",
+            "Syam Hardwis",
+            "Tono Haryono"
+          ],
+          "year": 2025,
+          "venue": "Journal of Sport Science and Fitness",
+          "license": "cc-by",
+          "url": "https://doi.org/10.15294/jssf.v10i1.17951",
+          "query": "expected batting average exit velocity launch angle"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2790486891",
+          "title": "Forecasting Batting Averages in MLB",
+          "authors": [
+            "Sarah R. Bailey"
+          ],
+          "year": 2017,
+          "venue": "Summit (Simon Fraser University)",
+          "license": null,
+          "url": "http://summit.sfu.ca/item/17740",
+          "query": "expected batting average exit velocity launch angle"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7204801118",
+          "title": "Poster 121. Evaluating the Ankle’s Role in the Baseball Kinetic Chain: An Analysis of Performance Changes Following Nonoperative Ankle Injuries in Professional Pitchers and Position Players",
+          "authors": [
+            "Rohith Ryali",
+            "Mani Eftekhari",
+            "Matteo L. Burnett",
+            "Gergo L. Merkely",
+            "Eric M. Berkson",
+            "Gregory R. Waryasz",
+            "Soheil Ashkani‐Esfahani"
+          ],
+          "year": 2026,
+          "venue": "Orthopaedic Journal of Sports Medicine",
+          "license": "cc-by-nc-nd",
+          "url": "https://doi.org/10.1177/2325967126s00425",
+          "query": "expected batting average exit velocity launch angle"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4417312829",
+          "title": "Applications of Baseball Models in Slow Pitch Softball",
+          "authors": [
+            "Ziting Yang"
+          ],
+          "year": 2025,
+          "venue": "Advances in Engineering Technology Research",
+          "license": null,
+          "url": "https://doi.org/10.56028/aetr.15.1.923.2025",
+          "query": "expected batting average exit velocity launch angle"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7162059410",
+          "title": "From Perception To Performance: The Acute Impact of Virtual Reality on Hitting Metrics In Collegiate Baseball And Softball Hitters",
+          "authors": [
+            "Darrianne Kylie Hale"
+          ],
+          "year": 2026,
+          "venue": "Scholars Crossing (Liberty University)",
+          "license": null,
+          "url": "https://digitalcommons.liberty.edu/doctoral/8391",
+          "query": "expected batting average exit velocity launch angle"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4406906199",
+          "title": "Ball-Flight Viewing Duration and Estimates of Passing Height in Baseball",
+          "authors": [
+            "Emily Benson",
+            "Andrew J. Toole",
+            "Nick Fogt"
+          ],
+          "year": 2025,
+          "venue": "Vision",
+          "license": "cc-by",
+          "url": "https://doi.org/10.3390/vision9010008",
+          "query": "expected batting average exit velocity launch angle"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7140222163",
+          "title": "Simultaneous estimation of ballpark effects and team defense using total bases residuals",
+          "authors": [
+            "Jhe-Jia Wu",
+            "Tian-li YAN",
+            "Ting‐Li Chen"
+          ],
+          "year": 2026,
+          "venue": "Journal of Sports Analytics",
+          "license": "cc-by-nc",
+          "url": "https://doi.org/10.1177/22150218261483784",
+          "query": "expected batting average exit velocity launch angle"
+        }
+      ]
+    },
+    {
+      "source": "arxiv",
+      "query": "expected batting average exit velocity launch angle",
+      "total_results": 0,
+      "returned": 0,
+      "records": []
+    },
+    {
+      "source": "openalex",
+      "query": "catcher framing",
+      "total_results": 1524,
+      "returned": 8,
+      "records": [
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4317418822",
+          "title": "Detection of Mitt Movement Trajectory in Catcher Framing Using Baseball Video",
+          "authors": [
+            "Yamato Kanno",
+            "Hidehiko Shishido",
+            "Masahiro Shinya",
+            "Yoshinari Kameda",
+            "Itaru Kitahara"
+          ],
+          "year": 2022,
+          "venue": "IEEE Global Conference on Consumer Electronics (GCCE)",
+          "license": null,
+          "url": "http://dx.doi.org/10.1109/gcce56475.2022.10014147",
+          "query": "catcher framing"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4396579184",
+          "title": "Estimation of mitt movement trajectory in catcher framing from baseball video",
+          "authors": [
+            "Yamato Kanno",
+            "Chun Xie",
+            "Hidehiko Shishido",
+            "Yoshinari Kameda",
+            "Itaru Kitahara"
+          ],
+          "year": 2024,
+          "venue": "International Workshop on Advanced Imaging Technology (IWAIT)",
+          "license": null,
+          "url": "https://doi.org/10.1117/12.3018717",
+          "query": "catcher framing"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4308300457",
+          "title": "RELATIVE CONTRIBUTIONS TO BASEBALL CATCHER POP TIMES: HIGH SCHOOL AND MAJOR LEAGUE BASEBALL COMPARISON",
+          "authors": [
+            "Andrew C. Fry",
+            "John P. Wagle",
+            "Dimitrije Čabarkapa",
+            "Daniel Yu",
+            "Iván Rentería"
+          ],
+          "year": 2022,
+          "venue": "European Journal of Physical Education and Sport Science",
+          "license": "cc-by",
+          "url": "https://doi.org/10.46827/ejpe.v9i1.4456",
+          "query": "catcher framing"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2970064537",
+          "title": "Features on throwing motion to the second base in Japanese professional baseball catchers",
+          "authors": [
+            "Kazuhiro Kajita",
+            "T. Kawamura",
+            "Kazushi Shimada",
+            "Tetsuya Kanahori",
+            "Yoshiki Yagi"
+          ],
+          "year": 2019,
+          "venue": "The Japan Journal of Coaching Studies",
+          "license": null,
+          "url": "https://www.jstage.jst.go.jp/article/jcoaching/32/2/32_171/_article/-char/ja",
+          "query": "catcher framing"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2981335617",
+          "title": "Temporal and spatial information used by baseball catchers when making decisions about fielding in pairs",
+          "authors": [
+            "Syunpei Kikumasa",
+            "Masahiro Kokubu"
+          ],
+          "year": 2019,
+          "venue": "Taiikugaku kenkyu (Japan Journal of Physical Education Health and Sport Sciences)",
+          "license": null,
+          "url": "https://doi.org/10.5432/jjpehss.19007",
+          "query": "catcher framing"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4289284824",
+          "title": "Analyzing Baseball Data with R",
+          "authors": [
+            "Max Marchi",
+            "Jim Albert",
+            "Benjamin S. Baumer"
+          ],
+          "year": 2018,
+          "venue": "Chapman & Hall/CRC eBooks",
+          "license": null,
+          "url": "https://doi.org/10.1201/9781351107099",
+          "query": "catcher framing"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4399071734",
+          "title": "Analyzing Baseball Data with R",
+          "authors": [
+            "Jim Albert",
+            "Benjamin S. Baumer",
+            "Max Marchi"
+          ],
+          "year": 2024,
+          "venue": "Chapman & Hall/CRC eBooks",
+          "license": null,
+          "url": "http://dx.doi.org/10.1201/9781032668239",
+          "query": "catcher framing"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W339584695",
+          "title": "Quantitative Rotational Analysis of a Slowly Spinning Baseball : Principle and Procedure",
+          "authors": [
+            "Takeshi Yamada"
+          ],
+          "year": 2007,
+          "venue": "Institutional Repositories DataBase (IRDB)",
+          "license": null,
+          "url": "https://rose-ibadai.repo.nii.ac.jp/records/9161",
+          "query": "catcher framing"
+        }
+      ]
+    },
+    {
+      "source": "arxiv",
+      "query": "catcher framing",
+      "total_results": 0,
+      "returned": 0,
+      "records": []
+    },
+    {
+      "source": "openalex",
+      "query": "fielding metrics defensive runs",
+      "total_results": 594,
+      "returned": 8,
+      "records": [
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2759164547",
+          "title": "Measuring Baseball Defensive Value Using Statcast Data",
+          "authors": [
+            "Drew Jordan"
+          ],
+          "year": 2017,
+          "venue": "DukeSpace (Duke University)",
+          "license": null,
+          "url": "http://hdl.handle.net/10161/15283",
+          "query": "fielding metrics defensive runs"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2953181599",
+          "title": "Defensive Ability and Salary Determination in Major League Baseball",
+          "authors": [
+            "Christopher B Shorey"
+          ],
+          "year": 2016,
+          "venue": "Digital Commons - Colby (Colby College)",
+          "license": null,
+          "url": "https://digitalcommons.colby.edu/honorstheses/940",
+          "query": "fielding metrics defensive runs"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2022719018",
+          "title": "Estimating Fielding Ability in Baseball Players Over Time",
+          "authors": [
+            "James Piette",
+            "Shane T. Jensen"
+          ],
+          "year": 2012,
+          "venue": "Journal of Quantitative Analysis in Sports",
+          "license": null,
+          "url": "https://doi.org/10.1515/1559-0410.1463",
+          "query": "fielding metrics defensive runs"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2345905907",
+          "title": "Baseball Portfolio Optimization",
+          "authors": [
+            "Keegan Henderson"
+          ],
+          "year": 2016,
+          "venue": "Journal of the Arkansas Academy of Science",
+          "license": "cc-by-nd",
+          "url": "https://scholarworks.uark.edu/ineguht/36",
+          "query": "fielding metrics defensive runs"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W3040980404",
+          "title": "Advanced Baseball Statistics",
+          "authors": [
+            "Leah M Mitchell"
+          ],
+          "year": 2020,
+          "venue": "Digital WPI",
+          "license": null,
+          "url": "https://digitalcommons.wpi.edu/cgi/viewcontent.cgi?article=8356&context=mqp-all",
+          "query": "fielding metrics defensive runs"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2913015716",
+          "title": "Sabermetrics - Statistical Modeling of Run Creation and Prevention in Baseball",
+          "authors": [
+            "Parker Chernoff"
+          ],
+          "year": 2018,
+          "venue": null,
+          "license": null,
+          "url": "https://doi.org/10.25148/etd.fidc006540",
+          "query": "fielding metrics defensive runs"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W3035789445",
+          "title": "Advanced Baseball Statistics",
+          "authors": [
+            "Elijah J. Ellis"
+          ],
+          "year": 2019,
+          "venue": "Digital WPI",
+          "license": null,
+          "url": "https://digitalcommons.wpi.edu/mqp-all/7261",
+          "query": "fielding metrics defensive runs"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2807804912",
+          "title": "Process Flexibility in Baseball: The Value of Positional Flexibility",
+          "authors": [
+            "Timothy C. Y. Chan",
+            "Douglas Fearing"
+          ],
+          "year": 2018,
+          "venue": "Management Science",
+          "license": null,
+          "url": "https://doi.org/10.1287/mnsc.2017.3004",
+          "query": "fielding metrics defensive runs"
+        }
+      ]
+    },
+    {
+      "source": "arxiv",
+      "query": "fielding metrics defensive runs",
+      "total_results": 0,
+      "returned": 0,
+      "records": []
+    },
+    {
+      "source": "openalex",
+      "query": "player projection forecasting",
+      "total_results": 940,
+      "returned": 8,
+      "records": [
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2034374168",
+          "title": "Modeling Baseball Player Ability with a Nested Dirichlet Distribution",
+          "authors": [
+            "Brad Null"
+          ],
+          "year": 2009,
+          "venue": "Journal of Quantitative Analysis in Sports",
+          "license": null,
+          "url": "https://doi.org/10.2202/1559-0410.1175",
+          "query": "player projection forecasting"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7203976758",
+          "title": "One Metric, Different Jobs: Target-Specific Feature Admission for Major League Baseball Player Projection",
+          "authors": [
+            "Shirin Alapati"
+          ],
+          "year": 2026,
+          "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+          "license": "cc-by",
+          "url": "https://doi.org/10.5281/zenodo.22050907",
+          "query": "player projection forecasting"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W3024226424",
+          "title": "Novel Statistical and Machine Learning Methods for the Forecasting and Analysis of Major League Baseball Player Performance",
+          "authors": [
+            "Christopher J. C. H. Watkins"
+          ],
+          "year": 2020,
+          "venue": null,
+          "license": "cc-by-nc-nd",
+          "url": "https://doi.org/10.36837/chapman.000139",
+          "query": "player projection forecasting"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4405286223",
+          "title": "PREREQUISITES AND PROSPECTS FOR IMPROVING THE EFFECTIVENESS OF TECHNICAL TRAINING OF BASEBALL PLAYERS",
+          "authors": [
+            "D.C.K.H. Hapuarachige",
+            "Pavel Pavlov"
+          ],
+          "year": 2024,
+          "venue": null,
+          "license": "other-oa",
+          "url": "https://doi.org/10.34660/inf.2023.86.62.096",
+          "query": "player projection forecasting"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4237550416",
+          "title": "A mixed effects multinomial logistic-normal model for forecasting baseball performance",
+          "authors": [
+            "Eric A. E. Gerber",
+            "Bruce Α. Craig"
+          ],
+          "year": 2021,
+          "venue": "Journal of Quantitative Analysis in Sports",
+          "license": "cc-by",
+          "url": "https://doi.org/10.1515/jqas-2020-0007",
+          "query": "player projection forecasting"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2966954544",
+          "title": "A Mixed Effects Multinomial Logistic-Normal Model for Forecasting Baseball Performance",
+          "authors": [
+            "Eric A. E. Gerber"
+          ],
+          "year": 2019,
+          "venue": "Figshare",
+          "license": "cc-by",
+          "url": "https://figshare.com/articles/thesis/A_Mixed_Effects_Multinomial_Logistic-Normal_Model_for_Forecasting_Baseball_Performance/9108272",
+          "query": "player projection forecasting"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W3114747184",
+          "title": "Combining Radar and Optical Sensor Data to Measure Player Value in Baseball",
+          "authors": [
+            "Glenn E. Healey"
+          ],
+          "year": 2020,
+          "venue": "Sensors",
+          "license": "cc-by",
+          "url": "https://doi.org/10.3390/s21010064",
+          "query": "player projection forecasting"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2167673947",
+          "title": "Hierarchical Bayesian modeling of hitting performance in baseball",
+          "authors": [
+            "Shane T. Jensen",
+            "Blakeley B. McShane",
+            "Abraham J. Wyner"
+          ],
+          "year": 2009,
+          "venue": "Bayesian Analysis",
+          "license": "cc-by",
+          "url": "https://doi.org/10.1214/09-ba424",
+          "query": "player projection forecasting"
+        }
+      ]
+    },
+    {
+      "source": "arxiv",
+      "query": "player projection forecasting",
+      "total_results": 0,
+      "returned": 0,
+      "records": []
+    },
+    {
+      "source": "openalex",
+      "query": "park factors",
+      "total_results": 30556,
+      "returned": 8,
+      "records": [
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2051700335",
+          "title": "Improving Major League Baseball Park Factor Estimates",
+          "authors": [
+            "Rohit A Acharya",
+            "Alexander J Ahmed",
+            "Alexander D’Amour",
+            "Haibo Lu",
+            "Carl N. Morris",
+            "Bradley D Oglevee",
+            "Andrew W Peterson",
+            "Robert N Swift"
+          ],
+          "year": 2008,
+          "venue": "Journal of Quantitative Analysis in Sports",
+          "license": null,
+          "url": "https://doi.org/10.2202/1559-0410.1108",
+          "query": "park factors"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7163205815",
+          "title": "Explaining Baseball Park Factors with Weather Data and Retractable Roofs",
+          "authors": [
+            "Stanford University"
+          ],
+          "year": 2026,
+          "venue": "Stanford Digital Repository",
+          "license": "cc-by",
+          "url": "https://doi.org/10.25740/zw218ht1553",
+          "query": "park factors"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2276147903",
+          "title": "A minor league baseball park for Lubbock, Texas",
+          "authors": [
+            "Giovanni S Mayorga"
+          ],
+          "year": 1993,
+          "venue": "ThinkTech (Texas Tech University)",
+          "license": null,
+          "url": "http://hdl.handle.net/2346/20719",
+          "query": "park factors"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4295007445",
+          "title": "A Study on the Team Management Strategies by the Characteristics of KBO Baseball Stadium: The Case of Jamsil Baseball Stadium",
+          "authors": [
+            "Youngjae Lee",
+            "Seong-Hee Park"
+          ],
+          "year": 2022,
+          "venue": "Korean Journal of Sports Science",
+          "license": null,
+          "url": "https://doi.org/10.35159/kjss.2022.8.31.4.401",
+          "query": "park factors"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4413790630",
+          "title": "An Empirical Assessment of MLB Park Factors",
+          "authors": [
+            "Xavier Fünf"
+          ],
+          "year": 2025,
+          "venue": "SSRN Electronic Journal",
+          "license": null,
+          "url": "https://doi.org/10.2139/ssrn.5396527",
+          "query": "park factors"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4416261434",
+          "title": "Personnel adjustment for home run park effects in Major League Baseball",
+          "authors": [
+            "Jason A. Osborne",
+            "Richard A. Levine"
+          ],
+          "year": 2026,
+          "venue": "Journal of Sports Analytics",
+          "license": "cc-by-nc",
+          "url": "https://doi.org/10.1177/22150218261457256",
+          "query": "park factors"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W634482446",
+          "title": "Understanding sabermetrics: an introduction to the science of baseball statistics",
+          "authors": [],
+          "year": 2008,
+          "venue": "Choice Reviews Online",
+          "license": null,
+          "url": "https://doi.org/10.5860/choice.45-5631",
+          "query": "park factors"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2987534202",
+          "title": "The Effect of Speech Component Factors of Pro-baseball Broadcasting Commentator on Credibility",
+          "authors": [
+            "young lae Choi"
+          ],
+          "year": 2012,
+          "venue": "Journal of Sport and Leisure Studies",
+          "license": null,
+          "url": "https://doi.org/10.51979/kssls.2012.12.50.353",
+          "query": "park factors"
+        }
+      ]
+    },
+    {
+      "source": "arxiv",
+      "query": "park factors",
+      "total_results": 1,
+      "returned": 1,
+      "records": [
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:2109.09287v1",
+          "title": "Park factor estimation improvement using pairwise comparison method",
+          "authors": [
+            "Eiji Konaka"
+          ],
+          "year": 2021,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/2109.09287v1",
+          "query": "park factors"
+        }
+      ]
+    },
+    {
+      "source": "openalex",
+      "query": "aging curve",
+      "total_results": 12780,
+      "returned": 8,
+      "records": [
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4396814116",
+          "title": "Filling the gaps: A multiple imputation approach to estimating aging curves in baseball",
+          "authors": [
+            "Quang Nguyen",
+            "Gregory J. Matthews"
+          ],
+          "year": 2024,
+          "venue": "Journal of Sports Analytics",
+          "license": "cc-by-nc",
+          "url": "https://doi.org/10.3233/jsa-240744",
+          "query": "aging curve"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7165840038",
+          "title": "Dissociable aging curves across four roles in elite baseball: reproducibility package (code, derived data, and figures)",
+          "authors": [
+            "anonymized, anonymized"
+          ],
+          "year": 2026,
+          "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+          "license": "cc-by",
+          "url": "https://doi.org/10.5281/zenodo.20846029",
+          "query": "aging curve"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W1967991830",
+          "title": "Facility Age and Attendance in Major League Baseball",
+          "authors": [
+            "Chad D. McEvoy",
+            "Mark S. Nagel",
+            "Timothy D. DeSchriver",
+            "Matthew T. Brown"
+          ],
+          "year": 2005,
+          "venue": "Sport Management Review",
+          "license": null,
+          "url": "https://doi.org/10.1016/s1441-3523(05)70031-0",
+          "query": "aging curve"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2034034794",
+          "title": "The relationship between age and major league baseball performance: Implications for development.",
+          "authors": [
+            "Richard Schulz",
+            "Donald Musa",
+            "James J. Staszewski",
+            "Robert S. Siegler"
+          ],
+          "year": 1994,
+          "venue": "Psychology and Aging",
+          "license": null,
+          "url": "https://doi.org/10.1037//0882-7974.9.2.274",
+          "query": "aging curve"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2588552877",
+          "title": "Visual abilities distinguish pitchers from hitters in professional baseball",
+          "authors": [
+            "David Klemish",
+            "Benjamin Ramger",
+            "Kelly L. Vittetoe",
+            "Jerome P. Reiter",
+            "Surya T. Tokdar",
+            "Lawrence G. Appelbaum"
+          ],
+          "year": 2017,
+          "venue": "Journal of Sports Sciences",
+          "license": null,
+          "url": "https://doi.org/10.1080/02640414.2017.1288296",
+          "query": "aging curve"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2143147810",
+          "title": "Reduced humeral torsion predicts throwing-related injury in adolescent baseballers",
+          "authors": [
+            "Rod J. Whiteley",
+            "Roger David Adams",
+            "Leslie Lorenda Nicholson",
+            "Karen A. Ginn"
+          ],
+          "year": 2009,
+          "venue": "Journal of science and medicine in sport",
+          "license": null,
+          "url": "https://doi.org/10.1016/j.jsams.2009.06.001",
+          "query": "aging curve"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2073566651",
+          "title": "Determining ideal baseball bat weights using muscle force-velocity relationships",
+          "authors": [
+            "A. Terry Bahill",
+            "William J. Karnavas"
+          ],
+          "year": 1989,
+          "venue": "Biological Cybernetics",
+          "license": null,
+          "url": "https://doi.org/10.1007/bf00202996",
+          "query": "aging curve"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4399071734",
+          "title": "Analyzing Baseball Data with R",
+          "authors": [
+            "Jim Albert",
+            "Benjamin S. Baumer",
+            "Max Marchi"
+          ],
+          "year": 2024,
+          "venue": "Chapman & Hall/CRC eBooks",
+          "license": null,
+          "url": "http://dx.doi.org/10.1201/9781032668239",
+          "query": "aging curve"
+        }
+      ]
+    },
+    {
+      "source": "arxiv",
+      "query": "aging curve",
+      "total_results": 2,
+      "returned": 2,
+      "records": [
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:2210.02383v3",
+          "title": "Filling the Gaps: A Multiple Imputation Approach to Estimating Aging Curves in Baseball",
+          "authors": [
+            "Quang Nguyen",
+            "Gregory J. Matthews"
+          ],
+          "year": 2022,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/2210.02383v3",
+          "query": "aging curve"
+        },
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:2608.06635v2",
+          "title": "Modelling Athletic Ageing Relative to an Estimated Performance Envelope",
+          "authors": [
+            "Dae-Jin Lee"
+          ],
+          "year": 2026,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/2608.06635v2",
+          "query": "aging curve"
+        }
+      ]
+    },
+    {
+      "source": "openalex",
+      "query": "pitch tracking release",
+      "total_results": 6699,
+      "returned": 8,
+      "records": [
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4408994927",
+          "title": "A context-enhanced deep learning approach to predict baseball pitch location from ball tracking release metrics",
+          "authors": [
+            "R. Connor Moore",
+            "Reed D. Gurchiek",
+            "Jason M. Avedesian"
+          ],
+          "year": 2025,
+          "venue": "Sports Engineering",
+          "license": "cc-by",
+          "url": "https://doi.org/10.1007/s12283-025-00497-5",
+          "query": "pitch tracking release"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W3117213876",
+          "title": "Impact of each release parameter on pitch location in baseball pitching",
+          "authors": [
+            "Daiki Nasu",
+            "Makio Kashino"
+          ],
+          "year": 2020,
+          "venue": "Journal of Sports Sciences",
+          "license": "cc-by",
+          "url": "https://doi.org/10.1080/02640414.2020.1868679",
+          "query": "pitch tracking release"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W1998464350",
+          "title": "Trunk axial rotation in baseball pitching and batting",
+          "authors": [
+            "Glenn S. Fleisig",
+            "Wellington K. Hsu",
+            "Dave Fortenbaugh",
+            "Andrew M. Cordover",
+            "Joel M. Press"
+          ],
+          "year": 2013,
+          "venue": "Sports Biomechanics",
+          "license": null,
+          "url": "https://doi.org/10.1080/14763141.2013.838693",
+          "query": "pitch tracking release"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4403655829",
+          "title": "Pitch-level college baseball data captured by optical tracking technology",
+          "authors": [
+            "N. David Pifer"
+          ],
+          "year": 2024,
+          "venue": "Data in Brief",
+          "license": "cc-by-nc",
+          "url": "https://doi.org/10.1016/j.dib.2024.111049",
+          "query": "pitch tracking release"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2916785776",
+          "title": "Influence of Pitching Release Location on Ulnar Collateral Ligament Reconstruction Risk Among Major League Baseball Pitchers",
+          "authors": [
+            "Daniel A. Portney",
+            "Lucas T. Buchler",
+            "Jake M. Lazaroff",
+            "Stephen M. Gryzlo",
+            "Matthew D. Saltzman"
+          ],
+          "year": 2019,
+          "venue": "Orthopaedic Journal of Sports Medicine",
+          "license": "cc-by-nc-nd",
+          "url": "https://doi.org/10.1177/2325967119826540",
+          "query": "pitch tracking release"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4409462387",
+          "title": "Pitch-Specific Advanced Analytic and Pitch-Tracking Risk Factors for Ulnar Collateral Ligament Injuries in Major League Baseball Pitchers",
+          "authors": [
+            "Michael A. Mastroianni",
+            "Jennifer A. Kunes",
+            "John D. Mueller",
+            "Kyle K. Obana",
+            "Jamie Confino",
+            "Andrew J. Luzzi",
+            "Alexander J. Rondon",
+            "David P. Trofa",
+            "Charles Aaron Popkin",
+            "Charles M. Jobin",
+            "William N. Levine",
+            "Christopher S. Ahmad"
+          ],
+          "year": 2025,
+          "venue": "The American Journal of Sports Medicine",
+          "license": null,
+          "url": "https://doi.org/10.1177/03635465251330564",
+          "query": "pitch tracking release"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2184205943",
+          "title": "Baseball Data at Season, Play-by-Play, and Pitch-by-Pitch Levels",
+          "authors": [
+            "Jim Albert"
+          ],
+          "year": 2010,
+          "venue": "Journal of Statistics Education",
+          "license": null,
+          "url": "https://doi.org/10.1080/10691898.2010.11889592",
+          "query": "pitch tracking release"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7154221311",
+          "title": "Advanced Analytic and Pitch-Tracking Risk Factors for Capsulolabral Injuries in Major League Baseball Pitchers",
+          "authors": [
+            "Michael A. Mastroianni",
+            "Morgan R. Dillon",
+            "Kyle K. Obana",
+            "Cole R. Morrissette",
+            "Nicholas M. Frappa",
+            "Andrew J. Luzzi",
+            "Frank J. Alexander",
+            "Michael L. Knudsen",
+            "Christopher S. Ahmad"
+          ],
+          "year": 2026,
+          "venue": "Orthopaedic Journal of Sports Medicine",
+          "license": "cc-by-nc-nd",
+          "url": "https://doi.org/10.1177/23259671261425670",
+          "query": "pitch tracking release"
+        }
+      ]
+    },
+    {
+      "source": "arxiv",
+      "query": "pitch tracking release",
+      "total_results": 0,
+      "returned": 0,
+      "records": []
+    },
+    {
+      "source": "openalex",
+      "query": "batter pitcher matchup",
+      "total_results": 203,
+      "returned": 8,
+      "records": [
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2503208889",
+          "title": "Inference about batter-pitcher matchups in baseball from small samples",
+          "authors": [
+            "Hal S. Stern",
+            "Adam Sugano"
+          ],
+          "year": 2007,
+          "venue": "Chapman & Hall/CRC eBooks",
+          "license": null,
+          "url": "https://doi.org/10.1201/9781584888697-13",
+          "query": "batter pitcher matchup"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4247550257",
+          "title": "Inference about batter-pitcher matchups in baseball from small samples",
+          "authors": [
+            "Hal S. Stern",
+            "Adam Sugano"
+          ],
+          "year": 2007,
+          "venue": "Chapman & Hall/CRC eBooks",
+          "license": null,
+          "url": "https://doi.org/10.1201/9781584888697.ch9",
+          "query": "batter pitcher matchup"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2563582516",
+          "title": "Mano a Mano: Batter-Pitcher Matchups in Major League Baseball",
+          "authors": [
+            "Ian McConnell",
+            "Jamey McDowell"
+          ],
+          "year": 2016,
+          "venue": "Furman University Scholar Exchange (Furman University)",
+          "license": null,
+          "url": "https://scholarexchange.furman.edu/furmanengaged/2016/all/84",
+          "query": "batter pitcher matchup"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2767201828",
+          "title": "Time Structure of Baseball Batting during Real Matchup between Pitcher and Batter",
+          "authors": [
+            "Daiki Nasu"
+          ],
+          "year": 2017,
+          "venue": "The Brain & Neural Networks",
+          "license": null,
+          "url": "https://doi.org/10.3902/jnns.24.132",
+          "query": "batter pitcher matchup"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2023628870",
+          "title": "Modeling the Probability of a Strikeout for a Batter/Pitcher Matchup",
+          "authors": [
+            "Glenn E. Healey"
+          ],
+          "year": 2015,
+          "venue": "IEEE Transactions on Knowledge and Data Engineering",
+          "license": null,
+          "url": "https://doi.org/10.1109/tkde.2015.2416735",
+          "query": "batter pitcher matchup"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2292007562",
+          "title": "Bias in the log5 estimation of outcome of batter/pitcher matchups, and an alternative",
+          "authors": [
+            "Leslie C. Morey",
+            "Mark A. Cohen"
+          ],
+          "year": 2015,
+          "venue": "Journal of Sports Analytics",
+          "license": "other-oa",
+          "url": "https://doi.org/10.3233/jsa-150005",
+          "query": "batter pitcher matchup"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2897877415",
+          "title": "Modeling the probability of a batter/pitcher matchup event: A Bayesian approach",
+          "authors": [
+            "Woojin Doo",
+            "Heeyoung Kim"
+          ],
+          "year": 2018,
+          "venue": "PLoS ONE",
+          "license": "cc-by",
+          "url": "https://doi.org/10.1371/journal.pone.0204874",
+          "query": "batter pitcher matchup"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2592931788",
+          "title": "Comparison of prediction methods for batter-pitcher matchups",
+          "authors": [
+            "Thakur, Siddhartha"
+          ],
+          "year": 2016,
+          "venue": "Texas ScholarWorks (Texas Digital Library)",
+          "license": null,
+          "url": "http://hdl.handle.net/2152/45747",
+          "query": "batter pitcher matchup"
+        }
+      ]
+    },
+    {
+      "source": "arxiv",
+      "query": "batter pitcher matchup",
+      "total_results": 2,
+      "returned": 2,
+      "records": [
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:1706.10272v1",
+          "title": "Nuclear penalized multinomial regression with an application to predicting at bat outcomes in baseball",
+          "authors": [
+            "Scott Powers",
+            "Trevor Hastie",
+            "Robert Tibshirani"
+          ],
+          "year": 2017,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/1706.10272v1",
+          "query": "batter pitcher matchup"
+        },
+        {
+          "source": "arxiv",
+          "identifier": "arxiv:2005.07742v2",
+          "title": "SEAM methodology for context-rich player matchup evaluations",
+          "authors": [
+            "Julia Wapner",
+            "David Dalpiaz",
+            "Daniel J. Eck"
+          ],
+          "year": 2020,
+          "venue": "arXiv",
+          "license": null,
+          "url": "https://arxiv.org/abs/2005.07742v2",
+          "query": "batter pitcher matchup"
+        }
+      ]
+    },
+    {
+      "source": "openalex",
+      "query": "baserunning stolen base value",
+      "total_results": 30,
+      "returned": 8,
+      "records": [
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7167755610",
+          "title": "Running the Numbers: Modeling Stolen-Base Decisions in Major League Baseball After the 2023 Rule Changes",
+          "authors": [
+            "Zoe Kaur Price"
+          ],
+          "year": 2026,
+          "venue": "Digital Access to Scholarship at Harvard (DASH) (Harvard University)",
+          "license": "cc-by",
+          "url": "https://dash.harvard.edu/handle/1/42743945",
+          "query": "baserunning stolen base value"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2139698838",
+          "title": "Evaluating Throwing Ability in Baseball",
+          "authors": [
+            "Matthew Carruth",
+            "Shane T. Jensen"
+          ],
+          "year": 2007,
+          "venue": "Journal of Quantitative Analysis in Sports",
+          "license": null,
+          "url": "https://doi.org/10.2202/1559-0410.1079",
+          "query": "baserunning stolen base value"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W2468386040",
+          "title": "Markov League Baseball: Baseball Analysis Using Markov Chains",
+          "authors": [
+            "Victor Joseph Asaro"
+          ],
+          "year": 2016,
+          "venue": "DigitalCommons - CalPoly (California State Polytechnic University)",
+          "license": null,
+          "url": "https://digitalcommons.calpoly.edu/statsp/55",
+          "query": "baserunning stolen base value"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4410769901",
+          "title": "wSLG: Redefining the Relative Values of Various Hits in Baseball",
+          "authors": [
+            "Richard J. Cleary",
+            "Steven Miller",
+            "Alex Cardonick",
+            "Mac Carso",
+            "Jacob Eckerle",
+            "Ethan Prout",
+            "Evan Ruschil"
+          ],
+          "year": 2025,
+          "venue": null,
+          "license": null,
+          "url": "https://doi.org/10.5149/ms.1266",
+          "query": "baserunning stolen base value"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W7160841977",
+          "title": "Performance after Anterior Cruciate Ligament Reconstruction in Major League Baseball Fielders",
+          "authors": [
+            "Po-Chun Chi",
+            "Min-Hao Sun",
+            "Yu-Che Lee",
+            "Cheng‐Pang Yang",
+            "Chih‐Hao Chiu",
+            "Yi Lu"
+          ],
+          "year": 2026,
+          "venue": "Research Square",
+          "license": "cc-by",
+          "url": "https://doi.org/10.21203/rs.3.rs-9413563/v1",
+          "query": "baserunning stolen base value"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W185094619",
+          "title": "Determinants of Major League Baseball Player Salaries",
+          "authors": [
+            "Tyler Wasserman"
+          ],
+          "year": 2013,
+          "venue": "Syracuse University Libraries (Syracuse University)",
+          "license": "cc-by-nc-nd",
+          "url": "https://surface.syr.edu/honors_capstone/99",
+          "query": "baserunning stolen base value"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4316877856",
+          "title": "Estimating the effect of hitting strategies in baseball using counterfactual virtual simulation with deep learning",
+          "authors": [
+            "Hiroshi Nakahara",
+            "Kazuya Takeda",
+            "Keisuke Fujii"
+          ],
+          "year": 2023,
+          "venue": "Int. J. Comput. Sci. Sport",
+          "license": "cc-by-nc-nd",
+          "url": "https://doi.org/10.2478/ijcss-2023-0001",
+          "query": "baserunning stolen base value"
+        },
+        {
+          "source": "openalex",
+          "identifier": "https://openalex.org/W4281945743",
+          "title": "Estimating the Effect of Team Hitting Strategies Using Counterfactual Virtual Simulation in Baseball",
+          "authors": [
+            "Hiroshi Nakahara",
+            "Kazuya Takeda",
+            "Fujii, Keisuke"
+          ],
+          "year": 2022,
+          "venue": "arXiv (Cornell University)",
+          "license": null,
+          "url": "http://arxiv.org/abs/2206.01871",
+          "query": "baserunning stolen base value"
+        }
+      ]
+    },
+    {
+      "source": "arxiv",
+      "query": "baserunning stolen base value",
+      "total_results": 0,
+      "returned": 0,
+      "records": []
+    }
+  ]
+}

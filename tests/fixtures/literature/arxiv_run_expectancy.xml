@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/I2kjokFpu1l+7lnvfCcBm85jqLo</id>
+  <title>arXiv Query: search_query=all:baseball AND all:"run expectancy"&amp;id_list=&amp;start=0&amp;max_results=3</title>
+  <updated>2026-10-18T10:07:05Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:baseball+AND+all:%22run+expectancy%22&amp;start=0&amp;max_results=3&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>3</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2607.29041v1</id>
+    <title>Baseball, An Extensive-Form Game-Theoretic Duel</title>
+    <updated>2026-07-31T05:42:31Z</updated>
+    <link href="https://arxiv.org/abs/2607.29041v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.29041v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We formulate a baseball plate appearance as a finite two-person, zero-sum, extensive-form game with chance moves and imperfect information. Successive pitch cycles are connected through the evolving count, while the Batter chooses an action without observing the Pitcher's current pitch selection. Terminal outcomes are valued through a run-expectancy utility that incorporates both runs scored during the plate appearance and the continuation value of the half-inning. We implement the sequence-form representation of the game, whose linear-programming formulation grows linearly with the game tree and permits exact minimax equilibrium computations for trees far beyond the practical range of the normal form. Nature's transition probabilities are estimated from MLB Statcast data. We also establish two complementary dynamic-programming interpretations. For general finite two-person zero-sum games with perfect recall, we show that the dual variables of the sequence-form best-response programs decompose into reach weights and conditional continuation values. Under the additional state-Markov assumptions of the baseball model, we prove that the full minimax equilibrium can be computed by backward induction over the twelve non-terminal counts. The resulting computations produce equilibrium strategies, continuation values, and conditional and reach-weighted measures of the strategic cost of non-optimal actions.</summary>
+    <category term="math.OC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-31T05:42:31Z</published>
+    <arxiv:comment>35 pages, 6 Figures</arxiv:comment>
+    <arxiv:primary_category term="math.OC"/>
+    <author>
+      <name>Sebastian E. Ferrando</name>
+    </author>
+    <author>
+      <name>Eli Kohn</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2305.05752v2</id>
+    <title>Evaluating plate discipline in Major League Baseball with Bayesian Additive Regression Trees</title>
+    <updated>2023-09-20T12:37:48Z</updated>
+    <link href="https://arxiv.org/abs/2305.05752v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2305.05752v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We introduce a three-step framework to determine at which pitches Major League batters should swing. Unlike traditional plate discipline metrics, which implicitly assume that all batters should always swing at (resp. take) pitches inside (resp. outside) the strike zone, our approach explicitly accounts not only for the players and umpires involved in the pitch but also in-game contextual information like the number of outs, the count, baserunners, and score. We first fit flexible Bayesian nonparametric models to estimate (i) the probability that the pitch is called a strike if the batter takes the pitch; (ii) the probability that the batter makes contact if he swings; and (iii) the number of runs the batting team is expected to score following each pitch outcome (e.g. swing and miss, take a called strike, etc.). We then combine these intermediate estimates to determine whether swinging increases the batting team's run expectancy. Our approach enables natural uncertainty propagation so that we can not only determine the optimal swing/take decision but also quantify our confidence in that decision. We illustrate our framework using a case study of pitches faced by Mike Trout in 2019.</summary>
+    <category term="stat.AP" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-05-09T20:18:02Z</published>
+    <arxiv:primary_category term="stat.AP"/>
+    <author>
+      <name>Ryan Yee</name>
+    </author>
+    <author>
+      <name>Sameer K. Deshpande</name>
+    </author>
+    <arxiv:doi>10.1515/jqas-2023-0048</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1515/jqas-2023-0048" title="doi"/>
+  </entry>
+</feed>
