@@ -1,0 +1,26 @@
+# Win expectancy rows from Tom Tango's published table, http://tangotiger.net/welist.html (copyright 2002 Tangotiger;
+# innings 8 to 9 as far as retrieved, 7 only for the bottom half). Values are the HOME team's win probability;
+# score is home lead minus away runs. The page states no seasons or run environment. Retrieved 2026-10-18.
+# Recomputation gate: within each (inning, half, score), WE falls as outs increase and rises as runners are added
+# (checked in the test).
+source_url: http://tangotiger.net/welist.html
+bottom9_tied:
+  "---": [0.634, 0.577, 0.532]
+  "1--": [0.715, 0.637, 0.562]
+  "-2-": [0.807, 0.703, 0.610]
+  "--3": [0.914, 0.830, 0.637]
+  "12-": [0.816, 0.711, 0.613]
+  "1-3": [0.929, 0.829, 0.642]
+  "-23": [0.928, 0.839, 0.639]
+  "123": [0.934, 0.835, 0.662]
+bottom9_trailing_1:
+  "---": [0.194, 0.108, 0.042]
+  "1--": [0.331, 0.208, 0.093]
+  "-2-": [0.437, 0.282, 0.143]
+  "--3": [0.551, 0.412, 0.170]
+  "12-": [0.517, 0.337, 0.170]
+  "1-3": [0.645, 0.464, 0.204]
+  "-23": [0.721, 0.540, 0.247]
+  "123": [0.739, 0.542, 0.278]
+top9_tied_empty: [0.500, 0.557, 0.603]
+bottom7_tied_empty: [0.586, 0.548, 0.519]

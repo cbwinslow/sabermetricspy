@@ -50,16 +50,18 @@ as fixtures under `tests/golden/`. Pitch-level checks use a recorded public Base
    - Whiff%: FanGraphs counts foul tips as contact, Savant as misses (23.3 against 27.7); the library follows FanGraphs.
    - F-Strike%: FanGraphs divides by 753 batters faced, Savant shows 754 first pitches; tests use 753.
    - Marcel pitchers (`divergent`): 5/4/3 weights and 134 IP regression versus Tango's 3/2/1 and 25 or 60 IP.
-5. **Models.** Four open reimplementations (`ExpectedOutcomeModel`, `PitchQualityModel`, `CountExpectancyMatrix`,
-   `WinProbabilityModel`) stay `unverified` with a written reason each: there is no published model or table to
+5. **Models.** Three open reimplementations (`ExpectedOutcomeModel`, `PitchQualityModel`, `CountExpectancyMatrix`)
+   stay `unverified` with a written reason each: there is no published model or table to
    reproduce, or none could be retrieved. The count offsets are caller-overridable and unsourced. The framing
    (0.125 runs per called strike) and outs-above-average (0.75 runs per infield out) constants were sourced to the MLB
-   Fielding Run Value glossary after the audit and relabeled `approximate` with `secondary` evidence.
+   Fielding Run Value glossary after the audit and relabeled `approximate` with `secondary` evidence. `WinProbabilityModel`
+   was compared with 54 cells of Tom Tango's published win-expectancy table and relabeled `approximate` with `golden`
+   evidence (mean absolute error 0.048, worst 0.194 when trailing by one run with runners on second and third).
 
 ## Outcome
 Metrics: 136 audited (`matches` 90, `approximate` 46, none `unverified`); by tier, `golden` 84, `primary` 27,
 `secondary` 25. Models: 16 entries (9 `matches` or `approximate`, 1 `divergent`, 6 `unverified` each with a written reason); two of the six were
-relabeled `approximate` afterwards (item 5), leaving 4 `unverified`. Later changes (ADR-0029 to ADR-0032) add entries on top of these counts.
+relabeled `approximate` afterwards (item 5), leaving 3 `unverified` after WinProbabilityModel was also compared with a published table. Later changes (ADR-0029 to ADR-0032) add entries on top of these counts.
 
 ## Consequences
 - Several published-method metrics now change value for existing callers (listed in the table above); the changes
