@@ -424,7 +424,7 @@ def test_re24_linear_weights_war_and_forecasting_models() -> None:
         }
     )
     valued = re24.transform(plays)
-    # Solo HR with 0 outs, bases empty: 1 + 0.481 - 0.481 = 1.000 run value
+    # Solo HR with 0 outs, bases empty: 1 + RE(0 outs, empty) - RE(0 outs, empty) = 1.000 run value
     assert math.isclose(valued["run_value"][0], 1.000, rel_tol=1e-9)
 
     lw = LinearWeightsEstimator(target_lg_obp=0.320).fit(valued)

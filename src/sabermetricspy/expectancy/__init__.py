@@ -13,34 +13,39 @@ from sabermetricspy.schema import to_polars_df
 from sabermetricspy.telemetry import profiled
 from sabermetricspy.types.enums import BaseState
 
-# Canonical 2024 MLB 24-State Run Expectancy Table (Tom Tango / Retrosheet baseline)
-# Indexed by (outs_before: int, base_state: BaseState) -> expected runs to end of inning
+# Published 24-state run-expectancy matrix from the FanGraphs Library RE24 page, which describes it as
+# roughly neutral for 2014 (4.15 runs per game): https://library.fangraphs.com/misc/re24/
+# Indexed by (outs_before: int, base_state: BaseState) -> expected runs to end of inning.
+# Pass a fitted RunExpectancyMatrix for a specific season; tests/golden/run_expectancy_table.yaml pins this table.
 DEFAULT_RE24_TABLE: dict[tuple[int, str], float] = {
-    (0, "---"): 0.481,
-    (1, "---"): 0.254,
-    (2, "---"): 0.098,
-    (0, "1--"): 0.859,
-    (1, "1--"): 0.509,
-    (2, "1--"): 0.224,
-    (0, "-2-"): 1.100,
-    (1, "-2-"): 0.664,
-    (2, "-2-"): 0.319,
-    (0, "--3"): 1.350,
-    (1, "--3"): 0.950,
-    (2, "--3"): 0.353,
-    (0, "12-"): 1.437,
-    (1, "12-"): 0.884,
-    (2, "12-"): 0.429,
-    (0, "1-3"): 1.784,
-    (1, "1-3"): 1.130,
-    (2, "1-3"): 0.478,
-    (0, "-23"): 1.964,
-    (1, "-23"): 1.376,
-    (2, "-23"): 0.580,
+    (0, "---"): 0.461,
+    (1, "---"): 0.243,
+    (2, "---"): 0.095,
+    (0, "1--"): 0.831,
+    (1, "1--"): 0.489,
+    (2, "1--"): 0.214,
+    (0, "-2-"): 1.068,
+    (1, "-2-"): 0.644,
+    (2, "-2-"): 0.305,
+    (0, "12-"): 1.373,
+    (1, "12-"): 0.908,
+    (2, "12-"): 0.343,
+    (0, "--3"): 1.426,
+    (1, "--3"): 0.865,
+    (2, "--3"): 0.413,
+    (0, "1-3"): 1.798,
+    (1, "1-3"): 1.140,
+    (2, "1-3"): 0.471,
+    (0, "-23"): 1.920,
+    (1, "-23"): 1.352,
+    (2, "-23"): 0.570,
     (0, "123"): 2.282,
-    (1, "123"): 1.541,
+    (1, "123"): 1.520,
     (2, "123"): 0.736,
 }
+
+# Expected runs for the bases-empty, no-out state; the anchor used to rescale the table to another run environment.
+_RE24_ANCHOR = DEFAULT_RE24_TABLE[(0, "---")]
 
 # Canonical Ball-Strike Count Run Value Offsets relative to 0-0 count (Tango / Roegele)
 DEFAULT_COUNT_OFFSETS: dict[tuple[int, int], float] = {
@@ -636,7 +641,7 @@ class WinProbabilityModel:
             return 1.0
 
         runs_per_half = self.runs_per_9 / 18.0
-        scale = runs_per_half / 0.481  # Scale canonical RE24 to run environment
+        scale = runs_per_half / _RE24_ANCHOR  # Scale the RE24 table to the run environment
         current_re = DEFAULT_RE24_TABLE.get((outs, str(base_state)), 0.0) * scale
 
         rem_full_innings = max(0, 9 - inning)
@@ -723,7 +728,7 @@ class WinProbabilityModel:
         walkoff_mid_inn = (~eff_is_top) & (eff_inn >= 9) & (diff_expr > 0)
 
         runs_per_half = self.runs_per_9 / 18.0
-        scale = runs_per_half / 0.481
+        scale = runs_per_half / _RE24_ANCHOR
         re_map = {f"{o}|{s}": val * scale for (o, s), val in DEFAULT_RE24_TABLE.items()}
         state_key = eff_outs.cast(pl.Utf8) + pl.lit("|") + eff_bs
         current_re = state_key.replace_strict(re_map, default=0.0)

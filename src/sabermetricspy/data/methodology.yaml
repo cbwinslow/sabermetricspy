@@ -704,50 +704,56 @@ models:
     source_url: http://www.tangotiger.net/archives/stud0346.shtml
     note: Tango uses weights 3/2/1 and an IP base of 25 (relievers) or 60 (starters); the class documents 5/4/3 weights and a 134 IP regression constant that no source supports.
   Log5Model:
-    status: unverified
-    source_url: ''
-    note: Not audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://en.wikipedia.org/wiki/Log5
+    note: Team form (pA - pA pB) / (pA + pB - 2 pA pB) and batter-pitcher odds-ratio form with a league rate both equal the published formulas, including the article's 0.6 vs 0.4 arithmetic (0.36 / 0.52). The sources cite Bill James as the originator; the original text was not retrieved. tests/test_model_audit.py
   MarkovChainModel:
-    status: unverified
-    source_url: ''
-    note: Not audited against a primary source.
+    status: approximate
+    evidence: primary
+    source_url: https://en.wikipedia.org/wiki/Markov_chain
+    note: The absorbing-chain solution (N = (I-Q)^-1, E[runs] = N r) is exact and matches the negative-binomial closed form for a home-run-or-out batter (3p/(1-p)). The Bukiet, Harold and Palacios (1997) paper the class cites was not retrievable (publisher returned 403), and the base advancement rules are the simple fixed ones (no double plays, steals or errors, runners advance one base on a single), so results are an approximation of real innings. tests/test_model_audit.py
   MonteCarloSimulator:
-    status: unverified
-    source_url: ''
-    note: Not audited against a primary source.
+    status: approximate
+    evidence: primary
+    source_url: https://en.wikipedia.org/wiki/Monte_Carlo_method
+    note: Uses the same event and advancement rules as MarkovChainModel; its mean runs per game converges to the exact chain value within four standard errors for a fixed seed. Carries the same simplified-advancement caveat. tests/test_model_audit.py
   RunExpectancyMatrix:
-    status: unverified
-    source_url: ''
-    note: Empirical RE24 estimator; not compared with published run-expectancy tables.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/misc/re24/
+    note: The built-in default table is the published FanGraphs RE24 matrix (roughly neutral for 2014, 4.15 runs per game), pinned cell by cell by tests/golden/run_expectancy_table.yaml; the previous 'canonical 2024' table was unsourced and differed by up to 0.086 runs (ADR-0028). The empirical fit() computes mean runs to the end of the inning per base-out state; it was not compared with a season fitted from play-by-play, which is not bundled.
   CountExpectancyMatrix:
     status: unverified
     source_url: ''
-    note: Empirical RE288 estimator; not compared with published count-run-value tables.
+    note: 'Reason: the 12 ball-strike count offsets in DEFAULT_COUNT_OFFSETS are labeled Tango/Roegele but no published count run-value table could be retrieved (a search and the texasleaguers post found none), so they cannot be checked and are used only as a prior that fit() shrinks toward observed data. The base-out part now rests on the sourced RE24 table. Follow-up: source a count table (Tango''s 288-state work) before relying on the default.'
   LinearWeightsEstimator:
-    status: unverified
-    source_url: ''
-    note: Not compared with published linear weights.
+    status: approximate
+    evidence: secondary
+    source_url: https://www.fangraphs.com/guts.aspx?type=cn
+    note: Follows the FanGraphs Guts! construction (run value above out times a scale that sets wOBA equal to OBP) and the scale identity is tested. A numeric reproduction of the published weights needs season play-by-play run values, which are not bundled, so no published weight was reproduced. tests/test_model_audit.py
   WinProbabilityModel:
     status: unverified
     source_url: ''
-    note: Not compared with published win-expectancy tables.
+    note: 'Reason: a closed-form normal approximation (runs per game, home edge, RE24 scaled to the run environment), not a table built from play-by-play. No published win-expectancy table could be retrieved to compare cell by cell (the FanGraphs LI page gives only a hypothetical example). Its leverage index follows the published definition that the average is 1 but its values are untested against Tango''s tables.'
   ExpectedOutcomeModel:
     status: unverified
     source_url: https://baseballsavant.mlb.com/csv-docs
-    note: Open k-NN reimplementation; it is not Baseball Savant's xBA/xSLG/xwOBA model and is not expected to reproduce those values.
+    note: 'Reason: an open k-NN reimplementation of the expected-outcome idea, not Baseball Savant''s model, whose training data and algorithm are unpublished. Savant''s xBA/xSLG/xwOBA values are checked through the metrics that consume Savant''s own per-pitch estimates, not through this class.'
   PitchQualityModel:
     status: unverified
     source_url: ''
-    note: Open reimplementation of the Stuff+/Location+/Pitching+ idea; not any vendor's published model.
+    note: 'Reason: an open reimplementation of the Stuff+/Location+/Pitching+ idea. No vendor publishes the model or its training data, so there is nothing to reproduce; results are meaningful only relative to the data fitted.'
   CatcherFramingModel:
     status: unverified
     source_url: ''
-    note: Open estimator; not compared with published framing runs.
+    note: 'Reason: an open estimator with a constant run_value_per_called_strike of 0.125 whose source was not found, and no published framing runs for a recorded sample were retrieved. The constant is a caller-overridable default, not a verified value.'
   OutsAboveAverageModel:
     status: unverified
     source_url: ''
-    note: Open estimator; not compared with Savant's Outs Above Average.
+    note: 'Reason: an open estimator with a run_value_per_out default of 0.75 whose source was not found; Baseball Savant''s Outs Above Average uses tracked fielder positions and an unpublished model, so it cannot be reproduced from public data.'
   EmpiricalBayesShrinker:
-    status: unverified
-    source_url: ''
-    note: Generic Empirical Bayes shrinkage; not audited.
+    status: matches
+    evidence: primary
+    source_url: https://en.wikipedia.org/wiki/Empirical_Bayes_method
+    note: Posterior mean (k + a) / (n + a + b), equivalent to shrinkage weight M / (n + M) toward the population mean, is the standard beta-binomial result. The prior is fitted by moments or fixed by stabilization_trials. Efron and Morris (1975) was not retrievable (publisher returned 403). tests/test_model_audit.py

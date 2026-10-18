@@ -37,7 +37,7 @@
 
 ## 8. Models (16 entries)
 
-- [ ] 8.1 For each model entry find a published reference (run-expectancy and win-expectancy tables, the Log5 formula, Guts! linear weights, Marcel components already checked) and compare where inputs allow; otherwise record why no reference exists. Verify no model is unverified without a written reason and the test enforcing that passes.
+- [x] 8.1 For each model entry find a published reference (run-expectancy and win-expectancy tables, the Log5 formula, Guts! linear weights, Marcel components already checked) and compare where inputs allow; otherwise record why no reference exists. Verify no model is unverified without a written reason and the test enforcing that passes.
 
 ## 9. Defects and decision record
 
