@@ -137,6 +137,18 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
         dict(park_factor=105.0),
     ),
     (Metric.PIT_BB_TO_K, dict(bb=3, so=9), 3 / 9, {}),
+    (
+        Metric.GAME_SCORE,
+        dict(outs=21, so=8, h=5, er=2, r=2, bb=2),
+        50 + 21 + 2 * 3 + 8 - 10 - 8 - 0 - 2,
+        {},
+    ),
+    (
+        Metric.GAME_SCORE_V2,
+        dict(outs=21, so=8, bb=2, h=5, hr=1, r=2),
+        40 + 42 + 8 - 4 - 10 - 6 - 6,
+        {},
+    ),
     (Metric.PIT_K_TO_BB, dict(so=9, bb=3), 9 / 3, {}),
     (Metric.BF_PER_IP, dict(bf=27, outs=18), 3 * 27 / 18, {}),
     (Metric.K_PCT_PLUS, dict(so=9, bf=27), 100 * (9 / 27) / W.lg_k_pct, {}),
@@ -334,7 +346,8 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
 GOLDEN_COVERED = {m.value for m, _ in BATTING_METRICS.values()} | {
     m.value for m, _ in PITCHING_METRICS.values()
 }
-TABLE_COVERED = {m.value for m, *_ in CASES}
+# `off` composes wRAA, BsR and league constants; its formula recomputation is in tests/test_game_score_and_off.py.
+TABLE_COVERED = {m.value for m, *_ in CASES} | {"off"}
 
 
 def _context(kwargs: dict[str, Any]) -> SeasonContext:

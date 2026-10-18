@@ -112,6 +112,35 @@ def calc_wrc_plus(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
+        metric=Metric.OFF,
+        display_name="Off",
+        category=Category.WEIGHTED_OFFENSE,
+        kind=ImplKind.CONTEXTUAL,
+        required_columns=("pa",),
+        requires=(Metric.WRAA, Metric.BSR),
+        direction=Direction.HIGHER_IS_BETTER,
+        formula_latex=r"Off = wRAA + (lgR/PA - PF \times lgR/PA) PA + (lgR/PA - lgwRC/PA_{\text{non-pitchers}}) PA + BsR",
+        citation="FanGraphs Library (Off)",
+        description="Batting runs above average (park and league adjusted) plus base running runs.",
+        caveats=(
+            "Park factor defaults to 100 (no park adjustment); pass SeasonContext(park_factor=...).",
+            "Uses the AL/NL non-pitcher wRC/PA when the season has it, otherwise league R/PA, as wRC+ does.",
+        ),
+    )
+)
+def calc_off(ctx: EvalContext) -> nw.Expr:
+    w = ctx.weights
+    pf = ctx.season_context.park_factor / 100.0
+    league_wrc_per_pa = w.wrc_per_pa_for(ctx.season_context.league)
+    if league_wrc_per_pa is None:
+        league_wrc_per_pa = w.lg_r_per_pa
+    park_term = (w.lg_r_per_pa - pf * w.lg_r_per_pa) * nw.col("pa")
+    league_term = (w.lg_r_per_pa - league_wrc_per_pa) * nw.col("pa")
+    return nw.col("wraa") + park_term + league_term + nw.col("bsr")
+
+
+@register_metric(
+    MetricSpec(
         metric=Metric.OPS_PLUS,
         display_name="OPS+",
         category=Category.WEIGHTED_OFFENSE,

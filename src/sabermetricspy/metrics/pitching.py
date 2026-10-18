@@ -79,6 +79,65 @@ def calc_whip(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
+        metric=Metric.GAME_SCORE,
+        display_name="Game Score",
+        category=Category.PITCHING,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("outs", "so", "h", "er", "r", "bb"),
+        direction=Direction.HIGHER_IS_BETTER,
+        formula_latex=r"GS = 50 + Outs + 2 \max(0, \lfloor Outs/3 \rfloor - 4) + SO - 2H - 4ER - 2(R - ER) - BB",
+        citation="James, B. (1988) The Bill James Baseball Abstract; Wikipedia (Game score)",
+        description="Bill James's original Game Score for one start (50 is average).",
+        caveats=(
+            "Per-game metric with a fixed base of 50: calculate it on one row per start, do not sum or average rows first.",
+            "Formula read from a secondary page (Wikipedia); James's original text was not retrieved.",
+        ),
+    )
+)
+def calc_game_score(ctx: EvalContext) -> nw.Expr:
+    innings_after_fourth = nw.max_horizontal(nw.col("outs") // 3 - 4, nw.lit(0))
+    return (
+        50
+        + nw.col("outs")
+        + 2 * innings_after_fourth
+        + nw.col("so")
+        - 2 * nw.col("h")
+        - 4 * nw.col("er")
+        - 2 * (nw.col("r") - nw.col("er"))
+        - nw.col("bb")
+    )
+
+
+@register_metric(
+    MetricSpec(
+        metric=Metric.GAME_SCORE_V2,
+        display_name="Game Score 2.0",
+        category=Category.PITCHING,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("outs", "so", "bb", "h", "hr", "r"),
+        direction=Direction.HIGHER_IS_BETTER,
+        formula_latex=r"GSv2 = 40 + 2 Outs + SO - 2BB - 2H - 6HR - 3R",
+        citation="Tango, T. (2014) Game Score Version 2.0, FanGraphs",
+        description="Tom Tango's Game Score 2.0 for one start (the home run also counts as a hit).",
+        caveats=(
+            "Per-game metric with a fixed base of 40; the article's yearly base shift (so that 50 is league average) is not modeled.",
+        ),
+    )
+)
+def calc_game_score_v2(ctx: EvalContext) -> nw.Expr:
+    return (
+        40
+        + 2 * nw.col("outs")
+        + nw.col("so")
+        - 2 * nw.col("bb")
+        - 2 * nw.col("h")
+        - 6 * nw.col("hr")
+        - 3 * nw.col("r")
+    )
+
+
+@register_metric(
+    MetricSpec(
         metric=Metric.H_PER_9,
         display_name="H/9",
         category=Category.PITCHING,

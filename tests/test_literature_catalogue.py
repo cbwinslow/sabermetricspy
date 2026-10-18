@@ -21,7 +21,9 @@ CRITERIA = ("formula", "inputs", "validation", "fit", "value", "difficulty")
 
 
 def _entries() -> list[tuple[str, dict[str, str]]]:
-    section = DOC.split("## Candidate methods", 1)[1].split("## Rejected or deferred", 1)[0]
+    section = DOC.split("## Candidate methods", 1)[1].split(
+        "## Implemented from this catalogue", 1
+    )[0]
     entries = []
     for block in re.split(r"^### ", section, flags=re.MULTILINE)[1:]:
         title, _, body = block.partition("\n")
@@ -31,7 +33,7 @@ def _entries() -> list[tuple[str, dict[str, str]]]:
 
 
 def test_catalogue_has_entries() -> None:
-    assert len(_entries()) >= 5
+    assert len(_entries()) >= 3
 
 
 def test_every_entry_has_all_fields_and_a_primary_source_url() -> None:

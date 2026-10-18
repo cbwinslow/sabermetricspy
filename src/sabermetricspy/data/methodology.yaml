@@ -682,6 +682,21 @@ metrics:
     evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
     note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Divides by located pitches when out-of-zone pitches are supplied (corrected, ADR-0028); FanGraphs' plain Zone% uses Baseball Info Solutions zones and cannot be reproduced from Savant data.
+  game_score:
+    status: matches
+    evidence: golden
+    source_url: https://en.wikipedia.org/wiki/Game_score
+    note: 'Reproduces published games from the Wikipedia page: Kerry Wood 1998 = 105 and Max Scherzer''s 2015 no-hitter = 104. The formula is read from that secondary page; James''s original text was not retrieved. tests/test_game_score_and_off.py'
+  game_score_v2:
+    status: matches
+    evidence: golden
+    source_url: https://blogs.fangraphs.com/instagraphs/game-score-v2-0
+    note: Reproduces the worked example in Tango's FanGraphs article (7 IP, 8 K, 2 BB, 5 H including 1 HR, 2 R = 64). The article's yearly base shift is not modeled. tests/test_game_score_and_off.py
+  'off':
+    status: matches
+    evidence: primary
+    source_url: https://library.fangraphs.com/offense/off/
+    note: Implements the formula printed on the FanGraphs Library page (wRAA + park term + league term + BsR) and is recomputed from it in tests/test_game_score_and_off.py. The page prints no player value, so no published number was reproduced.
 models:
   WARFramework.calculate_pitcher_war_df:
     status: approximate

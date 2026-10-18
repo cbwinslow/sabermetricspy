@@ -26,47 +26,7 @@ recorded score equals the sum, and that entries are in descending score order.
 
 ## Candidate methods
 
-### 1. Game Score Version 2.0 (Tom Tango)
-- **Citation**: [Game Score Version 2.0, FanGraphs](https://blogs.fangraphs.com/instagraphs/game-score-v2-0)
-- **Formula source**: the article: 40 + 2 per out + 1 per strikeout - 2 per walk - 2 per hit - 6 extra per home run - 3 per run. The base can be shifted each year so that 50 is league average (2015 used 38).
-- **Inputs**: outs, strikeouts, walks, hits, home runs, runs.
-- **Inputs in canonical schema**: yes, all six are existing pitching columns.
-- **Validation target**: the article's worked start (7 IP, 8 K, 2 BB, 5 H including 1 HR, 2 R) scores 64 with base 40.
-- **Scores**: formula=1; inputs=2; validation=2; fit=2; value=2; difficulty=1
-- **Priority score**: 8
-- **Difficulty**: 1 (single column expression, per game row).
-
-### 2. Park factor, raw and regressed (FanGraphs Library)
-- **Citation**: [5 Year Regressed Park Factors, FanGraphs Library](https://library.fangraphs.com/park-factors-5-year-regressed/)
-- **Formula source**: raw PF = H*T / ((T-1)*R + H) with home and road runs per game and T teams; iPF = (raw + 1)/2; final = 1 - (1 - iPF)*X with X = 0.6, 0.7, 0.8, 0.9 for 1, 2, 3, 4 or more years, using up to five years centered on the season.
-- **Inputs**: runs scored and allowed split by home and road, games, team count.
-- **Inputs in canonical schema**: partly; home and road splits need a home/road flag on team-game rows.
-- **Validation target**: the article's examples: home 11 and road 10 runs per game gives raw 1.10 and composite 1.05; iPF 1.25 regresses to 1.15, 1.175, 1.20, 1.225 for 1 to 4 years. Published per-park values come from the FanGraphs Guts! park factor page and have not been fetched.
-- **Scores**: formula=1; inputs=1; validation=2; fit=2; value=3; difficulty=2
-- **Priority score**: 7
-- **Difficulty**: 2 (windowing and edge-year rules). High value because wRC+, OPS+, ERA+ and ERA- currently default the park factor to 100 unless the caller supplies one.
-
-### 3. Game Score (Bill James, original)
-- **Citation**: [Game score, Wikipedia](https://en.wikipedia.org/wiki/Game_score) (secondary page describing James's original formula; the original text was not retrieved)
-- **Formula source**: start at 50; +1 per out; +2 per completed inning after the fourth; +1 per strikeout; -2 per hit; -4 per earned run; -2 per unearned run; -1 per walk.
-- **Inputs**: outs, innings completed, strikeouts, hits, earned and unearned runs, walks.
-- **Inputs in canonical schema**: yes (unearned runs are runs minus earned runs).
-- **Validation target**: Kerry Wood's 1998 start (27 outs, 20 K, 1 H) = 105; Max Scherzer's 2015 no-hitter (17 K) = 104.
-- **Scores**: formula=1; inputs=2; validation=2; fit=2; value=1; difficulty=1
-- **Priority score**: 7
-- **Difficulty**: 1.
-
-### 4. Off (FanGraphs)
-- **Citation**: [Off, FanGraphs Library](https://library.fangraphs.com/offense/off/)
-- **Formula source**: Off = batting runs + BsR. Batting runs = wRAA + (lgR/PA - PF*lgR/PA)*PA + (lgR/PA - league non-pitcher wRC/PA)*PA; BsR = wSB + UBR + wGDP.
-- **Inputs**: wRAA, park factor, league R/PA and non-pitcher wRC/PA, BsR components.
-- **Inputs in canonical schema**: yes; the library already has wRAA, wSB, wGDP, BsR and the league constants.
-- **Validation target**: FanGraphs leaderboard Off values for recorded batters (not fetched yet); the page prints only rules of thumb.
-- **Scores**: formula=1; inputs=2; validation=1; fit=2; value=2; difficulty=1
-- **Priority score**: 7
-- **Difficulty**: 1 (composition of existing metrics; UBR input is caller supplied).
-
-### 5. Base-Advance Average (Hardegree, 2005)
+### 1. Base-Advance Average (Hardegree, 2005)
 - **Citation**: [Base-Advance Average, Gary Hardegree, via Retrosheet](https://www.retrosheet.org/Research/HardegreeG/Base-Advance-Average.pdf)
 - **Formula source**: bases advanced (batter and runners, steals included, runners erased count negative) divided by base-advance opportunities (for each runner including the batter, the maximum bases he could advance: 4 for the batter, 3 from first, and so on).
 - **Inputs**: base state before and after, outs, runs on the play, steals and caught stealing.
@@ -76,7 +36,7 @@ recorded score equals the sum, and that entries are in descending score order.
 - **Priority score**: 6
 - **Difficulty**: 2 (the paper notes scoring interpretation for runners thrown out; the retrospective rule charges the batter).
 
-### 6. Extended Pythagorean head-to-head probability (Cleary et al.)
+### 2. Extended Pythagorean head-to-head probability (Cleary et al.)
 - **Citation**: [Extending James' Pythagorean Formula for Head-to-Head Matchups](https://web.williams.edu/Mathematics/sjmiller/public_html/math/papers/PythagBothTeams20.pdf)
 - **Formula source**: home RS and RA are rescaled by the opponent's allowed and scored runs relative to the league average R: RS_adj = RS_h*(RA_a/R), RA_adj = RA_h*(RS_a/R); P(home wins) = RS_adj^g / (RS_adj^g + RA_adj^g), equivalently (RS_h*RA_a)^g / ((RS_h*RA_a)^g + (RA_h*RS_a)^g).
 - **Inputs**: team runs scored and allowed per game, league runs per game, exponent.
@@ -86,7 +46,7 @@ recorded score equals the sum, and that entries are in descending score order.
 - **Priority score**: 6
 - **Difficulty**: 1. The paper quotes Baseball-Reference's exponent as 1.87 (and 1.83 as also common), which should be reconciled with ADR-0027's configurable exponent before adoption.
 
-### 7. Shutdown and Meltdown (FanGraphs)
+### 3. Shutdown and Meltdown (FanGraphs)
 - **Citation**: [SD and MD, FanGraphs Library](https://library.fangraphs.com/pitching/sd-md/)
 - **Formula source**: a reliever earns a Shutdown in a game when his WPA is +0.06 or more and a Meltdown when it is -0.06 or less.
 - **Inputs**: per-game reliever WPA.
@@ -96,7 +56,7 @@ recorded score equals the sum, and that entries are in descending score order.
 - **Priority score**: 4
 - **Difficulty**: 2.
 
-### 8. Catcher defensive rating system (Rosciam, 2004)
+### 4. Catcher defensive rating system (Rosciam, 2004)
 - **Citation**: [Catcher's Defensive Rating System, Chuck Rosciam, via Retrosheet](https://www.retrosheet.org/Research/RosciamC/Catcher%20Defensive%20Rating%20System.pdf)
 - **Formula source**: components scaled to 1.00 for a league-average catcher: Stamina (share of team innings caught over the league average share), Good Glove (independent-putout fielding average over the league figure, where independent putouts exclude strikeouts), Good Arm (CCS/(CCS+SBA) times the league caught-stealing rate). Three further components (ball handling, game play, game calling) were read only in part.
 - **Inputs**: innings caught, putouts excluding strikeouts, assists, errors, caught stealing, stolen bases against, league rates.
@@ -105,6 +65,14 @@ recorded score equals the sum, and that entries are in descending score order.
 - **Scores**: formula=1; inputs=1; validation=0; fit=1; value=1; difficulty=2
 - **Priority score**: 2
 - **Difficulty**: 2.
+
+## Implemented from this catalogue
+
+| Method | Change | Record |
+|---|---|---|
+| Park factor, raw and regressed | `park-factor-calculation` | ADR-0029 |
+| Game Score Version 2.0 and Game Score (James) | `game-score-and-off-metrics` | ADR-0030 |
+| Off (FanGraphs) | `game-score-and-off-metrics` | ADR-0030 |
 
 ## Rejected or deferred with reason
 
@@ -119,8 +87,8 @@ can be re-opened by retrieving the named source.
 | Regression toward the mean constants | [FanGraphs](https://library.fangraphs.com/principles/regression/) | The page is conceptual and prints no constants. |
 | Aging curve | [FanGraphs](https://library.fangraphs.com/principles/aging-curve/) | Only a rule of thumb (about 0.5 WAR per year after 30); the curves are images. Marcel's age factors already exist. |
 | League equivalencies (MLEs) | [FanGraphs](https://library.fangraphs.com/principles/league-equivalencies/) | Describes the approach with no formulas or factors. |
-| Pairwise Pythagorean wins | Heumann, Journal of Sports Analytics 2016 (see digest) | The paper was not retrieved; Cleary et al. describe it only in prose. Entry 6 covers the related head-to-head extension. |
-| Game Score v2 weights from a Wharton deck | secondary | Matches entry 1 apart from restating the home run penalty; the FanGraphs article is the primary source and is used instead. |
+| Pairwise Pythagorean wins | Heumann, Journal of Sports Analytics 2016 (see digest) | The paper was not retrieved; Cleary et al. describe it only in prose. Entry 2 covers the related head-to-head extension. |
+| Game Score v2 weights from a Wharton deck | secondary | Matches the implemented Game Score 2.0 apart from restating the home run penalty; the FanGraphs article is the primary source and is used instead. |
 | Base-advance, catcher and range papers by Comly (ARM, 2000), Ruane (2005), Tango (Evaluating Catchers, 2004), Johnson (Fielder Range, 2011), Soper (2014), Wood (Win Values, 2018) | Retrosheet research list | Listed but not read; formulas unverified. Re-open by extracting each PDF (the fetch tool saves PDFs locally; `pypdf` reads them). |
 | Machine-learning and Bayesian papers from OpenAlex and arXiv (Piette and Jensen on fielding, Stern and Sugano and Healey and Doo and Kim and Morey and Cohen on matchups, Jensen and McShane and Gerber and Craig on hitting forecasts, Konaka on park factors, Nguyen and Matthews on aging, Mott and Bradshaw on win probability) | digest of 2026-10-18 | Only titles and metadata were screened; full text was not retrieved, so no formula can be cited. Candidates for a future deeper pass. |
 | The Book (Tango, Lichtman, Dolphin) | not retrievable | A printed book with no online text; the Tango wiki archive is used as the substitute. |
@@ -141,7 +109,7 @@ Source: the [baseballr reference index](https://billpetti.github.io/baseballr/re
 | Statcast helpers | `edge_code`, `edge_frequency` | gap | none; the Edge definition was not retrieved |
 | Statcast helpers | `statline_from_statcast`, `process_statcast_payload`, `label_statcast_imputed_data` | partly covered | `prepare_statcast_pitches` and the statcast preset |
 | Statcast acquisition | `statcast_search` and variants, `statcast_leaderboards` | out of scope | pure-calculation rule |
-| FanGraphs | `fg_guts`, `fg_park`, `fg_park_hand` | out of scope as scrapers | constants are bundled snapshots; park factor calculation is a gap (entry 2) |
+| FanGraphs | `fg_guts`, `fg_park`, `fg_park_hand` | out of scope as scrapers | constants are bundled snapshots; park factor calculation is now implemented (ADR-0029) |
 | FanGraphs, Baseball Reference, MLB Stats, ESPN, NCAA, Spotrac, Chadwick | all other `fg_*`, `bref_*`, `mlb_*`, `espn_*`, `ncaa_*`, `sptrc_*`, `chadwick_*` functions | out of scope | data acquisition and lookups |
 | Retrosheet | `retrosheet_data` | out of scope | the `retrosheetpy` preset maps its output |
 | Pre-computed datasets | `load_mlb_re24_matrix`, `load_mlb_we_table`, `load_mlb_wpa`, `load_mlb_expected_stats`, `load_mlb_xera`, `load_mlb_oaa`, `load_mlb_catcher_framing`, `load_mlb_stuff_plus`, `load_mlb_command_plus`, `load_mlb_batter_projection` | out of scope as loaders; possible validation targets | would give published reference tables for the six unverified models (`WinProbabilityModel`, `CountExpectancyMatrix`, `OutsAboveAverageModel`, `CatcherFramingModel`, `PitchQualityModel`, `ExpectedOutcomeModel`); their contents were not inspected |
