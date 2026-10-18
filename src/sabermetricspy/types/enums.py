@@ -38,6 +38,15 @@ class ImplKind(StrEnum):
     MODELED = "modeled"
 
 
+class ReferenceStatus(StrEnum):
+    """How closely a metric follows the published method of its reference source."""
+
+    MATCHES = "matches"
+    APPROXIMATE = "approximate"
+    DIVERGENT = "divergent"
+    UNVERIFIED = "unverified"
+
+
 class Direction(StrEnum):
     """Competitive direction of a metric."""
 

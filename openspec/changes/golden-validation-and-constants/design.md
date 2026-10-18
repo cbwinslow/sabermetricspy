@@ -9,7 +9,7 @@ Findings from the primary-source audit (see proposal.md for motivation). Each wa
 - **FIP/xFIP** use `ubb` (BB minus IBB); FanGraphs uses BB including IBB (10 pitchers, 2001 and 2016, agree within 0.0004 with IBB and miss by 0.02-0.17 without). DICE already uses BB. FanGraphs returns null xFIP for 2001; its library says the league HR/FB rate "only dates back to 2002".
 - **wRC+** follows FanGraphs' shape but divides by `lg_r_per_pa`; FanGraphs divides by AL/NL wRC/PA excluding pitchers. With the true 2001 constants and park factor 1.0 the library gives about 243 against 234.59; the implied non-pitcher denominator is roughly .130. `SeasonContext.park_factor` defaults to 100.
 - **Approximations** (read from code and sources): pitcher WAR uses a flat .380 replacement win% and `lg_fip` as RA9; position WAR uses 20 runs/600 PA and PA-scaled positional runs; OPS+/ERA+ apply a single 1/PF; BaseRuns uses Smyth version 2 terms with the version 1 multiplier 1.02 (version 2 is 1.1); Pythagenpat exponent 0.287 vs Baseball-Reference 0.285; SIERA is the original 2010 BP formula labeled `fangraphs_standard`; Marcel pitchers should use 3/2/1 weights and the docstring's 134 IP is unsupported; barrel zone widening is approximate.
-- **Verified correct:** wOBA, wRAA, wRC, BABIP, OBP, wSB, kwERA, LOB%, DICE, technical RC, hard-hit 95 mph, sweet-spot 8-32 degrees, and the SIERA sign rule.
+- **Verified correct:** wOBA, wRAA, wRC, BABIP, OBP, LOB%, DICE (secondary sources), technical RC, hard-hit 95 mph, sweet-spot 8-32 degrees, and the SIERA sign rule. wSB matches the FanGraphs formula but its league constant is unsourced (approximate), and kwERA matches the original Tango/GuyM form while published variants differ (approximate). An earlier draft listed both as verified; that was corrected during implementation.
 - **Tooling constraints:** the FanGraphs API and `curl` hit a Cloudflare challenge; the WebFetch tool returned the Guts! table, library pages, and leaderboard rows. Its output is model-summarized, so every value is recomputed before use. Baseball-Reference `/bullpen` pages return 403; its glossary and WAR pages are reachable.
 - The Gemini session's "exact match" audit table (Judge, Cole, Skubal, Burnes) was never encoded in the repo and is treated as unverified.
 
@@ -47,13 +47,15 @@ Findings from the primary-source audit (see proposal.md for motivation). Each wa
 
 9. **Methodology document and its guard.** `docs/METHODOLOGY.md` is a table of metric, formula source URL, status, and note. A test parses it and compares it with the registry in both directions (missing metric, mismatched status). Initial statuses come from this audit; everything not audited is `UNVERIFIED`, which is honest and visible.
 
-10. **Approximations are labeled, not rewritten, in this change.** Pitcher WAR, position WAR, OPS+, ERA+, BaseRuns, SIERA (naming and version note), Marcel pitchers (documented 3/2/1 and removal of the unsupported 134 IP claim), and the barrel zone get status and caveats. Pythagenpat gains an `exponent` option with the documented default and both alternatives (0.285, 0.287) named; the default stays as-is unless the user decides otherwise. BaseRuns: keep the formula, state the multiplier mismatch, and decide in implementation whether to switch to Smyth's version 2 multiplier 1.1 (a result-changing fix to be listed in the ADR) after checking the primer.
+10. **The audit lives in bundled data.** `data/methodology.yaml` (status, source URL, note per metric and per model) is applied to each `MetricSpec` at registration, with the note appended to `caveats` for non-matching metrics; `docs/METHODOLOGY.md` is rendered from the same data and a test compares it with the registry. *Alternative:* statuses written into each of 136 spec definitions; rejected as noisy and harder to review as one table.
 
-11. **Coverage guard.** A test enumerates the registry and checks every metric is in a table of value-asserted metrics (golden fixtures plus hand-computed identities). *Alternative:* line coverage; rejected because it cannot tell whether a value was asserted.
+11. **Approximations are labeled, not rewritten, in this change.** Pitcher WAR, position WAR, OPS+, ERA+, BaseRuns, SIERA (naming and version note), Marcel pitchers (documented 3/2/1 and removal of the unsupported 134 IP claim), and the barrel zone get status and caveats. Pythagenpat gains an `exponent` option with the documented default and both alternatives (0.285, 0.287) named; the default stays as-is unless the user decides otherwise. BaseRuns: keep the formula, state the multiplier mismatch, and decide in implementation whether to switch to Smyth's version 2 multiplier 1.1 (a result-changing fix to be listed in the ADR) after checking the primer.
 
-12. **Missing-season fallback keeps returning nearest-year data but warns** (`UserWarning`, once per requested/substituted pair, `stacklevel=2`). *Alternative:* raise an error; rejected because it breaks current callers.
+12. **Coverage guard.** A test enumerates the registry and checks every metric is in a table of value-asserted metrics (golden fixtures plus hand-computed identities). *Alternative:* line coverage; rejected because it cannot tell whether a value was asserted.
 
-13. **Windows encoding:** reproduce first; fix in the library only if the error originates there, otherwise document `PYTHONIOENCODING`.
+13. **Missing-season fallback keeps returning nearest-year data but warns** (`UserWarning`, once per requested/substituted pair, `stacklevel=2`). *Alternative:* raise an error; rejected because it breaks current callers.
+
+14. **Windows encoding:** reproduce first; fix in the library only if the error originates there, otherwise document `PYTHONIOENCODING`.
 
 ## Risks / Trade-offs
 

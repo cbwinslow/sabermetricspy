@@ -39,12 +39,17 @@ class MarcelResults(BaseModel):
 class MarcelProjector:
     """Tom Tango's Marcel the Monkey Forecasting System (scikit-learn style estimator).
 
-    Implements the canonical Marcel projection methodology:
-    1. Weight the previous 3 seasons by `(5, 4, 3)` for rate stats and `(0.5, 0.1, 0.0)` for playing time.
-    2. Regress weighted player rates toward the seasonal league mean using `regression_pa`
-       (default `1200` PA for batters, `400` BF / `134` IP for pitchers).
-    3. Apply Tom Tango's piecewise age adjustment curve (`+0.006 * (29 - age)` if `age < 29`,
-       `-0.003 * (age - 29)` if `age > 29`).
+    Implements Tango's Marcel method for hitters:
+    1. Weight the previous 3 seasons by `(5, 4, 3)` for rate stats; playing time is
+       `0.5 * last-year + 0.1 * prior-year + 200`.
+    2. Regress weighted player rates toward the league mean by adding `regression_pa` (default `1200`)
+       plate appearances of league-average production.
+    3. Apply the age adjustment (`+0.006 * (29 - age)` if `age < 29`, `-0.003 * (age - 29)` if `age > 29`).
+
+    Differences from the published method (see docs/METHODOLOGY.md): the final re-baselining step is
+    not implemented, and pitchers are NOT supported as published. Tango uses weights `3/2/1` for pitchers
+    with a base of 25 (relievers) or 60 (starters) innings; pass `season_weights=(3, 2, 1)` and an
+    innings exposure column only as an approximation. No source supports a 134 IP regression constant.
     """
 
     def __init__(

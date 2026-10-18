@@ -47,8 +47,13 @@ class WARComponents(BaseModel):
 class WARFramework:
     """Transparent, configurable WAR calculator for position players and pitchers.
 
-    Follows the canonical FanGraphs / MLB WAR equation:
+    Follows the structure of the FanGraphs position-player equation:
         WAR = (BattingRuns + BaserunningRuns + FieldingRuns + PositionalRuns + LeagueRuns + ReplacementRuns) / RPW
+
+    It is an approximation, not the FanGraphs or Baseball-Reference calculation (docs/METHODOLOGY.md):
+    replacement level is a flat `replacement_runs_per_600_pa` (FanGraphs derives it from
+    `570 * (G / 2430) * (RPW / lgPA) * PA`), and the positional adjustment is scaled by PA / 600 rather than
+    defensive innings. Pitcher WAR (`calculate_pitcher_war_df`) is further from the published methods.
     """
 
     def __init__(
@@ -106,9 +111,12 @@ class WARFramework:
         run_estimator_col: str = "fip",
         replacement_level_win_pct: float = 0.380,
     ) -> Any:
-        """Compute Pitcher WAR over a DataFrame using either FIP (fWAR-style) or RA9 (rWAR-style).
+        """Compute an approximate Pitcher WAR over a DataFrame from FIP or RA9.
 
-        Adds `pitcher_rar` and `pitcher_war` columns to the native DataFrame.
+        This is NOT the FanGraphs or Baseball-Reference method. FanGraphs uses ifFIP, a FIP-to-RA9 adjustment,
+        dynamic runs per win, replacement of 0.12 (starters) / 0.03 (relievers) wins per game, a leverage
+        multiplier for relievers and a league correction; this uses a flat `replacement_level_win_pct` and the
+        league FIP as league RA9. Adds `pitcher_rar` and `pitcher_war` columns to the native DataFrame.
         """
         assert self.context.weights is not None
         w = self.context.weights

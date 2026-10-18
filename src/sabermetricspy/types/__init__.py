@@ -17,6 +17,7 @@ from sabermetricspy.types.enums import (
     MetricSuite,
     PitchOutcome,
     PlayOutcome,
+    ReferenceStatus,
     Stat,
 )
 
@@ -32,6 +33,7 @@ __all__ = [
     "ParkFactor",
     "PitchOutcome",
     "PlayOutcome",
+    "ReferenceStatus",
     "SIERACoefficients",
     "SeasonContext",
     "Stat",

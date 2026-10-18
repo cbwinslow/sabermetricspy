@@ -1,0 +1,613 @@
+# Reference-status audit of metrics and models against their published methods.
+# Applied to MetricSpec.reference_status at registration; rendered to docs/METHODOLOGY.md.
+# status: matches | approximate | divergent | unverified. Audit date: 2026-10-18.
+metrics:
+  avg:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
+  avg_ev:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  avg_extension:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  avg_spin:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  avg_velo:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  b1:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  ba_minus_xba:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  babip:
+    status: matches
+    source_url: https://library.fangraphs.com/offense/babip/
+    note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml). Formula (H-HR)/(AB-K-HR+SF) matches the FanGraphs Library.
+  barrel_pct:
+    status: approximate
+    source_url: https://www.mlb.com/glossary/statcast/barrel
+    note: The barrel zone is approximated from the glossary anchor (98 mph with 26-30 degrees) with linear widening; Savant's exact classification may differ.
+  base_runs:
+    status: matches
+    source_url: https://tangotiger.net/wiki_archive/Base_Runs.html
+    note: Reproduces Smyth's version 1 (multiplier 1.02) when only basic columns are supplied and version 2 (adds HBP, IBB, SB, CS, GDP; multiplier 1.1) when any of those columns is present. Verified against the published formulas, not numerically.
+  bat_bb_pct_plus:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  bat_k_pct_plus:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  bauer_units:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  bb_pct:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml). Walks include intentional walks.
+  bb_pct_plus:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  bb_per_9:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
+  bb_to_k:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  bf_per_ip:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  bip_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  bsr:
+    status: approximate
+    source_url: https://library.fangraphs.com/offense/bsr/
+    note: FanGraphs defines BsR = wSB + UBR + wGDP. UBR must be supplied by the caller and FanGraphs publishes no formula for wGDP (see wgdp).
+  catcher_cs_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  cent_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  cg_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  clutch:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  contact_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  cstr_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  csw_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  der:
+    status: approximate
+    source_url: ''
+    note: Computed as 1 - BABIP; the published Defensive Efficiency Ratio uses batters faced and excludes strikeouts, walks and hit batters in a slightly different denominator.
+  dice:
+    status: matches
+    source_url: https://en.wikipedia.org/wiki/Defense-Independent_Component_ERA
+    note: 'Matches the published definition 3.00 + (13*HR + 3*(BB+HBP) - 2*K)/IP (secondary sources: Wikipedia, R package documentation).'
+  dips_bop_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  effective_velo:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  era:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
+  era_minus:
+    status: approximate
+    source_url: https://library.fangraphs.com/principles/park-factors/
+    note: FanGraphs evaluates ERA- against the pitcher's league ERA and its own park adjustment; the library uses the MLB-wide league ERA times the 5-year park factor / 100 (1 to 2.5 points different in the golden fixtures).
+  era_plus:
+    status: unverified
+    source_url: https://www.baseball-reference.com/about/war_explained_pitch.shtml
+    note: Baseball-Reference pages were not reachable and secondary sources disagree on where the park factor enters; likely shares the ERA- league and park differences.
+  err_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  fb_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  fip:
+    status: matches
+    source_url: https://library.fangraphs.com/pitching/fip/
+    note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml). Walks include intentional walks, as FanGraphs does.
+  fip_minus:
+    status: approximate
+    source_url: https://library.fangraphs.com/principles/park-factors/
+    note: 'Same difference as ERA-: league-specific FIP and FanGraphs'' park adjustment versus MLB-wide values (1 to 2.5 points in the golden fixtures).'
+  foul_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  fp_strike_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  fp_swing_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  fpct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  gb_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  gb_to_fb:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  gpa:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  h_per_9:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  haa:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  hard_hit_pct:
+    status: matches
+    source_url: https://baseballsavant.mlb.com/csv-docs
+    note: The >= 95 mph threshold applied by the statcast preset matches the Baseball Savant glossary.
+  hb:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  hr_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  hr_per_9:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
+  hr_to_fb:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  ip:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  iso:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
+  ivb:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  k_minus_bb_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  k_pct:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
+  k_pct_plus:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  k_per_9:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
+  k_to_bb:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  kwera:
+    status: approximate
+    source_url: https://tht.fangraphs.com/kwera-the-starting-point-for-pitcher-evaluations
+    note: Matches the original Tango/GuyM form 5.40 - 12*(K-BB)/PA. Published variants adjust for HBP and IBB, and the 5.40 constant is league-dependent.
+  ld_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  lob_pct:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml). Formula (H+BB+HBP-R)/(H+BB+HBP-1.4*HR).
+  meatball_swing_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  o_contact_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  o_swing_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  obp:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
+  oppo_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  ops:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
+  ops_plus:
+    status: approximate
+    source_url: https://www.baseball-reference.com/about/bat_glossary.shtml
+    note: Baseball-Reference park-adjusts the league OBP and SLG after removing pitchers; the library applies a single 1/PF to the ratio using MLB-wide league averages.
+  pit_bb_pct:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
+  pit_bb_to_k:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  pit_k_minus_bb_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  pit_k_pct:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
+  pit_k_to_bb:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  pli:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  pu_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  pull_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  putaway_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  pythag_luck:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  pythag_win_pct:
+    status: unverified
+    source_url: https://www.baseball-reference.com/about/war_explained_runs_to_wins.shtml
+    note: Classic exponent fixed at 1.83 (SeasonContext.pythag_exponent); not checked against a primary source.
+  pythag_wins:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  pythagenpat_win_pct:
+    status: approximate
+    source_url: https://www.baseball-reference.com/about/war_explained_runs_to_wins.shtml
+    note: Default exponent is (runs per game)^0.287; Baseball-Reference uses 0.285 and sources conflict on which is canonical. Set SeasonContext.pythagenpat_exponent to choose.
+  qera:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  qs_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  r_per_pa:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  ra9:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  rbi_per_pa:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  rc27:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  rc_basic:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  rc_tech:
+    status: matches
+    source_url: https://www.baseball-reference.com/about/bat_glossary.shtml
+    note: Matches the technical Runs Created formula in the Baseball-Reference glossary.
+  rew:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  rf_per_9:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  rf_per_g:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  run_diff:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  rv_per_100:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  sb_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  seca:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  siera:
+    status: approximate
+    source_url: https://www.baseballprospectus.com/news/article/10045/introducing-siera-part-5/
+    note: Implements the original 2010 Baseball Prospectus coefficients (SIERACoefficients.version = baseball_prospectus_2010), including the sign rule on the squared net ground-ball term. FanGraphs published a revised 2011 version (constant 5.534, see https://blogs.fangraphs.com/new-siera-part-four-of-five-testing); which version FanGraphs displays today is unconfirmed.
+  slg:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
+  speed_score:
+    status: divergent
+    source_url: ''
+    note: Documented as (f1+...+f5)/5 but implements four factors (stolen-base percentage, attempt rate, triples, runs scored); omits the GIDP factor and leaves strikeouts out of the triples denominator, so it is not Bill James's Speed Score.
+  sv_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  sweet_spot_pct:
+    status: matches
+    source_url: https://baseballsavant.mlb.com/csv-docs
+    note: The 8-32 degree launch-angle window applied by the statcast preset matches the Baseball Savant glossary.
+  swing_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  swstr_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  ta:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  tb:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  tc:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  total_break:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  two_strike_chase_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  ubb:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  vaa:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  wgdp:
+    status: unverified
+    source_url: https://library.fangraphs.com/offense/bsr/
+    note: FanGraphs describes wGDP but publishes no formula; the library's league GIDP rate and run value are unsourced defaults.
+  whiff_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  whiff_per_100:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  whip:
+    status: matches
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
+  win_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  woba:
+    status: matches
+    source_url: https://library.fangraphs.com/offense/woba/
+    note: Matches the FanGraphs formula (uBB, HBP, 1B-HR weighted over AB+BB-IBB+SF+HBP) and published wOBA within weight rounding (tests/golden/batting.yaml).
+  woba_minus_xwoba:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  wpa_li:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  wraa:
+    status: matches
+    source_url: https://library.fangraphs.com/offense/wrc/
+    note: Matches published wRAA within weight rounding (tests/golden/batting.yaml).
+  wrc:
+    status: matches
+    source_url: https://library.fangraphs.com/offense/wrc/
+    note: Matches published wRC within weight rounding (tests/golden/batting.yaml).
+  wrc_plus:
+    status: matches
+    source_url: https://library.fangraphs.com/offense/wrc/
+    note: 'Formula follows the FanGraphs Library with the AL/NL non-pitcher wRC/PA denominator. Reproduces published wRC+ within about 0.1% (Bonds 2001: 234.41 vs 234.59), the residual coming from FanGraphs'' own league aggregation and park-factor rounding. Park factor defaults to 100 (no adjustment): pass the published factor.'
+  wsb:
+    status: approximate
+    source_url: https://library.fangraphs.com/offense/bsr/
+    note: Formula matches FanGraphs, but lg_wsb (league stolen-base runs per opportunity) is not bundled and defaults to 0, so the league adjustment is omitted unless supplied.
+  xba:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  xbh:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  xbh_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  xbt_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  xera:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  xfip:
+    status: matches
+    source_url: https://library.fangraphs.com/pitching/xfip/
+    note: Formula matches the FanGraphs Library. Null before 2002 because FanGraphs publishes league HR/FB only from 2002. No player-level published xFIP was checked (fly balls not retrieved).
+  xfip_minus:
+    status: approximate
+    source_url: https://library.fangraphs.com/principles/park-factors/
+    note: Inherits the ERA-/FIP- league and park-adjustment differences; not checked numerically.
+  xslg:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  xwoba:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  z_contact_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  z_swing_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+  zone_pct:
+    status: unverified
+    source_url: ''
+    note: Not yet audited against a primary source.
+models:
+  WARFramework.calculate_pitcher_war_df:
+    status: divergent
+    source_url: https://library.fangraphs.com/war/calculating-war-pitchers/
+    note: Not the FanGraphs or Baseball-Reference method. FanGraphs uses ifFIP, a FIP-to-RA9 adjustment, dynamic runs per win, replacement of 0.12 (starters) / 0.03 (relievers) wins per game, a leverage multiplier and a league correction; the library uses a flat .380 replacement win percentage and league FIP as league RA9. Rewrite is a follow-on change.
+  WARFramework.calculate_position_player_*:
+    status: approximate
+    source_url: https://library.fangraphs.com/war/war-position-players/
+    note: Structure follows FanGraphs (batting + baserunning + fielding + positional + league + replacement over runs per win). Replacement is a flat 20 runs per 600 PA instead of 570*(G/2430)*(RPW/lgPA)*PA, and the positional adjustment is scaled by PA/600 instead of defensive innings.
+  MarcelProjector (hitters):
+    status: approximate
+    source_url: http://www.tangotiger.net/archives/stud0346.shtml
+    note: Weights 5/4/3, regression to 1,200 PA of league average, playing time 0.5*PA1 + 0.1*PA2 + 200 and the age adjustment (+0.006 per year under 29, -0.003 over 29) match Tango's method. The final re-baselining step is not implemented.
+  MarcelProjector (pitchers):
+    status: divergent
+    source_url: http://www.tangotiger.net/archives/stud0346.shtml
+    note: Tango uses weights 3/2/1 and an IP base of 25 (relievers) or 60 (starters); the class documents 5/4/3 weights and a 134 IP regression constant that no source supports.
+  Log5Model:
+    status: unverified
+    source_url: ''
+    note: Not audited against a primary source.
+  MarkovChainModel:
+    status: unverified
+    source_url: ''
+    note: Not audited against a primary source.
+  MonteCarloSimulator:
+    status: unverified
+    source_url: ''
+    note: Not audited against a primary source.
+  RunExpectancyMatrix:
+    status: unverified
+    source_url: ''
+    note: Empirical RE24 estimator; not compared with published run-expectancy tables.
+  CountExpectancyMatrix:
+    status: unverified
+    source_url: ''
+    note: Empirical RE288 estimator; not compared with published count-run-value tables.
+  LinearWeightsEstimator:
+    status: unverified
+    source_url: ''
+    note: Not compared with published linear weights.
+  WinProbabilityModel:
+    status: unverified
+    source_url: ''
+    note: Not compared with published win-expectancy tables.
+  ExpectedOutcomeModel:
+    status: unverified
+    source_url: https://baseballsavant.mlb.com/csv-docs
+    note: Open k-NN reimplementation; it is not Baseball Savant's xBA/xSLG/xwOBA model and is not expected to reproduce those values.
+  PitchQualityModel:
+    status: unverified
+    source_url: ''
+    note: Open reimplementation of the Stuff+/Location+/Pitching+ idea; not any vendor's published model.
+  CatcherFramingModel:
+    status: unverified
+    source_url: ''
+    note: Open estimator; not compared with published framing runs.
+  OutsAboveAverageModel:
+    status: unverified
+    source_url: ''
+    note: Open estimator; not compared with Savant's Outs Above Average.
+  EmpiricalBayesShrinker:
+    status: unverified
+    source_url: ''
+    note: Generic Empirical Bayes shrinkage; not audited.

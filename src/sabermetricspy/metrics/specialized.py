@@ -722,7 +722,7 @@ def calc_pythag_win_pct(ctx: EvalContext) -> nw.Expr:
         kind=ImplKind.DETERMINISTIC,
         required_columns=("rs", "ra", "w", "l"),
         direction=Direction.HIGHER_IS_BETTER,
-        formula_latex=r"\gamma = \left(\frac{RS + RA}{G}\right)^{0.287}, \quad W\% = \frac{RS^\gamma}{RS^\gamma + RA^\gamma}",
+        formula_latex=r"\gamma = \left(\frac{RS + RA}{G}\right)^{z}, \quad W\% = \frac{RS^\gamma}{RS^\gamma + RA^\gamma}",
         citation="Smyth, D. & Patriot (2001) Pythagenpat Dynamic Exponent",
         description="Pythagenpat expected winning percentage with dynamic run-environment exponent.",
     )
@@ -730,7 +730,7 @@ def calc_pythag_win_pct(ctx: EvalContext) -> nw.Expr:
 def calc_pythagenpat_win_pct(ctx: EvalContext) -> nw.Expr:
     g = (nw.col("w") + nw.col("l")).cast(nw.Float64)
     rpg = safe_div(nw.col("rs") + nw.col("ra"), g)
-    gamma = rpg ** 0.287
+    gamma = rpg ** ctx.season_context.pythagenpat_exponent
     rs_g = nw.col("rs").cast(nw.Float64) ** gamma
     ra_g = nw.col("ra").cast(nw.Float64) ** gamma
     return safe_div(rs_g, rs_g + ra_g)

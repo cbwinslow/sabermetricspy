@@ -26,11 +26,11 @@
 
 ## 4. Reference status and methodology
 
-- [ ] 4.1 Add the `ReferenceStatus` enum and a defaulted `reference_status` field on `MetricSpec` with a guard listing `UNVERIFIED` metrics. Verify existing plugin and YAML-defined metrics still register and show `UNVERIFIED`.
-- [ ] 4.2 Label verified metrics `MATCHES` (wOBA, wRAA, wRC, BABIP, OBP, wSB, kwERA, LOB%, DICE, technical RC, hard-hit, sweet-spot) and set wRC+ after task 2.4. Verify the status appears in `sabermetrics info <metric>`.
-- [ ] 4.3 Label and caveat the approximations: pitcher WAR, position-player WAR, OPS+, ERA+, BaseRuns (multiplier), Pythagenpat (add `exponent` option, default and sources documented), SIERA (2010 BP version, rename `fangraphs_standard`), Marcel pitchers (3/2/1, remove the unsupported 134 IP claim), and the barrel zone. Verify each caveat names the published method and the new option behaves as specified.
-- [ ] 4.4 Decide the BaseRuns multiplier (1.02 vs 1.1) after reading the Smyth primer; if changed, update the formula and tests and record old/new values. Verify with a hand-computed example.
-- [ ] 4.5 Write `docs/METHODOLOGY.md` (metric, formula source URL, status, note) from the audit and add a test comparing it to the registry in both directions. Verify it fails when a metric is removed from the document.
+- [x] 4.1 Add the `ReferenceStatus` enum and a defaulted `reference_status` field on `MetricSpec` with a guard listing `UNVERIFIED` metrics. Verify existing plugin and YAML-defined metrics still register and show `UNVERIFIED`.
+- [x] 4.2 Label verified metrics `MATCHES` (wOBA, wRAA, wRC, BABIP, OBP, wSB, kwERA, LOB%, DICE, technical RC, hard-hit, sweet-spot) and set wRC+ after task 2.4. Verify the status appears in `sabermetrics info <metric>`.
+- [x] 4.3 Label and caveat the approximations: pitcher WAR, position-player WAR, OPS+, ERA+, BaseRuns (multiplier), Pythagenpat (add `exponent` option, default and sources documented), SIERA (2010 BP version, rename `fangraphs_standard`), Marcel pitchers (3/2/1, remove the unsupported 134 IP claim), and the barrel zone. Verify each caveat names the published method and the new option behaves as specified.
+- [x] 4.4 Decide the BaseRuns multiplier (1.02 vs 1.1) after reading the Smyth primer; if changed, update the formula and tests and record old/new values. Verify with a hand-computed example.
+- [x] 4.5 Write `docs/METHODOLOGY.md` (metric, formula source URL, status, note) from the audit and add a test comparing it to the registry in both directions. Verify it fails when a metric is removed from the document.
 
 ## 5. Encoding, decisions, and final checks
 

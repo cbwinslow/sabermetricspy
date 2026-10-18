@@ -207,8 +207,11 @@ def calc_base_runs(ctx: EvalContext) -> nw.Expr:
     cs = nw.col("cs") if "cs" in ctx.available_columns else nw.lit(0)
     gidp = nw.col("gidp") if "gidp" in ctx.available_columns else nw.lit(0)
 
+    # Smyth's version 1 (basic events) uses multiplier 1.02; version 2 (adds HBP, IBB, SB, CS, GDP) uses 1.1.
+    version_2 = any(c in ctx.available_columns for c in ("hbp", "ibb", "sb", "cs", "gidp"))
+    multiplier = 1.1 if version_2 else 1.02
     a = nw.col("h") + nw.col("bb") + hbp - nw.col("hr") - 0.5 * ibb
-    b = 1.02 * (
+    b = multiplier * (
         1.4 * nw.col("tb")
         - 0.6 * nw.col("h")
         - 3.0 * nw.col("hr")

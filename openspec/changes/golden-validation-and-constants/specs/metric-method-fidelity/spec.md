@@ -29,7 +29,7 @@ The repository SHALL contain a methodology document listing every registered met
 - **THEN** the consistency test fails and names it
 
 ### Requirement: Known approximations are labeled
-The following SHALL be labeled approximate or divergent with caveats naming the published method: pitcher WAR, position-player WAR, OPS+, ERA+, BaseRuns, Pythagenpat, SIERA, Marcel for pitchers, and the barrel zone.
+The following SHALL be labeled approximate, divergent, or unverified with caveats naming the published method: pitcher WAR, position-player WAR, OPS+, ERA-/FIP-/xFIP- (and ERA+), kwERA, wSB, DER, Pythagenpat, SIERA, Marcel for pitchers, Speed Score, and the barrel zone. BaseRuns SHALL reproduce Smyth's published versions (multiplier 1.02 for basic columns, 1.1 when HBP, IBB, SB, CS or GDP are supplied).
 
 #### Scenario: SIERA version
 - **WHEN** the SIERA spec is read
@@ -44,7 +44,7 @@ The following SHALL be labeled approximate or divergent with caveats naming the 
 - **THEN** it states that the framework is not the FanGraphs or Baseball-Reference method and lists the differences
 
 ### Requirement: Verified metrics are recorded as such
-Metrics verified against primary sources (wOBA, wRAA, wRC, BABIP, OBP, wSB, kwERA, LOB%, DICE, technical Runs Created, hard-hit and sweet-spot thresholds) SHALL be recorded with a matches status and the verifying source.
+Metrics verified against primary sources or published values (wOBA, wRAA, wRC, wRC+, BABIP, OBP, LOB%, DICE, technical Runs Created, hard-hit and sweet-spot thresholds, and the rates covered by golden fixtures) SHALL be recorded with a matches status and the verifying source. wSB (league constant unsourced) and kwERA (published variants differ) SHALL be recorded as approximate.
 
 #### Scenario: Verified metric
 - **WHEN** the methodology document lists wOBA

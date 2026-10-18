@@ -64,7 +64,7 @@ WOBA_LINE = (_W_BB * 8 + _W_HBP * 1 + W.w_1b * 19 + W.w_2b * 6 + W.w_3b * 1 + W.
 RC_TECH = (
     (30 + 12 + 1 - 1 - 2) * (TB + 0.26 * (10 + 1) + 0.52 * (1 + 1 + 3)) / (100 + 12 + 1 + 1 + 1)
 )
-_BR_B = 1.02 * (1.4 * TB - 0.6 * 30 - 3 * 4 + 0.1 * (12 + 1 - 2) + 0.9 * (3 - 1 - 2))
+_BR_B = 1.1 * (1.4 * TB - 0.6 * 30 - 3 * 4 + 0.1 * (12 + 1 - 2) + 0.9 * (3 - 1 - 2))
 BASE_RUNS = (30 + 12 + 1 - 4 - 0.5 * 2) * _BR_B / (_BR_B + (100 - 30 + 1 + 2)) + 4
 
 WSB_1B = 100 - 20 - 2 - 15  # singles in the speed/wSB line: h=100,b2=20,b3=2,hr=15
@@ -303,7 +303,7 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     ),
     (Metric.RC_BASIC, dict(**BAT), (30 + 12) * TB / (100 + 12), {}),
     (Metric.RC_TECH, dict(**BAT, ibb=2, hbp=1, sb=3, cs=1, gidp=2, sh=1, sf=1), RC_TECH, {}),
-    (Metric.BASE_RUNS, dict(**BAT, ibb=2, hbp=1, sb=3, cs=1, gidp=2), BASE_RUNS, {}),
+    (Metric.BASE_RUNS, dict(**BAT, ibb=2, hbp=1, sb=3, cs=1, gidp=2), BASE_RUNS, {}),  # Smyth version 2 (1.1)
     (
         Metric.RC27,
         dict(**BAT, ibb=2, hbp=1, sb=3, cs=1, gidp=2, sh=1, sf=1),
@@ -355,8 +355,8 @@ def test_metric_value_matches_hand_derivation(
 
 
 def test_every_registered_metric_has_a_value_assertion() -> None:
-    specs = REGISTRY.all_specs()
-    names = {s.name for s in (specs.values() if isinstance(specs, dict) else specs)}
+    # Built-in metrics only: custom/plugin metrics registered by other tests are declared with plain strings.
+    names = {s.name for s in REGISTRY.all_specs() if isinstance(s.metric, Metric)}
     uncovered = sorted(names - GOLDEN_COVERED - TABLE_COVERED)
     assert not uncovered, f"registered metrics with no value assertion: {uncovered}"
 
@@ -364,3 +364,22 @@ def test_every_registered_metric_has_a_value_assertion() -> None:
 def test_guard_detects_a_metric_missing_from_the_tables() -> None:
     names = {"avg", "totally_new_metric"}
     assert sorted(names - GOLDEN_COVERED - TABLE_COVERED) == ["totally_new_metric"]
+
+
+def test_base_runs_uses_smyth_version_1_multiplier_for_basic_columns() -> None:
+    """Basic columns only: A=H+BB-HR, B=(1.4TB-.6H-3HR+.1BB)*1.02, C=AB-H, D=HR (Smyth version 1)."""
+    b = 1.02 * (1.4 * TB - 0.6 * 30 - 3 * 4 + 0.1 * 12)
+    expected = (30 + 12 - 4) * b / (b + (100 - 30)) + 4
+    frame = pl.DataFrame({"player_id": ["p"], **{k: [v] for k, v in BAT.items()}})
+    got = sp.calculate(frame, [Metric.BASE_RUNS], context=_context({})).df["base_runs"][0]
+    assert math.isclose(got, expected, rel_tol=1e-9)
+
+
+def test_pythagenpat_exponent_is_configurable() -> None:
+    gamma = (1500 / 162) ** 0.285
+    expected = 800**gamma / (800**gamma + 700**gamma)
+    frame = pl.DataFrame({"player_id": ["t"], "rs": [800], "ra": [700], "w": [90], "l": [72]})
+    ctx = SeasonContext(season=2024, weights=W, pythagenpat_exponent=0.285)
+    got = sp.calculate(frame, [Metric.PYTHAGENPAT_WIN_PCT], context=ctx).df["pythagenpat_win_pct"][0]
+    assert math.isclose(got, expected, rel_tol=1e-9)
+    assert not math.isclose(got, _PYPAT, rel_tol=1e-12)

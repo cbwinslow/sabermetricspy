@@ -9,8 +9,16 @@ from importlib.metadata import entry_points
 import narwhals as nw
 from pydantic import BaseModel, ConfigDict, Field
 
+from sabermetricspy.methodology import metric_entries
 from sabermetricspy.types.context import SeasonContext, WOBAWeights
-from sabermetricspy.types.enums import Category, Direction, ImplKind, Metric, MetricSuite
+from sabermetricspy.types.enums import (
+    Category,
+    Direction,
+    ImplKind,
+    Metric,
+    MetricSuite,
+    ReferenceStatus,
+)
 
 
 class MetricSpec(BaseModel):
@@ -36,6 +44,11 @@ class MetricSpec(BaseModel):
     citation: str = Field(..., description="Primary academic or sabermetric source citation")
     description: str = Field(default="", description="Concise definition of the metric")
     caveats: tuple[str, ...] = Field(default=(), description="Known methodological caveats")
+    reference_status: ReferenceStatus = Field(
+        default=ReferenceStatus.UNVERIFIED,
+        description="Whether the metric follows the published method of its reference source",
+    )
+    reference_url: str = Field(default="", description="URL of the source used to verify the method")
     version: str = Field(default="1.0")
 
     @property
@@ -64,6 +77,25 @@ class RegisteredMetric:
     builder: MetricBuilder
 
 
+def _with_methodology(spec: MetricSpec) -> MetricSpec:
+    """Apply the bundled audit (status, source, difference note) unless the spec already declares a status."""
+    if spec.reference_status is not ReferenceStatus.UNVERIFIED or not isinstance(spec.metric, Metric):
+        return spec
+    entry = metric_entries().get(spec.name)
+    if entry is None:
+        return spec
+    caveats = spec.caveats
+    if entry.status is not ReferenceStatus.MATCHES and entry.note and entry.note not in caveats:
+        caveats = (*caveats, entry.note)
+    return spec.model_copy(
+        update={
+            "reference_status": entry.status,
+            "reference_url": entry.source_url or spec.reference_url,
+            "caveats": caveats,
+        }
+    )
+
+
 class MetricRegistry:
     """Central registry for built-in and plugin-defined baseball metrics."""
 
@@ -75,6 +107,7 @@ class MetricRegistry:
     def register(self, spec: MetricSpec, builder: MetricBuilder, *, overwrite: bool = False) -> None:
         """Register a metric specification and its Narwhals expression builder."""
         key = spec.name.lower()
+        spec = _with_methodology(spec)
         if key in self._metrics and not overwrite:
             raise ValueError(f"Metric {key!r} is already registered.")
         # Detect immediate self-dependency

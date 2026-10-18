@@ -76,7 +76,7 @@ class SIERACoefficients(BaseModel):
 
     model_config = ConfigDict(frozen=True)
 
-    version: str = "fangraphs_standard"
+    version: str = "baseball_prospectus_2010"
     intercept: float = 6.145
     so_per_pa: float = -16.986
     bb_per_pa: float = 11.434
@@ -127,6 +127,13 @@ class SeasonContext(BaseModel):
     pythag_exponent: float = Field(
         default=1.83,
         description="Exponent gamma for Pythagorean winning percentage.",
+    )
+    pythagenpat_exponent: float = Field(
+        default=0.287,
+        description=(
+            "Power applied to runs per game to get the Pythagenpat exponent. Sources differ: "
+            "0.287 (default) and 0.285 (Baseball-Reference WAR)."
+        ),
     )
     weights: WOBAWeights | None = None
     siera_coeffs: SIERACoefficients = Field(default_factory=SIERACoefficients)

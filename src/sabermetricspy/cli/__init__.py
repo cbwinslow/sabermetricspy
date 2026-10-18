@@ -40,6 +40,9 @@ def _cmd_info(metric_name: str) -> int:
     print("=" * 88)
     print(f"Category:          {spec.category!s}")
     print(f"Kind:              {spec.kind!s}")
+    print(f"Reference status:  {spec.reference_status!s}")
+    if spec.reference_url:
+        print(f"Reference source:  {spec.reference_url}")
     print(f"Direction:         {spec.direction!s}")
     print(f"Required Columns:  {', '.join(spec.required_columns) or '(none)'}")
     print(f"Optional Columns:  {', '.join(spec.optional_columns) or '(none)'}")
@@ -47,6 +50,8 @@ def _cmd_info(metric_name: str) -> int:
     print(f"LaTeX Formula:     {spec.formula_latex}")
     print(f"Citation:          {spec.citation}")
     print(f"Description:       {spec.description}")
+    for caveat in spec.caveats:
+        print(f"Caveat:            {caveat}")
     return 0
 
 
