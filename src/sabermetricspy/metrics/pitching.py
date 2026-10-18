@@ -282,20 +282,20 @@ def calc_sv_pct(ctx: EvalContext) -> nw.Expr:
         category=Category.DEFENSE_INDEPENDENT_PITCHING,
         kind=ImplKind.CONTEXTUAL,
         required_columns=("hr", "bb", "so", "outs"),
-        optional_columns=("ibb", "hbp"),
-        requires=(Metric.UBB,),
+        optional_columns=("hbp",),
         direction=Direction.LOWER_IS_BETTER,
-        formula_latex=r"FIP = \frac{13(HR) + 3(uBB + HBP) - 2(SO)}{IP} + C_{FIP}",
+        formula_latex=r"FIP = \frac{13(HR) + 3(BB + HBP) - 2(SO)}{IP} + C_{FIP}",
         citation="McCracken, V. (2001); Tango, T. (2007); Basco, D. & Davies, M. (2010) SABR BRJ",
         description="Fielding Independent Pitching scaled to league ERA.",
         caveats=(
             "Assumes pitchers have no control over BABIP; see Tippett (2003) and Lichtman (2004).",
+            "Walks include intentional walks, matching FanGraphs (verified against FanGraphs FIP for 10 pitchers).",
         ),
     )
 )
 def calc_fip(ctx: EvalContext) -> nw.Expr:
     hbp = nw.col("hbp") if "hbp" in ctx.available_columns else nw.lit(0)
-    num = 13.0 * nw.col("hr") + 3.0 * (nw.col("ubb") + hbp) - 2.0 * nw.col("so")
+    num = 13.0 * nw.col("hr") + 3.0 * (nw.col("bb") + hbp) - 2.0 * nw.col("so")
     ip = nw.col("outs").cast(nw.Float64) / 3.0
     return safe_div(num, ip) + ctx.weights.c_fip
 
@@ -307,12 +307,15 @@ def calc_fip(ctx: EvalContext) -> nw.Expr:
         category=Category.DEFENSE_INDEPENDENT_PITCHING,
         kind=ImplKind.CONTEXTUAL,
         required_columns=("fb", "bb", "so", "outs"),
-        optional_columns=("ibb", "hbp"),
-        requires=(Metric.UBB,),
+        optional_columns=("hbp",),
         direction=Direction.LOWER_IS_BETTER,
-        formula_latex=r"xFIP = \frac{13(FB \times lgHR/FB) + 3(uBB + HBP) - 2(SO)}{IP} + C_{FIP}",
-        citation="Studeman, D. (2005) The Hardball Times",
+        formula_latex=r"xFIP = \frac{13(FB \times lgHR/FB) + 3(BB + HBP) - 2(SO)}{IP} + C_{FIP}",
+        citation="Studeman, D. (2005) The Hardball Times; FanGraphs Library (xFIP)",
         description="Expected Fielding Independent Pitching normalizing HR/FB rate to league average.",
+        caveats=(
+            "Returns null for seasons without a published league HR/FB rate (FanGraphs: 2002 onward).",
+            "Walks include intentional walks, matching FanGraphs FIP.",
+        ),
     )
 )
 def calc_xfip(ctx: EvalContext) -> nw.Expr:
@@ -321,7 +324,7 @@ def calc_xfip(ctx: EvalContext) -> nw.Expr:
     if w.lg_hr_per_fb is None:
         return missing_constant()
     x_hr = nw.col("fb") * w.lg_hr_per_fb
-    num = 13.0 * x_hr + 3.0 * (nw.col("ubb") + hbp) - 2.0 * nw.col("so")
+    num = 13.0 * x_hr + 3.0 * (nw.col("bb") + hbp) - 2.0 * nw.col("so")
     ip = nw.col("outs").cast(nw.Float64) / 3.0
     return safe_div(num, ip) + w.c_fip
 

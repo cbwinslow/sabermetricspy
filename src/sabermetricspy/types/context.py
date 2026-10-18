@@ -39,7 +39,13 @@ class WOBAWeights(BaseModel):
     )
     lg_wrc_per_pa: float | None = Field(
         default=None,
-        description="League (AL/NL) wRC/PA excluding pitchers, the wRC+ denominator (None when unsourced)",
+        description="MLB-wide wRC/PA excluding pitchers, the wRC+ denominator (None when unsourced)",
+    )
+    lg_wrc_per_pa_nl: float | None = Field(
+        default=None, description="NL wRC/PA excluding pitchers (None when unsourced)"
+    )
+    lg_wrc_per_pa_al: float | None = Field(
+        default=None, description="AL wRC/PA excluding pitchers (None when unsourced)"
     )
     lg_obp: float = Field(default=0.315, description="League average OBP for OPS+")
     lg_slg: float = Field(default=0.410, description="League average SLG for OPS+")
@@ -54,6 +60,15 @@ class WOBAWeights(BaseModel):
     )
     source: str = Field(default="FanGraphs Guts!", description="Provenance source")
     retrieved: str | None = Field(default=None, description="Date the values were retrieved (ISO)")
+
+    def wrc_per_pa_for(self, league: str) -> float | None:
+        """Non-pitcher wRC/PA for `league` ("AL", "NL", otherwise MLB-wide); None when unsourced."""
+        key = league.upper()
+        if key == "NL" and self.lg_wrc_per_pa_nl is not None:
+            return self.lg_wrc_per_pa_nl
+        if key == "AL" and self.lg_wrc_per_pa_al is not None:
+            return self.lg_wrc_per_pa_al
+        return self.lg_wrc_per_pa
 
 
 class SIERACoefficients(BaseModel):

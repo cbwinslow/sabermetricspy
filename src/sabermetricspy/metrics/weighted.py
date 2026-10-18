@@ -90,9 +90,13 @@ def calc_wrc(ctx: EvalContext) -> nw.Expr:
         optional_columns=("ibb", "hbp", "sf"),
         requires=(Metric.WRAA,),
         direction=Direction.HIGHER_IS_BETTER,
-        formula_latex=r"wRC^+ = \left(\frac{(wRAA / PA + lgR/PA) + (lgR/PA - PF \times lgR/PA)}{lgR/PA}\right) \times 100",
+        formula_latex=r"wRC^+ = \left(\frac{(wRAA / PA + lgR/PA) + (lgR/PA - PF \times lgR/PA)}{lgwRC/PA_{\text{non-pitchers}}}\right) \times 100",
         citation="FanGraphs Library (wRC+)",
         description="Park- and league-adjusted Weighted Runs Created (100 = league average).",
+        caveats=(
+            "Divides by the AL/NL non-pitcher wRC/PA (SeasonContext.league) when the season has that constant; otherwise falls back to league R/PA.",
+            "Park factor defaults to 100 (no park adjustment); pass SeasonContext(park_factor=...) with the published factor, e.g. the FanGraphs Guts! 5-year value.",
+        ),
     )
 )
 def calc_wrc_plus(ctx: EvalContext) -> nw.Expr:
@@ -100,7 +104,10 @@ def calc_wrc_plus(ctx: EvalContext) -> nw.Expr:
     pf = ctx.season_context.park_factor / 100.0
     r_per_pa = safe_div(nw.col("wraa"), nw.col("pa")) + w.lg_r_per_pa
     park_adj = w.lg_r_per_pa - (pf * w.lg_r_per_pa)
-    return ((r_per_pa + park_adj) / w.lg_r_per_pa) * 100.0
+    denominator = w.wrc_per_pa_for(ctx.season_context.league)
+    if denominator is None:
+        denominator = w.lg_r_per_pa
+    return ((r_per_pa + park_adj) / denominator) * 100.0
 
 
 @register_metric(

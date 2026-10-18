@@ -10,10 +10,10 @@
 
 ## 2. Formula conformance
 
-- [ ] 2.1 Write failing tests for FIP and xFIP with intentional walks (Maddux 2001: 3.1177; 2016 pitchers) and for xFIP null without a league HR/FB rate. Verify they fail on the current code.
-- [ ] 2.2 Change FIP and xFIP to use total BB plus HBP and xFIP to return null when the rate is absent; update `requires`, `required_columns`, LaTeX, and docs; confirm FIP-/xFIP- follow. Verify the 2.1 tests and the existing suite pass.
-- [ ] 2.3 Source non-pitcher league wRC/PA (AL/NL) for the seasons used by wRC+ fixtures from FanGraphs leaderboards, recompute it from league wRC and PA, and store it with source. Verify the stored value reproduces the published wRC+ for Bonds 2001 once the park factor is supplied, or record the residual as a documented divergence.
-- [ ] 2.4 Use `lg_wrc_per_pa` in `calc_wrc_plus` with fallback to `lg_r_per_pa` plus a caveat when absent; document that park factor 100 means no adjustment. Verify wRC+ is unchanged without the constant and the Bonds 2001 test passes with it.
+- [x] 2.1 Write failing tests for FIP and xFIP with intentional walks (Maddux 2001: 3.1177; 2016 pitchers) and for xFIP null without a league HR/FB rate. Verify they fail on the current code.
+- [x] 2.2 Change FIP and xFIP to use total BB plus HBP and xFIP to return null when the rate is absent; update `requires`, `required_columns`, LaTeX, and docs; confirm FIP-/xFIP- follow. Verify the 2.1 tests and the existing suite pass.
+- [x] 2.3 Source non-pitcher league wRC/PA (AL/NL) for the seasons used by wRC+ fixtures from FanGraphs leaderboards, recompute it from league wRC and PA, and store it with source. Verify the stored value reproduces the published wRC+ for Bonds 2001 once the park factor is supplied, or record the residual as a documented divergence.
+- [x] 2.4 Use `lg_wrc_per_pa` in `calc_wrc_plus` with fallback to `lg_r_per_pa` plus a caveat when absent; document that park factor 100 means no adjustment. Verify wRC+ is unchanged without the constant and the Bonds 2001 test passes with it.
 
 ## 3. Golden fixtures and value tests
 

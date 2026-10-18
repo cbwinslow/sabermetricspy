@@ -186,3 +186,26 @@ def test_bundled_season_does_not_warn() -> None:
         warnings.simplefilter("error")
         for year in (1990, 2001, 2025):
             assert constants.get_woba_weights(year).season == year
+
+
+def test_non_pitcher_wrc_per_pa_matches_snapshot() -> None:
+    snap = yaml.safe_load((GOLDEN_DIR / "np_wrc_snapshot.yaml").read_text(encoding="utf-8"))
+    table = bundled_constants()
+    for year, row in snap["seasons"].items():
+        w = table[year]
+        nl = row["nl_wrc"] / row["nl_pa"]
+        al = row["al_wrc"] / row["al_pa"]
+        mlb = (row["nl_wrc"] + row["al_wrc"]) / (row["nl_pa"] + row["al_pa"])
+        assert w.lg_wrc_per_pa_nl == pytest.approx(nl, abs=1e-12), year
+        assert w.lg_wrc_per_pa_al == pytest.approx(al, abs=1e-12), year
+        assert w.lg_wrc_per_pa == pytest.approx(mlb, abs=1e-12), year
+        # Non-pitcher run environment is close to (within ~8% of) the all-player league R/PA.
+        assert 0.97 < mlb / w.lg_r_per_pa < 1.10, year
+
+
+def test_wrc_per_pa_for_selects_league_and_falls_back_to_mlb() -> None:
+    w = bundled_constants()[2001]
+    assert w.wrc_per_pa_for("NL") == w.lg_wrc_per_pa_nl
+    assert w.wrc_per_pa_for("al") == w.lg_wrc_per_pa_al
+    assert w.wrc_per_pa_for("MLB") == w.lg_wrc_per_pa
+    assert w.lg_wrc_per_pa_nl is not None and w.lg_wrc_per_pa_nl > 0.13
