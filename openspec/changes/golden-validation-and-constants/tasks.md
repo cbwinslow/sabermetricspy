@@ -21,8 +21,8 @@
 - [x] 3.2 Add a recomputation gate test: wOBA and FIP of each fixture row reproduced from its raw inputs within tolerance. Verify it passes for all rows and fails for a deliberately altered value.
 - [x] 3.3 Add `tests/test_golden_values.py` asserting every published metric within tolerance, with failure messages naming metric, expected, actual, and source. Verify it passes, with any documented divergences listed.
 - [x] 3.4 Remove the threshold assertions (`woba > 0.530`, `wrc_plus > 230`) from `test_golden_barry_bonds_2001_and_pedro_martinez_2000`. Verify the full suite passes and run one batting and one pitching fixture on Polars, pandas, and PyArrow to confirm agreement within 1e-9.
-- [ ] 3.5 Add hand-computed value tests for every registered metric not covered by fixtures (table of metric, small input, expected value, derivation in a comment) and a coverage guard failing on any uncovered metric. Verify the guard fails when an entry is temporarily removed.
-- [ ] 3.6 Add a Hypothesis identity test for rates built from summed counts (`OPS = OBP + SLG`, `ISO = SLG - AVG`). Verify with `uv run pytest -k identity`.
+- [x] 3.5 Add hand-computed value tests for every registered metric not covered by fixtures (table of metric, small input, expected value, derivation in a comment) and a coverage guard failing on any uncovered metric. Verify the guard fails when an entry is temporarily removed.
+- [x] 3.6 Add a Hypothesis identity test for rates built from summed counts (`OPS = OBP + SLG`, `ISO = SLG - AVG`). Verify with `uv run pytest -k identity`.
 
 ## 4. Reference status and methodology
 
