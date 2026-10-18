@@ -150,6 +150,8 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
         40 + 42 + 8 - 4 - 10 - 6 - 6,
         {},
     ),
+    (Metric.SHUTDOWN, dict(game_wpa=0.06, is_reliever=True), 1, {}),
+    (Metric.MELTDOWN, dict(game_wpa=-0.06, is_reliever=True), 1, {}),
     (Metric.PIT_K_TO_BB, dict(so=9, bb=3), 9 / 3, {}),
     (Metric.BF_PER_IP, dict(bf=27, outs=18), 3 * 27 / 18, {}),
     (Metric.K_PCT_PLUS, dict(so=9, bf=27), 100 * (9 / 27) / W.lg_k_pct, {}),

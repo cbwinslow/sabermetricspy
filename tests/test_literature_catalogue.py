@@ -33,7 +33,7 @@ def _entries() -> list[tuple[str, dict[str, str]]]:
 
 
 def test_catalogue_has_entries() -> None:
-    assert len(_entries()) >= 2
+    assert len(_entries()) >= 1
 
 
 def test_every_entry_has_all_fields_and_a_primary_source_url() -> None:

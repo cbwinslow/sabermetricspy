@@ -697,6 +697,16 @@ metrics:
     evidence: primary
     source_url: https://library.fangraphs.com/offense/off/
     note: Implements the formula printed on the FanGraphs Library page (wRAA + park term + league term + BsR) and is recomputed from it in tests/test_game_score_and_off.py. The page prints no player value, so no published number was reproduced.
+  shutdown:
+    status: matches
+    evidence: primary
+    source_url: https://library.fangraphs.com/pitching/sd-md/
+    note: Implements the page's definition (reliever, game WPA of +0.06 or more, inclusive). The page prints no player values and the FanGraphs leaderboard SD counts need per-game WPA that is not bundled, so only the threshold semantics are tested (tests/test_shutdown_meltdown.py).
+  meltdown:
+    status: matches
+    evidence: primary
+    source_url: https://library.fangraphs.com/pitching/sd-md/
+    note: Implements the page's definition (reliever, game WPA of -0.06 or lower, inclusive). Same validation limits as shutdown.
   base_advance_average:
     status: matches
     evidence: golden

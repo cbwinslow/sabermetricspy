@@ -678,6 +678,8 @@ def test_all_registered_metrics_and_suites_audit() -> None:
             "bip_against": [420, 430],
             "bip_outs_made": [298, 295],
             "re24": [48.5, 15.2],
+            "game_wpa": [0.08, -0.07],
+            "is_reliever": [True, True],
             "bases_advanced": [900, 700],
             "base_advance_opps": [2400, 2200],
             "wpa": [4.8, 1.6],

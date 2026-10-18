@@ -138,6 +138,48 @@ def calc_game_score_v2(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
+        metric=Metric.SHUTDOWN,
+        display_name="Shutdown",
+        category=Category.PITCHING,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("game_wpa", "is_reliever"),
+        direction=Direction.HIGHER_IS_BETTER,
+        formula_latex=r"SD = [\text{reliever}] \cdot [WPA_{game} \geq 0.06]",
+        citation="FanGraphs Library, SD and MD",
+        description="1 when a reliever's WPA in the game is +0.06 or greater, else 0; sum the rows for a season count.",
+        caveats=(
+            "Per-appearance indicator: calculate it on one row per game, then sum.",
+            "The FanGraphs page prints the thresholds but no player values reproducible from season data.",
+        ),
+    )
+)
+def calc_shutdown(ctx: EvalContext) -> nw.Expr:
+    return (nw.col("is_reliever").cast(nw.Boolean) & (nw.col("game_wpa") >= 0.06)).cast(nw.Int64)
+
+
+@register_metric(
+    MetricSpec(
+        metric=Metric.MELTDOWN,
+        display_name="Meltdown",
+        category=Category.PITCHING,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("game_wpa", "is_reliever"),
+        direction=Direction.LOWER_IS_BETTER,
+        formula_latex=r"MD = [\text{reliever}] \cdot [WPA_{game} \leq -0.06]",
+        citation="FanGraphs Library, SD and MD",
+        description="1 when a reliever's WPA in the game is -0.06 or lower, else 0; sum the rows for a season count.",
+        caveats=(
+            "Per-appearance indicator: calculate it on one row per game, then sum.",
+            "The FanGraphs page prints the thresholds but no player values reproducible from season data.",
+        ),
+    )
+)
+def calc_meltdown(ctx: EvalContext) -> nw.Expr:
+    return (nw.col("is_reliever").cast(nw.Boolean) & (nw.col("game_wpa") <= -0.06)).cast(nw.Int64)
+
+
+@register_metric(
+    MetricSpec(
         metric=Metric.H_PER_9,
         display_name="H/9",
         category=Category.PITCHING,

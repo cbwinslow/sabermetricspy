@@ -26,17 +26,7 @@ recorded score equals the sum, and that entries are in descending score order.
 
 ## Candidate methods
 
-### 1. Shutdown and Meltdown (FanGraphs)
-- **Citation**: [SD and MD, FanGraphs Library](https://library.fangraphs.com/pitching/sd-md/)
-- **Formula source**: a reliever earns a Shutdown in a game when his WPA is +0.06 or more and a Meltdown when it is -0.06 or less.
-- **Inputs**: per-game reliever WPA.
-- **Inputs in canonical schema**: partly; WPA per play exists, a per-game aggregate needs a game identifier.
-- **Validation target**: FanGraphs leaderboard SD and MD counts (not fetched); the page prints only season rating scales.
-- **Scores**: formula=1; inputs=1; validation=1; fit=2; value=1; difficulty=2
-- **Priority score**: 4
-- **Difficulty**: 2.
-
-### 2. Catcher defensive rating system (Rosciam, 2004)
+### 1. Catcher defensive rating system (Rosciam, 2004)
 - **Citation**: [Catcher's Defensive Rating System, Chuck Rosciam, via Retrosheet](https://www.retrosheet.org/Research/RosciamC/Catcher%20Defensive%20Rating%20System.pdf)
 - **Formula source**: components scaled to 1.00 for a league-average catcher: Stamina (share of team innings caught over the league average share), Good Glove (independent-putout fielding average over the league figure, where independent putouts exclude strikeouts), Good Arm (CCS/(CCS+SBA) times the league caught-stealing rate). Three further components (ball handling, game play, game calling) were read only in part.
 - **Inputs**: innings caught, putouts excluding strikeouts, assists, errors, caught stealing, stolen bases against, league rates.
@@ -55,6 +45,7 @@ recorded score equals the sum, and that entries are in descending score order.
 | Off (FanGraphs) | `game-score-and-off-metrics` | ADR-0030 |
 | Base-Advance Average (Hardegree) | `base-advance-average` | ADR-0031 |
 | Extended Pythagorean head-to-head (Cleary et al.) | `extended-pythagorean` | ADR-0032 |
+| Shutdown and Meltdown (FanGraphs) | direct commit, per-appearance indicators | ADR-0036 |
 
 ## Rejected or deferred with reason
 
