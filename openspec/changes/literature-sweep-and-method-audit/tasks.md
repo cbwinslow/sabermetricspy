@@ -7,8 +7,8 @@
 
 ## 2. Batted-ball family (10 metrics, golden)
 
-- [ ] 2.1 Retrieve FanGraphs leaderboard rows with batted-ball counts and published rates (GB, FB, LD, IFFB, Pull, Cent, Oppo, HR/FB, EV) for at least six pitcher seasons across eras, record them as fixtures, and add the recomputation gate. Verify the fixture structure and gate tests pass and fail on an altered value.
-- [ ] 2.2 Compare `gb_pct`, `fb_pct`, `ld_pct`, `pu_pct`, `gb_to_fb`, `hr_to_fb`, `pull_pct`, `cent_pct`, `oppo_pct`, and `avg_ev` with the fixtures; record status, source, evidence tier, and note in the audit data (fix or label differences). Verify the golden tests pass and the audit entries are no longer unverified.
+- [x] 2.1 Retrieve FanGraphs leaderboard rows with batted-ball counts and published rates (GB, FB, LD, IFFB, Pull, Cent, Oppo, HR/FB, EV) for at least six pitcher seasons across eras, record them as fixtures, and add the recomputation gate. Verify the fixture structure and gate tests pass and fail on an altered value.
+- [x] 2.2 Compare `gb_pct`, `fb_pct`, `ld_pct`, `pu_pct`, `gb_to_fb`, `hr_to_fb`, `pull_pct`, `cent_pct`, `oppo_pct`, and `avg_ev` with the fixtures; record status, source, evidence tier, and note in the audit data (fix or label differences). Verify the golden tests pass and the audit entries are no longer unverified.
 
 ## 3. Batting and weighted offense (18 metrics)
 

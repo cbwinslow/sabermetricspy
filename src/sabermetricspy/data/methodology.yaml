@@ -8,9 +8,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
   avg_ev:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://baseballsavant.mlb.com/csv-docs
+    note: 'Mean of tracked exit velocities, ev_sum / ev_count, as Savant defines exit velocity (miles per hour, tracked by Statcast). No numeric check was possible: leaderboards publish only the mean, not the sum or count of tracked balls.'
   avg_extension:
     status: unverified
     source_url: ''
@@ -94,9 +95,10 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   cent_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/pitching/batted-ball/
+    note: Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8. Divides by Pull+Cent+Oppo; corrected from bbe (ADR-0028).
   cg_pct:
     status: unverified
     source_url: ''
@@ -154,9 +156,10 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   fb_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/pitching/batted-ball/
+    note: Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8. Denominator GB+FB+LD; fly balls include infield flies and home runs.
   fip:
     status: matches
     evidence: golden
@@ -184,13 +187,15 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   gb_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/pitching/batted-ball/
+    note: 'Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8. Denominator GB+FB+LD (the FanGraphs Library: ground balls per ball in play); home runs are inside FB.'
   gb_to_fb:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/pitching/batted-ball/
+    note: Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8.
   gpa:
     status: unverified
     source_url: ''
@@ -222,9 +227,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
   hr_to_fb:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/pitching/batted-ball/
+    note: Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8. FB includes infield fly balls.
   ip:
     status: unverified
     source_url: ''
@@ -266,9 +272,10 @@ metrics:
     source_url: https://tht.fangraphs.com/kwera-the-starting-point-for-pitcher-evaluations
     note: Matches the original Tango/GuyM form 5.40 - 12*(K-BB)/PA. Published variants adjust for HBP and IBB, and the 5.40 constant is league-dependent.
   ld_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/pitching/batted-ball/
+    note: Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8. Denominator GB+FB+LD.
   lob_pct:
     status: matches
     evidence: golden
@@ -292,9 +299,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
   oppo_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/pitching/batted-ball/
+    note: Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8. Divides by Pull+Cent+Oppo; corrected from bbe (ADR-0028).
   ops:
     status: matches
     evidence: golden
@@ -332,13 +340,15 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   pu_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: primary
+    source_url: https://baseballsavant.mlb.com/csv-docs
+    note: 'Popups per batted-ball event, where popups are a bb_type separate from fly balls (Baseball Savant''s bb_type lists ground_ball, line_drive, fly_ball and popup). FanGraphs'' IFFB% is a different statistic: infield flies divided by fly balls, with infield flies a subset of FB (confirmed on 20 fixture rows). With FanGraphs-style columns (iffb mapped to pu) the schema''s derived bbe adds pu to GB+FB+LD and double counts, so supply bbe explicitly or use pu/fb.'
   pull_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/pitching/batted-ball/
+    note: Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8. FanGraphs divides by Pull+Cent+Oppo (equal to GB+FB+LD+BU in every fixture row), not by GB+FB+LD; the library previously divided by bbe and was corrected to the direction total (ADR-0028).
   putaway_pct:
     status: unverified
     source_url: ''

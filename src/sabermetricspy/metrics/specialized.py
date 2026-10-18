@@ -364,15 +364,17 @@ def calc_hr_to_fb(ctx: EvalContext) -> nw.Expr:
         display_name="Pull%",
         category=Category.BATTED_BALL,
         kind=ImplKind.DETERMINISTIC,
-        required_columns=("pull_bbe", "bbe"),
+        required_columns=("pull_bbe", "cent_bbe", "oppo_bbe"),
         direction=Direction.NEUTRAL,
-        formula_latex=r"Pull\% = \frac{PullBBE}{BBE}",
+        formula_latex=r"Pull\% = \frac{Pull}{Pull + Cent + Oppo}",
         citation="FanGraphs Library (Batted Ball)",
         description="Pulled batted-ball rate.",
     )
 )
 def calc_pull_pct(ctx: EvalContext) -> nw.Expr:
-    return safe_div(nw.col("pull_bbe"), nw.col("bbe"))
+    return safe_div(
+        nw.col("pull_bbe"), nw.col("pull_bbe") + nw.col("cent_bbe") + nw.col("oppo_bbe")
+    )
 
 
 @register_metric(
@@ -381,15 +383,17 @@ def calc_pull_pct(ctx: EvalContext) -> nw.Expr:
         display_name="Cent%",
         category=Category.BATTED_BALL,
         kind=ImplKind.DETERMINISTIC,
-        required_columns=("cent_bbe", "bbe"),
+        required_columns=("pull_bbe", "cent_bbe", "oppo_bbe"),
         direction=Direction.NEUTRAL,
-        formula_latex=r"Cent\% = \frac{CentBBE}{BBE}",
+        formula_latex=r"Cent\% = \frac{Cent}{Pull + Cent + Oppo}",
         citation="FanGraphs Library (Batted Ball)",
         description="Center-field batted-ball rate.",
     )
 )
 def calc_cent_pct(ctx: EvalContext) -> nw.Expr:
-    return safe_div(nw.col("cent_bbe"), nw.col("bbe"))
+    return safe_div(
+        nw.col("cent_bbe"), nw.col("pull_bbe") + nw.col("cent_bbe") + nw.col("oppo_bbe")
+    )
 
 
 @register_metric(
@@ -398,15 +402,17 @@ def calc_cent_pct(ctx: EvalContext) -> nw.Expr:
         display_name="Oppo%",
         category=Category.BATTED_BALL,
         kind=ImplKind.DETERMINISTIC,
-        required_columns=("oppo_bbe", "bbe"),
+        required_columns=("pull_bbe", "cent_bbe", "oppo_bbe"),
         direction=Direction.NEUTRAL,
-        formula_latex=r"Oppo\% = \frac{OppoBBE}{BBE}",
+        formula_latex=r"Oppo\% = \frac{Oppo}{Pull + Cent + Oppo}",
         citation="FanGraphs Library (Batted Ball)",
         description="Opposite-field batted-ball rate.",
     )
 )
 def calc_oppo_pct(ctx: EvalContext) -> nw.Expr:
-    return safe_div(nw.col("oppo_bbe"), nw.col("bbe"))
+    return safe_div(
+        nw.col("oppo_bbe"), nw.col("pull_bbe") + nw.col("cent_bbe") + nw.col("oppo_bbe")
+    )
 
 
 @register_metric(

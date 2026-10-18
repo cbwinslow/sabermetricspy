@@ -1,0 +1,745 @@
+# Golden batted-ball fixtures: FanGraphs pitcher leaderboard rows (type=2 batted-ball table) retrieved 2026-10-18.
+# FanGraphs conventions verified by recomputation (tests/test_golden_batted_ball.py): GB%/FB%/LD% divide by GB+FB+LD (home runs sit inside FB),
+# IFFB% divides by FB (IFFB is a subset of FB), Pull/Cent/Oppo% divide by Pull+Cent+Oppo (= GB+FB+LD+BU), HR/FB and GB/FB are ratios of counts.
+# tolerance 1e-8: FanGraphs truncates/rounds the published rates to 8-9 digits.
+entries:
+- id: fernandez_2016_batted_ball
+  player: Jose Fernandez
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2016&qual=150 (PlayerName=Jose Fernandez)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '182.1'
+    gb: 165
+    fb: 130
+    ld: 115
+    iffb: 10
+    bu: 13
+    pull: 141
+    cent: 157
+    oppo: 125
+    hr: 13
+  published:
+    gb_pct: 0.402439024
+    fb_pct: 0.31707317
+    ld_pct: 0.280487804
+    iffb_pct: 0.076923076
+    hr_to_fb: 0.1
+    gb_to_fb: 1.269230769
+    pull_pct: 0.33333333
+    cent_pct: 0.37115839
+    oppo_pct: 0.29550827
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: syndergaard_2016_batted_ball
+  player: Noah Syndergaard
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2016&qual=150 (PlayerName=Noah Syndergaard)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '183.2'
+    gb: 241
+    fb: 128
+    ld: 102
+    iffb: 10
+    bu: 10
+    pull: 176
+    cent: 165
+    oppo: 140
+    hr: 11
+  published:
+    gb_pct: 0.511677282
+    fb_pct: 0.271762208
+    ld_pct: 0.216560509
+    iffb_pct: 0.078125
+    hr_to_fb: 0.0859375
+    gb_to_fb: 1.8828125
+    pull_pct: 0.36590437
+    cent_pct: 0.34303534
+    oppo_pct: 0.29106029
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: scherzer_2016_batted_ball
+  player: Max Scherzer
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2016&qual=150 (PlayerName=Max Scherzer)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '228.1'
+    gb: 179
+    fb: 260
+    ld: 104
+    iffb: 34
+    bu: 12
+    pull: 221
+    cent: 166
+    oppo: 168
+    hr: 31
+  published:
+    gb_pct: 0.329650092
+    fb_pct: 0.478821362
+    ld_pct: 0.191528545
+    iffb_pct: 0.13076923
+    hr_to_fb: 0.119230769
+    gb_to_fb: 0.688461538
+    pull_pct: 0.3981982
+    cent_pct: 0.2990991
+    oppo_pct: 0.3027027
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: verlander_2016_batted_ball
+  player: Justin Verlander
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2016&qual=150 (PlayerName=Justin Verlander)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '227.2'
+    gb: 194
+    fb: 275
+    ld: 107
+    iffb: 31
+    bu: 8
+    pull: 231
+    cent: 200
+    oppo: 153
+    hr: 30
+  published:
+    gb_pct: 0.336805555
+    fb_pct: 0.477430555
+    ld_pct: 0.185763888
+    iffb_pct: 0.112727272
+    hr_to_fb: 0.109090909
+    gb_to_fb: 0.705454545
+    pull_pct: 0.39554795
+    cent_pct: 0.34246575
+    oppo_pct: 0.2619863
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: sale_2016_batted_ball
+  player: Chris Sale
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2016&qual=150 (PlayerName=Chris Sale)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '226.2'
+    gb: 247
+    fb: 227
+    ld: 126
+    iffb: 21
+    bu: 12
+    pull: 252
+    cent: 201
+    oppo: 159
+    hr: 27
+  published:
+    gb_pct: 0.411666666
+    fb_pct: 0.378333333
+    ld_pct: 0.21
+    iffb_pct: 0.092511013
+    hr_to_fb: 0.118942731
+    gb_to_fb: 1.088105726
+    pull_pct: 0.41176471
+    cent_pct: 0.32843137
+    oppo_pct: 0.25980392
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: porcello_2016_batted_ball
+  player: Rick Porcello
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2016&qual=150 (PlayerName=Rick Porcello)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '223.0'
+    gb: 279
+    fb: 246
+    ld: 122
+    iffb: 34
+    bu: 9
+    pull: 281
+    cent: 214
+    oppo: 161
+    hr: 23
+  published:
+    gb_pct: 0.43122102
+    fb_pct: 0.380216383
+    ld_pct: 0.188562596
+    iffb_pct: 0.138211382
+    hr_to_fb: 0.093495934
+    gb_to_fb: 1.134146341
+    pull_pct: 0.42835366
+    cent_pct: 0.32621951
+    oppo_pct: 0.24542683
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: quintana_2016_batted_ball
+  player: Jose Quintana
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2016&qual=150 (PlayerName=Jose Quintana)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '208.0'
+    gb: 241
+    fb: 231
+    ld: 125
+    iffb: 31
+    bu: 5
+    pull: 253
+    cent: 193
+    oppo: 156
+    hr: 22
+  published:
+    gb_pct: 0.403685092
+    fb_pct: 0.386934673
+    ld_pct: 0.209380234
+    iffb_pct: 0.134199134
+    hr_to_fb: 0.095238095
+    gb_to_fb: 1.043290043
+    pull_pct: 0.42026578
+    cent_pct: 0.32059801
+    oppo_pct: 0.25913621
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: kluber_2016_batted_ball
+  player: Corey Kluber
+  season: 2016
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2016&qual=150 (PlayerName=Corey Kluber)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '215.0'
+    gb: 249
+    fb: 203
+    ld: 108
+    iffb: 13
+    bu: 9
+    pull: 221
+    cent: 176
+    oppo: 172
+    hr: 22
+  published:
+    gb_pct: 0.444642857
+    fb_pct: 0.3625
+    ld_pct: 0.192857142
+    iffb_pct: 0.064039408
+    hr_to_fb: 0.108374384
+    gb_to_fb: 1.226600985
+    pull_pct: 0.3884007
+    cent_pct: 0.30931459
+    oppo_pct: 0.30228471
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: prior_2003_batted_ball
+  player: Mark Prior
+  season: 2003
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2003&qual=150 (PlayerName=Mark Prior)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '211.1'
+    gb: 222
+    fb: 199
+    ld: 121
+    iffb: 30
+    bu: 17
+    pull: 215
+    cent: 127
+    oppo: 217
+    hr: 15
+  published:
+    gb_pct: 0.409594095
+    fb_pct: 0.367158671
+    ld_pct: 0.223247232
+    iffb_pct: 0.150753768
+    hr_to_fb: 0.075376884
+    gb_to_fb: 1.115577889
+    pull_pct: 0.38461538
+    cent_pct: 0.22719141
+    oppo_pct: 0.3881932
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: martinez_2003_batted_ball
+  player: Pedro Martinez
+  season: 2003
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2003&qual=150 (PlayerName=Pedro Martinez)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '186.2'
+    gb: 197
+    fb: 174
+    ld: 107
+    iffb: 24
+    bu: 9
+    pull: 247
+    cent: 116
+    oppo: 124
+    hr: 7
+  published:
+    gb_pct: 0.412133891
+    fb_pct: 0.364016736
+    ld_pct: 0.223849372
+    iffb_pct: 0.137931034
+    hr_to_fb: 0.040229885
+    gb_to_fb: 1.132183908
+    pull_pct: 0.50718686
+    cent_pct: 0.23819302
+    oppo_pct: 0.25462012
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: halladay_2003_batted_ball
+  player: Roy Halladay
+  season: 2003
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2003&qual=150 (PlayerName=Roy Halladay)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '266.0'
+    gb: 476
+    fb: 182
+    ld: 157
+    iffb: 19
+    bu: 11
+    pull: 380
+    cent: 213
+    oppo: 233
+    hr: 26
+  published:
+    gb_pct: 0.584049079
+    fb_pct: 0.223312883
+    ld_pct: 0.192638036
+    iffb_pct: 0.104395604
+    hr_to_fb: 0.142857142
+    gb_to_fb: 2.615384615
+    pull_pct: 0.46004843
+    cent_pct: 0.25786925
+    oppo_pct: 0.28208232
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: greinke_2009_batted_ball
+  player: Zack Greinke
+  season: 2009
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2009&qual=150 (PlayerName=Zack Greinke)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '229.1'
+    gb: 239
+    fb: 242
+    ld: 116
+    iffb: 23
+    bu: 21
+    pull: 231
+    cent: 199
+    oppo: 188
+    hr: 11
+  published:
+    gb_pct: 0.400335008
+    fb_pct: 0.405360134
+    ld_pct: 0.194304857
+    iffb_pct: 0.095041322
+    hr_to_fb: 0.045454545
+    gb_to_fb: 0.987603305
+    pull_pct: 0.37378641
+    cent_pct: 0.32200647
+    oppo_pct: 0.30420712
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: verlander_2009_batted_ball
+  player: Justin Verlander
+  season: 2009
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2009&qual=150 (PlayerName=Justin Verlander)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '240.0'
+    gb: 228
+    fb: 271
+    ld: 134
+    iffb: 25
+    bu: 10
+    pull: 223
+    cent: 190
+    oppo: 230
+    hr: 20
+  published:
+    gb_pct: 0.360189573
+    fb_pct: 0.428120063
+    ld_pct: 0.211690363
+    iffb_pct: 0.092250922
+    hr_to_fb: 0.073800738
+    gb_to_fb: 0.841328413
+    pull_pct: 0.34681182
+    cent_pct: 0.29548989
+    oppo_pct: 0.35769829
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: lincecum_2009_batted_ball
+  player: Tim Lincecum
+  season: 2009
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2009&qual=150 (PlayerName=Tim Lincecum)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '225.1'
+    gb: 260
+    fb: 182
+    ld: 105
+    iffb: 12
+    bu: 23
+    pull: 227
+    cent: 197
+    oppo: 146
+    hr: 10
+  published:
+    gb_pct: 0.475319926
+    fb_pct: 0.332723948
+    ld_pct: 0.191956124
+    iffb_pct: 0.065934065
+    hr_to_fb: 0.054945054
+    gb_to_fb: 1.428571428
+    pull_pct: 0.39824561
+    cent_pct: 0.34561404
+    oppo_pct: 0.25614035
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: cole_2019_batted_ball
+  player: Gerrit Cole
+  season: 2019
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2019&qual=150 (PlayerName=Gerrit Cole)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '212.1'
+    gb: 176
+    fb: 172
+    ld: 89
+    iffb: 19
+    bu: 3
+    pull: 164
+    cent: 151
+    oppo: 125
+    hr: 29
+  published:
+    gb_pct: 0.402745995
+    fb_pct: 0.393592677
+    ld_pct: 0.203661327
+    iffb_pct: 0.110465116
+    hr_to_fb: 0.168604651
+    gb_to_fb: 1.023255813
+    pull_pct: 0.37272727
+    cent_pct: 0.34318182
+    oppo_pct: 0.28409091
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: degrom_2019_batted_ball
+  player: Jacob deGrom
+  season: 2019
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2019&qual=150 (PlayerName=Jacob deGrom)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '204.0'
+    gb: 217
+    fb: 169
+    ld: 103
+    iffb: 24
+    bu: 9
+    pull: 192
+    cent: 165
+    oppo: 141
+    hr: 19
+  published:
+    gb_pct: 0.443762781
+    fb_pct: 0.345603271
+    ld_pct: 0.210633946
+    iffb_pct: 0.142011834
+    hr_to_fb: 0.112426035
+    gb_to_fb: 1.284023668
+    pull_pct: 0.38554217
+    cent_pct: 0.3313253
+    oppo_pct: 0.28313253
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: lynn_2019_batted_ball
+  player: Lance Lynn
+  season: 2019
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2019&qual=150 (PlayerName=Lance Lynn)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '208.1'
+    gb: 224
+    fb: 213
+    ld: 119
+    iffb: 22
+    bu: 6
+    pull: 216
+    cent: 191
+    oppo: 155
+    hr: 21
+  published:
+    gb_pct: 0.402877697
+    fb_pct: 0.383093525
+    ld_pct: 0.214028776
+    iffb_pct: 0.103286384
+    hr_to_fb: 0.098591549
+    gb_to_fb: 1.051643192
+    pull_pct: 0.38434164
+    cent_pct: 0.33985765
+    oppo_pct: 0.27580071
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: sale_2024_batted_ball
+  player: Chris Sale
+  season: 2024
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2024&qual=150 (PlayerName=Chris Sale)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '177.2'
+    gb: 191
+    fb: 143
+    ld: 92
+    iffb: 8
+    bu: 4
+    pull: 187
+    cent: 137
+    oppo: 106
+    hr: 9
+  published:
+    gb_pct: 0.448356807
+    fb_pct: 0.335680751
+    ld_pct: 0.215962441
+    iffb_pct: 0.055944055
+    hr_to_fb: 0.062937062
+    gb_to_fb: 1.335664335
+    pull_pct: 0.43488372
+    cent_pct: 0.31860465
+    oppo_pct: 0.24651163
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: skubal_2024_batted_ball
+  player: Tarik Skubal
+  season: 2024
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2024&qual=150 (PlayerName=Tarik Skubal)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '192.0'
+    gb: 218
+    fb: 171
+    ld: 88
+    iffb: 22
+    bu: 4
+    pull: 186
+    cent: 172
+    oppo: 123
+    hr: 15
+  published:
+    gb_pct: 0.45702306
+    fb_pct: 0.358490566
+    ld_pct: 0.184486373
+    iffb_pct: 0.12865497
+    hr_to_fb: 0.087719298
+    gb_to_fb: 1.274853801
+    pull_pct: 0.38669439
+    cent_pct: 0.35758836
+    oppo_pct: 0.25571726
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
+- id: wheeler_2024_batted_ball
+  player: Zack Wheeler
+  season: 2024
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=2&season=2024&qual=150 (PlayerName=Zack Wheeler)
+  leaderboard_url: https://www.fangraphs.com/leaders/major-league
+  retrieved: '2026-10-18'
+  inputs:
+    ip: '200.0'
+    gb: 213
+    fb: 195
+    ld: 92
+    iffb: 27
+    bu: 3
+    pull: 176
+    cent: 204
+    oppo: 123
+    hr: 20
+  published:
+    gb_pct: 0.426
+    fb_pct: 0.39
+    ld_pct: 0.184
+    iffb_pct: 0.138461538
+    hr_to_fb: 0.102564102
+    gb_to_fb: 1.092307692
+    pull_pct: 0.3499006
+    cent_pct: 0.4055666
+    oppo_pct: 0.2445328
+  tolerance:
+    gb_pct: 1.0e-08
+    fb_pct: 1.0e-08
+    ld_pct: 1.0e-08
+    iffb_pct: 1.0e-08
+    hr_to_fb: 1.0e-08
+    gb_to_fb: 1.0e-08
+    pull_pct: 1.0e-08
+    cent_pct: 1.0e-08
+    oppo_pct: 1.0e-08
