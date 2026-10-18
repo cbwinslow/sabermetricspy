@@ -101,7 +101,7 @@ metrics:
     status: approximate
     evidence: primary
     source_url: https://library.fangraphs.com/offense/bsr/
-    note: FanGraphs defines BsR = wSB + UBR + wGDP. UBR must be supplied by the caller and FanGraphs publishes no formula for wGDP (see wgdp).
+    note: BsR = wSB + wGDP + UBR. wSB now matches FanGraphs (league constant bundled); UBR is caller supplied, and the wGDP constants (league GIDP rate 0.105 and run value 0.44) have no published source (the FanGraphs wGDP page gives neither), so BsR stays approximate when GIDP columns are supplied.
   catcher_cs_pct:
     status: matches
     evidence: golden
@@ -618,10 +618,10 @@ metrics:
     source_url: https://library.fangraphs.com/offense/wrc/
     note: 'Formula follows the FanGraphs Library with the AL/NL non-pitcher wRC/PA denominator. Reproduces published wRC+ within about 0.1% (Bonds 2001: 234.41 vs 234.59), the residual coming from FanGraphs'' own league aggregation and park-factor rounding. Park factor defaults to 100 (no adjustment): pass the published factor.'
   wsb:
-    status: approximate
-    evidence: primary
-    source_url: https://library.fangraphs.com/offense/bsr/
-    note: Formula matches FanGraphs, but lg_wsb (league stolen-base runs per opportunity) is not bundled and defaults to 0, so the league adjustment is omitted unless supplied.
+    status: matches
+    evidence: golden
+    source_url: https://library.fangraphs.com/offense/wsb/
+    note: SB x runSB + CS x runCS - lgwSB x (1B + BB + HBP - IBB). The bundled lg_wsb is now computed for 1990 to 2025 from league SB, CS and on-base events (tests/golden/league_sbcs_snapshot.yaml) and reproduces FanGraphs' published 2024 values for eight players to three decimals (tests/test_league_wsb.py). Before this, lg_wsb defaulted to 0 and omitted the league adjustment.
   xba:
     status: approximate
     evidence: golden

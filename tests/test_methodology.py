@@ -103,7 +103,6 @@ def test_woba_links_the_fangraphs_library() -> None:
         "ops_plus",
         "kwera",
         "siera",
-        "wsb",
         "bsr",
         "era_minus",
         "fip_minus",
