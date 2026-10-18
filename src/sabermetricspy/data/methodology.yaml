@@ -765,13 +765,15 @@ models:
     source_url: ''
     note: 'Reason: an open reimplementation of the Stuff+/Location+/Pitching+ idea. No vendor publishes the model or its training data, so there is nothing to reproduce; results are meaningful only relative to the data fitted.'
   CatcherFramingModel:
-    status: unverified
-    source_url: ''
-    note: 'Reason: an open estimator with a constant run_value_per_called_strike of 0.125 whose source was not found, and no published framing runs for a recorded sample were retrieved. The constant is a caller-overridable default, not a verified value.'
+    status: approximate
+    evidence: secondary
+    source_url: https://www.mlb.com/glossary/statcast/fielding-run-value
+    note: The default run_value_per_called_strike of 0.125 equals the 0.125 runs per framed strike that the MLB Fielding Run Value glossary lists (read from a search result for that page, which returned HTTP 406 to the fetch tool, so the value is secondary evidence). The model itself is an open estimator, not Baseball Savant's framing model, and its framed-strike counts were not compared with published framing runs. Other sources put a ball-to-strike swing between about 0.12 and 0.16 runs depending on method and count.
   OutsAboveAverageModel:
-    status: unverified
-    source_url: ''
-    note: 'Reason: an open estimator with a run_value_per_out default of 0.75 whose source was not found; Baseball Savant''s Outs Above Average uses tracked fielder positions and an unpublished model, so it cannot be reproduced from public data.'
+    status: approximate
+    evidence: secondary
+    source_url: https://www.mlb.com/glossary/statcast/fielding-run-value
+    note: The default run_value_per_out of 0.75 equals the infielder conversion listed in the MLB Fielding Run Value glossary (1 out = 0.75 runs for infielders, 0.9 for outfielders; read from a search result for that page, which returned HTTP 406 to the fetch tool, so secondary evidence). The model applies one constant to every position, so outfielders are undervalued unless the caller passes 0.9. It is an open estimator, not Baseball Savant's Outs Above Average, which uses tracked fielder positions.
   EmpiricalBayesShrinker:
     status: matches
     evidence: primary

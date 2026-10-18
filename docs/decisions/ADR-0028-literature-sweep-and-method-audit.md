@@ -50,11 +50,11 @@ as fixtures under `tests/golden/`. Pitch-level checks use a recorded public Base
    - Whiff%: FanGraphs counts foul tips as contact, Savant as misses (23.3 against 27.7); the library follows FanGraphs.
    - F-Strike%: FanGraphs divides by 753 batters faced, Savant shows 754 first pitches; tests use 753.
    - Marcel pitchers (`divergent`): 5/4/3 weights and 134 IP regression versus Tango's 3/2/1 and 25 or 60 IP.
-5. **Models.** Six open reimplementations (`ExpectedOutcomeModel`, `PitchQualityModel`, `CatcherFramingModel`,
-   `OutsAboveAverageModel`, `CountExpectancyMatrix`, `WinProbabilityModel`) stay `unverified` with a written reason
-   each: there is no published model or table to reproduce, or none could be retrieved. Their default constants
-   (count offsets, 0.125 runs per called strike, 0.75 runs per out) are caller-overridable and unsourced; follow-up
-   changes should source them before they are relied on.
+5. **Models.** Four open reimplementations (`ExpectedOutcomeModel`, `PitchQualityModel`, `CountExpectancyMatrix`,
+   `WinProbabilityModel`) stay `unverified` with a written reason each: there is no published model or table to
+   reproduce, or none could be retrieved. The count offsets are caller-overridable and unsourced. The framing
+   (0.125 runs per called strike) and outs-above-average (0.75 runs per infield out) constants were sourced to the MLB
+   Fielding Run Value glossary after the audit and relabeled `approximate` with `secondary` evidence.
 
 ## Outcome
 Metrics: 136 audited (`matches` 90, `approximate` 46, none `unverified`); by tier, `golden` 84, `primary` 27,
