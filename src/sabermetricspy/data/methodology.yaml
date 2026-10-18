@@ -719,10 +719,10 @@ models:
     source_url: http://www.tangotiger.net/archives/stud0346.shtml
     note: Weights 5/4/3, regression to 1,200 PA of league average, playing time 0.5*PA1 + 0.1*PA2 + 200 and the age adjustment (+0.006 per year under 29, -0.003 over 29) match Tango's method. The final re-baselining step is not implemented.
   MarcelProjector (pitchers):
-    status: divergent
+    status: approximate
     evidence: primary
     source_url: http://www.tangotiger.net/archives/stud0346.shtml
-    note: Tango uses weights 3/2/1 and an IP base of 25 (relievers) or 60 (starters); the class documents 5/4/3 weights and a 134 IP regression constant that no source supports.
+    note: 'Supported by configuration: season_weights=(3, 2, 1), exposure_col=''ip'' and playing_time_base=25 (relievers) or 60 (starters), or a column of per-player bases, as in Tango''s March 2004 pitcher post; the playing-time formula 0.5*IP1 + 0.1*IP2 + base is tested (tests/test_model_audit.py). The post gives no innings equivalent for the regression step, so regression_pa must be chosen by the caller, the by-GS/G interpolation for part-timers is left to the caller, and the ERA split with BaseRuns and league assignment are not implemented. The default configuration is the hitter one. The earlier 134 IP constant had no source and was removed from the documentation.'
   Log5Model:
     status: matches
     evidence: primary

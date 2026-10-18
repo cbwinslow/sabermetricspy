@@ -49,7 +49,7 @@ as fixtures under `tests/golden/`. Pitch-level checks use a recorded public Base
    - Average exit velocity: 86.92 against 87.45 (FanGraphs appears to drop the slowest rollers; no rule published).
    - Whiff%: FanGraphs counts foul tips as contact, Savant as misses (23.3 against 27.7); the library follows FanGraphs.
    - F-Strike%: FanGraphs divides by 753 batters faced, Savant shows 754 first pitches; tests use 753.
-   - Marcel pitchers (`divergent`): 5/4/3 weights and 134 IP regression versus Tango's 3/2/1 and 25 or 60 IP.
+   - Marcel pitchers (`divergent` at the time; made configurable and relabeled `approximate` by ADR-0034): 5/4/3 weights and 134 IP regression versus Tango's 3/2/1 and 25 or 60 IP.
 5. **Models.** Three open reimplementations (`ExpectedOutcomeModel`, `PitchQualityModel`, `CountExpectancyMatrix`)
    stay `unverified` with a written reason each: there is no published model or table to
    reproduce, or none could be retrieved. The count offsets are caller-overridable and unsourced. The framing

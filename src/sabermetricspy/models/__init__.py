@@ -46,10 +46,14 @@ class MarcelProjector:
        plate appearances of league-average production.
     3. Apply the age adjustment (`+0.006 * (29 - age)` if `age < 29`, `-0.003 * (age - 29)` if `age > 29`).
 
-    Differences from the published method (see docs/METHODOLOGY.md): the final re-baselining step is
-    not implemented, and pitchers are NOT supported as published. Tango uses weights `3/2/1` for pitchers
-    with a base of 25 (relievers) or 60 (starters) innings; pass `season_weights=(3, 2, 1)` and an
-    innings exposure column only as an approximation. No source supports a 134 IP regression constant.
+    Pitchers (Tango's March 2004 post): weights `3/2/1`, innings in place of plate appearances, and the `200`
+    in the playing-time formula replaced by 25 for relievers or 60 for starters (part-timers in between by GS/G).
+    Configure with `season_weights=(3, 2, 1)`, `exposure_col="ip"` and `playing_time_base` (a number, or the name of
+    a column holding each player's base). Tango gives no innings equivalent for the regression step, so
+    `regression_pa` must be chosen by the caller for pitchers; no source supports a 134 IP constant.
+
+    Differences from the published method (see docs/METHODOLOGY.md): the final re-baselining step is not
+    implemented.
     """
 
     def __init__(
@@ -61,6 +65,7 @@ class MarcelProjector:
         peak_age: int = 29,
         rate_cols: tuple[str, ...] = ("hr", "bb", "so", "h", "b2", "b3"),
         exposure_col: str = "pa",
+        playing_time_base: float | str = 200.0,
     ) -> None:
         self.target_season = target_season
         self.season_weights = season_weights
@@ -68,6 +73,7 @@ class MarcelProjector:
         self.peak_age = peak_age
         self.rate_cols = rate_cols
         self.exposure_col = exposure_col
+        self.playing_time_base = playing_time_base
         self._results: MarcelResults | None = None
         self._projections_df: pl.DataFrame | None = None
 
@@ -118,10 +124,15 @@ class MarcelProjector:
                     float((recent[col] * recent["_recency_w"]).sum()) / total_weighted_exp
                 )
 
-        # Aggregate per player
+        # Aggregate per player. The playing-time constant is 200 PA for hitters; Tango uses 25 or 60 innings for pitchers.
+        base_expr: pl.Expr = (
+            pl.col(self.playing_time_base).sort_by("season").last()
+            if isinstance(self.playing_time_base, str)
+            else pl.lit(float(self.playing_time_base))
+        )
         agg_exprs: list[pl.Expr] = [
             (pl.col(self.exposure_col) * pl.col("_recency_w")).sum().alias("_weighted_exp"),
-            ((pl.col(self.exposure_col) * pl.col("_pt_w")).sum() + 200.0).alias(
+            ((pl.col(self.exposure_col) * pl.col("_pt_w")).sum() + base_expr).alias(
                 f"proj_{self.exposure_col}"
             ),
         ]

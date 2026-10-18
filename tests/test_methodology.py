@@ -132,8 +132,8 @@ def test_models_with_known_differences_are_labeled() -> None:
     assert pitcher.status is ReferenceStatus.APPROXIMATE
     assert "worked example" in pitcher.note and "0.2 WAR" in pitcher.note
     assert models["WARFramework.calculate_position_player_*"].status is ReferenceStatus.APPROXIMATE
-    assert models["MarcelProjector (pitchers)"].status is ReferenceStatus.DIVERGENT
-    assert "134" in models["MarcelProjector (pitchers)"].note
+    assert models["MarcelProjector (pitchers)"].status is ReferenceStatus.APPROXIMATE
+    assert "3, 2, 1" in models["MarcelProjector (pitchers)"].note
 
 
 def test_pitcher_war_docstring_names_the_published_method_and_its_limits() -> None:

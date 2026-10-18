@@ -125,3 +125,58 @@ def test_extended_pythagorean_swapped_equal_teams_are_even() -> None:
         exponent=1.83,
     )
     assert got == pytest.approx(0.5)
+
+
+def _history(exposure: str, rows: list[tuple[int, float]]) -> pl.DataFrame:
+    return pl.DataFrame(
+        {
+            "player_id": ["p"] * len(rows),
+            "season": [s for s, _ in rows],
+            exposure: [e for _, e in rows],
+            "so": [e * 0.2 for _, e in rows],
+        }
+    )
+
+
+def test_marcel_hitter_playing_time_reproduces_tangos_beltran_example() -> None:
+    """Tango's post #25: 602 PA last year and 722 the year before project to 602*.5 + 722*.1 + 200 = 573.2."""
+    from sabermetricspy.models import MarcelProjector
+
+    hist = _history("pa", [(2003, 602.0), (2002, 722.0), (2001, 650.0)])
+    out = MarcelProjector(target_season=2004, rate_cols=("so",)).fit(hist).predict()
+    assert out["proj_pa"][0] == pytest.approx(602 * 0.5 + 722 * 0.1 + 200, abs=1e-9)
+
+
+def test_marcel_pitcher_configuration_uses_tangos_weights_and_innings_base() -> None:
+    """Tango's pitcher post: weights 3/2/1 and the 200 replaced by 25 (relievers) or 60 (starters)."""
+    from sabermetricspy.models import MarcelProjector
+
+    hist = _history("ip", [(2003, 180.0), (2002, 200.0), (2001, 150.0)])
+    out = (
+        MarcelProjector(
+            target_season=2004,
+            season_weights=(3.0, 2.0, 1.0),
+            exposure_col="ip",
+            rate_cols=("so",),
+            playing_time_base=60.0,
+        )
+        .fit(hist)
+        .predict()
+    )
+    assert out["proj_ip"][0] == pytest.approx(180 * 0.5 + 200 * 0.1 + 60, abs=1e-9)
+
+
+def test_marcel_playing_time_base_can_come_from_a_column() -> None:
+    from sabermetricspy.models import MarcelProjector
+
+    hist = _history("ip", [(2003, 80.0), (2002, 70.0), (2001, 60.0)]).with_columns(
+        base=pl.lit(25.0)
+    )
+    out = (
+        MarcelProjector(
+            target_season=2004, exposure_col="ip", rate_cols=("so",), playing_time_base="base"
+        )
+        .fit(hist)
+        .predict()
+    )
+    assert out["proj_ip"][0] == pytest.approx(80 * 0.5 + 70 * 0.1 + 25, abs=1e-9)
