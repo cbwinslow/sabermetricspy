@@ -219,7 +219,9 @@ class SourceTranslator(BaseModel):
             post_exprs.append(nw.when(~xba_c.is_null()).then(xba_c).otherwise(0.0).alias("xba_sum"))
         if "estimated_slg_using_speedangle" in cols_now and "xslg_sum" not in cols_now:
             xslg_c = nw.col("estimated_slg_using_speedangle").cast(nw.Float64)
-            post_exprs.append(nw.when(~xslg_c.is_null()).then(xslg_c).otherwise(0.0).alias("xslg_sum"))
+            post_exprs.append(
+                nw.when(~xslg_c.is_null()).then(xslg_c).otherwise(0.0).alias("xslg_sum")
+            )
         if "estimated_woba_using_speedangle" in cols_now and "xwoba_sum" not in cols_now:
             xw_c = nw.col("estimated_woba_using_speedangle").cast(nw.Float64)
             has_xw = ~xw_c.is_null()
@@ -328,8 +330,7 @@ def _load_bundled_translators() -> dict[str, SourceTranslator]:
     raw: dict[str, Any] = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
     presets_raw: dict[str, Any] = raw.get("presets", {})
     return {
-        k.lower(): SourceTranslator.model_validate({"name": k, **v})
-        for k, v in presets_raw.items()
+        k.lower(): SourceTranslator.model_validate({"name": k, **v}) for k, v in presets_raw.items()
     }
 
 

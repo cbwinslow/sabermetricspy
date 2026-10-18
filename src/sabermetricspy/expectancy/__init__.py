@@ -149,7 +149,9 @@ class RunExpectancyMatrix:
     def results(self) -> RE24Results:
         """Return the frozen RE24Results object."""
         if self._results is None:
-            raise RuntimeError("RunExpectancyMatrix is not fitted yet. Call .fit(df) or .from_default() first.")
+            raise RuntimeError(
+                "RunExpectancyMatrix is not fitted yet. Call .fit(df) or .from_default() first."
+            )
         return self._results
 
     @profiled(category="expectancy")
@@ -173,7 +175,9 @@ class RunExpectancyMatrix:
                     ).alias("base_state_before")
                 )
             else:
-                raise ValueError("Input dataframe must contain 'base_state_before' or ('on_1b', 'on_2b', 'on_3b').")
+                raise ValueError(
+                    "Input dataframe must contain 'base_state_before' or ('on_1b', 'on_2b', 'on_3b')."
+                )
 
         if "runs_rest_of_inning" not in pl_df.columns:
             if {"game_id", "inning", "half_inning", "runs_on_play"}.issubset(pl_df.columns):
@@ -181,7 +185,9 @@ class RunExpectancyMatrix:
                 pl_df = pl_df.with_columns(
                     (
                         pl.col("runs_on_play").sum().over(["game_id", "inning", "half_inning"])
-                        - pl.col("runs_on_play").cum_sum().over(["game_id", "inning", "half_inning"])
+                        - pl.col("runs_on_play")
+                        .cum_sum()
+                        .over(["game_id", "inning", "half_inning"])
                         + pl.col("runs_on_play")
                     ).alias("runs_rest_of_inning")
                 )
@@ -197,7 +203,9 @@ class RunExpectancyMatrix:
             pl.col("runs_rest_of_inning").std().fill_null(0.0).alias("std_roi"),
         )
 
-        state_exp: dict[str, float] = {f"{o}|{s}": val for (o, s), val in DEFAULT_RE24_TABLE.items()}
+        state_exp: dict[str, float] = {
+            f"{o}|{s}": val for (o, s), val in DEFAULT_RE24_TABLE.items()
+        }
         state_counts: dict[str, int] = dict.fromkeys(state_exp, 0)
         state_se: dict[str, float] = dict.fromkeys(state_exp, 0.0)
 
@@ -209,7 +217,9 @@ class RunExpectancyMatrix:
             mean_val = float(row["mean_roi"])
             prior_val = DEFAULT_RE24_TABLE.get((o, s), mean_val)
             if self.prior_strength > 0:
-                shrunk = (n * mean_val + self.prior_strength * prior_val) / (n + self.prior_strength)
+                shrunk = (n * mean_val + self.prior_strength * prior_val) / (
+                    n + self.prior_strength
+                )
             else:
                 shrunk = mean_val
             state_exp[key] = shrunk
@@ -234,7 +244,9 @@ class RunExpectancyMatrix:
         res = self.results
         pl_df = to_polars_df(df)
 
-        if "base_state_before" not in pl_df.columns and {"on_1b", "on_2b", "on_3b"}.issubset(pl_df.columns):
+        if "base_state_before" not in pl_df.columns and {"on_1b", "on_2b", "on_3b"}.issubset(
+            pl_df.columns
+        ):
             pl_df = pl_df.with_columns(
                 (
                     pl.when(pl.col("on_1b")).then(pl.lit("1")).otherwise(pl.lit("-"))
@@ -243,7 +255,11 @@ class RunExpectancyMatrix:
                 ).alias("base_state_before")
             )
 
-        if "base_state_after" not in pl_df.columns and {"on_1b_after", "on_2b_after", "on_3b_after"}.issubset(pl_df.columns):
+        if "base_state_after" not in pl_df.columns and {
+            "on_1b_after",
+            "on_2b_after",
+            "on_3b_after",
+        }.issubset(pl_df.columns):
             pl_df = pl_df.with_columns(
                 (
                     pl.when(pl.col("on_1b_after")).then(pl.lit("1")).otherwise(pl.lit("-"))
@@ -255,7 +271,9 @@ class RunExpectancyMatrix:
         key_before = pl.col("outs_before").cast(pl.Utf8) + pl.lit("|") + pl.col("base_state_before")
         key_after = pl.col("outs_after").cast(pl.Utf8) + pl.lit("|") + pl.col("base_state_after")
 
-        re_before_expr = key_before.replace_strict(res.state_expectancy, default=0.0).alias("re_before")
+        re_before_expr = key_before.replace_strict(res.state_expectancy, default=0.0).alias(
+            "re_before"
+        )
         re_after_expr = (
             pl.when(pl.col("outs_after") >= 3)
             .then(0.0)
@@ -308,7 +326,9 @@ class LinearWeightsEstimator:
         return self._results
 
     @profiled(category="expectancy")
-    def fit(self, df: IntoFrame, *, event_col: str = "play_outcome", rv_col: str = "run_value") -> Self:
+    def fit(
+        self, df: IntoFrame, *, event_col: str = "play_outcome", rv_col: str = "run_value"
+    ) -> Self:
         pl_df = to_polars_df(df)
 
         grouped = pl_df.group_by(event_col).agg(
@@ -376,7 +396,9 @@ class RE288Results(BaseModel):
         key = f"{outs}|{base_state!s}|{b}|{s}"
         return self.state_expectancy.get(key, 0.0)
 
-    def count_leverage(self, outs: int, base_state: BaseState | str, balls: int, strikes: int) -> float:
+    def count_leverage(
+        self, outs: int, base_state: BaseState | str, balls: int, strikes: int
+    ) -> float:
         """Compute the run-value swing between a ball and a strike from `(outs, base_state, balls, strikes)`."""
         if outs >= 3:
             return 0.0
@@ -432,7 +454,9 @@ class CountExpectancyMatrix:
         required = {"outs_before", "base_state_before", "balls", "strikes", "runs_rest_of_inning"}
         missing = required - set(pl_df.columns)
         if missing:
-            raise ValueError(f"Input dataframe for CountExpectancyMatrix.fit is missing columns: {sorted(missing)}")
+            raise ValueError(
+                f"Input dataframe for CountExpectancyMatrix.fit is missing columns: {sorted(missing)}"
+            )
 
         valid = pl_df.filter(
             (pl.col("outs_before").is_between(0, 2))
@@ -457,7 +481,9 @@ class CountExpectancyMatrix:
             mean_val = float(row["mean_roi"])
             prior_val = DEFAULT_RE288_TABLE.get(key, mean_val)
             if self.prior_strength > 0:
-                shrunk = (n * mean_val + self.prior_strength * prior_val) / (n + self.prior_strength)
+                shrunk = (n * mean_val + self.prior_strength * prior_val) / (
+                    n + self.prior_strength
+                )
             else:
                 shrunk = mean_val
             state_exp[key] = shrunk
@@ -510,7 +536,9 @@ class CountExpectancyMatrix:
             for k in res.state_expectancy
         }
 
-        re_before_expr = key_before.replace_strict(res.state_expectancy, default=0.0).alias("re288_before")
+        re_before_expr = key_before.replace_strict(res.state_expectancy, default=0.0).alias(
+            "re288_before"
+        )
         re_after_expr = (
             pl.when(pl.col("outs_after") >= 3)
             .then(0.0)
@@ -521,7 +549,9 @@ class CountExpectancyMatrix:
 
         pl_df = pl_df.with_columns(re_before_expr, re_after_expr, leverage_expr)
         pl_df = pl_df.with_columns(
-            (pl.col("runs_on_play") + pl.col("re288_after") - pl.col("re288_before")).alias("pitch_run_value")
+            (pl.col("runs_on_play") + pl.col("re288_after") - pl.col("re288_before")).alias(
+                "pitch_run_value"
+            )
         )
 
         if isinstance(df, pl.DataFrame):
@@ -646,9 +676,15 @@ class WinProbabilityModel:
         run_sign = -1 if is_top else 1
 
         # Evaluate WP after an out vs after a run-scoring/advancing positive play
-        wp_out = self.home_win_probability(inning, half_inning, outs + 1, base_state, home_score_diff)
+        wp_out = self.home_win_probability(
+            inning, half_inning, outs + 1, base_state, home_score_diff
+        )
         wp_hit = self.home_win_probability(
-            inning, half_inning, outs, "12-" if str(base_state) != "---" else "1--", home_score_diff + run_sign
+            inning,
+            half_inning,
+            outs,
+            "12-" if str(base_state) != "---" else "1--",
+            home_score_diff + run_sign,
         )
         expected_swing = 0.68 * abs(wp_out - wp_0) + 0.32 * abs(wp_hit - wp_0)
         return round(max(0.05, expected_swing / self._results.baseline_play_swing), 3)
@@ -660,9 +696,9 @@ class WinProbabilityModel:
         ax = x.abs()
         t = 1.0 / (1.0 + 0.3275911 * ax)
         poly = (
-            ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592)
-            * t
-        )
+            (((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t
+            + 0.254829592
+        ) * t
         erf_ax = 1.0 - poly * (-(ax * ax)).exp()
         erf_x = x.sign() * erf_ax
         return 0.5 * (1.0 + erf_x)
@@ -737,8 +773,12 @@ class WinProbabilityModel:
         pl_df = to_polars_df(df)
 
         inn = pl.col("inning").cast(pl.Int64)
-        is_top = pl.col("half_inning").cast(pl.Utf8).str.to_lowercase().str.strip_chars().is_in(
-            ["top", "t", "0", "away"]
+        is_top = (
+            pl.col("half_inning")
+            .cast(pl.Utf8)
+            .str.to_lowercase()
+            .str.strip_chars()
+            .is_in(["top", "t", "0", "away"])
         )
         ob = pl.col("outs_before").cast(pl.Int64)
         bsb = pl.col("base_state_before").cast(pl.Utf8)
@@ -764,9 +804,10 @@ class WinProbabilityModel:
         # Stage 2: Compute LI, WP, WPA, and WPA/LI from materialized columns
         wp_b_col = pl.col("_wp_b_home")
         wp_a_col = pl.col("_wp_a_home")
-        exp_swing = 0.68 * (pl.col("_wp_out_home") - wp_b_col).abs() + 0.32 * (
-            pl.col("_wp_hit_home") - wp_b_col
-        ).abs()
+        exp_swing = (
+            0.68 * (pl.col("_wp_out_home") - wp_b_col).abs()
+            + 0.32 * (pl.col("_wp_hit_home") - wp_b_col).abs()
+        )
         li_expr = (
             pl.when(pl.col("_ob") >= 3)
             .then(0.0)
@@ -800,5 +841,3 @@ class WinProbabilityModel:
         if type(df).__module__.startswith("pandas"):
             return arrow_tbl.to_pandas()
         return arrow_tbl
-
-

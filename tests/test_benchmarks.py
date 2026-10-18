@@ -51,9 +51,15 @@ def test_benchmark_vectorized_wpa_and_re288(benchmark: Any) -> None:
     idx = pl.int_range(0, n, eager=True)
     plays = pl.DataFrame({"idx": idx}).select(
         ((pl.col("idx") % 9) + 1).cast(pl.Int64).alias("inning"),
-        pl.when(pl.col("idx") % 2 == 0).then(pl.lit("top")).otherwise(pl.lit("bottom")).alias("half_inning"),
+        pl.when(pl.col("idx") % 2 == 0)
+        .then(pl.lit("top"))
+        .otherwise(pl.lit("bottom"))
+        .alias("half_inning"),
         (pl.col("idx") % 3).cast(pl.Int64).alias("outs_before"),
-        pl.when(pl.col("idx") % 4 == 0).then(pl.lit("12-")).otherwise(pl.lit("---")).alias("base_state_before"),
+        pl.when(pl.col("idx") % 4 == 0)
+        .then(pl.lit("12-"))
+        .otherwise(pl.lit("---"))
+        .alias("base_state_before"),
         ((pl.col("idx") % 7) - 3).cast(pl.Int64).alias("home_score_diff_before"),
         ((pl.col("idx") + 1) % 4).cast(pl.Int64).alias("outs_after"),
         pl.lit("---").alias("base_state_after"),
@@ -63,4 +69,3 @@ def test_benchmark_vectorized_wpa_and_re288(benchmark: Any) -> None:
     out = benchmark(wp_model.transform, plays)
     assert len(out) == n
     assert "wpa" in out.columns
-

@@ -407,4 +407,3 @@ def calc_bat_k_pct_plus(ctx: EvalContext) -> nw.Expr:
 )
 def calc_bat_bb_pct_plus(ctx: EvalContext) -> nw.Expr:
     return safe_div(100.0 * nw.col("bb_pct"), ctx.weights.lg_bb_pct)
-

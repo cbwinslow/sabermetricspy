@@ -45,7 +45,9 @@ def main() -> None:
     print(f"  - Fielding Runs:           {bobby_witt_war.fielding_runs:+.1f}")
     print(f"  - Positional Adj (SS):     {bobby_witt_war.positional_runs:+.1f}")
     print(f"  - Replacement Level Runs:  {bobby_witt_war.replacement_runs:+.1f}")
-    print(f"  - Runs Above Replacement:  {bobby_witt_war.runs_above_replacement:+.1f} RAR -> {bobby_witt_war.war:.2f} WAR")
+    print(
+        f"  - Runs Above Replacement:  {bobby_witt_war.runs_above_replacement:+.1f} RAR -> {bobby_witt_war.war:.2f} WAR"
+    )
 
     # Vectorized DataFrame Pitcher WAR Calculation
     pitcher_df = pl.DataFrame(
@@ -76,12 +78,16 @@ def main() -> None:
     )
     marcel = MarcelProjector(target_season=2025).fit(history_df)
     projections_2025 = marcel.predict()
-    print("\n[3] 2025 Marcel the Monkey Projections (5/4/3 Weighting + Empirical Bayes + Age Curve):")
+    print(
+        "\n[3] 2025 Marcel the Monkey Projections (5/4/3 Weighting + Empirical Bayes + Age Curve):"
+    )
     print(projections_2025)
 
     # 3. Bill James's Log5 Matchup Model
     log5_prob = Log5Model.batter_pitcher_matchup_rate(0.310, 0.215, 0.245)
-    print(f"\n[4] Bill James Log5 Matchup (.310 Batter vs .215 Pitcher in .245 League): {log5_prob:.3f}")
+    print(
+        f"\n[4] Bill James Log5 Matchup (.310 Batter vs .215 Pitcher in .245 League): {log5_prob:.3f}"
+    )
 
     # 4. Exact Absorbing Markov Chain Half-Inning Run Distribution (Bukiet, Harold & Palacios 1997)
     markov = MarkovChainModel().fit(
@@ -109,10 +115,16 @@ def main() -> None:
 
     # 6. Credible & Confidence Uncertainty Intervals for Small Samples
     ci_wilson = binomial_rate_interval(successes=18, trials=50)
-    ci_boot = bootstrap_interval([102.4, 105.1, 98.7, 108.9, 111.2, 95.4, 104.0, 106.8], n_resamples=1000, seed=42)
+    ci_boot = bootstrap_interval(
+        [102.4, 105.1, 98.7, 108.9, 111.2, 95.4, 104.0, 106.8], n_resamples=1000, seed=42
+    )
     print("\n[7] Small-Sample Uncertainty Quantification (18-for-50 = .360 AVG):")
-    print(f"  - Binomial 95% Interval:      [{ci_wilson.ci_lower:.3f}, {ci_wilson.ci_upper:.3f}] (est={ci_wilson.estimate:.3f})")
-    print(f"  - Bootstrap Exit Velo 95% CI: [{ci_boot.ci_lower:.1f}, {ci_boot.ci_upper:.1f}] mph (mean={ci_boot.estimate:.1f})")
+    print(
+        f"  - Binomial 95% Interval:      [{ci_wilson.ci_lower:.3f}, {ci_wilson.ci_upper:.3f}] (est={ci_wilson.estimate:.3f})"
+    )
+    print(
+        f"  - Bootstrap Exit Velo 95% CI: [{ci_boot.ci_lower:.1f}, {ci_boot.ci_upper:.1f}] mph (mean={ci_boot.estimate:.1f})"
+    )
 
 
 if __name__ == "__main__":

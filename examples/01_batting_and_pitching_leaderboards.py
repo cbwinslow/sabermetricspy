@@ -86,7 +86,9 @@ def main() -> None:
 
     res_pd = sb.calculate(batters_pd, [Metric.WRC_PLUS, Metric.OPS], by="player_id", season=2024)
     res_pa = sb.calculate(batters_pa, [Metric.WRC_PLUS, Metric.OPS], by="player_id", season=2024)
-    res_duck = sb.calculate(batters_duck, [Metric.WRC_PLUS, Metric.OPS], by="player_id", season=2024)
+    res_duck = sb.calculate(
+        batters_duck, [Metric.WRC_PLUS, Metric.OPS], by="player_id", season=2024
+    )
 
     assert isinstance(res_pd.df, pd.DataFrame)
     assert isinstance(res_pa.df, pa.Table)

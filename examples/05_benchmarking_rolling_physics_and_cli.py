@@ -20,12 +20,16 @@ def main() -> None:
         sys.stdout.reconfigure(encoding="utf-8")
 
     print("=" * 96)
-    print("SABERMETRICSPY DEMO 05: TELEMETRY, MULTI-BACKEND BENCHMARKS, ROLLING WINDOWS, PITCH PHYSICS & CLI")
+    print(
+        "SABERMETRICSPY DEMO 05: TELEMETRY, MULTI-BACKEND BENCHMARKS, ROLLING WINDOWS, PITCH PHYSICS & CLI"
+    )
     print("=" * 96)
 
     # 1. Built-In ExecutionProfile Telemetry (.profile) & Multi-Backend Benchmark
     bench_report = sb.benchmark(rows=100_000, groups=500, warmup=1, repeats=3)
-    print("\n[1] Live Multi-Backend Benchmark (100,000 game logs -> 500 players, 12 offensive metrics):")
+    print(
+        "\n[1] Live Multi-Backend Benchmark (100,000 game logs -> 500 players, 12 offensive metrics):"
+    )
     print(bench_report.format_table())
 
     # 2. Additive Rolling-Window Engine (calculate_rolling)
@@ -56,7 +60,18 @@ def main() -> None:
     print("\n[2] 3-Game Additive Rolling Window (Sums Counts Over 3-Game Window Before Dividing):")
     print(
         rolling_res.df.select(
-            "player_id", "game_seq", "pa", "ab", "h", "hr", "bb", "avg", "obp", "slg", "woba", "wrc_plus"
+            "player_id",
+            "game_seq",
+            "pa",
+            "ab",
+            "h",
+            "hr",
+            "bb",
+            "avg",
+            "obp",
+            "slg",
+            "woba",
+            "wrc_plus",
         )
     )
     print(f"    Rolling Execution Profile: {rolling_res.profile.model_dump()}")
@@ -76,7 +91,13 @@ def main() -> None:
             "vz0": [-4.2, -3.8, -5.1, -6.5, -6.1],
             "ay": [31.5, 32.0, 31.0, 32.8, 32.4],
             "az": [-13.2, -12.4, -14.0, -15.1, -15.6],
-            "description": ["swinging_strike", "called_strike", "hit_into_play", "swinging_strike", "hit_into_play"],
+            "description": [
+                "swinging_strike",
+                "called_strike",
+                "hit_into_play",
+                "swinging_strike",
+                "hit_into_play",
+            ],
             "zone": [2, 5, 4, 8, 6],
             "events": ["", "strikeout", "home_run", "strikeout", "single"],
             "bb_type": ["", "", "fly_ball", "", "line_drive"],
@@ -140,7 +161,9 @@ def main() -> None:
                 }
             )
         )
-        print("\n[4] Decorator-Captured Telemetry Session (@sb.profiled across library & user functions):")
+        print(
+            "\n[4] Decorator-Captured Telemetry Session (@sb.profiled across library & user functions):"
+        )
         print(sb.telemetry.format_table())
 
     print("\n[5] Decorator-Registered Subsystem Benchmark Suite (@sb.register_benchmark):")

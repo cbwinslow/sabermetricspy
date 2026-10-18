@@ -241,4 +241,3 @@ def bootstrap_interval(
         confidence_level=confidence_level,
         method="seeded_bootstrap",
     )
-

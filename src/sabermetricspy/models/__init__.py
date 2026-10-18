@@ -89,7 +89,9 @@ class MarcelProjector:
 
         recent = pl_df.filter(pl.col("season").is_in([y1, y2, y3]))
         if recent.is_empty():
-            raise ValueError(f"No player-season records found in {y3}..{y1} for target_season={self.target_season}.")
+            raise ValueError(
+                f"No player-season records found in {y3}..{y1} for target_season={self.target_season}."
+            )
 
         # Assign season recency weights
         recent = recent.with_columns(
@@ -112,12 +114,16 @@ class MarcelProjector:
         league_rates: dict[str, float] = {}
         for col in self.rate_cols:
             if col in recent.columns and total_weighted_exp > 0:
-                league_rates[col] = float((recent[col] * recent["_recency_w"]).sum()) / total_weighted_exp
+                league_rates[col] = (
+                    float((recent[col] * recent["_recency_w"]).sum()) / total_weighted_exp
+                )
 
         # Aggregate per player
         agg_exprs: list[pl.Expr] = [
             (pl.col(self.exposure_col) * pl.col("_recency_w")).sum().alias("_weighted_exp"),
-            ((pl.col(self.exposure_col) * pl.col("_pt_w")).sum() + 200.0).alias(f"proj_{self.exposure_col}"),
+            ((pl.col(self.exposure_col) * pl.col("_pt_w")).sum() + 200.0).alias(
+                f"proj_{self.exposure_col}"
+            ),
         ]
         if "age" in recent.columns:
             # Project age in target_season from most recent season
@@ -146,7 +152,9 @@ class MarcelProjector:
 
         proj_cols: list[pl.Expr] = [pl.lit(self.target_season).alias("target_season")]
         w_sum = w1 + w2 + w3
-        reg_weighted = self.regression_pa * (w_sum / 3.0)  # 1200 PA across 3 seasons weighted by (5+4+3)/3 = 4800
+        reg_weighted = self.regression_pa * (
+            w_sum / 3.0
+        )  # 1200 PA across 3 seasons weighted by (5+4+3)/3 = 4800
 
         for col, lg_rate in league_rates.items():
             regressed_rate = (
@@ -154,7 +162,9 @@ class MarcelProjector:
                 / (pl.col("_weighted_exp") + reg_weighted)
             ) * pl.col("age_factor")
             proj_cols.append(regressed_rate.alias(f"proj_{col}_rate"))
-            proj_cols.append((regressed_rate * pl.col(f"proj_{self.exposure_col}")).alias(f"proj_{col}"))
+            proj_cols.append(
+                (regressed_rate * pl.col(f"proj_{self.exposure_col}")).alias(f"proj_{col}")
+            )
 
         drop_temp = [c for c in player_df.columns if c.startswith("_")]
         self._projections_df = player_df.with_columns(*proj_cols).drop(drop_temp).sort("player_id")
@@ -410,7 +420,9 @@ class MonteCarloSimulator:
     @property
     def results(self) -> MonteCarloSimulationResults:
         if self._results is None:
-            raise RuntimeError("MonteCarloSimulator has not been run yet. Call .simulate(...) first.")
+            raise RuntimeError(
+                "MonteCarloSimulator has not been run yet. Call .simulate(...) first."
+            )
         return self._results
 
     @profiled(category="forecasting")
@@ -500,4 +512,3 @@ __all__ = [
     "PitchQualityModel",
     "PitchQualityResults",
 ]
-

@@ -66,8 +66,7 @@ _BOX_DRAWING = str.maketrans(
         **dict.fromkeys("│┃╎╏┆┇┊┋", "|"),
         **dict.fromkeys("═║", "="),
         **dict.fromkeys(
-            "┌┐└┘├┤┬┴┼╞╡╪"
-            "╭╮╯╰╔╗╚╝",
+            "┌┐└┘├┤┬┴┼╞╡╪╭╮╯╰╔╗╚╝",
             "+",
         ),
     }
@@ -396,7 +395,11 @@ def calculate_rolling(
     rows_in = len(pl_df)
 
     group_keys = ([by] if isinstance(by, str) else list(by)) if by is not None else []
-    order_keys = ([order_by] if isinstance(order_by, str) else list(order_by)) if order_by is not None else []
+    order_keys = (
+        ([order_by] if isinstance(order_by, str) else list(order_by))
+        if order_by is not None
+        else []
+    )
 
     sort_cols = [c for c in [*group_keys, *order_keys] if c in pl_df.columns]
     if sort_cols:
@@ -413,7 +416,9 @@ def calculate_rolling(
             needed_cols.add(extra_c)
 
     roll_cols = sorted(
-        c for c in needed_cols if c in available_cols and c not in group_keys and c not in order_keys
+        c
+        for c in needed_cols
+        if c in available_cols and c not in group_keys and c not in order_keys
     )
     t_agg_0 = time.perf_counter_ns()
     if roll_cols:
@@ -606,7 +611,9 @@ def benchmark(
 
     summary_pl = pl.DataFrame(records)
     slowest_med = summary_pl["median_ms"].max()
-    max_med = float(slowest_med) if isinstance(slowest_med, (int, float)) and slowest_med > 0 else 1.0
+    max_med = (
+        float(slowest_med) if isinstance(slowest_med, (int, float)) and slowest_med > 0 else 1.0
+    )
     summary_pl = summary_pl.with_columns(
         (pl.lit(max_med) / pl.col("median_ms")).round(2).alias("relative_speedup")
     ).sort("median_ms")
@@ -618,4 +625,3 @@ def benchmark(
         metrics_evaluated=int(summary_pl["metrics_evaluated"][0]) if len(summary_pl) > 0 else 0,
         repeats=repeats,
     )
-

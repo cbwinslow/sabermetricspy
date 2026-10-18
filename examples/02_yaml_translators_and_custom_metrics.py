@@ -42,7 +42,9 @@ def main() -> None:
         by="player_id",
         preset="retrosheetpy_events",
     )
-    print("\n[1] Raw Retrosheet Event Records Evaluated Directly via `preset='retrosheetpy_events'`:")
+    print(
+        "\n[1] Raw Retrosheet Event Records Evaluated Directly via `preset='retrosheetpy_events'`:"
+    )
     print(
         retro_res.df.select(
             "player_id", "pa", "ab", "h", "b2", "hr", "rbi", "bb", "so", "avg", "obp", "slg", "ops"

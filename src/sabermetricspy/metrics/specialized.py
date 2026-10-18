@@ -546,7 +546,9 @@ def calc_speed_score(ctx: EvalContext) -> nw.Expr:
     # f3: Triples rate: (3B / (AB - HR - SO)) / 0.0016
     f3 = safe_div(nw.col("b3"), nw.col("ab") - nw.col("hr")) / 0.002
     # f4: Runs scored percentage: ((R - HR) / (H + BB + HBP - HR) - 0.1) / 0.04
-    f4 = (safe_div(nw.col("r") - nw.col("hr"), nw.col("h") + nw.col("bb") + hbp - nw.col("hr")) - 0.1) / 0.04
+    f4 = (
+        safe_div(nw.col("r") - nw.col("hr"), nw.col("h") + nw.col("bb") + hbp - nw.col("hr")) - 0.1
+    ) / 0.04
     return (f1 + f2 + f3 + f4) / 4.0
 
 
@@ -730,7 +732,7 @@ def calc_pythag_win_pct(ctx: EvalContext) -> nw.Expr:
 def calc_pythagenpat_win_pct(ctx: EvalContext) -> nw.Expr:
     g = (nw.col("w") + nw.col("l")).cast(nw.Float64)
     rpg = safe_div(nw.col("rs") + nw.col("ra"), g)
-    gamma = rpg ** ctx.season_context.pythagenpat_exponent
+    gamma = rpg**ctx.season_context.pythagenpat_exponent
     rs_g = nw.col("rs").cast(nw.Float64) ** gamma
     ra_g = nw.col("ra").cast(nw.Float64) ** gamma
     return safe_div(rs_g, rs_g + ra_g)
@@ -1289,5 +1291,3 @@ def calc_clutch(ctx: EvalContext) -> nw.Expr:
 )
 def calc_rew(ctx: EvalContext) -> nw.Expr:
     return safe_div(nw.col("re24"), ctx.weights.lg_r_per_w)
-
-

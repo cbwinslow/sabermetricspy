@@ -74,7 +74,9 @@ def test_innings_pitched_conversion() -> None:
         ip_notation_to_outs_scalar(6.4)
 
     # Vectorized DataFrame conversion from `ip` to `outs` and `ERA`
-    df = pl.DataFrame({"player_id": ["p1", "p2"], "ip": [6.2, 0.0], "er": [2, 0], "bb": [1, 0], "h": [4, 0]})
+    df = pl.DataFrame(
+        {"player_id": ["p1", "p2"], "ip": [6.2, 0.0], "er": [2, 0], "bb": [1, 0], "h": [4, 0]}
+    )
     res = sp.calculate(df, [Metric.IP, Metric.ERA, Metric.WHIP])
     out = res.df
     # 6.2 IP = 20 outs = 6.6667 IP -> ERA = 9 * 2 / (20/3) = 2.70
@@ -143,7 +145,17 @@ def test_golden_barry_bonds_2001_and_pedro_martinez_2000() -> None:
     )
     res = sp.calculate(
         bonds_df,
-        [Metric.AVG, Metric.OBP, Metric.SLG, Metric.OPS, Metric.ISO, Metric.BABIP, Metric.WOBA, Metric.WRAA, Metric.WRC_PLUS],
+        [
+            Metric.AVG,
+            Metric.OBP,
+            Metric.SLG,
+            Metric.OPS,
+            Metric.ISO,
+            Metric.BABIP,
+            Metric.WOBA,
+            Metric.WRAA,
+            Metric.WRC_PLUS,
+        ],
         season=2001,
     )
     row = res.df.row(0, named=True)
@@ -174,7 +186,15 @@ def test_golden_barry_bonds_2001_and_pedro_martinez_2000() -> None:
     )
     pres = sp.calculate(
         pedro_df,
-        [Metric.ERA, Metric.WHIP, Metric.K_PER_9, Metric.BB_PER_9, Metric.FIP, Metric.ERA_PLUS, Metric.FIP_MINUS],
+        [
+            Metric.ERA,
+            Metric.WHIP,
+            Metric.K_PER_9,
+            Metric.BB_PER_9,
+            Metric.FIP,
+            Metric.ERA_PLUS,
+            Metric.FIP_MINUS,
+        ],
         context=SeasonContext(season=2000, park_factor=104.0),
     )
     prow = pres.df.row(0, named=True)
@@ -203,7 +223,16 @@ def test_multi_backend_interoperability() -> None:
         "sf": [7, 5],
         "so": [110, 95],
     }
-    metrics = [Metric.AVG, Metric.OBP, Metric.SLG, Metric.OPS, Metric.ISO, Metric.BABIP, Metric.WOBA, Metric.WRC_PLUS]
+    metrics = [
+        Metric.AVG,
+        Metric.OBP,
+        Metric.SLG,
+        Metric.OPS,
+        Metric.ISO,
+        Metric.BABIP,
+        Metric.WOBA,
+        Metric.WRC_PLUS,
+    ]
 
     pl_df = pl.DataFrame(data)
     pd_df = pd.DataFrame(data)
@@ -377,7 +406,9 @@ metrics:
 def test_re24_linear_weights_war_and_forecasting_models() -> None:
     # 1. RE24 default matrix & steal breakeven
     re24 = RunExpectancyMatrix.from_default()
-    be_rate = re24.results.steal_breakeven_rate(0, BaseState.FIRST, BaseState.SECOND, BaseState.EMPTY)
+    be_rate = re24.results.steal_breakeven_rate(
+        0, BaseState.FIRST, BaseState.SECOND, BaseState.EMPTY
+    )
     # At 0 outs, runner on 1B (0.859) stealing 2B (1.100) vs caught (1 out, empty = 0.254):
     # (0.859 - 0.254) / (1.100 - 0.254) = 0.605 / 0.846 = 0.7151
     assert 0.68 <= be_rate <= 0.75
@@ -425,7 +456,10 @@ def test_re24_linear_weights_war_and_forecasting_models() -> None:
     marcel = MarcelProjector(target_season=2025).fit(hist_df)
     proj = marcel.predict()
     assert marcel.results.n_players_projected == 2
-    assert proj.filter(pl.col("player_id") == "p1")["proj_hr"][0] > proj.filter(pl.col("player_id") == "p2")["proj_hr"][0]
+    assert (
+        proj.filter(pl.col("player_id") == "p1")["proj_hr"][0]
+        > proj.filter(pl.col("player_id") == "p2")["proj_hr"][0]
+    )
 
     # 4. Log5Model
     assert math.isclose(Log5Model.team_matchup_prob(0.500, 0.500), 0.500, rel_tol=1e-9)
@@ -701,7 +735,9 @@ def test_re288_and_win_probability_model() -> None:
     # Full 3-0 count has higher run expectancy than 0-2 count in the same base-out state
     assert re288.results.lookup(0, "---", 3, 0) > re288.results.lookup(0, "---", 0, 2)
     # 3-2 count has higher count leverage than 0-0 count
-    assert re288.results.count_leverage(1, "12-", 3, 2) > re288.results.count_leverage(1, "12-", 0, 0)
+    assert re288.results.count_leverage(1, "12-", 3, 2) > re288.results.count_leverage(
+        1, "12-", 0, 0
+    )
 
     pitches_df = pl.DataFrame(
         {
@@ -761,7 +797,11 @@ def test_telemetry_rolling_physics_and_cli() -> None:
             "player_id": ["p1", "p1", "p1"],
             "game_seq": [1, 2, 3],
             "ab": [2, 6, 4],
-            "h": [2, 0, 2],  # Game 1: 2/2 (1.000), Game 2: 0/6 (0.000) -> 2-game sum = 2/8 = 0.250 (NOT (1.0+0.0)/2 = 0.500!)
+            "h": [
+                2,
+                0,
+                2,
+            ],  # Game 1: 2/2 (1.000), Game 2: 0/6 (0.000) -> 2-game sum = 2/8 = 0.250 (NOT (1.0+0.0)/2 = 0.500!)
             "b2": [0, 0, 1],
             "b3": [0, 0, 0],
             "hr": [1, 0, 0],
@@ -843,7 +883,9 @@ def test_decorator_telemetry_and_benchmark_registry() -> None:
         res = sp.calculate(df, [Metric.AVG, Metric.OBP, Metric.SLG])
         return res.df
 
-    sample_df = pl.DataFrame({"ab": [10, 20], "h": [3, 7], "b2": [1, 2], "b3": [0, 0], "hr": [1, 1], "bb": [2, 3]})
+    sample_df = pl.DataFrame(
+        {"ab": [10, 20], "h": [3, 7], "b2": [1, 2], "b3": [0, 0], "hr": [1, 1], "bb": [2, 3]}
+    )
     with sp.telemetry.session() as tracker:
         out_df = custom_pipeline(sample_df)
         assert len(out_df) == 2
@@ -981,7 +1023,8 @@ def test_advanced_metrics_and_modeled_estimators() -> None:
         # 4. ExpectedOutcomeModel (open xBA, xSLG, xwOBA)
         bbe_train = pl.DataFrame(
             {
-                "launch_speed": [78.0, 82.0, 88.0, 95.0, 102.0, 108.0, 111.0, 85.0, 99.0, 106.0] * 3,
+                "launch_speed": [78.0, 82.0, 88.0, 95.0, 102.0, 108.0, 111.0, 85.0, 99.0, 106.0]
+                * 3,
                 "launch_angle": [-8.0, 45.0, 12.0, 16.0, 22.0, 28.0, 26.0, 5.0, 18.0, 29.0] * 3,
                 "sprint_speed": [27.0, 26.5, 28.0, 27.5, 28.2, 27.0, 27.5, 26.8, 28.5, 27.2] * 3,
                 "b1": [0, 0, 1, 1, 0, 0, 0, 0, 1, 0] * 3,
@@ -1058,7 +1101,3 @@ def test_advanced_metrics_and_modeled_estimators() -> None:
         # 7. Verify @profiled spans were automatically recorded for all new estimators
         cats = {s.category for s in tracker.spans}
         assert {"engine", "valuation", "uncertainty", "modeling"}.issubset(cats)
-
-
-
-

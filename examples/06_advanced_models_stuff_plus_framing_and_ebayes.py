@@ -116,7 +116,11 @@ def main() -> None:
         print("\n[3] Empirical Bayes Shrinkage (`EmpiricalBayesShrinker` for Small-Sample AVG):")
         eb_input = pl.DataFrame(
             {
-                "player_id": ["april_callout_4_for_10", "veteran_200_for_500", "regular_130_for_500"],
+                "player_id": [
+                    "april_callout_4_for_10",
+                    "veteran_200_for_500",
+                    "regular_130_for_500",
+                ],
                 "h": [4, 200, 130],
                 "ab": [10, 500, 500],
             }
@@ -184,7 +188,8 @@ def main() -> None:
         print("\n[5] Open xwOBA (`ExpectedOutcomeModel`), Catcher Framing, & Fielding OAA:")
         bbe_df = pl.DataFrame(
             {
-                "launch_speed": [78.0, 82.0, 88.0, 95.0, 102.0, 108.0, 111.0, 85.0, 99.0, 106.0] * 3,
+                "launch_speed": [78.0, 82.0, 88.0, 95.0, 102.0, 108.0, 111.0, 85.0, 99.0, 106.0]
+                * 3,
                 "launch_angle": [-8.0, 45.0, 12.0, 16.0, 22.0, 28.0, 26.0, 5.0, 18.0, 29.0] * 3,
                 "sprint_speed": [27.0, 26.5, 28.0, 27.5, 28.2, 27.0, 27.5, 26.8, 28.5, 27.2] * 3,
                 "b1": [0, 0, 1, 1, 0, 0, 0, 0, 1, 0] * 3,

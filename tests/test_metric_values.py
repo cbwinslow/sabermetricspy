@@ -303,7 +303,12 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     ),
     (Metric.RC_BASIC, dict(**BAT), (30 + 12) * TB / (100 + 12), {}),
     (Metric.RC_TECH, dict(**BAT, ibb=2, hbp=1, sb=3, cs=1, gidp=2, sh=1, sf=1), RC_TECH, {}),
-    (Metric.BASE_RUNS, dict(**BAT, ibb=2, hbp=1, sb=3, cs=1, gidp=2), BASE_RUNS, {}),  # Smyth version 2 (1.1)
+    (
+        Metric.BASE_RUNS,
+        dict(**BAT, ibb=2, hbp=1, sb=3, cs=1, gidp=2),
+        BASE_RUNS,
+        {},
+    ),  # Smyth version 2 (1.1)
     (
         Metric.RC27,
         dict(**BAT, ibb=2, hbp=1, sb=3, cs=1, gidp=2, sh=1, sf=1),
@@ -380,6 +385,8 @@ def test_pythagenpat_exponent_is_configurable() -> None:
     expected = 800**gamma / (800**gamma + 700**gamma)
     frame = pl.DataFrame({"player_id": ["t"], "rs": [800], "ra": [700], "w": [90], "l": [72]})
     ctx = SeasonContext(season=2024, weights=W, pythagenpat_exponent=0.285)
-    got = sp.calculate(frame, [Metric.PYTHAGENPAT_WIN_PCT], context=ctx).df["pythagenpat_win_pct"][0]
+    got = sp.calculate(frame, [Metric.PYTHAGENPAT_WIN_PCT], context=ctx).df["pythagenpat_win_pct"][
+        0
+    ]
     assert math.isclose(got, expected, rel_tol=1e-9)
     assert not math.isclose(got, _PYPAT, rel_tol=1e-12)

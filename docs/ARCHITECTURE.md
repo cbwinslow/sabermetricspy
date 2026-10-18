@@ -88,10 +88,26 @@ import sabermetricspy as sp
 from sabermetricspy import Metric
 from sabermetricspy.types.context import SeasonContext
 
-df = pl.DataFrame({"player_id": ["x"], "pa": [664], "ab": [476], "h": [156], "b2": [32], "b3": [2],
-                   "hr": [73], "bb": [177], "ibb": [35], "hbp": [9], "sf": [2], "so": [93]})
+df = pl.DataFrame(
+    {
+        "player_id": ["x"],
+        "pa": [664],
+        "ab": [476],
+        "h": [156],
+        "b2": [32],
+        "b3": [2],
+        "hr": [73],
+        "bb": [177],
+        "ibb": [35],
+        "hbp": [9],
+        "sf": [2],
+        "so": [93],
+    }
+)
 ctx = SeasonContext(season=2001, league="NL", park_factor=96.0)  # FanGraphs 5-year park factor
-print(sp.calculate(df, [Metric.WRC_PLUS], context=ctx).df["wrc_plus"][0])  # ~234.4 (FanGraphs: 234.59)
+print(
+    sp.calculate(df, [Metric.WRC_PLUS], context=ctx).df["wrc_plus"][0]
+)  # ~234.4 (FanGraphs: 234.59)
 ```
 
 ---

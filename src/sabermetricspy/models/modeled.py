@@ -266,7 +266,7 @@ class PitchQualityModel:
         pz = pl_df["plate_z"].to_numpy().astype(np.float64)
         # Distance from strike-zone center (x=0, z=2.5 ft) and shadow-zone edge distance (~0.83 ft horizontal)
         radial_dist = np.sqrt(px * px + (pz - 2.5) ** 2)
-        edge_dist = np.abs(np.abs(px) - 0.83) + np.abs( np.abs(pz - 2.5) - 1.0)
+        edge_dist = np.abs(np.abs(px) - 0.83) + np.abs(np.abs(pz - 2.5) - 1.0)
         cols = [px, pz, px * px, (pz - 2.5) ** 2, radial_dist, edge_dist]
         if "balls" in pl_df.columns and "strikes" in pl_df.columns:
             balls = pl_df["balls"].to_numpy().astype(np.float64)
@@ -335,9 +335,7 @@ class PitchQualityModel:
             )
 
         names = ["intercept", *self._active_stuff_cols]
-        coef_dict = {
-            k: float(v) for k, v in zip(names, self._stuff_ols.params, strict=False)
-        }
+        coef_dict = {k: float(v) for k, v in zip(names, self._stuff_ols.params, strict=False)}
         pval_dict = {
             k: float(v) if not np.isnan(v) else 1.0
             for k, v in zip(names, self._stuff_ols.pvalues, strict=False)
@@ -455,7 +453,9 @@ class CatcherFramingModel:
             if "strikes" in pl_df.columns
             else np.zeros(len(pl_df))
         )
-        return np.column_stack([px, pz, px * px, (pz - 2.5) ** 2, norm_rect, radial, balls, strikes])
+        return np.column_stack(
+            [px, pz, px * px, (pz - 2.5) ** 2, norm_rect, radial, balls, strikes]
+        )
 
     @profiled(category="modeling")
     def fit(self, df: IntoFrame) -> Self:

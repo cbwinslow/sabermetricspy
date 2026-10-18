@@ -48,7 +48,9 @@ class MetricSpec(BaseModel):
         default=ReferenceStatus.UNVERIFIED,
         description="Whether the metric follows the published method of its reference source",
     )
-    reference_url: str = Field(default="", description="URL of the source used to verify the method")
+    reference_url: str = Field(
+        default="", description="URL of the source used to verify the method"
+    )
     version: str = Field(default="1.0")
 
     @property
@@ -79,7 +81,9 @@ class RegisteredMetric:
 
 def _with_methodology(spec: MetricSpec) -> MetricSpec:
     """Apply the bundled audit (status, source, difference note) unless the spec already declares a status."""
-    if spec.reference_status is not ReferenceStatus.UNVERIFIED or not isinstance(spec.metric, Metric):
+    if spec.reference_status is not ReferenceStatus.UNVERIFIED or not isinstance(
+        spec.metric, Metric
+    ):
         return spec
     entry = metric_entries().get(spec.name)
     if entry is None:
@@ -104,7 +108,9 @@ class MetricRegistry:
         self._display_lookup: dict[str, str] = {}
         self._plugins_loaded: bool = False
 
-    def register(self, spec: MetricSpec, builder: MetricBuilder, *, overwrite: bool = False) -> None:
+    def register(
+        self, spec: MetricSpec, builder: MetricBuilder, *, overwrite: bool = False
+    ) -> None:
         """Register a metric specification and its Narwhals expression builder."""
         key = spec.name.lower()
         spec = _with_methodology(spec)
@@ -244,9 +250,7 @@ class MetricRegistry:
             ),
         }
         target_cats = category_map[s]
-        return [
-            key for key, reg in self._metrics.items() if reg.spec.category in target_cats
-        ]
+        return [key for key, reg in self._metrics.items() if reg.spec.category in target_cats]
 
     def load_entry_point_plugins(self) -> None:
         """Discover and load third-party plugins registered under 'sabermetricspy.plugins'."""

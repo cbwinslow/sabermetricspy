@@ -43,12 +43,21 @@ from sabermetricspy import Metric, MetricSuite, SeasonContext
 # 1. Compute specific metrics with full provenance
 res = sp.calculate(
     batting_df,
-    metrics=[Metric.AVG, Metric.OBP, Metric.SLG, Metric.OPS, Metric.ISO, Metric.BABIP, Metric.WOBA, Metric.WRC_PLUS],
+    metrics=[
+        Metric.AVG,
+        Metric.OBP,
+        Metric.SLG,
+        Metric.OPS,
+        Metric.ISO,
+        Metric.BABIP,
+        Metric.WOBA,
+        Metric.WRC_PLUS,
+    ],
     by=["player_id", "season"],
     context=SeasonContext(season=2024),
 )
 
-print(res.df)         # Native Polars DataFrame with computed metric columns
+print(res.df)  # Native Polars DataFrame with computed metric columns
 print(res.summary())  # Provenance table: formulas, citations, and constants used
 
 # 2. Compute an entire curated suite or auto-discover all computable metrics

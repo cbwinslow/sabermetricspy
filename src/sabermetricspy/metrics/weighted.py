@@ -176,11 +176,7 @@ def calc_rc_tech(ctx: EvalContext) -> nw.Expr:
     sf = nw.col("sf") if "sf" in ctx.available_columns else nw.lit(0)
 
     a = nw.col("h") + nw.col("bb") + hbp - cs - gidp
-    b = (
-        nw.col("tb")
-        + 0.26 * (nw.col("ubb") + hbp)
-        + 0.52 * (sh + sf + sb)
-    )
+    b = nw.col("tb") + 0.26 * (nw.col("ubb") + hbp) + 0.52 * (sh + sf + sb)
     c = nw.col("ab") + nw.col("bb") + hbp + sh + sf
     return safe_div(a * b, c)
 
@@ -289,4 +285,3 @@ def calc_ta(ctx: EvalContext) -> nw.Expr:
     num = nw.col("tb") + nw.col("bb") + hbp + sb - cs
     den = nw.col("ab") - nw.col("h") + cs + gidp
     return safe_div(num, den)
-

@@ -34,7 +34,9 @@ def main() -> None:
         re_empty = re24.results.lookup(outs, BaseState.EMPTY)
         re_1b = re24.results.lookup(outs, BaseState.FIRST)
         re_loaded = re24.results.lookup(outs, BaseState.LOADED)
-        sb_breakeven = re24.results.steal_breakeven_rate(outs, BaseState.FIRST, BaseState.SECOND, BaseState.EMPTY)
+        sb_breakeven = re24.results.steal_breakeven_rate(
+            outs, BaseState.FIRST, BaseState.SECOND, BaseState.EMPTY
+        )
         print(
             f"  Outs={outs} | RE(---)={re_empty:.3f} | RE(1--)={re_1b:.3f} | "
             f"RE(123)={re_loaded:.3f} | Steal 2B Breakeven={sb_breakeven:.1%}"
@@ -75,11 +77,15 @@ def main() -> None:
     print("\n[3] Empirical Linear Weights Fitted from Play-by-Play RE24 Run Values:")
     print(f"  - Out Run Value: {lw.results.out_run_value:+.3f} runs")
     print(f"  - wOBA Scale:    {lw.results.woba_scale:.3f}")
-    print(f"  - Derived wOBA Weights: { {k: round(v, 3) for k, v in lw.results.woba_weights.items() if v > 0} }")
+    print(
+        f"  - Derived wOBA Weights: { {k: round(v, 3) for k, v in lw.results.woba_weights.items() if v > 0} }"
+    )
 
     # 3. 288-State Count & Base-Out Expectancy Matrix (RE288)
     re288 = CountExpectancyMatrix.from_default()
-    print(f"\n[4] 288-State Count Expectancy (RE288) — Total States Loaded: {len(re288.results.state_expectancy)}")
+    print(
+        f"\n[4] 288-State Count Expectancy (RE288) — Total States Loaded: {len(re288.results.state_expectancy)}"
+    )
     pitches_df = pl.DataFrame(
         {
             "pitch_no": [1, 2, 3, 4],

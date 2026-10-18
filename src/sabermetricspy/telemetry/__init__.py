@@ -151,7 +151,11 @@ class PerformanceTracker:
             )
             .with_columns(
                 pl.when(pl.col("total_ms") > 0.0)
-                .then((pl.col("total_rows_in").cast(pl.Float64) / (pl.col("total_ms") / 1000.0)).round(1))
+                .then(
+                    (
+                        pl.col("total_rows_in").cast(pl.Float64) / (pl.col("total_ms") / 1000.0)
+                    ).round(1)
+                )
                 .otherwise(0.0)
                 .alias("rows_per_sec")
             )
@@ -180,7 +184,9 @@ telemetry = PerformanceTracker()
 
 
 @overload
-def profiled(func: Callable[P, R], /, *, name: str | None = None, category: str = "general") -> Callable[P, R]: ...
+def profiled(
+    func: Callable[P, R], /, *, name: str | None = None, category: str = "general"
+) -> Callable[P, R]: ...
 
 
 @overload
@@ -224,7 +230,11 @@ def profiled(
 
             duration_ms = round((t1 - t0) / 1_000_000.0, 4)
             eff_rows = max(rows_in, rows_out, 1) if (rows_in > 0 or rows_out > 0) else 0
-            rows_per_sec = round(eff_rows / (duration_ms / 1000.0), 1) if duration_ms > 0 and eff_rows > 0 else 0.0
+            rows_per_sec = (
+                round(eff_rows / (duration_ms / 1000.0), 1)
+                if duration_ms > 0 and eff_rows > 0
+                else 0.0
+            )
 
             telemetry.record(
                 SpanRecord(
@@ -290,13 +300,23 @@ _builtins_registered: bool = False
 
 @overload
 def register_benchmark(
-    func: Callable[P, R], /, *, name: str | None = None, category: str = "general", default_rows: int = 10_000
+    func: Callable[P, R],
+    /,
+    *,
+    name: str | None = None,
+    category: str = "general",
+    default_rows: int = 10_000,
 ) -> Callable[P, R]: ...
 
 
 @overload
 def register_benchmark(
-    func: None = None, /, *, name: str | None = None, category: str = "general", default_rows: int = 10_000
+    func: None = None,
+    /,
+    *,
+    name: str | None = None,
+    category: str = "general",
+    default_rows: int = 10_000,
 ) -> Callable[[Callable[P, R]], Callable[P, R]]: ...
 
 
@@ -397,7 +417,9 @@ def _ensure_builtin_benchmarks() -> None:
             order_by="game_num",
         )
 
-    @register_benchmark(name="translator.statcast_pitches", category="translator", default_rows=10_000)
+    @register_benchmark(
+        name="translator.statcast_pitches", category="translator", default_rows=10_000
+    )
     def _bench_statcast_translator(rows: int = 10_000) -> Any:
         idx = pl.int_range(0, rows, eager=True)
         raw = pl.DataFrame({"idx": idx}).select(
@@ -423,9 +445,15 @@ def _ensure_builtin_benchmarks() -> None:
         idx = pl.int_range(0, rows, eager=True)
         plays = pl.DataFrame({"idx": idx}).select(
             ((pl.col("idx") % 9) + 1).cast(pl.Int64).alias("inning"),
-            pl.when(pl.col("idx") % 2 == 0).then(pl.lit("top")).otherwise(pl.lit("bottom")).alias("half_inning"),
+            pl.when(pl.col("idx") % 2 == 0)
+            .then(pl.lit("top"))
+            .otherwise(pl.lit("bottom"))
+            .alias("half_inning"),
             (pl.col("idx") % 3).cast(pl.Int64).alias("outs_before"),
-            pl.when(pl.col("idx") % 4 == 0).then(pl.lit("12-")).otherwise(pl.lit("---")).alias("base_state_before"),
+            pl.when(pl.col("idx") % 4 == 0)
+            .then(pl.lit("12-"))
+            .otherwise(pl.lit("---"))
+            .alias("base_state_before"),
             ((pl.col("idx") % 7) - 3).cast(pl.Int64).alias("home_score_diff_before"),
             ((pl.col("idx") + 1) % 4).cast(pl.Int64).alias("outs_after"),
             pl.lit("---").alias("base_state_after"),
@@ -447,7 +475,9 @@ def _ensure_builtin_benchmarks() -> None:
         fw = WARFramework(season=2024)
         return fw.calculate_pitcher_war_df(df)
 
-    @register_benchmark(name="forecasting.marcel_projector", category="forecasting", default_rows=3_000)
+    @register_benchmark(
+        name="forecasting.marcel_projector", category="forecasting", default_rows=3_000
+    )
     def _bench_forecasting(rows: int = 3_000) -> Any:
         idx = pl.int_range(0, rows, eager=True)
         df = pl.DataFrame(
@@ -463,7 +493,9 @@ def _ensure_builtin_benchmarks() -> None:
                 "so": (95 + (idx % 40)).cast(pl.Int64),
             }
         )
-        marcel = MarcelProjector(target_season=2025, rate_cols=("hr", "bb", "so"), exposure_col="pa")
+        marcel = MarcelProjector(
+            target_season=2025, rate_cols=("hr", "bb", "so"), exposure_col="pa"
+        )
         return marcel.fit(df).predict()
 
     @register_benchmark(name="modeling.pitch_quality_plus", category="modeling", default_rows=5_000)
@@ -486,7 +518,9 @@ def _ensure_builtin_benchmarks() -> None:
         pq = PitchQualityModel()
         return pq.fit(pitches).transform(pitches)
 
-    @register_benchmark(name="uncertainty.empirical_bayes", category="uncertainty", default_rows=5_000)
+    @register_benchmark(
+        name="uncertainty.empirical_bayes", category="uncertainty", default_rows=5_000
+    )
     def _bench_empirical_bayes(rows: int = 5_000) -> Any:
         idx = pl.int_range(0, rows, eager=True)
         df = pl.DataFrame(
