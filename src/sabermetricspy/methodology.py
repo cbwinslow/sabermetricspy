@@ -14,7 +14,7 @@ from typing import Any
 import yaml
 from pydantic import BaseModel, ConfigDict
 
-from sabermetricspy.types.enums import ReferenceStatus
+from sabermetricspy.types.enums import EvidenceTier, ReferenceStatus
 
 
 class MethodologyEntry(BaseModel):
@@ -23,6 +23,7 @@ class MethodologyEntry(BaseModel):
     model_config = ConfigDict(frozen=True)
 
     status: ReferenceStatus
+    evidence: EvidenceTier | None = None
     source_url: str = ""
     note: str = ""
 
@@ -49,6 +50,10 @@ def model_entries() -> dict[str, MethodologyEntry]:
     return dict(_load()["models"])
 
 
+def _tier(entry: MethodologyEntry) -> str:
+    return entry.evidence.value if entry.evidence else ""
+
+
 def render_markdown() -> str:
     """Render docs/METHODOLOGY.md from the audit data and the registry."""
     from sabermetricspy.registry import REGISTRY
@@ -67,28 +72,32 @@ def render_markdown() -> str:
         "**divergent** (documented formula or behavior differs from the published method), "
         "**unverified** (not yet audited against a primary source).",
         "",
-        "| Metric | Name | Category | Status | Source | Note |",
-        "| :-- | :-- | :-- | :-- | :-- | :-- |",
+        "Evidence key: **golden** (a published value reproduced from raw inputs), **primary** (formula or "
+        "definition confirmed in a primary source), **secondary** (confirmed only by secondary sources).",
+        "",
+        "| Metric | Name | Category | Status | Evidence | Source | Note |",
+        "| :-- | :-- | :-- | :-- | :-- | :-- | :-- |",
     ]
     for name in sorted(specs, key=lambda n: (str(specs[n].category), n)):
         spec = specs[name]
         entry = metrics[name]
         source = f"[source]({entry.source_url})" if entry.source_url else ""
         lines.append(
-            f"| `{name}` | {spec.display_name} | {spec.category!s} | {entry.status.value} | {source} | "
+            f"| `{name}` | {spec.display_name} | {spec.category!s} | {entry.status.value} | {_tier(entry)} | {source} | "
             f"{entry.note.replace('|', '/')} |"
         )
     lines += [
         "",
         "## Models and frameworks",
         "",
-        "| Model | Status | Source | Note |",
-        "| :-- | :-- | :-- | :-- |",
+        "| Model | Status | Evidence | Source | Note |",
+        "| :-- | :-- | :-- | :-- | :-- |",
     ]
     for name, entry in sorted(model_entries().items()):
         source = f"[source]({entry.source_url})" if entry.source_url else ""
         lines.append(
-            f"| `{name}` | {entry.status.value} | {source} | {entry.note.replace('|', '/')} |"
+            f"| `{name}` | {entry.status.value} | {_tier(entry)} | {source} | "
+            f"{entry.note.replace('|', '/')} |"
         )
     return "\n".join(lines) + "\n"
 

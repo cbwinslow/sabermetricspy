@@ -47,6 +47,14 @@ class ReferenceStatus(StrEnum):
     UNVERIFIED = "unverified"
 
 
+class EvidenceTier(StrEnum):
+    """How strongly an audit result is supported by its sources."""
+
+    GOLDEN = "golden"
+    PRIMARY = "primary"
+    SECONDARY = "secondary"
+
+
 class Direction(StrEnum):
     """Competitive direction of a metric."""
 

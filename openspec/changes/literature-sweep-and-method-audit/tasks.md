@@ -2,8 +2,8 @@
 
 ## 1. Audit infrastructure
 
-- [ ] 1.1 Write failing tests that every audit entry has an `evidence` tier (`golden`, `primary`, `secondary`), that `matches` entries are not `secondary` without a limitation note, and that the generated `docs/METHODOLOGY.md` shows the tier. Verify they fail on the current data and loader.
-- [ ] 1.2 Add the evidence field to `MethodologyEntry`, the loader, the renderer, and the audit builder; backfill the 39 audited entries (golden for fixture-backed metrics, primary for formula-confirmed ones, secondary for DICE). Verify the tests from 1.1 pass for the audited entries and `docs/METHODOLOGY.md` regenerates cleanly.
+- [x] 1.1 Write failing tests that every audit entry has an `evidence` tier (`golden`, `primary`, `secondary`), that `matches` entries are not `secondary` without a limitation note, and that the generated `docs/METHODOLOGY.md` shows the tier. Verify they fail on the current data and loader.
+- [x] 1.2 Add the evidence field to `MethodologyEntry`, the loader, the renderer, and the audit builder; backfill the 39 audited entries (golden for fixture-backed metrics, primary for formula-confirmed ones, secondary for DICE). Verify the tests from 1.1 pass for the audited entries and `docs/METHODOLOGY.md` regenerates cleanly.
 
 ## 2. Batted-ball family (10 metrics, golden)
 

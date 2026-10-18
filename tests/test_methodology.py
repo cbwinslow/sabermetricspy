@@ -7,14 +7,19 @@ from pathlib import Path
 import pytest
 
 from sabermetricspy import ReferenceStatus
-from sabermetricspy.methodology import metric_entries, model_entries, render_markdown
-from sabermetricspy.registry import REGISTRY
+from sabermetricspy.methodology import (
+    MethodologyEntry,
+    metric_entries,
+    model_entries,
+    render_markdown,
+)
+from sabermetricspy.registry import REGISTRY, MetricSpec
 from sabermetricspy.types.enums import Metric
 
 DOC = Path(__file__).parent.parent / "docs" / "METHODOLOGY.md"
 
 
-def _builtin() -> dict[str, object]:
+def _builtin() -> dict[str, MetricSpec]:
     return {s.name: s for s in REGISTRY.all_specs() if isinstance(s.metric, Metric)}
 
 
@@ -32,7 +37,7 @@ def test_every_builtin_metric_has_an_audit_entry_and_vice_versa() -> None:
 def test_registry_status_equals_audit_status() -> None:
     entries = metric_entries()
     for name, spec in _builtin().items():
-        assert spec.reference_status is entries[name].status, name  # type: ignore[attr-defined]
+        assert spec.reference_status is entries[name].status, name
 
 
 def test_methodology_document_is_current() -> None:
@@ -60,7 +65,7 @@ def test_non_matching_metrics_state_how_they_differ() -> None:
         if status is ReferenceStatus.MATCHES:
             continue
         assert entries[name].note, name
-        assert entries[name].note in spec.caveats, f"{name}: caveats do not carry the audit note"  # type: ignore[attr-defined]
+        assert entries[name].note in spec.caveats, f"{name}: caveats do not carry the audit note"
 
 
 def test_matching_metrics_record_a_verifying_source() -> None:
@@ -144,3 +149,62 @@ def test_siera_coefficients_are_labeled_with_their_source_version() -> None:
     from sabermetricspy.types.context import SIERACoefficients
 
     assert SIERACoefficients().version == "baseball_prospectus_2010"
+
+
+# --- Evidence tiers (literature-sweep-and-method-audit, group 1) ---------------------------------
+
+
+def _audited_entries() -> dict[str, MethodologyEntry]:
+    audited = {
+        n: e for n, e in metric_entries().items() if e.status is not ReferenceStatus.UNVERIFIED
+    }
+    audited.update(
+        {n: e for n, e in model_entries().items() if e.status is not ReferenceStatus.UNVERIFIED}
+    )
+    return audited
+
+
+def test_every_audited_entry_records_an_evidence_tier() -> None:
+    from sabermetricspy import EvidenceTier
+
+    for name, entry in _audited_entries().items():
+        assert isinstance(entry.evidence, EvidenceTier), f"{name}: no evidence tier"
+
+
+def test_matches_entries_are_not_secondary_without_a_limitation() -> None:
+    from sabermetricspy import EvidenceTier
+
+    for name, entry in metric_entries().items():
+        if entry.status is ReferenceStatus.MATCHES and entry.evidence is EvidenceTier.SECONDARY:
+            assert "secondary" in entry.note.lower(), f"{name}: secondary evidence without a note"
+
+
+def test_golden_entries_point_at_a_fixture() -> None:
+    from sabermetricspy import EvidenceTier
+
+    for name, entry in _audited_entries().items():
+        if entry.evidence is EvidenceTier.GOLDEN:
+            text = entry.note.lower()
+            assert any(
+                k in text
+                for k in (
+                    "tests/golden",
+                    "golden fixture",
+                    "worked example",
+                    "leaderboard",
+                    "reproduces published",
+                )
+            ), f"{name}: golden tier but the note names no fixture"
+
+
+def test_unverified_entries_carry_no_evidence_tier() -> None:
+    for name, entry in {**metric_entries(), **model_entries()}.items():
+        if entry.status is ReferenceStatus.UNVERIFIED:
+            assert entry.evidence is None, name
+
+
+def test_document_shows_the_evidence_tier() -> None:
+    text = render_markdown()
+    assert "| Evidence |" in text
+    assert "| matches | golden |" in text
+    assert "| matches | secondary |" in text  # dice
