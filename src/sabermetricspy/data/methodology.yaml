@@ -139,9 +139,9 @@ metrics:
     note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. CSW% = CStr% + SwStr% (FanGraphs C+SwStr%).
   der:
     status: approximate
-    evidence: primary
-    source_url: ''
-    note: Computed as 1 - BABIP; the published Defensive Efficiency Ratio uses batters faced and excludes strikeouts, walks and hit batters in a slightly different denominator.
+    evidence: secondary
+    source_url: https://www.baseballprospectus.com/news/article/2387/getting-pade-improving-on-defensive-efficiency/
+    note: Computed as 1 - BABIP. Baseball Prospectus describes the simplified Defensive Efficiency Ratio as one minus BABIP (Bill James's original treats errors as plays not made); the library's denominator may differ slightly from the published one, and only a secondary description was retrieved.
   dice:
     status: matches
     evidence: secondary

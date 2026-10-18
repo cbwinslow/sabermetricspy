@@ -57,8 +57,8 @@ as fixtures under `tests/golden/`. Pitch-level checks use a recorded public Base
    changes should source them before they are relied on.
 
 ## Outcome
-Metrics: 136 audited (`matches` 90, `approximate` 46, none `unverified`); by tier, `golden` 84, `primary` 28,
-`secondary` 24. Models: 16 entries (9 `matches` or `approximate`, 1 `divergent`, 6 `unverified` each with a written reason).
+Metrics: 136 audited (`matches` 90, `approximate` 46, none `unverified`); by tier, `golden` 84, `primary` 27,
+`secondary` 25. Models: 16 entries (9 `matches` or `approximate`, 1 `divergent`, 6 `unverified` each with a written reason).
 
 ## Consequences
 - Several published-method metrics now change value for existing callers (listed in the table above); the changes

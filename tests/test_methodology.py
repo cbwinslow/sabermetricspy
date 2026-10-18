@@ -208,3 +208,20 @@ def test_document_shows_the_evidence_tier() -> None:
     assert "| Evidence |" in text
     assert "| matches | golden |" in text
     assert "| matches | secondary |" in text  # dice
+
+
+def test_no_builtin_metric_is_unverified() -> None:
+    unverified = [n for n, e in metric_entries().items() if e.status is ReferenceStatus.UNVERIFIED]
+    assert unverified == []
+
+
+def test_unverified_models_carry_a_written_reason() -> None:
+    for name, entry in model_entries().items():
+        if entry.status is ReferenceStatus.UNVERIFIED:
+            assert entry.note.startswith("Reason:"), f"{name}: no written reason"
+            assert len(entry.note) > 60, f"{name}: reason too short"
+
+
+def test_audited_entries_cite_a_source_url() -> None:
+    for name, entry in _audited_entries().items():
+        assert entry.source_url.startswith("http"), f"{name}: no source URL"

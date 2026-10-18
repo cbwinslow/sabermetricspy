@@ -53,8 +53,8 @@
 
 ## 11. Guards and final checks
 
-- [ ] 11.1 Add the guard tests: no built-in metric is `unverified`, every audited entry has an evidence tier, and unverified models carry a reason. Verify they fail when an entry is temporarily reverted and pass otherwise.
-- [ ] 11.2 Run the full gate: `uv run ruff check .`, `uv run ruff format --check .`, `uv run pyright`, `uv run pytest`, `openspec validate --all`. Verify all are clean.
+- [x] 11.1 Add the guard tests: no built-in metric is `unverified`, every audited entry has an evidence tier, and unverified models carry a reason. Verify they fail when an entry is temporarily reverted and pass otherwise.
+- [x] 11.2 Run the full gate: `uv run ruff check .`, `uv run ruff format --check .`, `uv run pyright`, `uv run pytest`, `openspec validate --all`. Verify all are clean.
 
 ## Workflow follow-up
 
