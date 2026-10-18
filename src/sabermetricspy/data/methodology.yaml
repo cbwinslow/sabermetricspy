@@ -68,9 +68,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml). Walks include intentional walks.
   bb_pct_plus:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: 'Reproduces the FanGraphs pitcher BB%+ for 16 pitchers (tests/golden/pitching_indices.yaml): BB% divided by the BB/TBF of the pitcher''s own league. The library formerly used one MLB-wide rate and was corrected (ADR-0028).'
   bb_per_9:
     status: matches
     evidence: golden
@@ -82,9 +83,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: BB / SO reproduces the FanGraphs leaderboard BB/K for 4 hitters in 2024 (tests/golden/batting_counting.yaml).
   bf_per_ip:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: secondary
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: 3 * TBF / outs. A library-defined rate used by xERA; no published standard definition was found.
   bip_pct:
     status: unverified
     source_url: ''
@@ -104,9 +106,10 @@ metrics:
     source_url: https://library.fangraphs.com/pitching/batted-ball/
     note: Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8. Divides by Pull+Cent+Oppo; corrected from bbe (ADR-0028).
   cg_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: secondary
+    source_url: https://en.wikipedia.org/wiki/Complete_game
+    note: CG / GS, the complete-game share of starts, as implied by Wikipedia's complete-game table; confirmed only by a secondary source; no primary source states the formula.
   clutch:
     status: unverified
     source_url: ''
@@ -134,9 +137,10 @@ metrics:
     source_url: https://en.wikipedia.org/wiki/Defense-Independent_Component_ERA
     note: 'Matches the published definition 3.00 + (13*HR + 3*(BB+HBP) - 2*K)/IP (secondary sources: Wikipedia, R package documentation).'
   dips_bop_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://sabr.org/journal/article/the-many-flavors-of-dips-a-history-and-an-overview/
+    note: (HR + BB + HBP + SO) / TBF, McCracken's original 'balls kept out of play' formula as printed in the SABR survey of DIPS. No published player values were retrieved.
   effective_velo:
     status: unverified
     source_url: ''
@@ -152,9 +156,10 @@ metrics:
     source_url: https://library.fangraphs.com/principles/park-factors/
     note: FanGraphs evaluates ERA- against the pitcher's league ERA and its own park adjustment; the library uses the MLB-wide league ERA times the 5-year park factor / 100 (1 to 2.5 points different in the golden fixtures).
   era_plus:
-    status: unverified
-    source_url: https://www.baseball-reference.com/about/war_explained_pitch.shtml
-    note: Baseball-Reference pages were not reachable and secondary sources disagree on where the park factor enters; likely shares the ERA- league and park differences.
+    status: approximate
+    evidence: golden
+    source_url: https://www.baseball-reference.com/players/m/martipe02.shtml
+    note: 'Formula 100 * lgERA * PF / ERA matches Wikipedia''s ERA+. Against Baseball-Reference ERA+ (tests/golden/era_plus.yaml) the library runs 2-6% low (Pedro Martinez 2000: 276.6 vs 291; Randy Johnson 2001: 184.7 vs 188; Tarik Skubal 2024: 172.3 vs 174) because Baseball-Reference uses the pitcher''s own league ERA and its own park factor, whereas the library uses the MLB-wide ERA and a caller-supplied factor (the same difference as ERA-).'
   err_pct:
     status: unverified
     source_url: ''
@@ -206,9 +211,10 @@ metrics:
     source_url: https://tangotiger.net/wiki_archive/Gross_Production_Average.html
     note: (1.8*OBP + SLG) / 4, as published on the Tango wiki and Wikipedia (Aaron Gleeman, 2003). No worked example is published.
   h_per_9:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: 27 * H / outs reproduces the FanGraphs H/9 for 16 pitcher seasons (2001, 2016, 2024; tests/golden/pitching_indices.yaml) within 1e-5.
   haa:
     status: unverified
     source_url: ''
@@ -238,9 +244,10 @@ metrics:
     source_url: https://library.fangraphs.com/pitching/batted-ball/
     note: Reproduces the FanGraphs pitcher leaderboard rate from the published counts for 20 pitcher seasons (2003, 2009, 2016, 2019, 2024; tests/golden/batted_ball.yaml) within 1e-8. FB includes infield fly balls.
   ip:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://www.baseball-reference.com/players/m/martipe02.shtml
+    note: Outs divided by 3. Published innings use the .1/.2 notation for thirds (Baseball-Reference 217.0, FanGraphs 182.1); the golden ERA and H/9 fixtures convert it to outs and reproduce the published rates.
   iso:
     status: matches
     evidence: golden
@@ -261,9 +268,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
   k_pct_plus:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: 'Reproduces the FanGraphs pitcher K%+ for 16 pitchers (tests/golden/pitching_indices.yaml): K% divided by the SO/TBF of the pitcher''s own league (AL or NL, all pitchers). The library formerly used one MLB-wide rate and was corrected (ADR-0028).'
   k_per_9:
     status: matches
     evidence: golden
@@ -327,22 +335,25 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
   pit_bb_to_k:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: BB / SO, the reciprocal of the FanGraphs K/BB reproduced in tests/golden/pitching_indices.yaml.
   pit_k_minus_bb_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: K% minus BB% per batter faced reproduces the FanGraphs K-BB% for 16 pitcher seasons (tests/golden/pitching_indices.yaml).
   pit_k_pct:
     status: matches
     evidence: golden
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
   pit_k_to_bb:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: golden
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: SO / BB reproduces the FanGraphs K/BB for 16 pitcher seasons (tests/golden/pitching_indices.yaml).
   pli:
     status: unverified
     source_url: ''
@@ -379,22 +390,25 @@ metrics:
     source_url: https://www.baseball-reference.com/about/war_explained_runs_to_wins.shtml
     note: Default exponent is (runs per game)^0.287; Baseball-Reference uses 0.285 and sources conflict on which is canonical. Set SeasonContext.pythagenpat_exponent to choose.
   qera:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: primary
+    source_url: https://sabr.org/journal/article/the-many-flavors-of-dips-a-history-and-an-overview/
+    note: (2.69 - 0.66*GB/BIP + 3.88*BB/PA - 3.4*K/PA)^2, the QERA (QuikERA) formula as printed in the SABR Baseball Research Journal survey of DIPS. No published player values were retrieved, so there is no numeric check.
   qs_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: secondary
+    source_url: https://en.wikipedia.org/wiki/Quality_start
+    note: QS / GS, the share of starts that were quality starts (at least six innings, three earned runs or fewer); confirmed only by secondary sources, and FanGraphs publishes the QS count but not a QS% rate.
   r_per_pa:
     status: approximate
     evidence: secondary
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Runs scored per plate appearance. A library-defined rate; no published standard was found.
   ra9:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: secondary
+    source_url: https://en.wikipedia.org/wiki/Run_average
+    note: 9 * runs allowed / IP (27 * R / outs), counting earned and unearned runs; confirmed only by secondary sources (Wikipedia run average), and the FanGraphs and Baseball-Reference definitions were not retrievable.
   rbi_per_pa:
     status: approximate
     evidence: secondary
@@ -460,9 +474,10 @@ metrics:
     source_url: https://blogs.fangraphs.com/speed-score/
     note: Implements the four-factor form (stolen-base percentage, attempt rate, triples, runs scored; each limited to 0-10) confirmed by Wikipedia, FanGraphs and a calculator page. James's original six-factor form also averages GIDP and defensive position and range; those constants rest on a single secondary source and are not implemented.
   sv_pct:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: matches
+    evidence: secondary
+    source_url: https://en.wikipedia.org/wiki/Save_(baseball)
+    note: 'SV / (SV + BS): saves over save opportunities, the save percentage Wikipedia defines; confirmed only by a secondary source and assumes save opportunities equal saves plus blown saves.'
   sweet_spot_pct:
     status: matches
     evidence: primary
@@ -580,9 +595,10 @@ metrics:
     source_url: ''
     note: Not yet audited against a primary source.
   xera:
-    status: unverified
-    source_url: ''
-    note: Not yet audited against a primary source.
+    status: approximate
+    evidence: primary
+    source_url: https://baseballsavant.mlb.com/csv-docs
+    note: Baseball Savant defines xERA only as a 1:1 translation of xwOBA to the ERA scale and publishes no formula. The library's lgERA + (xwOBA - lgwOBA)/wOBA-scale * 9 * BF/IP is its own translation, so it is not expected to reproduce Savant's published xERA, and no numeric check was possible (xwOBA allowed is not on the FanGraphs leaderboard).
   xfip:
     status: matches
     evidence: primary

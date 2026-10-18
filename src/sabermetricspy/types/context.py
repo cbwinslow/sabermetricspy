@@ -67,6 +67,22 @@ class WOBAWeights(BaseModel):
         default=None,
         description="AL strikeout rate excluding pitchers, the K%+ denominator (None when unsourced)",
     )
+    lg_pit_bb_pct_nl: float | None = Field(
+        default=None,
+        description="NL walks per batter faced, all pitchers, the pitcher BB%+ denominator (None when unsourced)",
+    )
+    lg_pit_bb_pct_al: float | None = Field(
+        default=None,
+        description="AL walks per batter faced, all pitchers, the pitcher BB%+ denominator (None when unsourced)",
+    )
+    lg_pit_k_pct_nl: float | None = Field(
+        default=None,
+        description="NL strikeouts per batter faced, all pitchers, the pitcher K%+ denominator (None when unsourced)",
+    )
+    lg_pit_k_pct_al: float | None = Field(
+        default=None,
+        description="AL strikeouts per batter faced, all pitchers, the pitcher K%+ denominator (None when unsourced)",
+    )
     lg_gidp_rate: float = Field(
         default=0.105, description="League average GIDP rate per GIDP opportunity"
     )
@@ -102,6 +118,24 @@ class WOBAWeights(BaseModel):
             return self.lg_k_pct_nl
         if key == "AL" and self.lg_k_pct_al is not None:
             return self.lg_k_pct_al
+        return self.lg_k_pct
+
+    def pit_bb_pct_for(self, league: str) -> float:
+        """Pitcher walk rate per batter faced for `league` ("AL", "NL", otherwise the MLB-wide `lg_bb_pct`)."""
+        key = league.upper()
+        if key == "NL" and self.lg_pit_bb_pct_nl is not None:
+            return self.lg_pit_bb_pct_nl
+        if key == "AL" and self.lg_pit_bb_pct_al is not None:
+            return self.lg_pit_bb_pct_al
+        return self.lg_bb_pct
+
+    def pit_k_pct_for(self, league: str) -> float:
+        """Pitcher strikeout rate per batter faced for `league` ("AL", "NL", otherwise the MLB-wide `lg_k_pct`)."""
+        key = league.upper()
+        if key == "NL" and self.lg_pit_k_pct_nl is not None:
+            return self.lg_pit_k_pct_nl
+        if key == "AL" and self.lg_pit_k_pct_al is not None:
+            return self.lg_pit_k_pct_al
         return self.lg_k_pct
 
 

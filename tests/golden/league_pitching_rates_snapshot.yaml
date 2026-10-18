@@ -1,0 +1,327 @@
+# FanGraphs AL/NL all-pitcher league totals (TBF, SO, BB), 1990-2025, retrieved 2026-10-18.
+# Gate: SO and BB equal tests/golden/league_war_totals_snapshot.yaml and AL+NL TBF equals tests/golden/league_totals_snapshot.yaml for all 36 seasons.
+seasons:
+  1990:
+    AL:
+      tbf: 86327
+      so: 12689
+      bb: 7631
+    NL:
+      tbf: 73989
+      so: 11164
+      bb: 6221
+  1991:
+    AL:
+      tbf: 87305
+      so: 12944
+      bb: 7730
+    NL:
+      tbf: 73441
+      so: 11446
+      bb: 6254
+  1992:
+    AL:
+      tbf: 86887
+      so: 12196
+      bb: 7704
+    NL:
+      tbf: 73658
+      so: 11342
+      bb: 5978
+  1993:
+    AL:
+      tbf: 87579
+      so: 12952
+      bb: 8006
+    NL:
+      tbf: 86985
+      so: 13358
+      bb: 7104
+  1994:
+    AL:
+      tbf: 62553
+      so: 9619
+      bb: 5938
+    NL:
+      tbf: 61930
+      so: 10147
+      bb: 5193
+  1995:
+    AL:
+      tbf: 78878
+      so: 12116
+      bb: 7572
+    NL:
+      tbf: 77825
+      so: 13309
+      bb: 6668
+  1996:
+    AL:
+      tbf: 89734
+      so: 14056
+      bb: 8592
+    NL:
+      tbf: 87527
+      so: 15252
+      bb: 7501
+  1997:
+    AL:
+      tbf: 88144
+      so: 14440
+      bb: 7859
+    NL:
+      tbf: 87397
+      so: 15497
+      bb: 7807
+  1998:
+    AL:
+      tbf: 88118
+      so: 14341
+      bb: 7704
+    NL:
+      tbf: 100162
+      so: 17552
+      bb: 8743
+  1999:
+    AL:
+      tbf: 88528
+      so: 13913
+      bb: 8296
+    NL:
+      tbf: 101164
+      so: 17206
+      bb: 9595
+  2000:
+    AL:
+      tbf: 88949
+      so: 14033
+      bb: 8390
+    NL:
+      tbf: 101312
+      so: 17323
+      bb: 9847
+  2001:
+    AL:
+      tbf: 87536
+      so: 14474
+      bb: 7269
+    NL:
+      tbf: 99440
+      so: 17930
+      bb: 8537
+  2002:
+    AL:
+      tbf: 87182
+      so: 14020
+      bb: 7290
+    NL:
+      tbf: 99433
+      so: 17374
+      bb: 8956
+  2003:
+    AL:
+      tbf: 87526
+      so: 13735
+      bb: 7111
+    NL:
+      tbf: 99923
+      so: 17066
+      bb: 8778
+  2004:
+    AL:
+      tbf: 88280
+      so: 14505
+      bb: 7520
+    NL:
+      tbf: 100259
+      so: 17323
+      bb: 8702
+  2005:
+    AL:
+      tbf: 86787
+      so: 13814
+      bb: 6768
+    NL:
+      tbf: 99505
+      so: 16830
+      bb: 8439
+  2006:
+    AL:
+      tbf: 87385
+      so: 14397
+      bb: 7128
+    NL:
+      tbf: 100686
+      so: 17258
+      bb: 8719
+  2007:
+    AL:
+      tbf: 87648
+      so: 14890
+      bb: 7439
+    NL:
+      tbf: 100975
+      so: 17299
+      bb: 8640
+  2008:
+    AL:
+      tbf: 87356
+      so: 14925
+      bb: 7470
+    NL:
+      tbf: 100275
+      so: 17959
+      bb: 8867
+  2009:
+    AL:
+      tbf: 87430
+      so: 15386
+      bb: 7592
+    NL:
+      tbf: 99649
+      so: 18205
+      bb: 9028
+  2010:
+    AL:
+      tbf: 86507
+      so: 15350
+      bb: 7270
+    NL:
+      tbf: 99046
+      so: 18956
+      bb: 8508
+  2011:
+    AL:
+      tbf: 86425
+      so: 15655
+      bb: 6949
+    NL:
+      tbf: 98820
+      so: 18833
+      bb: 8069
+  2012:
+    AL:
+      tbf: 85973
+      so: 16711
+      bb: 6815
+    NL:
+      tbf: 98206
+      so: 19715
+      bb: 7894
+  2013:
+    AL:
+      tbf: 92680
+      so: 18536
+      bb: 7421
+    NL:
+      tbf: 92192
+      so: 18174
+      bb: 7219
+  2014:
+    AL:
+      tbf: 92155
+      so: 18588
+      bb: 7017
+    NL:
+      tbf: 91773
+      so: 18853
+      bb: 7003
+  2015:
+    AL:
+      tbf: 91704
+      so: 18423
+      bb: 6961
+    NL:
+      tbf: 91923
+      so: 19023
+      bb: 7112
+  2016:
+    AL:
+      tbf: 91956
+      so: 19244
+      bb: 7280
+    NL:
+      tbf: 92621
+      so: 19738
+      bb: 7808
+  2017:
+    AL:
+      tbf: 92441
+      so: 19946
+      bb: 7721
+    NL:
+      tbf: 92854
+      so: 20158
+      bb: 8108
+  2018:
+    AL:
+      tbf: 92439
+      so: 20425
+      bb: 7666
+    NL:
+      tbf: 92700
+      so: 20782
+      bb: 8020
+  2019:
+    AL:
+      tbf: 93447
+      so: 21241
+      bb: 7921
+    NL:
+      tbf: 93069
+      so: 21582
+      bb: 7974
+  2020:
+    AL:
+      tbf: 33418
+      so: 7776
+      bb: 3024
+    NL:
+      tbf: 33088
+      so: 7810
+      bb: 3068
+  2021:
+    AL:
+      tbf: 91037
+      so: 20983
+      bb: 7741
+    NL:
+      tbf: 90780
+      so: 21162
+      bb: 8053
+  2022:
+    AL:
+      tbf: 90786
+      so: 20170
+      bb: 7286
+    NL:
+      tbf: 91266
+      so: 20642
+      bb: 7567
+  2023:
+    AL:
+      tbf: 91953
+      so: 21328
+      bb: 7844
+    NL:
+      tbf: 92151
+      so: 20515
+      bb: 7975
+  2024:
+    AL:
+      tbf: 90877
+      so: 20660
+      bb: 7453
+    NL:
+      tbf: 91572
+      so: 20537
+      bb: 7476
+  2025:
+    AL:
+      tbf: 91374
+      so: 20560
+      bb: 7760
+    NL:
+      tbf: 91552
+      so: 20085
+      bb: 7619

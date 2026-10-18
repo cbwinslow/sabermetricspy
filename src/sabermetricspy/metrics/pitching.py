@@ -557,7 +557,9 @@ def calc_bf_per_ip(ctx: EvalContext) -> nw.Expr:
     )
 )
 def calc_k_pct_plus(ctx: EvalContext) -> nw.Expr:
-    return safe_div(100.0 * nw.col("pit_k_pct"), ctx.weights.lg_k_pct)
+    return safe_div(
+        100.0 * nw.col("pit_k_pct"), ctx.weights.pit_k_pct_for(ctx.season_context.league)
+    )
 
 
 @register_metric(
@@ -575,7 +577,9 @@ def calc_k_pct_plus(ctx: EvalContext) -> nw.Expr:
     )
 )
 def calc_bb_pct_plus(ctx: EvalContext) -> nw.Expr:
-    return safe_div(100.0 * nw.col("pit_bb_pct"), ctx.weights.lg_bb_pct)
+    return safe_div(
+        100.0 * nw.col("pit_bb_pct"), ctx.weights.pit_bb_pct_for(ctx.season_context.league)
+    )
 
 
 @register_metric(

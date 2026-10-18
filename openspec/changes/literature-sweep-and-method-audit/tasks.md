@@ -17,8 +17,8 @@
 
 ## 4. Pitching, DIPS, and indexed pitching (16 metrics)
 
-- [ ] 4.1 Retrieve primary definitions for `ip`, `ra9`, `h_per_9`, `bf_per_ip`, `qs_pct`, `cg_pct`, `sv_pct`, `pit_bb_to_k`, `pit_k_to_bb`, `pit_k_minus_bb_pct`, `era_plus`, `qera`, `dips_bop_pct`, `xera`, `k_pct_plus`, and `bb_pct_plus`. Verify each has a fetched primary definition or is recorded with the limitation.
-- [ ] 4.2 Add golden fixtures from FanGraphs pitcher leaderboard rows (K%+, BB%+, K-BB%, H/9, K/BB, QS, SV, xERA where exposed), investigate the league-denominator question for K%+ and BB%+, compare, and update the audit entries; fix or label differences. Verify golden tests pass or divergences are documented.
+- [x] 4.1 Retrieve primary definitions for `ip`, `ra9`, `h_per_9`, `bf_per_ip`, `qs_pct`, `cg_pct`, `sv_pct`, `pit_bb_to_k`, `pit_k_to_bb`, `pit_k_minus_bb_pct`, `era_plus`, `qera`, `dips_bop_pct`, `xera`, `k_pct_plus`, and `bb_pct_plus`. Verify each has a fetched primary definition or is recorded with the limitation.
+- [x] 4.2 Add golden fixtures from FanGraphs pitcher leaderboard rows (K%+, BB%+, K-BB%, H/9, K/BB, QS, SV, xERA where exposed), investigate the league-denominator question for K%+ and BB%+, compare, and update the audit entries; fix or label differences. Verify golden tests pass or divergences are documented.
 
 ## 5. Plate discipline (18 metrics)
 

@@ -1,0 +1,515 @@
+# Golden pitcher K%+/BB%+/K-BB%/K-BB/H9 fixtures (FanGraphs leaderboard type=23), retrieved 2026-10-18.
+# K%+ and BB%+ divide by the pitcher's own league (AL or NL) SO/TBF and BB/TBF (tests/golden/league_pitching_rates_snapshot.yaml).
+entries:
+- id: fernandez_2016_pitching_indices
+  player: Jose Fernandez
+  season: 2016
+  league: NL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2016&qual=150 (PlayerName=Jose Fernandez)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 737
+    so: 253
+    bb: 55
+    outs: 547
+    h: 149
+    gs: 29
+    qs: 19
+    cg: 0
+    sv: 0
+  published:
+    pit_k_pct: 0.34328358
+    pit_bb_pct: 0.07462687
+    pit_k_minus_bb_pct: 0.26865672
+    pit_k_to_bb: 4.6
+    h_per_9: 7.35466138126791
+    k_pct_plus: 161.0865747399095
+    bb_pct_plus: 88.52478436373168
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: syndergaard_2016_pitching_indices
+  player: Noah Syndergaard
+  season: 2016
+  league: NL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2016&qual=150 (PlayerName=Noah Syndergaard)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 744
+    so: 218
+    bb: 43
+    outs: 551
+    h: 168
+    gs: 30
+    qs: 20
+    cg: 0
+    sv: 0
+  published:
+    pit_k_pct: 0.29301075
+    pit_bb_pct: 0.0577957
+    pit_k_minus_bb_pct: 0.23521505
+    pit_k_to_bb: 5.06976744
+    h_per_9: 8.232303988275934
+    k_pct_plus: 137.49593876470618
+    bb_pct_plus: 68.5591144012842
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: scherzer_2016_pitching_indices
+  player: Max Scherzer
+  season: 2016
+  league: NL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2016&qual=150 (PlayerName=Max Scherzer)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 902
+    so: 284
+    bb: 56
+    outs: 685
+    h: 165
+    gs: 34
+    qs: 26
+    cg: 1
+    sv: 0
+  published:
+    pit_k_pct: 0.31485588
+    pit_bb_pct: 0.06208426
+    pit_k_minus_bb_pct: 0.25277162
+    pit_k_to_bb: 5.07142857
+    h_per_9: 6.503649779909226
+    k_pct_plus: 147.74681079996162
+    bb_pct_plus: 73.64633987113754
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: verlander_2016_pitching_indices
+  player: Justin Verlander
+  season: 2016
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2016&qual=150 (PlayerName=Justin Verlander)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 903
+    so: 254
+    bb: 57
+    outs: 683
+    h: 171
+    gs: 34
+    qs: 27
+    cg: 2
+    sv: 0
+  published:
+    pit_k_pct: 0.28128461
+    pit_bb_pct: 0.06312292
+    pit_k_minus_bb_pct: 0.21816168
+    pit_k_to_bb: 4.45614035
+    h_per_9: 6.759882718671121
+    k_pct_plus: 134.40972796730583
+    bb_pct_plus: 79.73257618590905
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: sale_2016_pitching_indices
+  player: Chris Sale
+  season: 2016
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2016&qual=150 (PlayerName=Chris Sale)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 907
+    so: 233
+    bb: 45
+    outs: 680
+    h: 190
+    gs: 32
+    qs: 23
+    cg: 6
+    sv: 0
+  published:
+    pit_k_pct: 0.25689085
+    pit_bb_pct: 0.04961411
+    pit_k_minus_bb_pct: 0.20727674
+    pit_k_to_bb: 5.17777778
+    h_per_9: 7.544117985629721
+    k_pct_plus: 122.75335464668305
+    bb_pct_plus: 62.6691663967498
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: porcello_2016_pitching_indices
+  player: Rick Porcello
+  season: 2016
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2016&qual=150 (PlayerName=Rick Porcello)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 890
+    so: 189
+    bb: 32
+    outs: 669
+    h: 193
+    gs: 33
+    qs: 26
+    cg: 3
+    sv: 0
+  published:
+    pit_k_pct: 0.21235955
+    pit_bb_pct: 0.03595506
+    pit_k_minus_bb_pct: 0.17640449
+    pit_k_to_bb: 5.90625
+    h_per_9: 7.789237668161435
+    k_pct_plus: 101.47440968297951
+    bb_pct_plus: 45.41597735878971
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: sale_2024_pitching_indices
+  player: Chris Sale
+  season: 2024
+  league: NL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2024&qual=150 (PlayerName=Chris Sale)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 702
+    so: 225
+    bb: 39
+    outs: 533
+    h: 141
+    gs: 29
+    qs: 18
+    cg: 0
+    sv: 0
+  published:
+    pit_k_pct: 0.32051282
+    pit_bb_pct: 0.05555556
+    pit_k_minus_bb_pct: 0.26495727
+    pit_k_to_bb: 5.76923077
+    h_per_9: 7.142589527156724
+    k_pct_plus: 142.91279197489484
+    bb_pct_plus: 68.04886724441079
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: skubal_2024_pitching_indices
+  player: Tarik Skubal
+  season: 2024
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2024&qual=150 (PlayerName=Tarik Skubal)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 753
+    so: 228
+    bb: 35
+    outs: 576
+    h: 142
+    gs: 31
+    qs: 22
+    cg: 0
+    sv: 0
+  published:
+    pit_k_pct: 0.30278884
+    pit_bb_pct: 0.04648074
+    pit_k_minus_bb_pct: 0.2563081
+    pit_k_to_bb: 6.51428571
+    h_per_9: 6.65625
+    k_pct_plus: 133.18752064007947
+    bb_pct_plus: 56.67557142813449
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: wheeler_2024_pitching_indices
+  player: Zack Wheeler
+  season: 2024
+  league: NL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2024&qual=150 (PlayerName=Zack Wheeler)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 787
+    so: 224
+    bb: 52
+    outs: 600
+    h: 139
+    gs: 32
+    qs: 26
+    cg: 0
+    sv: 0
+  published:
+    pit_k_pct: 0.28462516
+    pit_bb_pct: 0.0660737
+    pit_k_minus_bb_pct: 0.21855146
+    pit_k_to_bb: 4.30769231
+    h_per_9: 6.255
+    k_pct_plus: 126.91091731081326
+    bb_pct_plus: 80.93232504833087
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: ragans_2024_pitching_indices
+  player: Cole Ragans
+  season: 2024
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2024&qual=150 (PlayerName=Cole Ragans)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 762
+    so: 223
+    bb: 67
+    outs: 559
+    h: 146
+    gs: 32
+    qs: 21
+    cg: 1
+    sv: 0
+  published:
+    pit_k_pct: 0.29265092
+    pit_bb_pct: 0.08792651
+    pit_k_minus_bb_pct: 0.20472441
+    pit_k_to_bb: 3.32835821
+    h_per_9: 7.051878546696113
+    k_pct_plus: 128.7281581003797
+    bb_pct_plus: 107.21182192066098
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: lugo_2024_pitching_indices
+  player: Seth Lugo
+  season: 2024
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2024&qual=150 (PlayerName=Seth Lugo)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 836
+    so: 181
+    bb: 48
+    outs: 620
+    h: 177
+    gs: 33
+    qs: 22
+    cg: 1
+    sv: 0
+  published:
+    pit_k_pct: 0.21650718
+    pit_bb_pct: 0.05741627
+    pit_k_minus_bb_pct: 0.15909091
+    pit_k_to_bb: 3.77083333
+    h_per_9: 7.708064895534633
+    k_pct_plus: 95.23486309625342
+    bb_pct_plus: 70.00963262345743
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: johnson_2001_pitching_indices
+  player: Randy Johnson
+  season: 2001
+  league: NL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2001&qual=150 (PlayerName=Randy Johnson)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 994
+    so: 372
+    bb: 71
+    outs: 749
+    h: 181
+    gs: 34
+    qs: 27
+    cg: 3
+    sv: 0
+  published:
+    pit_k_pct: 0.37424547
+    pit_bb_pct: 0.07142857
+    pit_k_minus_bb_pct: 0.3028169
+    pit_k_to_bb: 5.23943662
+    h_per_9: 6.524699466543374
+    k_pct_plus: 207.55700573088848
+    bb_pct_plus: 83.20086032053008
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: schilling_2001_pitching_indices
+  player: Curt Schilling
+  season: 2001
+  league: NL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2001&qual=150 (PlayerName=Curt Schilling)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 1021
+    so: 293
+    bb: 39
+    outs: 770
+    h: 237
+    gs: 35
+    qs: 27
+    cg: 6
+    sv: 0
+  published:
+    pit_k_pct: 0.28697356
+    pit_bb_pct: 0.03819785
+    pit_k_minus_bb_pct: 0.24877571
+    pit_k_to_bb: 7.51282051
+    h_per_9: 8.31038993975711
+    k_pct_plus: 159.15589165408525
+    bb_pct_plus: 44.49331007485021
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: mussina_2001_pitching_indices
+  player: Mike Mussina
+  season: 2001
+  league: AL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2001&qual=150 (PlayerName=Mike Mussina)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 909
+    so: 214
+    bb: 42
+    outs: 686
+    h: 202
+    gs: 34
+    qs: 24
+    cg: 4
+    sv: 0
+  published:
+    pit_k_pct: 0.23542354
+    pit_bb_pct: 0.04620462
+    pit_k_minus_bb_pct: 0.18921892
+    pit_k_to_bb: 5.0952381
+    h_per_9: 7.950437140941628
+    k_pct_plus: 142.37968419170062
+    bb_pct_plus: 55.64132252196195
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: maddux_2001_pitching_indices
+  player: Greg Maddux
+  season: 2001
+  league: NL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2001&qual=150 (PlayerName=Greg Maddux)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 927
+    so: 173
+    bb: 27
+    outs: 699
+    h: 220
+    gs: 34
+    qs: 24
+    cg: 3
+    sv: 0
+  published:
+    pit_k_pct: 0.18662352
+    pit_bb_pct: 0.02912621
+    pit_k_minus_bb_pct: 0.1574973
+    pit_k_to_bb: 6.40740741
+    h_per_9: 8.497853520742686
+    k_pct_plus: 103.50163481997652
+    bb_pct_plus: 33.926563823564734
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001
+- id: morris_2001_pitching_indices
+  player: Matt Morris
+  season: 2001
+  league: NL
+  source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=23&season=2001&qual=150 (PlayerName=Matt Morris)
+  retrieved: '2026-10-18'
+  inputs:
+    bf: 909
+    so: 185
+    bb: 54
+    outs: 649
+    h: 218
+    gs: 34
+    qs: 24
+    cg: 2
+    sv: 0
+  published:
+    pit_k_pct: 0.20352035
+    pit_bb_pct: 0.05940594
+    pit_k_minus_bb_pct: 0.14411441
+    pit_k_to_bb: 3.42592593
+    h_per_9: 9.069337015756238
+    k_pct_plus: 112.87264114741613
+    bb_pct_plus: 69.19675465220477
+  tolerance:
+    pit_k_pct: 1.0e-08
+    pit_bb_pct: 1.0e-08
+    pit_k_minus_bb_pct: 1.0e-08
+    pit_k_to_bb: 1.0e-08
+    h_per_9: 1.0e-05
+    k_pct_plus: 0.0001
+    bb_pct_plus: 0.0001

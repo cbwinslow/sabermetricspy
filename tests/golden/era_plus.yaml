@@ -1,0 +1,29 @@
+# Baseball-Reference ERA+ for three pitcher seasons (Standard Pitching tables), retrieved 2026-10-18.
+# Baseball-Reference divides the pitcher's own league (AL or NL) ERA by the pitcher's ERA and applies its own
+# park factor; the library divides MLB-wide ERA with a caller-supplied park factor, so it runs 2-6% low.
+# The comparison is therefore a bounded divergence (tolerance_relative), not an equality.
+entries:
+- id: pedro_martinez_2000_era_plus
+  fixture_id: pedro_martinez_2000
+  player: Pedro Martinez
+  season: 2000
+  source_url: https://www.baseball-reference.com/players/m/martipe02.shtml
+  retrieved: '2026-10-18'
+  published: {era_plus: 291}
+  tolerance_relative: 0.07
+- id: johnson_2001_era_plus
+  fixture_id: johnson_2001
+  player: Randy Johnson
+  season: 2001
+  source_url: https://www.baseball-reference.com/players/j/johnsra05.shtml
+  retrieved: '2026-10-18'
+  published: {era_plus: 188}
+  tolerance_relative: 0.07
+- id: skubal_2024_era_plus
+  fixture_id: skubal_2024
+  player: Tarik Skubal
+  season: 2024
+  source_url: https://www.baseball-reference.com/players/s/skubata01.shtml
+  retrieved: '2026-10-18'
+  published: {era_plus: 174}
+  tolerance_relative: 0.07
