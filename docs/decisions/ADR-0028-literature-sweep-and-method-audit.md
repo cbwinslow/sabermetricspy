@@ -58,7 +58,8 @@ as fixtures under `tests/golden/`. Pitch-level checks use a recorded public Base
 
 ## Outcome
 Metrics: 136 audited (`matches` 90, `approximate` 46, none `unverified`); by tier, `golden` 84, `primary` 27,
-`secondary` 25. Models: 16 entries (9 `matches` or `approximate`, 1 `divergent`, 6 `unverified` each with a written reason).
+`secondary` 25. Models: 16 entries (9 `matches` or `approximate`, 1 `divergent`, 6 `unverified` each with a written reason); two of the six were
+relabeled `approximate` afterwards (item 5), leaving 4 `unverified`. Later changes (ADR-0029 to ADR-0032) add entries on top of these counts.
 
 ## Consequences
 - Several published-method metrics now change value for existing callers (listed in the table above); the changes
