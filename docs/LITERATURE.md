@@ -26,17 +26,7 @@ recorded score equals the sum, and that entries are in descending score order.
 
 ## Candidate methods
 
-### 1. Extended Pythagorean head-to-head probability (Cleary et al.)
-- **Citation**: [Extending James' Pythagorean Formula for Head-to-Head Matchups](https://web.williams.edu/Mathematics/sjmiller/public_html/math/papers/PythagBothTeams20.pdf)
-- **Formula source**: home RS and RA are rescaled by the opponent's allowed and scored runs relative to the league average R: RS_adj = RS_h*(RA_a/R), RA_adj = RA_h*(RS_a/R); P(home wins) = RS_adj^g / (RS_adj^g + RA_adj^g), equivalently (RS_h*RA_a)^g / ((RS_h*RA_a)^g + (RA_h*RS_a)^g).
-- **Inputs**: team runs scored and allowed per game, league runs per game, exponent.
-- **Inputs in canonical schema**: yes.
-- **Validation target**: the algebraic equivalence of the two forms (checkable offline); the paper's playoff result of 80.18 expected series wins against 80 actual needs 2001 to 2019 series data.
-- **Scores**: formula=1; inputs=2; validation=1; fit=2; value=1; difficulty=1
-- **Priority score**: 6
-- **Difficulty**: 1. The paper quotes Baseball-Reference's exponent as 1.87 (and 1.83 as also common), which should be reconciled with ADR-0027's configurable exponent before adoption.
-
-### 2. Shutdown and Meltdown (FanGraphs)
+### 1. Shutdown and Meltdown (FanGraphs)
 - **Citation**: [SD and MD, FanGraphs Library](https://library.fangraphs.com/pitching/sd-md/)
 - **Formula source**: a reliever earns a Shutdown in a game when his WPA is +0.06 or more and a Meltdown when it is -0.06 or less.
 - **Inputs**: per-game reliever WPA.
@@ -46,7 +36,7 @@ recorded score equals the sum, and that entries are in descending score order.
 - **Priority score**: 4
 - **Difficulty**: 2.
 
-### 3. Catcher defensive rating system (Rosciam, 2004)
+### 2. Catcher defensive rating system (Rosciam, 2004)
 - **Citation**: [Catcher's Defensive Rating System, Chuck Rosciam, via Retrosheet](https://www.retrosheet.org/Research/RosciamC/Catcher%20Defensive%20Rating%20System.pdf)
 - **Formula source**: components scaled to 1.00 for a league-average catcher: Stamina (share of team innings caught over the league average share), Good Glove (independent-putout fielding average over the league figure, where independent putouts exclude strikeouts), Good Arm (CCS/(CCS+SBA) times the league caught-stealing rate). Three further components (ball handling, game play, game calling) were read only in part.
 - **Inputs**: innings caught, putouts excluding strikeouts, assists, errors, caught stealing, stolen bases against, league rates.
@@ -64,6 +54,7 @@ recorded score equals the sum, and that entries are in descending score order.
 | Game Score Version 2.0 and Game Score (James) | `game-score-and-off-metrics` | ADR-0030 |
 | Off (FanGraphs) | `game-score-and-off-metrics` | ADR-0030 |
 | Base-Advance Average (Hardegree) | `base-advance-average` | ADR-0031 |
+| Extended Pythagorean head-to-head (Cleary et al.) | `extended-pythagorean` | ADR-0032 |
 
 ## Rejected or deferred with reason
 
@@ -78,7 +69,7 @@ can be re-opened by retrieving the named source.
 | Regression toward the mean constants | [FanGraphs](https://library.fangraphs.com/principles/regression/) | The page is conceptual and prints no constants. |
 | Aging curve | [FanGraphs](https://library.fangraphs.com/principles/aging-curve/) | Only a rule of thumb (about 0.5 WAR per year after 30); the curves are images. Marcel's age factors already exist. |
 | League equivalencies (MLEs) | [FanGraphs](https://library.fangraphs.com/principles/league-equivalencies/) | Describes the approach with no formulas or factors. |
-| Pairwise Pythagorean wins | Heumann, Journal of Sports Analytics 2016 (see digest) | The paper was not retrieved; Cleary et al. describe it only in prose. Entry 1 covers the related head-to-head extension. |
+| Pairwise Pythagorean wins | Heumann, Journal of Sports Analytics 2016 (see digest) | The paper was not retrieved; Cleary et al. describe it only in prose. The head-to-head extension is implemented (ADR-0032). |
 | Game Score v2 weights from a Wharton deck | secondary | Matches the implemented Game Score 2.0 apart from restating the home run penalty; the FanGraphs article is the primary source and is used instead. |
 | Base-advance, catcher and range papers by Comly (ARM, 2000), Ruane (2005), Tango (Evaluating Catchers, 2004), Johnson (Fielder Range, 2011), Soper (2014), Wood (Win Values, 2018) | Retrosheet research list | Listed but not read; formulas unverified. Re-open by extracting each PDF (the fetch tool saves PDFs locally; `pypdf` reads them). |
 | Machine-learning and Bayesian papers from OpenAlex and arXiv (Piette and Jensen on fielding, Stern and Sugano and Healey and Doo and Kim and Morey and Cohen on matchups, Jensen and McShane and Gerber and Craig on hitting forecasts, Konaka on park factors, Nguyen and Matthews on aging, Mott and Bradshaw on win probability) | digest of 2026-10-18 | Only titles and metadata were screened; full text was not retrieved, so no formula can be cited. Candidates for a future deeper pass. |

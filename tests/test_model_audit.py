@@ -85,3 +85,43 @@ def test_empirical_bayes_posterior_mean_is_the_beta_binomial_formula() -> None:
         assert rate == pytest.approx((k + r.alpha_0) / (n + r.alpha_0 + r.beta_0), abs=1e-12)
         weight = r.stabilization_trials / (n + r.stabilization_trials)
         assert rate == pytest.approx((1 - weight) * k / n + weight * r.prior_mean, abs=1e-12)
+
+
+def test_extended_pythagorean_equals_the_league_free_form() -> None:
+    """Cleary et al. equations 1.4 and 1.5: the league average cancels."""
+    rs_h, ra_h, rs_a, ra_a, lg, g = 5.1, 4.3, 4.4, 4.9, 4.5, 1.87
+    got = Log5Model.extended_pythagorean_home_win_prob(
+        runs_scored_home=rs_h,
+        runs_allowed_home=ra_h,
+        runs_scored_away=rs_a,
+        runs_allowed_away=ra_a,
+        league_runs=lg,
+        exponent=g,
+    )
+    a, b = (rs_h * ra_a) ** g, (ra_h * rs_a) ** g
+    assert got == pytest.approx(a / (a + b), abs=1e-12)
+
+
+def test_extended_pythagorean_reduces_to_pythagorean_against_a_league_average_opponent() -> None:
+    lg, g = 4.5, 1.83
+    got = Log5Model.extended_pythagorean_home_win_prob(
+        runs_scored_home=5.0,
+        runs_allowed_home=4.0,
+        runs_scored_away=lg,
+        runs_allowed_away=lg,
+        league_runs=lg,
+        exponent=g,
+    )
+    assert got == pytest.approx(5.0**g / (5.0**g + 4.0**g), abs=1e-12)
+
+
+def test_extended_pythagorean_swapped_equal_teams_are_even() -> None:
+    got = Log5Model.extended_pythagorean_home_win_prob(
+        runs_scored_home=4.6,
+        runs_allowed_home=4.6,
+        runs_scored_away=4.6,
+        runs_allowed_away=4.6,
+        league_runs=4.5,
+        exponent=1.83,
+    )
+    assert got == pytest.approx(0.5)

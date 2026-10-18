@@ -212,6 +212,30 @@ class Log5Model:
         return num / den
 
     @staticmethod
+    def extended_pythagorean_home_win_prob(
+        *,
+        runs_scored_home: float,
+        runs_allowed_home: float,
+        runs_scored_away: float,
+        runs_allowed_away: float,
+        league_runs: float,
+        exponent: float,
+    ) -> float:
+        """Probability the home team wins, extending James's Pythagorean formula to a head-to-head matchup.
+
+        Cleary, Jeffries, Miller, Miller, Murray and Skiera (head-to-head Pythagorean): the home team's runs scored
+        and allowed are rescaled by the opponent's, relative to the league average `league_runs`:
+            RS_adj = RS_h * RA_a / R,   RA_adj = RA_h * RS_a / R
+            P(home wins) = RS_adj^g / (RS_adj^g + RA_adj^g)
+        Runs may be per game or totals as long as all four and `league_runs` use the same unit. The exponent is
+        required because sources differ (the paper cites Baseball-Reference's 1.87 and notes 1.83 is also common).
+        """
+        rs_adj = runs_scored_home * runs_allowed_away / league_runs
+        ra_adj = runs_allowed_home * runs_scored_away / league_runs
+        num = rs_adj**exponent
+        return num / (num + ra_adj**exponent)
+
+    @staticmethod
     def batter_pitcher_matchup_rate(
         batter_rate: float,
         pitcher_rate: float,

@@ -777,3 +777,8 @@ models:
     evidence: primary
     source_url: https://en.wikipedia.org/wiki/Empirical_Bayes_method
     note: Posterior mean (k + a) / (n + a + b), equivalent to shrinkage weight M / (n + M) toward the population mean, is the standard beta-binomial result. The prior is fitted by moments or fixed by stabilization_trials. Efron and Morris (1975) was not retrievable (publisher returned 403). tests/test_model_audit.py
+  Log5Model.extended_pythagorean_home_win_prob:
+    status: matches
+    evidence: primary
+    source_url: https://web.williams.edu/Mathematics/sjmiller/public_html/math/papers/PythagBothTeams20.pdf
+    note: 'Implements equations 1.4 and 1.5 of Cleary, Jeffries, Miller, Miller, Murray and Skiera: opponent-rescaled runs raised to the exponent; the league-free form is equal (tests/test_model_audit.py) and it reduces to the Pythagorean formula against an average opponent. The paper''s reported playoff total (80.18 expected series wins against 80 actual) needs 2001 to 2019 series data and was not reproduced. The exponent is a required argument because the paper cites Baseball-Reference''s 1.87 and notes 1.83 is also common.'
