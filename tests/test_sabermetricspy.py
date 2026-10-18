@@ -678,6 +678,8 @@ def test_all_registered_metrics_and_suites_audit() -> None:
             "bip_against": [420, 430],
             "bip_outs_made": [298, 295],
             "re24": [48.5, 15.2],
+            "bases_advanced": [900, 700],
+            "base_advance_opps": [2400, 2200],
             "wpa": [4.8, 1.6],
             "li_sum": [714.0, 620.0],
             "wpa_li_sum": [4.2, 1.7],

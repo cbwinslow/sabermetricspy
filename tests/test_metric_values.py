@@ -137,6 +137,7 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
         dict(park_factor=105.0),
     ),
     (Metric.PIT_BB_TO_K, dict(bb=3, so=9), 3 / 9, {}),
+    (Metric.BASE_ADVANCE_AVERAGE, dict(bases_advanced=14, base_advance_opps=57), 14 / 57, {}),
     (
         Metric.GAME_SCORE,
         dict(outs=21, so=8, h=5, er=2, r=2, bb=2),

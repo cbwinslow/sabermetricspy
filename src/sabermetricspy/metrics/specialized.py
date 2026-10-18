@@ -1331,3 +1331,23 @@ def calc_clutch(ctx: EvalContext) -> nw.Expr:
 )
 def calc_rew(ctx: EvalContext) -> nw.Expr:
     return safe_div(nw.col("re24"), ctx.weights.lg_r_per_w)
+
+
+@register_metric(
+    MetricSpec(
+        metric=Metric.BASE_ADVANCE_AVERAGE,
+        display_name="BAA",
+        category=Category.BASERUNNING,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("bases_advanced", "base_advance_opps"),
+        direction=Direction.HIGHER_IS_BETTER,
+        formula_latex=r"BAA = \frac{\sum \text{bases advanced}}{\sum \text{base-advance opportunities}}",
+        citation="Hardegree, G. (2005) Base-Advance Average",
+        description="Bases advanced by the batter and runners over the bases they could have advanced.",
+        caveats=(
+            "Derive the inputs per plate appearance with expectancy.add_base_advance_columns and sum them; steals and other non-plate-appearance events are not counted.",
+        ),
+    )
+)
+def calc_base_advance_average(ctx: EvalContext) -> nw.Expr:
+    return safe_div(nw.col("bases_advanced"), nw.col("base_advance_opps"))

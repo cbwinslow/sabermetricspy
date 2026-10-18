@@ -846,3 +846,44 @@ class WinProbabilityModel:
         if type(df).__module__.startswith("pandas"):
             return arrow_tbl.to_pandas()
         return arrow_tbl
+
+
+def _occupied_base_sum(state: str) -> pl.Expr:
+    """Sum of the base numbers occupied in a base-state string such as '1-3' (4 for a runner on first and third)."""
+    return sum(
+        (pl.col(state).str.contains(str(base)).cast(pl.Int64) * base for base in (1, 2, 3)),
+        start=pl.lit(0, dtype=pl.Int64),
+    )
+
+
+@profiled(category="expectancy")
+def add_base_advance_columns(df: IntoFrame) -> Any:
+    """Add per-plate-appearance `bases_advanced` and `base_advance_opps` (Hardegree 2005, Base-Advance Average).
+
+    Needs `base_state_before`, `base_state_after` (runners left on base when the inning ends must stay in the
+    after-state) and `runs_on_play` (batter and runners reaching home). With Pb and Pa the sums of occupied base
+    numbers before and after, R the runs and n the runners on base before:
+    bases advanced = 4R + Pa - Pb and opportunities = 4 + 4n - Pb. Steals and other non-plate-appearance events
+    are not counted.
+    """
+    pl_df = to_polars_df(df)
+    runners_before = sum(
+        (pl.col("base_state_before").str.contains(str(b)).cast(pl.Int64) for b in (1, 2, 3)),
+        start=pl.lit(0, dtype=pl.Int64),
+    )
+    out = pl_df.with_columns(
+        (
+            4 * pl.col("runs_on_play").cast(pl.Int64)
+            + _occupied_base_sum("base_state_after")
+            - _occupied_base_sum("base_state_before")
+        ).alias("bases_advanced"),
+        (4 + 4 * runners_before - _occupied_base_sum("base_state_before")).alias(
+            "base_advance_opps"
+        ),
+    )
+    if isinstance(df, pl.DataFrame):
+        return out
+    arrow_tbl = out.to_arrow()
+    if type(df).__module__.startswith("pandas"):
+        return arrow_tbl.to_pandas()
+    return arrow_tbl

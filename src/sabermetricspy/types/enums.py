@@ -334,6 +334,7 @@ class Metric(StrEnum):
     ERA = "era"
     RA9 = "ra9"
     WHIP = "whip"
+    BASE_ADVANCE_AVERAGE = "base_advance_average"
     GAME_SCORE = "game_score"
     GAME_SCORE_V2 = "game_score_v2"
     H_PER_9 = "h_per_9"

@@ -1,0 +1,17 @@
+# Sample half-inning printed in Hardegree, "Base-Advance Average" (2005), section 3: the top of the 3rd inning of
+# Game 4 of the 2004 World Series. https://www.retrosheet.org/Research/HardegreeG/Base-Advance-Average.pdf
+# bases_advanced and opportunities are the paper's per-row values (text extracted from the PDF; one row was
+# reconstructed from the paper's runner columns, see the test). Recomputation gate: they sum to the printed totals
+# of 14 and 57, and the paper's .245 is a truncation of 14/57 = .2456.
+total_bases: 14
+total_opportunities: 57
+printed_average: 0.245
+plays:
+  - {batter: Cabrera, before: "---", after: "---", runs: 0, bases_advanced: 0, opportunities: 4}
+  - {batter: Ramirez, before: "---", after: "1--", runs: 0, bases_advanced: 1, opportunities: 4}
+  - {batter: Ortiz, before: "1--", after: "-23", runs: 0, bases_advanced: 4, opportunities: 7}
+  - {batter: Varitek, before: "-23", after: "1-3", runs: 0, bases_advanced: -1, opportunities: 7}
+  - {batter: Mueller, before: "1-3", after: "123", runs: 0, bases_advanced: 2, opportunities: 8}
+  - {batter: Nixon, before: "123", after: "-23", runs: 2, bases_advanced: 7, opportunities: 10}
+  - {batter: Bellhorn, before: "-23", after: "123", runs: 0, bases_advanced: 1, opportunities: 7}
+  - {batter: Lowe, before: "123", after: "123", runs: 0, bases_advanced: 0, opportunities: 10}

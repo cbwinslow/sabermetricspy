@@ -697,6 +697,11 @@ metrics:
     evidence: primary
     source_url: https://library.fangraphs.com/offense/off/
     note: Implements the formula printed on the FanGraphs Library page (wRAA + park term + league term + BsR) and is recomputed from it in tests/test_game_score_and_off.py. The page prints no player value, so no published number was reproduced.
+  base_advance_average:
+    status: matches
+    evidence: golden
+    source_url: https://www.retrosheet.org/Research/HardegreeG/Base-Advance-Average.pdf
+    note: Reproduces every row of the paper's worked half-inning (bases advanced and opportunities per plate appearance; totals 14 and 57 as printed) from base states and runs, plus the 4-for-10 bases-loaded walk and 10-for-10 grand slam it describes; tests/golden/base_advance_sample_inning.yaml. The paper prints .245 for 14/57 = .2456 (truncated). Steals are not counted.
 models:
   WARFramework.calculate_pitcher_war_df:
     status: approximate
