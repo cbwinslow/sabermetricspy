@@ -69,7 +69,10 @@ def get_woba_weights(season: int = 2024) -> WOBAWeights:
 
 
 def get_park_factor(team_or_park: str) -> ParkFactor:
-    """Retrieve ParkFactor for a team abbreviation (e.g. 'COL', 'BOS') or park ID."""
+    """Retrieve the bundled 2024 ParkFactor for a team abbreviation (e.g. 'COL', 'BOS').
+
+    An unknown park returns a neutral factor and emits a `UserWarning`.
+    """
     table = _load_default_parks_table()
     key = team_or_park.upper()
     if key in table:
@@ -77,6 +80,11 @@ def get_park_factor(team_or_park: str) -> ParkFactor:
     for pf in table.values():
         if pf.park_id.upper() == key:
             return pf
+    warnings.warn(
+        f"Park {team_or_park!r} is not bundled; returning a neutral park factor of 100.",
+        UserWarning,
+        stacklevel=2,
+    )
     return ParkFactor(park_id=key, team_id=key, season=2024, basic_5yr=100.0, basic_1yr=100.0)
 
 

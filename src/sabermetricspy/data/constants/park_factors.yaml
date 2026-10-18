@@ -1,52 +1,215 @@
-# MLB Ballpark Factors (100 = Neutral)
-# Source: FanGraphs 5-Year Regressed Park Factors
+# MLB park factors (100 = neutral), 2024 season.
+# Source: FanGraphs Guts! park factors, https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2024,
+# fetched 2026-10-18; basic_5yr = "Basic (5yr)", basic_1yr = "1yr", hr_factor = "HR". Already halved for full-season use.
+# Generated from tests/golden/park_factors_2024.yaml; a test compares every field. park_id is the team abbreviation.
 parks:
-  COL:
-    park_id: "DEN02"
-    team_id: "COL"
-    season: 2024
-    basic_5yr: 112.0
-    basic_1yr: 111.0
-    hr_factor: 117.0
-  BOS:
-    park_id: "BOS07"
-    team_id: "BOS"
-    season: 2024
-    basic_5yr: 104.0
-    basic_1yr: 103.0
-    hr_factor: 98.0
-  CIN:
-    park_id: "CIN09"
-    team_id: "CIN"
-    season: 2024
-    basic_5yr: 105.0
-    basic_1yr: 104.0
-    hr_factor: 119.0
-  LAD:
-    park_id: "LOS03"
-    team_id: "LAD"
+  LAA:
+    park_id: "LAA"
+    team_id: "LAA"
     season: 2024
     basic_5yr: 99.0
-    basic_1yr: 100.0
-    hr_factor: 110.0
+    basic_1yr: 101.0
+    hr_factor: 105.0
+  BAL:
+    park_id: "BAL"
+    team_id: "BAL"
+    season: 2024
+    basic_5yr: 98.0
+    basic_1yr: 98.0
+    hr_factor: 99.0
+  BOS:
+    park_id: "BOS"
+    team_id: "BOS"
+    season: 2024
+    basic_5yr: 103.0
+    basic_1yr: 102.0
+    hr_factor: 98.0
+  CHW:
+    park_id: "CHW"
+    team_id: "CHW"
+    season: 2024
+    basic_5yr: 100.0
+    basic_1yr: 97.0
+    hr_factor: 105.0
+  CLE:
+    park_id: "CLE"
+    team_id: "CLE"
+    season: 2024
+    basic_5yr: 100.0
+    basic_1yr: 105.0
+    hr_factor: 98.0
+  DET:
+    park_id: "DET"
+    team_id: "DET"
+    season: 2024
+    basic_5yr: 101.0
+    basic_1yr: 99.0
+    hr_factor: 96.0
+  KCR:
+    park_id: "KCR"
+    team_id: "KCR"
+    season: 2024
+    basic_5yr: 103.0
+    basic_1yr: 106.0
+    hr_factor: 95.0
+  MIN:
+    park_id: "MIN"
+    team_id: "MIN"
+    season: 2024
+    basic_5yr: 100.0
+    basic_1yr: 103.0
+    hr_factor: 99.0
   NYY:
-    park_id: "NYC21"
+    park_id: "NYY"
     team_id: "NYY"
     season: 2024
     basic_5yr: 100.0
+    basic_1yr: 101.0
+    hr_factor: 104.0
+  OAK:
+    park_id: "OAK"
+    team_id: "OAK"
+    season: 2024
+    basic_5yr: 96.0
     basic_1yr: 100.0
-    hr_factor: 109.0
+    hr_factor: 90.0
   SEA:
-    park_id: "SEA03"
+    park_id: "SEA"
     team_id: "SEA"
     season: 2024
     basic_5yr: 94.0
-    basic_1yr: 93.0
-    hr_factor: 95.0
-  SFG:
-    park_id: "SFO03"
-    team_id: "SFG"
+    basic_1yr: 89.0
+    hr_factor: 96.0
+  TBR:
+    park_id: "TBR"
+    team_id: "TBR"
     season: 2024
     basic_5yr: 96.0
-    basic_1yr: 96.0
-    hr_factor: 85.0
+    basic_1yr: 100.0
+    hr_factor: 96.0
+  TEX:
+    park_id: "TEX"
+    team_id: "TEX"
+    season: 2024
+    basic_5yr: 98.0
+    basic_1yr: 93.0
+    hr_factor: 102.0
+  TOR:
+    park_id: "TOR"
+    team_id: "TOR"
+    season: 2024
+    basic_5yr: 100.0
+    basic_1yr: 103.0
+    hr_factor: 103.0
+  ARI:
+    park_id: "ARI"
+    team_id: "ARI"
+    season: 2024
+    basic_5yr: 100.0
+    basic_1yr: 104.0
+    hr_factor: 91.0
+  ATL:
+    park_id: "ATL"
+    team_id: "ATL"
+    season: 2024
+    basic_5yr: 100.0
+    basic_1yr: 97.0
+    hr_factor: 99.0
+  CHC:
+    park_id: "CHC"
+    team_id: "CHC"
+    season: 2024
+    basic_5yr: 98.0
+    basic_1yr: 87.0
+    hr_factor: 98.0
+  CIN:
+    park_id: "CIN"
+    team_id: "CIN"
+    season: 2024
+    basic_5yr: 102.0
+    basic_1yr: 107.0
+    hr_factor: 114.0
+  COL:
+    park_id: "COL"
+    team_id: "COL"
+    season: 2024
+    basic_5yr: 112.0
+    basic_1yr: 108.0
+    hr_factor: 107.0
+  MIA:
+    park_id: "MIA"
+    team_id: "MIA"
+    season: 2024
+    basic_5yr: 101.0
+    basic_1yr: 113.0
+    hr_factor: 97.0
+  HOU:
+    park_id: "HOU"
+    team_id: "HOU"
+    season: 2024
+    basic_5yr: 99.0
+    basic_1yr: 102.0
+    hr_factor: 102.0
+  LAD:
+    park_id: "LAD"
+    team_id: "LAD"
+    season: 2024
+    basic_5yr: 99.0
+    basic_1yr: 97.0
+    hr_factor: 110.0
+  MIL:
+    park_id: "MIL"
+    team_id: "MIL"
+    season: 2024
+    basic_5yr: 99.0
+    basic_1yr: 98.0
+    hr_factor: 104.0
+  WSN:
+    park_id: "WSN"
+    team_id: "WSN"
+    season: 2024
+    basic_5yr: 101.0
+    basic_1yr: 99.0
+    hr_factor: 100.0
+  NYM:
+    park_id: "NYM"
+    team_id: "NYM"
+    season: 2024
+    basic_5yr: 98.0
+    basic_1yr: 98.0
+    hr_factor: 99.0
+  PHI:
+    park_id: "PHI"
+    team_id: "PHI"
+    season: 2024
+    basic_5yr: 103.0
+    basic_1yr: 101.0
+    hr_factor: 105.0
+  PIT:
+    park_id: "PIT"
+    team_id: "PIT"
+    season: 2024
+    basic_5yr: 103.0
+    basic_1yr: 104.0
+    hr_factor: 93.0
+  STL:
+    park_id: "STL"
+    team_id: "STL"
+    season: 2024
+    basic_5yr: 98.0
+    basic_1yr: 98.0
+    hr_factor: 94.0
+  SDP:
+    park_id: "SDP"
+    team_id: "SDP"
+    season: 2024
+    basic_5yr: 96.0
+    basic_1yr: 99.0
+    hr_factor: 101.0
+  SFG:
+    park_id: "SFG"
+    team_id: "SFG"
+    season: 2024
+    basic_5yr: 97.0
+    basic_1yr: 97.0
+    hr_factor: 91.0
