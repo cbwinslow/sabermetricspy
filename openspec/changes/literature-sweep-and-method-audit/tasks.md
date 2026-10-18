@@ -41,8 +41,8 @@
 
 ## 9. Defects and decision record
 
-- [ ] 9.1 For every formula defect found in groups 2 to 8, write the failing test from the published value, fix the formula, and record old and new values; for source-dependent methods add the approximate label and caveat. Verify the new tests pass and the full suite stays green.
-- [ ] 9.2 Add an ADR (`docs/DECISIONS.md` and `docs/decisions/`) summarizing the audit outcome (counts by status and tier, every fix with before and after numbers, every label with its reason), and regenerate `docs/METHODOLOGY.md`. Verify the methodology consistency tests pass.
+- [x] 9.1 For every formula defect found in groups 2 to 8, write the failing test from the published value, fix the formula, and record old and new values; for source-dependent methods add the approximate label and caveat. Verify the new tests pass and the full suite stays green.
+- [x] 9.2 Add an ADR (`docs/DECISIONS.md` and `docs/decisions/`) summarizing the audit outcome (counts by status and tier, every fix with before and after numbers, every label with its reason), and regenerate `docs/METHODOLOGY.md`. Verify the methodology consistency tests pass.
 
 ## 10. Literature catalogue and sweep procedure
 
