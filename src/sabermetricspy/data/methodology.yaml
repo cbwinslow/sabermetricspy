@@ -163,10 +163,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml).
   era_minus:
-    status: approximate
+    status: matches
     evidence: golden
-    source_url: https://library.fangraphs.com/principles/park-factors/
-    note: FanGraphs evaluates ERA- against the pitcher's league ERA and its own park adjustment; the library uses the MLB-wide league ERA times the 5-year park factor / 100 (1 to 2.5 points different in the golden fixtures).
+    source_url: https://library.fangraphs.com/pitching/era-fip-xfip/
+    note: 100 x ERA x (2 - PF/100) / league ERA of the pitcher's own league (AL or NL, bundled for 1990 to 2025 from AL/NL ER and outs), the formula printed on the FanGraphs Library page. Reproduces the page's NL 2014 table (3.00 ERA with park factors 95, 98, 102 gives 86, 84, 80) and the Kershaw 2014 example (50), and seven FanGraphs leaderboard pitchers within 0.33 points (tests/golden/pitching.yaml, tests/test_game_score_and_off.py). Before this the library divided by the park factor and used the MLB-wide ERA, 0.6 to 1.0 points off.
   era_plus:
     status: approximate
     evidence: golden
@@ -190,8 +190,8 @@ metrics:
   fip_minus:
     status: approximate
     evidence: golden
-    source_url: https://library.fangraphs.com/principles/park-factors/
-    note: 'Same difference as ERA-: league-specific FIP and FanGraphs'' park adjustment versus MLB-wide values (1 to 2.5 points in the golden fixtures).'
+    source_url: https://library.fangraphs.com/pitching/era-fip-xfip/
+    note: Same page, with FIP and the league FIP. The library still divides by the park factor and uses the MLB-wide FIP, and the fixtures show a 1 to 2.5 point residual (tests/golden/pitching.yaml); applying the ERA- formula leaves a similar gap, so the cause is unresolved (Guts! publishes a separate FIP park factor column that is not bundled).
   foul_pct:
     status: approximate
     evidence: secondary

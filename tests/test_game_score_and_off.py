@@ -74,3 +74,23 @@ def test_off_equals_wraa_plus_bsr_in_a_neutral_park_when_league_constants_agree(
     w = get_woba_weights(2024)
     league_term = (w.lg_r_per_pa - (w.wrc_per_pa_for("MLB") or w.lg_r_per_pa)) * 500
     assert row["off"] == pytest.approx(row["wraa"] + league_term + row["bsr"], abs=1e-9)
+
+
+def _era_minus(er: int, outs: int, park_factor: float, lg_era: float) -> float:
+    weights = get_woba_weights(2014).model_copy(update={"lg_era_nl": lg_era})
+    frame = pl.DataFrame({"player_id": ["x"], "er": [er], "outs": [outs]})
+    ctx = SeasonContext(season=2014, league="NL", park_factor=park_factor, weights=weights)
+    return sp.calculate(frame, [Metric.ERA_MINUS], context=ctx).df["era_minus"][0]
+
+
+@pytest.mark.parametrize(("park_factor", "published"), [(95.0, 86), (98.0, 84), (102.0, 80)])
+def test_era_minus_reproduces_the_fangraphs_library_table(
+    park_factor: float, published: int
+) -> None:
+    """FanGraphs Library (ERA-, FIP-, xFIP-): a 3.00 ERA in the NL (3.66 in 2014) with park factors 95, 98, 102."""
+    assert round(_era_minus(10, 90, park_factor, 3.66)) == published
+
+
+def test_era_minus_reproduces_the_kershaw_2014_example() -> None:
+    """ERA 1.77, park factor 96 and NL ERA 3.66 give 50 (100 x 1.77 x 1.04 / 3.66 = 50.3)."""
+    assert round(_era_minus(59, 900, 96.0, 3.66)) == 50  # ERA = 27 * 59 / 900 = 1.77

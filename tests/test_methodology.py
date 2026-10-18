@@ -104,7 +104,6 @@ def test_woba_links_the_fangraphs_library() -> None:
         "kwera",
         "siera",
         "bsr",
-        "era_minus",
         "fip_minus",
         "pythagenpat_win_pct",
         "barrel_pct",

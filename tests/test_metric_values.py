@@ -121,7 +121,7 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (
         Metric.ERA_MINUS,
         dict(er=10, outs=180),
-        100 * (9 * 10 / 60) / (W.lg_era * 1.10),
+        100 * (9 * 10 / 60) * (2 - 1.10) / W.lg_era,
         dict(park_factor=110.0),
     ),
     (

@@ -4,6 +4,7 @@
 # lg_wrc_per_pa*: wRC/PA of non-pitchers (MLB, NL, AL), the wRC+ denominator; from tests/golden/np_wrc_snapshot.yaml.
 # Fields with no published source for a season are omitted (lg_xfip and lg_hr_per_fb before 2002), never defaulted.
 # lg_wsb: league stolen-base runs per opportunity, (lgSB*r_sb + lgCS*r_cs)/(lg1B + lgBB + lgHBP - lgIBB), from tests/golden/league_sbcs_snapshot.yaml.
+# lg_era_al / lg_era_nl: 27 * ER / outs for all AL / NL pitchers, from tests/golden/league_war_totals_snapshot.yaml.
 seasons:
   2025:
     season: 2025
@@ -43,6 +44,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0065905379554892
+    lg_era_al: 4.094260584607299
+    lg_era_nl: 4.222881671108907
   2024:
     season: 2024
     league: MLB
@@ -81,6 +84,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.007892754239289595
+    lg_era_al: 4.01968522215516
+    lg_era_nl: 4.13809244268677
   2023:
     season: 2023
     league: MLB
@@ -119,6 +124,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.007706677704194261
+    lg_era_al: 4.280258909675127
+    lg_era_nl: 4.38333152536069
   2022:
     season: 2022
     league: MLB
@@ -157,6 +164,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.004142526181414151
+    lg_era_al: 3.8832642711361247
+    lg_era_nl: 4.053555383423703
   2021:
     season: 2021
     league: MLB
@@ -195,6 +204,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0034279655997536077
+    lg_era_al: 4.326036722458157
+    lg_era_nl: 4.205511230935624
   2020:
     season: 2020
     league: MLB
@@ -233,6 +244,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0031668989988594604
+    lg_era_al: 4.42518639129317
+    lg_era_nl: 4.481662909658401
   2019:
     season: 2019
     league: MLB
@@ -271,6 +284,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0021841989181157566
+    lg_era_al: 4.616870543398083
+    lg_era_nl: 4.394260560139881
   2018:
     season: 2018
     league: MLB
@@ -309,6 +324,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.002439338620032094
+    lg_era_al: 4.27009017881875
+    lg_era_nl: 4.029899977093991
   2017:
     season: 2017
     league: MLB
@@ -347,6 +364,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0025337161231051915
+    lg_era_al: 4.375870677433274
+    lg_era_nl: 4.340541623637849
   2016:
     season: 2016
     league: MLB
@@ -385,6 +404,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.002237628330834008
+    lg_era_al: 4.207857109805192
+    lg_era_nl: 4.172003195771748
   2015:
     season: 2015
     league: MLB
@@ -423,6 +444,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.00196331305568554
+    lg_era_al: 4.012476376319469
+    lg_era_nl: 3.9111452256677923
   2014:
     season: 2014
     league: MLB
@@ -461,6 +484,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.003771862676873117
+    lg_era_al: 3.8194537892225826
+    lg_era_nl: 3.662709145083658
   2013:
     season: 2013
     league: MLB
@@ -499,6 +524,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.003484539866042757
+    lg_era_al: 3.9931670182518575
+    lg_era_nl: 3.738442525403558
   2012:
     season: 2012
     league: MLB
@@ -537,6 +564,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.004494697022441923
+    lg_era_al: 4.087157998521075
+    lg_era_nl: 3.9510482437762784
   2011:
     season: 2011
     league: MLB
@@ -575,6 +604,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.00363276126054069
+    lg_era_al: 4.083056696795398
+    lg_era_nl: 3.819695405265875
   2010:
     season: 2010
     league: MLB
@@ -613,6 +644,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0030606935123042517
+    lg_era_al: 4.139634960676658
+    lg_era_nl: 4.025149787049736
   2009:
     season: 2009
     league: MLB
@@ -651,6 +684,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0025779562266785966
+    lg_era_al: 4.464011896893589
+    lg_era_nl: 4.197515008081274
   2008:
     season: 2008
     league: MLB
@@ -689,6 +724,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0026808009936155858
+    lg_era_al: 4.356173867176554
+    lg_era_nl: 4.295507593003487
   2007:
     season: 2007
     league: MLB
@@ -727,6 +764,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.003227304077937754
+    lg_era_al: 4.5150904435450565
+    lg_era_nl: 4.436637893951994
   2006:
     season: 2006
     league: MLB
@@ -765,6 +804,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.001441749901862432
+    lg_era_al: 4.564186670642612
+    lg_era_nl: 4.4943596836236335
   2005:
     season: 2005
     league: MLB
@@ -803,6 +844,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0014460366124588997
+    lg_era_al: 4.361298315163528
+    lg_era_nl: 4.229376635770782
   2004:
     season: 2004
     league: MLB
@@ -841,6 +884,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0008793122211339665
+    lg_era_al: 4.636902410114579
+    lg_era_nl: 4.314136351853452
   2003:
     season: 2003
     league: MLB
@@ -879,6 +924,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0006614664586583473
+    lg_era_al: 4.530111744734153
+    lg_era_nl: 4.286134629530801
   2002:
     season: 2002
     league: MLB
@@ -917,6 +964,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0002561375520694864
+    lg_era_al: 4.466078159095417
+    lg_era_nl: 4.114563947197576
   2001:
     season: 2001
     league: MLB
@@ -953,6 +1002,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.00028396159317212096
+    lg_era_al: 4.480631276901004
+    lg_era_nl: 4.362249541337417
   2000:
     season: 2000
     league: MLB
@@ -989,6 +1040,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: -0.000492339544513457
+    lg_era_al: 4.921602700958244
+    lg_era_nl: 4.6372529216563265
   1999:
     season: 1999
     league: MLB
@@ -1025,6 +1078,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: -0.00017454785424099198
+    lg_era_al: 4.872005180228793
+    lg_era_nl: 4.566848695301356
   1998:
     season: 1998
     league: MLB
@@ -1061,6 +1116,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0001420229717879088
+    lg_era_al: 4.655387561072231
+    lg_era_nl: 4.237048192771084
   1997:
     season: 1997
     league: MLB
@@ -1097,6 +1154,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: -0.00027461836409204825
+    lg_era_al: 4.572109910058586
+    lg_era_nl: 4.206822782102128
   1996:
     season: 1996
     league: MLB
@@ -1133,6 +1192,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0009771221346704865
+    lg_era_al: 4.999095617857437
+    lg_era_nl: 4.222977968357238
   1995:
     season: 1995
     league: MLB
@@ -1169,6 +1230,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0009508944407844732
+    lg_era_al: 4.720293724966623
+    lg_era_nl: 4.1839831634913605
   1994:
     season: 1994
     league: MLB
@@ -1205,6 +1268,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: -0.00014652865112379422
+    lg_era_al: 4.806971514242878
+    lg_era_nl: 4.219670760872089
   1993:
     season: 1993
     league: MLB
@@ -1241,6 +1306,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: -0.0009489218886487972
+    lg_era_al: 4.3352563996901115
+    lg_era_nl: 4.0463396598471775
   1992:
     season: 1992
     league: MLB
@@ -1277,6 +1344,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0010855368234250241
+    lg_era_al: 3.949481036942299
+    lg_era_nl: 3.5089045922934803
   1991:
     season: 1991
     league: MLB
@@ -1313,6 +1382,8 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0001276557983875049
+    lg_era_al: 4.102148954960259
+    lg_era_nl: 3.6874412898031173
   1990:
     season: 1990
     league: MLB
@@ -1349,3 +1420,5 @@ seasons:
     source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn); league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
     retrieved: '2026-10-18'
     lg_wsb: 0.0016472184187839131
+    lg_era_al: 3.9166432688655095
+    lg_era_nl: 3.797522246087757

@@ -28,6 +28,12 @@ class WOBAWeights(BaseModel):
     lg_era: float | None = Field(
         default=None, description="League average ERA (None when unsourced)"
     )
+    lg_era_nl: float | None = Field(
+        default=None, description="NL ERA, all pitchers (27 ER / outs; None when unsourced)"
+    )
+    lg_era_al: float | None = Field(
+        default=None, description="AL ERA, all pitchers (27 ER / outs; None when unsourced)"
+    )
     lg_fip: float | None = Field(
         default=None, description="League average FIP (None when unsourced)"
     )
@@ -101,6 +107,15 @@ class WOBAWeights(BaseModel):
         if key == "AL" and self.lg_wrc_per_pa_al is not None:
             return self.lg_wrc_per_pa_al
         return self.lg_wrc_per_pa
+
+    def era_for(self, league: str) -> float | None:
+        """League ERA for `league` ("AL", "NL", otherwise the MLB-wide `lg_era`); None when unsourced."""
+        key = league.upper()
+        if key == "NL" and self.lg_era_nl is not None:
+            return self.lg_era_nl
+        if key == "AL" and self.lg_era_al is not None:
+            return self.lg_era_al
+        return self.lg_era
 
     def bb_pct_for(self, league: str) -> float:
         """Walk rate for `league` ("AL", "NL", otherwise the MLB-wide `lg_bb_pct`)."""

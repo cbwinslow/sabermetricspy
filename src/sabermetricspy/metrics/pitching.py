@@ -494,16 +494,21 @@ def calc_era_plus(ctx: EvalContext) -> nw.Expr:
         required_columns=("er", "outs"),
         requires=(Metric.ERA,),
         direction=Direction.LOWER_IS_BETTER,
-        formula_latex=r"ERA^- = 100 \times \frac{ERA}{lgERA \times PF}",
-        citation="FanGraphs Library (ERA-)",
+        formula_latex=r"ERA^- = 100 \times \frac{ERA + (ERA - ERA \times PF/100)}{lgERA}",
+        citation="FanGraphs Library (ERA-, FIP-, xFIP-)",
         description="Park- and league-adjusted ERA where 100 is league average and lower is better.",
+        caveats=(
+            "Uses the AL/NL league ERA (SeasonContext.league) when the season has it, otherwise the MLB-wide ERA.",
+            "Park factor defaults to 100 (no park adjustment); pass the pitcher's home park factor.",
+        ),
     )
 )
 def calc_era_minus(ctx: EvalContext) -> nw.Expr:
-    if ctx.weights.lg_era is None:
+    league_era = ctx.weights.era_for(ctx.season_context.league)
+    if league_era is None:
         return missing_constant()
     pf = ctx.season_context.park_factor / 100.0
-    return safe_div(100.0 * nw.col("era"), ctx.weights.lg_era * pf)
+    return safe_div(100.0 * nw.col("era") * (2.0 - pf), league_era)
 
 
 @register_metric(
