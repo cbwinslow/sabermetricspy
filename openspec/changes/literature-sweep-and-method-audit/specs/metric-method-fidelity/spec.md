@@ -29,7 +29,7 @@ Each audit entry SHALL record an evidence tier of golden (a published value repr
 - **THEN** the consistency test fails and names it
 
 ### Requirement: Models without a published reference are explained
-A non-metric model MAY remain unverified only when its audit entry states that no published reference table or formula exists to compare against.
+A non-metric model SHALL be left unverified only when its audit entry states that no published reference table or formula exists to compare against, and otherwise it MUST be audited.
 
 #### Scenario: Unverified model with a reason
 - **WHEN** a model entry is unverified
