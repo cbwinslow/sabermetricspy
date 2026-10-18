@@ -69,9 +69,20 @@ print(re24.results.matrix_df)
 
 ---
 
+## Accuracy and Provenance
+
+- Seasonal constants (wOBA weights, cFIP, league run environment, non-pitcher wRC/PA) are FanGraphs Guts! and
+  leaderboard values for 1990-2025, with source and retrieval date; values with no published source are absent,
+  not defaulted.
+- Park-adjusted metrics (`wRC+`, `OPS+`, `ERA+`/`ERA-`/`FIP-`) use a park factor of `100` (no adjustment) unless you
+  pass the published one: `SeasonContext(season=2001, league="NL", park_factor=96.0)`.
+- Every metric reports a `reference_status` (`matches`, `approximate`, `divergent`, `unverified`) against its
+  published method; see [Methodology Audit](docs/METHODOLOGY.md). Published-value tests live in `tests/golden/`.
+
 ## Documentation
 
 - [Architecture Overview](docs/ARCHITECTURE.md)
+- [Methodology Audit](docs/METHODOLOGY.md)
 - [Naming Conventions & Baseball Nomenclature](docs/NAMING_CONVENTIONS.md)
 - [Architecture Decision Records (ADRs)](docs/DECISIONS.md)
 - [OpenSpec Project Constitution](openspec/project.md)

@@ -60,6 +60,25 @@ def _safe_row_count(nw_df: nw.DataFrame[Any] | nw.LazyFrame[Any]) -> int:
     return 0
 
 
+_BOX_DRAWING = str.maketrans(
+    {
+        **dict.fromkeys("─━╌╍┄┅┈┉", "-"),
+        **dict.fromkeys("│┃╎╏┆┇┊┋", "|"),
+        **dict.fromkeys("═║", "="),
+        **dict.fromkeys(
+            "┌┐└┘├┤┬┴┼╞╡╪"
+            "╭╮╯╰╔╗╚╝",
+            "+",
+        ),
+    }
+)
+
+
+def _ascii_safe(text: str) -> str:
+    """Replace box-drawing characters (polars/DuckDB tables) so printing never fails on a legacy console."""
+    return text.translate(_BOX_DRAWING).encode("ascii", "replace").decode("ascii")
+
+
 @dataclass(frozen=True)
 class CalculationResult:
     """Immutable result container returned by calculate(), calculate_suite(), calculate_available(), and calculate_rolling().
@@ -77,6 +96,15 @@ class CalculationResult:
     context: SeasonContext
     requested_metrics: tuple[str, ...]
     profile: ExecutionProfile
+
+    def __repr__(self) -> str:
+        """Compact, ASCII-only representation: safe to print on cp1252 and other legacy consoles."""
+        p = self.profile
+        header = (
+            f"CalculationResult(metrics={list(self.requested_metrics)}, season={self.context.season}, "
+            f"rows={p.rows_out:,}, backend={p.backend})"
+        )
+        return f"{header}\n{_ascii_safe(repr(self.df))}"
 
     def to_polars(self) -> Any:
         """Convert the result dataframe to a Polars DataFrame."""

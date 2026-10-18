@@ -75,7 +75,28 @@ Lower layers never import from higher layers.
 
 ---
 
-## 3. Data Flow Diagram
+## 3. Constants Provenance & Park Factors
+
+Seasonal constants are bundled FanGraphs data (`data/constants/woba_fangraphs.yaml`, 1990-2025). Each entry records
+its source and retrieval date; league ERA/FIP/xFIP/HR-FB and non-pitcher wRC/PA are optional and absent when
+unpublished (xFIP is null before 2002). Requesting an unbundled season returns the nearest season and emits a
+`UserWarning`. Park factor is a caller input (`SeasonContext.park_factor`, 100 = no adjustment):
+
+```python
+import polars as pl
+import sabermetricspy as sp
+from sabermetricspy import Metric
+from sabermetricspy.types.context import SeasonContext
+
+df = pl.DataFrame({"player_id": ["x"], "pa": [664], "ab": [476], "h": [156], "b2": [32], "b3": [2],
+                   "hr": [73], "bb": [177], "ibb": [35], "hbp": [9], "sf": [2], "so": [93]})
+ctx = SeasonContext(season=2001, league="NL", park_factor=96.0)  # FanGraphs 5-year park factor
+print(sp.calculate(df, [Metric.WRC_PLUS], context=ctx).df["wrc_plus"][0])  # ~234.4 (FanGraphs: 234.59)
+```
+
+---
+
+## 4. Data Flow Diagram
 
 ```mermaid
 flowchart LR

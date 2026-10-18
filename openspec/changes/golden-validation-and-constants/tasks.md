@@ -34,9 +34,9 @@
 
 ## 5. Encoding, decisions, and final checks
 
-- [ ] 5.1 Reproduce the Windows `UnicodeEncodeError` by printing a result with a non-cp1252 character; fix in the library if it originates there, otherwise document it. Verify the reproduction no longer fails or the limitation is documented.
-- [ ] 5.2 Add an ADR to `docs/DECISIONS.md` and `docs/decisions/` covering the audit findings, the constants snapshot, the walk-term change, the wRC+ denominator, reference status, and the old/new numeric values; update `README.md` and `docs/ARCHITECTURE.md` (constants provenance, park factor). Verify the documented snippets run as written.
-- [ ] 5.3 Record the follow-on changes as proposals or notes: FanGraphs-method pitcher WAR, and the literature sweep (`baseballr`, OpenAlex/arXiv, Tango, Retrosheet research). Verify `openspec list` or the ADR references them.
+- [x] 5.1 Reproduce the Windows `UnicodeEncodeError` by printing a result with a non-cp1252 character; fix in the library if it originates there, otherwise document it. Verify the reproduction no longer fails or the limitation is documented.
+- [x] 5.2 Add an ADR to `docs/DECISIONS.md` and `docs/decisions/` covering the audit findings, the constants snapshot, the walk-term change, the wRC+ denominator, reference status, and the old/new numeric values; update `README.md` and `docs/ARCHITECTURE.md` (constants provenance, park factor). Verify the documented snippets run as written.
+- [x] 5.3 Record the follow-on changes as proposals or notes: FanGraphs-method pitcher WAR, and the literature sweep (`baseballr`, OpenAlex/arXiv, Tango, Retrosheet research). Verify `openspec list` or the ADR references them.
 - [ ] 5.4 Run the full gate: `uv run ruff check .`, `uv run ruff format --check .`, `uv run pyright`, `uv run pytest`, `openspec validate --all`. Verify all are clean.
 
 ## Workflow follow-up
