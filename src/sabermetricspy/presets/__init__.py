@@ -288,6 +288,10 @@ class SourceTranslator(BaseModel):
                 [
                     nw.when(has_brk).then(pz * 12.0).otherwise(0.0).alias("ivb_sum"),
                     nw.when(has_brk).then(px * 12.0).otherwise(0.0).alias("hb_sum"),
+                    nw.when(has_brk)
+                    .then(((px * 12.0) ** 2.0 + (pz * 12.0) ** 2.0) ** 0.5)
+                    .otherwise(0.0)
+                    .alias("total_break_sum"),
                     nw.when(has_brk).then(1).otherwise(0).alias("break_count"),
                 ]
             )

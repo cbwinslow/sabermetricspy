@@ -215,8 +215,8 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (Metric.HB, dict(hb_sum=-100.0, break_count=20), -5.0, {}),
     (
         Metric.TOTAL_BREAK,
-        dict(ivb_sum=300.0, hb_sum=-100.0, break_count=20),
-        math.sqrt(15.0**2 + 5.0**2),
+        dict(total_break_sum=400.0, break_count=20),
+        20.0,
         {},
     ),
     (Metric.EFFECTIVE_VELO, dict(eff_velo_sum=1900.0, eff_velo_count=20), 95.0, {}),

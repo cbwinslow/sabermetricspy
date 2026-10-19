@@ -654,6 +654,7 @@ def test_all_registered_metrics_and_suites_audit() -> None:
             "ext_count": [2900, 2800],
             "ivb_sum": [49300.0, 42000.0],
             "hb_sum": [-26100.0, 22400.0],
+            "total_break_sum": [55781.0, 47600.0],
             "break_count": [2900, 2800],
             "eff_velo_sum": [281300.0, 266000.0],
             "eff_velo_count": [2900, 2800],

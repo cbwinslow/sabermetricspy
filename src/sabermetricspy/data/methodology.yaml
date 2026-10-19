@@ -546,7 +546,7 @@ metrics:
     status: approximate
     evidence: secondary
     source_url: https://baseballsavant.mlb.com/leaderboard/pitch-movement
-    note: Magnitude of the mean IVB and HB vectors, sqrt(IVB^2 + HB^2). A library-defined combination; no published total-break definition was found, and the magnitude of the means is not the mean of per-pitch magnitudes.
+    note: Mean over pitches of sqrt(IVB^2 + HB^2), summed per pitch by the statcast preset (total_break_sum) so opposite-direction breaks do not cancel (ADR-0040). The geometry is standard, but no published total-break definition was found, so it is checked by hand-computed tests only.
   two_strike_chase_pct:
     status: approximate
     evidence: secondary

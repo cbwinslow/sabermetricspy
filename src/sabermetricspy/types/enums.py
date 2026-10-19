@@ -253,6 +253,7 @@ class Stat(StrEnum):
     IVB_SUM = "ivb_sum"
     HB_SUM = "hb_sum"
     BREAK_COUNT = "break_count"
+    TOTAL_BREAK_SUM = "total_break_sum"
     EFF_VELO_SUM = "eff_velo_sum"
     EFF_VELO_COUNT = "eff_velo_count"
     VAA_SUM = "vaa_sum"

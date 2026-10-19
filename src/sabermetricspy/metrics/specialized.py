@@ -1003,16 +1003,15 @@ def calc_hb(ctx: EvalContext) -> nw.Expr:
         display_name="Total Break",
         category=Category.PITCH_PHYSICS,
         kind=ImplKind.DETERMINISTIC,
-        required_columns=("ivb_sum", "hb_sum", "break_count"),
-        requires=(Metric.IVB, Metric.HB),
+        required_columns=("total_break_sum", "break_count"),
         direction=Direction.HIGHER_IS_BETTER,
-        formula_latex=r"Break_{total} = \sqrt{IVB^2 + HB^2}",
+        formula_latex=r"Break_{total} = \frac{\sum \sqrt{IVB_i^2 + HB_i^2}}{N_{break}}",
         citation="Nathan, A. M. (2008); PitchingBot / Stuff+ Literature",
-        description="Euclidean magnitude of mean Induced Vertical Break and Horizontal Break in inches.",
+        description="Mean per-pitch magnitude of Induced Vertical Break and Horizontal Break in inches.",
     )
 )
 def calc_total_break(ctx: EvalContext) -> nw.Expr:
-    return (nw.col("ivb") ** 2.0 + nw.col("hb") ** 2.0) ** 0.5
+    return safe_div(nw.col("total_break_sum"), nw.col("break_count"))
 
 
 @register_metric(
