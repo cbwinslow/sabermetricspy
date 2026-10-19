@@ -40,9 +40,10 @@ import polars as pl
 import sabermetricspy as sp
 from sabermetricspy import Metric, MetricSuite, SeasonContext
 
-# 1. Compute specific metrics with full provenance
+# 1. Compute specific metrics with full provenance.
+# One call uses one season's constants, so pass a single season's rows (several seasons raise an error).
 res = sp.calculate(
-    batting_df,
+    batting_df,  # rows for 2024 only
     metrics=[
         Metric.AVG,
         Metric.OBP,

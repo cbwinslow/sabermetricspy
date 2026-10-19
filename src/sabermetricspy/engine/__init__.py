@@ -60,6 +60,56 @@ def _safe_row_count(nw_df: nw.DataFrame[Any] | nw.LazyFrame[Any]) -> int:
     return 0
 
 
+class _ContextProbe:
+    """Stands in for `EvalContext` and records whether a builder reads the season constants."""
+
+    def __init__(self, real: EvalContext) -> None:
+        self._real = real
+        self.used = False
+
+    @property
+    def season_context(self) -> SeasonContext:
+        self.used = True
+        return self._real.season_context
+
+    @property
+    def weights(self) -> Any:
+        self.used = True
+        return self._real.weights
+
+    @property
+    def available_columns(self) -> frozenset[str]:
+        return self._real.available_columns
+
+
+def _reject_mixed_seasons(
+    nw_df: nw.DataFrame[Any] | nw.LazyFrame[Any],
+    dag: Sequence[Any],
+    eval_ctx: EvalContext,
+) -> None:
+    """Raise when a frame holds several seasons and a requested metric reads one season's constants."""
+    season_col = next((c for c in nw_df.columns if c.lower() == "season"), None)
+    if season_col is None:
+        return
+    counts = nw_df.select(nw.col(season_col).n_unique())
+    if isinstance(counts, nw.LazyFrame):
+        counts = counts.collect()
+    if counts.item() <= 1:
+        return
+    dependent: list[str] = []
+    for reg in dag:
+        probe = _ContextProbe(eval_ctx)
+        reg.builder(probe)
+        if probe.used:
+            dependent.append(reg.spec.name)
+    if dependent:
+        raise ValueError(
+            f"Column {season_col!r} holds more than one season, but one call applies a single "
+            f"season's constants to every row (metrics affected: {', '.join(dependent)}). "
+            "Calculate each season separately with context=SeasonContext(season=...)."
+        )
+
+
 _BOX_DRAWING = str.maketrans(
     {
         **dict.fromkeys("─━╌╍┄┅┈┉", "-"),
@@ -212,6 +262,16 @@ def calculate(
         if missing_by_metric:
             details = ", ".join(f"{m} (missing {cols})" for m, cols in missing_by_metric.items())
             raise ValueError(f"Missing required input columns for requested metrics: {details}")
+
+    _reject_mixed_seasons(
+        nw_df,
+        dag,
+        EvalContext(
+            season_context=resolved_ctx,
+            weights=resolved_ctx.weights,
+            available_columns=frozenset(available_cols | {r.spec.name for r in dag}),
+        ),
+    )
 
     # Stage 1: Optional additive grouping (`by=...`)
     t_agg_0 = time.perf_counter_ns()
