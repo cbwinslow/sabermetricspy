@@ -931,7 +931,6 @@ def test_decorator_telemetry_and_benchmark_registry() -> None:
     assert "custom.quick_avg" in entries
     assert "engine.calculate_suite" in entries
     assert "expectancy.wpa_transform" in entries
-    assert "modeling.pitch_quality_plus" in entries
     assert "uncertainty.empirical_bayes" in entries
 
     reg_res = sp.run_registered_benchmarks(repeats=1, category="custom_test")
@@ -944,7 +943,7 @@ def test_decorator_telemetry_and_benchmark_registry() -> None:
 
 
 def test_advanced_metrics_and_modeled_estimators() -> None:
-    """Verify 105+ metrics, vectorized Position-Player WAR, EmpiricalBayesShrinker, ExpectedOutcomeModel, PitchQualityModel, CatcherFramingModel, and OutsAboveAverageModel."""
+    """Verify 105+ metrics, vectorized Position-Player WAR, and EmpiricalBayesShrinker."""
     with sp.telemetry.session() as tracker:
         # 1. Mathematical identities on newly added metrics (GPA, ERR_PCT, BAUER_UNITS, CLUTCH, QERA, DIPS_BOP_PCT)
         df_ident = pl.DataFrame(
@@ -1041,84 +1040,6 @@ def test_advanced_metrics_and_modeled_estimators() -> None:
         assert eb_out["eb_shrinkage"][0] > 0.95  # 300 / 310
         assert eb_out["eb_ci_lower"][1] < eb_out["eb_rate"][1] < eb_out["eb_ci_upper"][1]
 
-        # 4. ExpectedOutcomeModel (open xBA, xSLG, xwOBA)
-        bbe_train = pl.DataFrame(
-            {
-                "launch_speed": [78.0, 82.0, 88.0, 95.0, 102.0, 108.0, 111.0, 85.0, 99.0, 106.0]
-                * 3,
-                "launch_angle": [-8.0, 45.0, 12.0, 16.0, 22.0, 28.0, 26.0, 5.0, 18.0, 29.0] * 3,
-                "sprint_speed": [27.0, 26.5, 28.0, 27.5, 28.2, 27.0, 27.5, 26.8, 28.5, 27.2] * 3,
-                "b1": [0, 0, 1, 1, 0, 0, 0, 0, 1, 0] * 3,
-                "b2": [0, 0, 0, 0, 1, 0, 0, 0, 0, 0] * 3,
-                "b3": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] * 3,
-                "hr": [0, 0, 0, 0, 0, 1, 1, 0, 0, 1] * 3,
-            }
-        )
-        x_model = sp.ExpectedOutcomeModel(n_neighbors=5, season=2024).fit(bbe_train)
-        x_pred = x_model.transform(bbe_train)
-        assert x_model.results.n_batted_balls_fitted == 30
-        # Barrel (108 mph, 28 deg) has much higher xwoba_est than weak grounder (78 mph, -8 deg)
-        assert x_pred["xwoba_est"][5] > x_pred["xwoba_est"][0] + 0.80
-
-        # 5. PitchQualityModel (Stuff+, Location+, Pitching+)
-        idx = pl.int_range(0, 120, eager=True).cast(pl.Float64)
-        pitches_train = pl.DataFrame(
-            {
-                "release_speed": 91.0 + (idx % 7.0),
-                "ivb": 11.0 + (idx % 11.0),
-                "hb": -8.0 + (idx % 13.0),
-                "release_extension": 6.0 + (idx % 5.0) * 0.2,
-                "spin_rate": 2150.0 + (idx % 17.0) * 25.0,
-                "vaa": -5.2 + (idx % 19.0) * 0.1,
-                "haa": -2.0 + (idx % 23.0) * 0.15,
-                "plate_x": -0.7 + (idx % 29.0) * 0.05,
-                "plate_z": 1.7 + (idx % 31.0) * 0.05,
-                "balls": (idx % 4).cast(pl.Int64),
-                "strikes": (idx % 3).cast(pl.Int64),
-            }
-        ).with_columns(
-            (
-                -0.018 * (pl.col("release_speed") - 94.5)
-                - 0.009 * (pl.col("ivb") - 14.5)
-                + 0.012 * (pl.col("plate_x").abs() - 0.5)
-            ).alias("pitch_rv")
-        )
-        pq_model = sp.PitchQualityModel().fit(pitches_train)
-        pq_out = pq_model.transform(pitches_train)
-        assert pq_model.results.stuff_r_squared > 0.50
-        assert math.isclose(float(pq_out["stuff_plus"].mean()), 100.0, abs_tol=1e-6)
-        assert math.isclose(float(pq_out["stuff_plus"].std()), 10.0, abs_tol=1e-5)
-        assert math.isclose(float(pq_out["pitching_plus"].mean()), 100.0, abs_tol=1e-6)
-
-        # 6. CatcherFramingModel & OutsAboveAverageModel
-        framing_df = pl.DataFrame(
-            {
-                "plate_x": [0.0, 0.2, -0.2, 0.78, -0.80, 1.35, -1.40, 0.82] * 10,
-                "plate_z": [2.5, 2.4, 2.6, 2.5, 2.5, 1.1, 3.9, 2.2] * 10,
-                "balls": [1, 0, 2, 1, 2, 3, 0, 1] * 10,
-                "strikes": [1, 1, 1, 2, 1, 0, 2, 2] * 10,
-                "called_strikes": [1, 1, 1, 1, 0, 0, 0, 1] * 10,
-            }
-        )
-        cf_model = sp.CatcherFramingModel().fit(framing_df)
-        cf_out = cf_model.transform(framing_df)
-        assert cf_model.results.n_taken_pitches_fitted == 80
-        # Heart pitch (0.0, 2.5) has higher cs_prob than way outside (1.35, 1.1)
-        assert cf_out["cs_prob"][0] > cf_out["cs_prob"][5]
-
-        oaa_df = pl.DataFrame(
-            {
-                "opportunity_distance": [15.0, 25.0, 45.0, 65.0, 85.0, 95.0] * 10,
-                "hang_time": [4.8, 4.5, 4.2, 3.8, 3.4, 3.1] * 10,
-                "sprint_speed": [27.5, 28.0, 27.8, 28.5, 27.0, 26.5] * 10,
-                "is_out": [1, 1, 1, 1, 0, 0] * 10,
-            }
-        )
-        oaa_model = sp.OutsAboveAverageModel().fit(oaa_df)
-        oaa_out = oaa_model.transform(oaa_df)
-        assert oaa_model.results.n_opportunities_fitted == 60
-        assert oaa_out["catch_prob"][0] > oaa_out["catch_prob"][5]
-
-        # 7. Verify @profiled spans were automatically recorded for all new estimators
+        # 4. Verify @profiled spans were automatically recorded for all new estimators
         cats = {s.category for s in tracker.spans}
-        assert {"engine", "valuation", "uncertainty", "modeling"}.issubset(cats)
+        assert {"engine", "valuation", "uncertainty"}.issubset(cats)

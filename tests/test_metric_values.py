@@ -163,12 +163,6 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
         {},
     ),
     (Metric.DIPS_BOP_PCT, dict(hr=5, bb=15, so=60, bf=300, hbp=2), (5 + 15 + 2 + 60) / 300, {}),
-    (
-        Metric.XERA,
-        dict(xwoba_sum=32.0, xwoba_count=100, bf=300, outs=180),
-        W.lg_era + (0.32 - W.lg_woba) / W.woba_scale * 9 * (3 * 300 / 180),
-        {},
-    ),
     # ---- plate discipline ----
     (Metric.SWING_PCT, dict(swings=50, pitches=100), 0.5, {}),
     (Metric.Z_SWING_PCT, dict(zone_swings=30, zone_pitches=40), 0.75, {}),

@@ -57,3 +57,20 @@ section. The stated wishes, and how the repository stands against each:
 
 No methodology ADR contradicts a stated wish. Forecast evaluation is now met (ADR-0039); the remaining gap worth a change is
 the rating systems (Elo, Bradley-Terry), which are published, well-defined methods.
+
+## Follow-up (2026-10-19): independent review and fixes
+An independent read-only review of the repository (model: Opus) was checked claim by claim before any change. Confirmed and fixed:
+
+| Finding | How it was checked | ADR |
+|---|---|---|
+| One call applied one season's constants to every row (2001 wRC+ came back as the 2024 value, 158.6 for both) | Reproduced | 0041 |
+| Marcel regressed 4,800 PA instead of 1,200 (.0358 against Tango's .0386 HR/PA for Beltran) | Tango's worked example | 0042 |
+| Game Score, Game Score 2.0, Shutdown and Meltdown were evaluated on grouped sums | Read the engine, tests | 0043 |
+| Barrels approximated (28) where Statcast labels them (32 = FanGraphs) | Counted `launch_speed_angle == 6` on the sample | 0044 |
+| FIP- and xFIP- not in the printed form | FanGraphs Library page; own-league FIP derived and checked against the published MLB FIP in 36 seasons. The printed form is no closer to the 7 fixtures. | 0045 |
+| Invalid innings (6.5) became 18 outs, divide-by-zero returned NaN, two sacrifice double-play events were dropped | Reproduced; the event values rest on secondary evidence | 0046 |
+| Five pieces with no public method (Stuff+, expected outcomes, framing, OAA, xERA); two failed on real data | Ran them on the Skubal sample | 0047 |
+
+Not yet acted on: the remaining models without a public method (`WinProbabilityModel`, `CountExpectancyMatrix` defaults),
+the Empirical Bayes clamps, unused dependencies (pandas, pyarrow, rich), the missing LICENSE, CHANGELOG and CI, and the
+silent default constants in `SeasonContext`.

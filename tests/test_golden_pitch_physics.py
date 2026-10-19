@@ -18,7 +18,6 @@ from golden_loader import GOLDEN_DIR
 import sabermetricspy as sp
 from sabermetricspy import Metric
 from sabermetricspy.presets import prepare_statcast_pitches
-from sabermetricspy.types.context import SeasonContext
 
 REF: dict[str, Any] = yaml.safe_load(
     (GOLDEN_DIR / "pitch_arsenal.yaml").read_text(encoding="utf-8")
@@ -114,24 +113,6 @@ def test_barrels_come_from_statcasts_launch_speed_angle(raw: pl.DataFrame) -> No
     row = _calc(raw, [Metric.BARREL_PCT])
     assert row["barrels"] == ref["barrels"]
     assert row["barrel_pct"] == pytest.approx(ref["barrel_pct"], abs=1e-8)
-
-
-def test_season_xera_is_close_to_savant_but_not_equal(raw: pl.DataFrame) -> None:
-    """Savant publishes no xERA formula; the library's xwOBA-to-ERA translation lands a few hundredths low."""
-    prepared = prepare_statcast_pitches(raw)
-    season = prepared.select(
-        pl.col("xwoba_sum").cast(pl.Float64).sum(),
-        pl.col("xwoba_count").cast(pl.Float64).sum(),
-        pl.col("pa")
-        .cast(pl.Float64)
-        .sum()
-        .alias("bf"),  # the preset derives PA, which equals BF here
-        pl.lit(576).alias("outs"),  # 192.0 IP, from the FanGraphs leaderboard
-    ).with_columns(pl.lit("p").alias("player_id"))
-    ctx = SeasonContext(season=2024)
-    got = sp.calculate(season, [Metric.XERA], context=ctx).df.row(0, named=True)["xera"]
-    assert got == pytest.approx(REF["season"]["xera"], abs=0.1)
-    assert got != pytest.approx(REF["season"]["xera"], abs=0.01), "xERA now matches: promote it"
 
 
 def test_putaway_rate_matches_savant(raw: pl.DataFrame) -> None:

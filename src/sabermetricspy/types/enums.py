@@ -362,7 +362,6 @@ class Metric(StrEnum):
     DICE = "dice"
     QERA = "qera"
     DIPS_BOP_PCT = "dips_bop_pct"
-    XERA = "xera"
     SIERA = "siera"
     ERA_PLUS = "era_plus"
     ERA_MINUS = "era_minus"

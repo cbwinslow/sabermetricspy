@@ -356,7 +356,7 @@ def _ensure_builtin_benchmarks() -> None:
     from sabermetricspy.engine import calculate_rolling, calculate_suite
     from sabermetricspy.evaluation import calibration_table
     from sabermetricspy.expectancy import WinProbabilityModel
-    from sabermetricspy.models import MarcelProjector, PitchQualityModel
+    from sabermetricspy.models import MarcelProjector
     from sabermetricspy.presets import prepare_statcast_pitches
     from sabermetricspy.types.enums import Metric, MetricSuite
     from sabermetricspy.uncertainty import EmpiricalBayesShrinker
@@ -503,26 +503,6 @@ def _ensure_builtin_benchmarks() -> None:
             target_season=2025, rate_cols=("hr", "bb", "so"), exposure_col="pa"
         )
         return marcel.fit(df).predict()
-
-    @register_benchmark(name="modeling.pitch_quality_plus", category="modeling", default_rows=5_000)
-    def _bench_pitch_quality(rows: int = 5_000) -> Any:
-        idx = pl.int_range(0, rows, eager=True)
-        f_idx = idx.cast(pl.Float64)
-        pitches = pl.DataFrame(
-            {
-                "release_speed": 92.0 + (f_idx % 7.0),
-                "ivb": 12.0 + (f_idx % 11.0),
-                "hb": -6.0 + (f_idx % 13.0),
-                "release_extension": 6.0 + (f_idx % 5.0) * 0.2,
-                "spin_rate": 2200.0 + (f_idx % 17.0) * 25.0,
-                "vaa": -5.2 + (f_idx % 19.0) * 0.1,
-                "plate_x": -0.8 + (f_idx % 23.0) * 0.07,
-                "plate_z": 1.6 + (f_idx % 29.0) * 0.06,
-                "pitch_rv": -0.015 * ((f_idx % 7.0) - 3.0) - 0.008 * ((f_idx % 11.0) - 5.0),
-            }
-        )
-        pq = PitchQualityModel()
-        return pq.fit(pitches).transform(pitches)
 
     @register_benchmark(
         name="uncertainty.empirical_bayes", category="uncertainty", default_rows=5_000

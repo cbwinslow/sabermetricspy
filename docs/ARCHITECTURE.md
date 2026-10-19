@@ -59,7 +59,7 @@ sabermetricspy/
 │   ├── log5.py           # Log5 / Bradley-Terry matchup & team win probability models
 │   ├── markov.py         # Exact 24-state absorbing Markov chain inning/game run estimator
 │   ├── monte_carlo.py    # Seeded Monte Carlo game/season simulator
-│   └── expected.py       # Open xBA / xSLG / xwOBA / PitchQualityModel interfaces & estimators
+│   └── expected.py       # Savant xBA / xSLG / xwOBA field sums
 ├── uncertainty/  # Analytical binomial/normal intervals & seeded bootstrap estimator
 ├── presets/      # Source column & event-code mappers (retrosheetpy, statcast, lahman, mlb_api)
 ├── adapters/     # Optional thin bridges for external libraries

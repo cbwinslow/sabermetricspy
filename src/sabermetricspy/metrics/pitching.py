@@ -743,25 +743,3 @@ def calc_qera(ctx: EvalContext) -> nw.Expr:
 def calc_dips_bop_pct(ctx: EvalContext) -> nw.Expr:
     hbp = nw.col("hbp") if "hbp" in ctx.available_columns else nw.lit(0)
     return safe_div(nw.col("hr") + nw.col("bb") + hbp + nw.col("so"), nw.col("bf"))
-
-
-@register_metric(
-    MetricSpec(
-        metric=Metric.XERA,
-        display_name="xERA",
-        category=Category.DEFENSE_INDEPENDENT_PITCHING,
-        kind=ImplKind.CONTEXTUAL,
-        required_columns=("xwoba_sum", "xwoba_count", "bf", "outs"),
-        requires=(Metric.XWOBA, Metric.BF_PER_IP),
-        direction=Direction.LOWER_IS_BETTER,
-        formula_latex=r"xERA = lgERA + \left(\frac{xwOBA - lgwOBA}{wOBAScale}\right) \times 9 \times \frac{TBF}{IP}",
-        citation="MLB Statcast / Baseball Savant Glossary (Expected ERA)",
-        description="Statcast Expected ERA translating a pitcher's xwOBA allowed onto the 9-inning ERA scale.",
-    )
-)
-def calc_xera(ctx: EvalContext) -> nw.Expr:
-    w = ctx.weights
-    if w.lg_era is None:
-        return missing_constant()
-    runs_above_avg_per_pa = (nw.col("xwoba") - w.lg_woba) / w.woba_scale
-    return w.lg_era + runs_above_avg_per_pa * 9.0 * nw.col("bf_per_ip")

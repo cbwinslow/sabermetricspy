@@ -642,11 +642,6 @@ metrics:
     evidence: secondary
     source_url: https://blogs.fangraphs.com/ultimate-base-running-primer/
     note: Extra bases taken over opportunities; the definition is standard but FanGraphs and Baseball-Reference publish rates, not the opportunity counts, so the recomputation gate cannot be run and no published value was reproduced.
-  xera:
-    status: approximate
-    evidence: golden
-    source_url: https://baseballsavant.mlb.com/csv-docs
-    note: Baseball Savant defines xERA only as a 1:1 translation of xwOBA to the ERA scale and publishes no formula. The library's lgERA + (xwOBA - lgwOBA)/wOBA-scale * 9 * BF/IP gives 2.62 for Skubal 2024 against Savant's 2.68 (and FanGraphs' 2.685), 0.06 runs low (tests/golden/pitch_arsenal.yaml).
   xfip:
     status: matches
     evidence: primary
@@ -767,24 +762,6 @@ models:
     evidence: golden
     source_url: http://tangotiger.net/welist.html
     note: 'A closed-form normal approximation (runs per game, home edge, RE24 scaled to the run environment), compared with 54 cells of Tom Tango''s published win-expectancy table (bottom of the 9th tied and trailing by one, top of the 9th and bottom of the 7th tied; tests/golden/win_expectancy_tango.yaml). Mean absolute error 0.048; tied bottom 9th mean 0.028, max 0.108; trailing by one run is worse (mean 0.078, max 0.194, runner on second and third with no outs: 0.527 against 0.721), because the approximation ignores that one run ties the game. The table states no seasons or run environment. Use a table built from play-by-play when exact values matter.'
-  ExpectedOutcomeModel:
-    status: unverified
-    source_url: https://baseballsavant.mlb.com/csv-docs
-    note: 'Reason: an open k-NN reimplementation of the expected-outcome idea, not Baseball Savant''s model, whose training data and algorithm are unpublished. Savant''s xBA/xSLG/xwOBA values are checked through the metrics that consume Savant''s own per-pitch estimates, not through this class.'
-  PitchQualityModel:
-    status: unverified
-    source_url: ''
-    note: 'Reason: an open reimplementation of the Stuff+/Location+/Pitching+ idea. No vendor publishes the model or its training data, so there is nothing to reproduce; results are meaningful only relative to the data fitted.'
-  CatcherFramingModel:
-    status: approximate
-    evidence: primary
-    source_url: https://baseballsavant.mlb.com/leaderboard/catcher-framing
-    note: 'The default run_value_per_called_strike of 0.125 is the constant Baseball Savant''s framing page states ("converts strikes to runs saved on a .125 run/strike basis", read 2026-10-19; the MLB glossary agrees but returns HTTP 406). The model itself is an open estimator, not Savant''s framing model, which also applies park and pitcher adjustments, and its framed-strike counts were not compared with published framing runs. Other sources put a ball-to-strike swing between about 0.12 and 0.16 runs depending on method and count.'
-  OutsAboveAverageModel:
-    status: approximate
-    evidence: secondary
-    source_url: https://www.mlb.com/glossary/statcast/fielding-run-value
-    note: The default run_value_per_out of 0.75 equals the infielder conversion listed in the MLB Fielding Run Value glossary (1 out = 0.75 runs for infielders, 0.9 for outfielders; read from a search result for that page, which returned HTTP 406 to the fetch tool, so secondary evidence). The model applies one constant to every position, so outfielders are undervalued unless the caller passes 0.9. It is an open estimator, not Baseball Savant's Outs Above Average, which uses tracked fielder positions.
   EmpiricalBayesShrinker:
     status: matches
     evidence: primary

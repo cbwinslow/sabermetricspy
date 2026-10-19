@@ -31,7 +31,7 @@ When translating baseball notation (`%`, `+`, `-`, `/`) into valid Python identi
 | **`/`** (Ratio) | Ratio of Two Counts (e.g., `K/BB`, `GB/FB`, `HR/FB`) | `_TO_` (e.g., `Metric.K_TO_BB`, `Metric.BB_TO_K`, `Metric.GB_TO_FB`, `Metric.HR_TO_FB`) | `_to_` (`k_to_bb`, `bb_to_k`, `gb_to_fb`, `hr_to_fb`) | `"K/BB"`, `"BB/K"`, `"GB/FB"`, `"HR/FB"` |
 | **`/9`** | Per 9 Innings Pitched (27 Outs) | `_PER_9` (e.g., `Metric.K_PER_9`, `Metric.BB_PER_9`, `Metric.HR_PER_9`, `Metric.H_PER_9`) | `_per_9` (`k_per_9`, `bb_per_9`, `hr_per_9`, `h_per_9`) | `"K/9"`, `"BB/9"`, `"HR/9"`, `"H/9"` |
 | **Zone Prefixes** | Inside (`Z-`) vs. Outside (`O-`) Strike Zone | `Z_` / `O_` (e.g., `Metric.Z_SWING_PCT`, `Metric.O_SWING_PCT`, `Metric.Z_CONTACT_PCT`, `Metric.O_CONTACT_PCT`) | `z_` / `o_` (`z_swing_pct`, `o_swing_pct`, `z_contact_pct`, `o_contact_pct`) | `"Z-Swing%"`, `"O-Swing%"`, `"Z-Contact%"`, `"O-Contact%"` |
-| **Expected (`x`)** | Statcast / Expected Estimator (`xBA`, `xSLG`, `xwOBA`, `xERA`, `xFIP`) | `X` prefix (e.g., `Metric.XBA`, `Metric.XSLG`, `Metric.XWOBA`, `Metric.XERA`, `Metric.XFIP`) | `x` prefix (`xba`, `xslg`, `xwoba`, `xera`, `xfip`) | `"xBA"`, `"xSLG"`, `"xwOBA"`, `"xERA"`, `"xFIP"` |
+| **Expected (`x`)** | Statcast / Expected Estimator (`xBA`, `xSLG`, `xwOBA`, `xFIP`) | `X` prefix (e.g., `Metric.XBA`, `Metric.XSLG`, `Metric.XWOBA`, `Metric.XFIP`) | `x` prefix (`xba`, `xslg`, `xwoba`, `xera`, `xfip`) | `"xBA"`, `"xSLG"`, `"xwOBA"`, `"xERA"`, `"xFIP"` |
 
 ---
 

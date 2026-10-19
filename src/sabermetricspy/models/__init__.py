@@ -10,16 +10,6 @@ import polars as pl
 from narwhals.typing import IntoFrame
 from pydantic import BaseModel, ConfigDict, Field
 
-from sabermetricspy.models.modeled import (
-    CatcherFramingModel,
-    CatcherFramingResults,
-    ExpectedOutcomeModel,
-    ExpectedOutcomeResults,
-    OutsAboveAverageModel,
-    OutsAboveAverageResults,
-    PitchQualityModel,
-    PitchQualityResults,
-)
 from sabermetricspy.schema import to_polars_df
 from sabermetricspy.telemetry import profiled
 
@@ -546,10 +536,6 @@ class MonteCarloSimulator:
 
 
 __all__ = [
-    "CatcherFramingModel",
-    "CatcherFramingResults",
-    "ExpectedOutcomeModel",
-    "ExpectedOutcomeResults",
     "Log5Model",
     "MarcelProjector",
     "MarcelResults",
@@ -557,8 +543,4 @@ __all__ = [
     "MarkovInningResults",
     "MonteCarloSimulationResults",
     "MonteCarloSimulator",
-    "OutsAboveAverageModel",
-    "OutsAboveAverageResults",
-    "PitchQualityModel",
-    "PitchQualityResults",
 ]
