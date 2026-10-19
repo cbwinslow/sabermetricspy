@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from sabermetricspy import evaluation as evaluation
 from sabermetricspy.constants import (
     get_park_factor,
     get_woba_weights,
@@ -18,6 +19,7 @@ from sabermetricspy.engine import (
     calculate_rolling,
     calculate_suite,
 )
+from sabermetricspy.evaluation import CalibrationBin, CalibrationResults
 from sabermetricspy.expectancy import (
     CountExpectancyMatrix,
     LinearWeightsEstimator,
@@ -145,6 +147,8 @@ __all__ = [
     "BenchmarkEntry",
     "BenchmarkResult",
     "CalculationResult",
+    "CalibrationBin",
+    "CalibrationResults",
     "CatcherFramingModel",
     "CatcherFramingResults",
     "Category",

@@ -354,6 +354,7 @@ def _ensure_builtin_benchmarks() -> None:
     _builtins_registered = True
 
     from sabermetricspy.engine import calculate_rolling, calculate_suite
+    from sabermetricspy.evaluation import calibration_table
     from sabermetricspy.expectancy import WinProbabilityModel
     from sabermetricspy.models import MarcelProjector, PitchQualityModel
     from sabermetricspy.presets import prepare_statcast_pitches
@@ -537,6 +538,16 @@ def _ensure_builtin_benchmarks() -> None:
         )
         eb = EmpiricalBayesShrinker(success_col="h", trials_col="ab")
         return eb.fit(df).transform(df)
+
+    @register_benchmark(
+        name="evaluation.calibration_table", category="evaluation", default_rows=100_000
+    )
+    def _bench_calibration(rows: int = 100_000) -> Any:
+        idx = pl.int_range(0, rows, eager=True)
+        df = pl.DataFrame(
+            {"p": (idx % 100).cast(pl.Float64) / 100.0, "y": (idx % 3 == 0).cast(pl.Int64)}
+        )
+        return calibration_table(df, "p", "y")
 
 
 def get_registered_benchmarks() -> dict[str, BenchmarkEntry]:

@@ -51,9 +51,9 @@ section. The stated wishes, and how the repository stands against each:
 | All established dependencies in core, immutable results, `StrEnum`, strict typing (rounds 2 to 5) | Met (`pyproject.toml`, ADR-0013, 0016, 0017) |
 | YAML for as much as possible (round 6) | Met for constants, presets, methodology |
 | Extensible enums and teams for any baseball league (round 3) | Partly met: `Metric`/`Stat` are closed `StrEnum`s extended through `@register_metric` (ADR-0018); park and constants tables are MLB-only, callers pass their own context |
-| Evaluation metrics (RMSE, MAE, calibration, Brier) built in from the start (blueprint) | Not met as a general utility: Brier appears inside two models only |
+| Evaluation metrics (RMSE, MAE, calibration, Brier) built in from the start (blueprint) | Met by `sabermetricspy.evaluation` (ADR-0039); previously Brier appeared inside two models only |
 | Forecasting models: Marcel, Log5, Pythagenpat, Markov, Monte Carlo first; Steamer/ZiPS/PECOTA-style later; Elo/Bradley-Terry listed | Met for the first five; rating systems (Elo, Bradley-Terry) are not implemented |
 | Ingestion later and optional | Met (presets and optional extras, ADR-0015) |
 
-No methodology ADR contradicts a stated wish. The two gaps worth a change are general forecast-evaluation functions and
-the rating systems; both are published, well-defined methods.
+No methodology ADR contradicts a stated wish. Forecast evaluation is now met (ADR-0039); the remaining gap worth a change is
+the rating systems (Elo, Bradley-Terry), which are published, well-defined methods.
