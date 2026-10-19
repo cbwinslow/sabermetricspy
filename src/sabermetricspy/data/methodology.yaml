@@ -496,7 +496,7 @@ metrics:
     status: approximate
     evidence: primary
     source_url: https://www.baseballprospectus.com/news/article/10045/introducing-siera-part-5/
-    note: Implements the original 2010 Baseball Prospectus coefficients (SIERACoefficients.version = baseball_prospectus_2010), including the sign rule on the squared net ground-ball term. FanGraphs published a revised 2011 version (constant 5.534, see https://blogs.fangraphs.com/new-siera-part-four-of-five-testing); which version FanGraphs displays today is unconfirmed.
+    note: 'Implements the original 2010 Baseball Prospectus coefficients (SIERACoefficients.version = baseball_prospectus_2010), including the sign rule on the squared net ground-ball term. FanGraphs displays the revised 2011 version (https://blogs.fangraphs.com/new-siera-part-four-of-five-testing: constant 5.534, adds a (BB/PA)^2 term of 27.252, a 0.367 share-of-innings-as-starter term and per-year coefficients). Tested 2026-10-19 on 16 FanGraphs 2024 pitchers (8 relievers, 8 starters): the 2011 coefficients leave a near-constant offset of about 0.47 to 0.49 (standard deviation 0.006 to 0.01 depending on the net ground-ball definition), which is the unpublished 2024 year coefficient, so the version is confirmed but the formula is not exactly reproduced; the 2010 version here runs about 0.46 to 0.69 lower. Not yet implemented as a selectable version because the per-year coefficients after 2010 are not published.'
   slg:
     status: matches
     evidence: golden

@@ -22,7 +22,7 @@ glossary and mlb.com glossary pages are unreachable (403 or 406).
 - "WinProbabilityModel should be `divergent`": the status key reserves it for a documented formula that differs from the published method; the model is an empirical approximation, and its note already gives the worst cell (0.19).
 
 ## Still open (no accessible primary source)
-- The formula behind FanGraphs' displayed SIERA (ours matches Baseball Prospectus 2010; FanGraphs runs 0.46 to 0.69 higher).
+- FanGraphs displays the 2011 SIERA (confirmed 2026-10-19: its coefficients leave a near-constant 0.47 to 0.49 offset on 16 pitchers), but the per-year coefficients after 2010 are unpublished, so it is not implemented.
 - The FIP- park input (see ADR-0035 audit note) and Baseball-Reference's ERA+ and OPS+ park factors.
 - The GIDP rate and run value behind wGDP; Savant's xERA scale and barrel zone table.
 - The 2021 to 2025 kwERA constant term (1.887), measured but not derived.
