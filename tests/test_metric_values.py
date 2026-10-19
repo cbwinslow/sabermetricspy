@@ -127,13 +127,13 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (
         Metric.FIP_MINUS,
         dict(hr=5, bb=15, so=60, outs=180, hbp=2),
-        100 * FIP_60 / (W.lg_fip * 1.05),
+        100 * FIP_60 * (2 - 1.05) / W.lg_fip,
         dict(park_factor=105.0),
     ),
     (
         Metric.XFIP_MINUS,
         dict(fb=60, bb=15, so=50, outs=54, hbp=2),
-        100 * XFIP_18 / (W.lg_xfip * 1.05),
+        100 * XFIP_18 * (2 - 1.05) / W.lg_xfip,
         dict(park_factor=105.0),
     ),
     (Metric.PIT_BB_TO_K, dict(bb=3, so=9), 3 / 9, {}),

@@ -41,6 +41,14 @@ class WOBAWeights(BaseModel):
     lg_fip: float | None = Field(
         default=None, description="League average FIP (None when unsourced)"
     )
+    lg_fip_al: float | None = Field(
+        default=None,
+        description="AL FIP, all pitchers: (13 HR + 3 (BB + HBP) - 2 SO) / IP + cFIP (None when unsourced)",
+    )
+    lg_fip_nl: float | None = Field(
+        default=None,
+        description="NL FIP, all pitchers: (13 HR + 3 (BB + HBP) - 2 SO) / IP + cFIP (None when unsourced)",
+    )
     lg_xfip: float | None = Field(
         default=None, description="League average xFIP (None when unsourced)"
     )
@@ -120,6 +128,15 @@ class WOBAWeights(BaseModel):
         if key == "AL" and self.lg_era_al is not None:
             return self.lg_era_al
         return self.lg_era
+
+    def fip_for(self, league: str) -> float | None:
+        """League FIP for `league` ("AL", "NL", otherwise the MLB-wide `lg_fip`); None when unsourced."""
+        key = league.upper()
+        if key == "NL" and self.lg_fip_nl is not None:
+            return self.lg_fip_nl
+        if key == "AL" and self.lg_fip_al is not None:
+            return self.lg_fip_al
+        return self.lg_fip
 
     def bb_pct_for(self, league: str) -> float:
         """Walk rate for `league` ("AL", "NL", otherwise the MLB-wide `lg_bb_pct`)."""

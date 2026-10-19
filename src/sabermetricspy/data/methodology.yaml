@@ -191,7 +191,7 @@ metrics:
     status: approximate
     evidence: golden
     source_url: https://library.fangraphs.com/pitching/era-fip-xfip/
-    note: 'Same page, with FIP and the league FIP. The library divides by the park factor and uses the MLB-wide FIP, and the 7 fixtures show a 1 to 2.5 point residual (tests/golden/pitching.yaml). Tested 2026-10-19: the ERA- form 100*FIP*(2-PF/100)/own-league FIP leaves a residual of the same size (Schilling 2001 67.72 vs 69.48; Skubal 2024 60.32 vs 59.58 even with the Guts! FIP park factor of 101), so the cause is unresolved. The Guts! FIP park factor column is empty for 2001, and the factors implied by the published values (ARI about 1.015 to 1.021, NYY 0.994) do not follow from the HR, SO and BB park factors either, so FanGraphs'' FIP- park input cannot be reconstructed from public data.'
+    note: 'Same page, which says the calculation is identical to ERA-: 100*FIP*(2-PF/100)/own-league FIP (AL or NL), as implemented since ADR-0045. The 7 fixtures still differ from FanGraphs by 0.2 to 3.1 points (tests/golden/pitching.yaml: Johnson 2001 46.37 vs 47.27, Schilling 67.72 vs 69.48, Pedro Martinez 2000 44.48 vs 47.61, Skubal 2024 60.32 vs 59.58), and the old MLB-wide form was no closer, so the cause is unresolved. The Guts! FIP park factor column is empty for 2001, and the factors implied by the published values (ARI about 1.015 to 1.021, NYY 0.994) do not follow from the HR, SO and BB park factors either, so FanGraphs'' FIP- park input cannot be reconstructed from public data.'
   foul_pct:
     status: approximate
     evidence: secondary
@@ -656,7 +656,7 @@ metrics:
     status: approximate
     evidence: primary
     source_url: https://library.fangraphs.com/principles/park-factors/
-    note: Inherits the FIP- residual (see fip_minus); no published xFIP- value was retrieved, so it is not checked numerically.
+    note: Uses the printed ERA-form park term (ADR-0045) but the MLB-wide league xFIP, because FanGraphs divides by the AL or NL xFIP and that cannot be derived from the bundled data. Inherits the FIP- residual (see fip_minus); no published xFIP- value was retrieved, so it is not checked numerically.
   xslg:
     status: approximate
     evidence: golden

@@ -5,6 +5,7 @@
 # Fields with no published source for a season are omitted (lg_xfip and lg_hr_per_fb before 2002), never defaulted.
 # lg_wsb: league stolen-base runs per opportunity, (lgSB*r_sb + lgCS*r_cs)/(lg1B + lgBB + lgHBP - lgIBB), from tests/golden/league_sbcs_snapshot.yaml.
 # lg_era_al / lg_era_nl: 27 * ER / outs for all AL / NL pitchers, from tests/golden/league_war_totals_snapshot.yaml.
+# lg_fip_al / lg_fip_nl: (13 HR + 3 (BB + HBP) - 2 SO) / IP + cFIP for all AL / NL pitchers (same snapshot); the IP-weighted mean equals the published MLB lg_fip (tests/test_fip_minus.py).
 # kwera_constant: the constant in FanGraphs' kwERA = C - 12*(SO-BB)/TBF, measured from the FanGraphs pitcher API (tests/test_kwera.py).
 # 1990-2020: C = lgERA + 12*(lgSO-lgBB)/lgTBF, exact for 2001, 2016-2020. 2021-2025: FanGraphs uses lgERA + 1.887 (measured for 2021-2025);
 # the 1.887 term equals no league K-BB rate, so those years are empirical, not derived.
@@ -50,6 +51,8 @@ seasons:
     kwera_constant: 6.045491361224784
     lg_era_al: 4.094260584607299
     lg_era_nl: 4.222881671108907
+    lg_fip_al: 4.178111310342695
+    lg_fip_nl: 4.138548627037748
   2024:
     season: 2024
     league: MLB
@@ -91,6 +94,8 @@ seasons:
     kwera_constant: 5.965941818400831
     lg_era_al: 4.01968522215516
     lg_era_nl: 4.13809244268677
+    lg_fip_al: 4.093387529597474
+    lg_fip_nl: 4.063562256689118
   2023:
     season: 2023
     league: MLB
@@ -132,6 +137,8 @@ seasons:
     kwera_constant: 6.218714250563034
     lg_era_al: 4.280258909675127
     lg_era_nl: 4.38333152536069
+    lg_fip_al: 4.284768433411088
+    lg_fip_nl: 4.3787273164003775
   2022:
     season: 2022
     league: MLB
@@ -173,6 +180,8 @@ seasons:
     kwera_constant: 5.85532714563721
     lg_era_al: 3.8832642711361247
     lg_era_nl: 4.053555383423703
+    lg_fip_al: 3.9440087822376153
+    lg_fip_nl: 3.9918295894655307
   2021:
     season: 2021
     league: MLB
@@ -214,6 +223,8 @@ seasons:
     kwera_constant: 6.152892667856131
     lg_era_al: 4.326036722458157
     lg_era_nl: 4.205511230935624
+    lg_fip_al: 4.283992630527105
+    lg_fip_nl: 4.247652554195338
   2020:
     season: 2020
     league: MLB
@@ -255,6 +266,8 @@ seasons:
     kwera_constant: 6.166309268664134
     lg_era_al: 4.42518639129317
     lg_era_nl: 4.481662909658401
+    lg_fip_al: 4.450362413231639
+    lg_fip_nl: 4.45534888156754
   2019:
     season: 2019
     league: MLB
@@ -296,6 +309,8 @@ seasons:
     kwera_constant: 6.237942343720896
     lg_era_al: 4.616870543398083
     lg_era_nl: 4.394260560139881
+    lg_fip_al: 4.575876075731498
+    lg_fip_nl: 4.435157090708303
   2018:
     season: 2018
     league: MLB
@@ -337,6 +352,8 @@ seasons:
     kwera_constant: 5.803705775490201
     lg_era_al: 4.27009017881875
     lg_era_nl: 4.029899977093991
+    lg_fip_al: 4.233466498414946
+    lg_fip_nl: 4.065382912117279
   2017:
     season: 2017
     league: MLB
@@ -378,6 +395,8 @@ seasons:
     kwera_constant: 5.930296006011904
     lg_era_al: 4.375870677433274
     lg_era_nl: 4.340541623637849
+    lg_fip_al: 4.393329470504838
+    lg_fip_nl: 4.323800952542425
   2016:
     season: 2016
     league: MLB
@@ -419,6 +438,8 @@ seasons:
     kwera_constant: 5.74332851389773
     lg_era_al: 4.207857109805192
     lg_era_nl: 4.172003195771748
+    lg_fip_al: 4.248614918328629
+    lg_fip_nl: 4.132281012813816
   2015:
     season: 2015
     league: MLB
@@ -460,6 +481,8 @@ seasons:
     kwera_constant: 5.489211354895339
     lg_era_al: 4.012476376319469
     lg_era_nl: 3.9111452256677923
+    lg_fip_al: 4.042025137132584
+    lg_fip_nl: 3.882434141848327
   2014:
     season: 2014
     league: MLB
@@ -501,6 +524,8 @@ seasons:
     kwera_constant: 5.269106870253961
     lg_era_al: 3.8194537892225826
     lg_era_nl: 3.662709145083658
+    lg_fip_al: 3.789563153709707
+    lg_fip_nl: 3.6920733440293376
   2013:
     season: 2013
     league: MLB
@@ -542,6 +567,8 @@ seasons:
     kwera_constant: 5.298243225356953
     lg_era_al: 3.9931670182518575
     lg_era_nl: 3.738442525403558
+    lg_fip_al: 3.9659125011464735
+    lg_fip_nl: 3.76593659027799
   2012:
     season: 2012
     league: MLB
@@ -583,6 +610,8 @@ seasons:
     kwera_constant: 5.429680875836555
     lg_era_al: 4.087157998521075
     lg_era_nl: 3.9510482437762784
+    lg_fip_al: 4.135015528715799
+    lg_fip_nl: 3.9081191429108086
   2011:
     season: 2011
     league: MLB
@@ -624,6 +653,8 @@ seasons:
     kwera_constant: 5.203668196134396
     lg_era_al: 4.083056696795398
     lg_era_nl: 3.819695405265875
+    lg_fip_al: 4.046676253081348
+    lg_fip_nl: 3.85071846498021
   2010:
     season: 2010
     league: MLB
@@ -665,6 +696,8 @@ seasons:
     kwera_constant: 5.276831717081833
     lg_era_al: 4.139634960676658
     lg_era_nl: 4.025149787049736
+    lg_fip_al: 4.1722276302121974
+    lg_fip_nl: 3.9969056522052986
   2009:
     season: 2009
     league: MLB
@@ -706,6 +739,8 @@ seasons:
     kwera_constant: 5.410343990177364
     lg_era_al: 4.464011896893589
     lg_era_nl: 4.197515008081274
+    lg_fip_al: 4.417406477197621
+    lg_fip_nl: 4.238061533133226
   2008:
     season: 2008
     league: MLB
@@ -747,6 +782,8 @@ seasons:
     kwera_constant: 5.382071730401674
     lg_era_al: 4.356173867176554
     lg_era_nl: 4.295507593003487
+    lg_fip_al: 4.325581353948605
+    lg_fip_nl: 4.322214102527159
   2007:
     season: 2007
     league: MLB
@@ -788,6 +825,8 @@ seasons:
     kwera_constant: 5.497993807569047
     lg_era_al: 4.5150904435450565
     lg_era_nl: 4.436637893951994
+    lg_fip_al: 4.444460229619229
+    lg_fip_nl: 4.498681999369103
   2006:
     season: 2006
     league: MLB
@@ -829,6 +868,8 @@ seasons:
     kwera_constant: 5.5354796209138595
     lg_era_al: 4.564186670642612
     lg_era_nl: 4.4943596836236335
+    lg_fip_al: 4.521732866159733
+    lg_fip_nl: 4.531751696416994
   2005:
     season: 2005
     league: MLB
@@ -870,6 +911,8 @@ seasons:
     kwera_constant: 5.285329798235376
     lg_era_al: 4.361298315163528
     lg_era_nl: 4.229376635770782
+    lg_fip_al: 4.329117938553023
+    lg_fip_nl: 4.257488612866377
   2004:
     season: 2004
     league: MLB
@@ -911,6 +954,8 @@ seasons:
     kwera_constant: 5.4580218923805
     lg_era_al: 4.636902410114579
     lg_era_nl: 4.314136351853452
+    lg_fip_al: 4.527911497431845
+    lg_fip_nl: 4.408975805754774
   2003:
     season: 2003
     league: MLB
@@ -952,6 +997,8 @@ seasons:
     kwera_constant: 5.354627930933001
     lg_era_al: 4.530111744734153
     lg_era_nl: 4.286134629530801
+    lg_fip_al: 4.46796927843887
+    lg_fip_nl: 4.341414259133721
   2002:
     season: 2002
     league: MLB
@@ -993,6 +1040,8 @@ seasons:
     kwera_constant: 5.25244471584561
     lg_era_al: 4.466078159095417
     lg_era_nl: 4.114563947197576
+    lg_fip_al: 4.368466970839119
+    lg_fip_nl: 4.199610906730145
   2001:
     season: 2001
     league: MLB
@@ -1032,6 +1081,8 @@ seasons:
     kwera_constant: 5.482777121026334
     lg_era_al: 4.480631276901004
     lg_era_nl: 4.362249541337417
+    lg_fip_al: 4.4317239895117
+    lg_fip_nl: 4.404835488204787
   2000:
     season: 2000
     league: MLB
@@ -1071,6 +1122,8 @@ seasons:
     kwera_constant: 5.597120601882212
     lg_era_al: 4.921602700958244
     lg_era_nl: 4.6372529216563265
+    lg_fip_al: 4.83178064644258
+    lg_fip_nl: 4.715243687779541
   1999:
     season: 1999
     league: MLB
@@ -1110,6 +1163,8 @@ seasons:
     kwera_constant: 5.545438482017128
     lg_era_al: 4.872005180228793
     lg_era_nl: 4.566848695301356
+    lg_fip_al: 4.802332530840625
+    lg_fip_nl: 4.627105485353659
   1998:
     season: 1998
     league: MLB
@@ -1149,6 +1204,8 @@ seasons:
     kwera_constant: 5.416001344252418
     lg_era_al: 4.655387561072231
     lg_era_nl: 4.237048192771084
+    lg_fip_al: 4.572794401162023
+    lg_fip_nl: 4.309094664371773
   1997:
     season: 1997
     league: MLB
@@ -1188,6 +1245,8 @@ seasons:
     kwera_constant: 5.364774755642388
     lg_era_al: 4.572109910058586
     lg_era_nl: 4.206822782102128
+    lg_fip_al: 4.535899909233435
+    lg_fip_nl: 4.243003653298665
   1996:
     season: 1996
     league: MLB
@@ -1227,6 +1286,8 @@ seasons:
     kwera_constant: 5.5054842461827995
     lg_era_al: 4.999095617857437
     lg_era_nl: 4.222977968357238
+    lg_fip_al: 4.921880785990298
+    lg_fip_nl: 4.301084725713441
   1995:
     season: 1995
     league: MLB
@@ -1266,6 +1327,8 @@ seasons:
     kwera_constant: 5.308068131467167
     lg_era_al: 4.720293724966623
     lg_era_nl: 4.1839831634913605
+    lg_fip_al: 4.682939919893191
+    lg_fip_nl: 4.220578644217989
   1994:
     season: 1994
     league: MLB
@@ -1305,6 +1368,8 @@ seasons:
     kwera_constant: 5.3444195958101215
     lg_era_al: 4.806971514242878
     lg_era_nl: 4.219670760872089
+    lg_fip_al: 4.7412651799100445
+    lg_fip_nl: 4.284079941489238
   1993:
     season: 1993
     league: MLB
@@ -1344,6 +1409,8 @@ seasons:
     kwera_constant: 4.96049298380842
     lg_era_al: 4.3352563996901115
     lg_era_nl: 4.0463396598471775
+    lg_fip_al: 4.321921242190977
+    lg_fip_nl: 4.058988415085038
   1992:
     season: 1992
     league: MLB
@@ -1383,6 +1450,8 @@ seasons:
     kwera_constant: 4.482355577103531
     lg_era_al: 3.949481036942299
     lg_era_nl: 3.5089045922934803
+    lg_fip_al: 3.9420830832800435
+    lg_fip_nl: 3.516757452239005
   1991:
     season: 1991
     league: MLB
@@ -1422,6 +1491,8 @@ seasons:
     kwera_constant: 4.688062161240826
     lg_era_al: 4.102148954960259
     lg_era_nl: 3.6874412898031173
+    lg_fip_al: 4.0484737513492295
+    lg_fip_nl: 3.7509446925982015
   1990:
     season: 1990
     league: MLB
@@ -1461,3 +1532,5 @@ seasons:
     kwera_constant: 4.610120688316711
     lg_era_al: 3.9166432688655095
     lg_era_nl: 3.797522246087757
+    lg_fip_al: 3.917386096751284
+    lg_fip_nl: 3.795496164467628

@@ -571,16 +571,21 @@ def calc_era_minus(ctx: EvalContext) -> nw.Expr:
         optional_columns=("ibb", "hbp"),
         requires=(Metric.FIP,),
         direction=Direction.LOWER_IS_BETTER,
-        formula_latex=r"FIP^- = 100 \times \frac{FIP}{lgFIP \times PF}",
-        citation="FanGraphs Library (FIP-)",
+        formula_latex=r"FIP^- = 100 \times \frac{FIP + (FIP - FIP \times PF/100)}{lgFIP}",
+        citation="FanGraphs Library (ERA-, FIP-, xFIP-)",
         description="Park- and league-adjusted FIP where 100 is league average and lower is better.",
+        caveats=(
+            "Uses the AL/NL league FIP (SeasonContext.league) when the season has it, otherwise the MLB-wide FIP.",
+            "Park factor defaults to 100 (no park adjustment); pass the pitcher's home park factor.",
+        ),
     )
 )
 def calc_fip_minus(ctx: EvalContext) -> nw.Expr:
-    if ctx.weights.lg_fip is None:
+    league_fip = ctx.weights.fip_for(ctx.season_context.league)
+    if league_fip is None:
         return missing_constant()
     pf = ctx.season_context.park_factor / 100.0
-    return safe_div(100.0 * nw.col("fip"), ctx.weights.lg_fip * pf)
+    return safe_div(100.0 * nw.col("fip") * (2.0 - pf), league_fip)
 
 
 @register_metric(
@@ -593,16 +598,20 @@ def calc_fip_minus(ctx: EvalContext) -> nw.Expr:
         optional_columns=("ibb", "hbp"),
         requires=(Metric.XFIP,),
         direction=Direction.LOWER_IS_BETTER,
-        formula_latex=r"xFIP^- = 100 \times \frac{xFIP}{lgxFIP \times PF}",
-        citation="FanGraphs Library (xFIP-)",
+        formula_latex=r"xFIP^- = 100 \times \frac{xFIP + (xFIP - xFIP \times PF/100)}{lgxFIP}",
+        citation="FanGraphs Library (ERA-, FIP-, xFIP-)",
         description="Park- and league-adjusted xFIP where 100 is league average and lower is better.",
+        caveats=(
+            "Uses the MLB-wide league xFIP: FanGraphs divides by the AL or NL xFIP, which cannot be derived from the bundled data.",
+            "Park factor defaults to 100 (no park adjustment); pass the pitcher's home park factor.",
+        ),
     )
 )
 def calc_xfip_minus(ctx: EvalContext) -> nw.Expr:
     if ctx.weights.lg_xfip is None:
         return missing_constant()
     pf = ctx.season_context.park_factor / 100.0
-    return safe_div(100.0 * nw.col("xfip"), ctx.weights.lg_xfip * pf)
+    return safe_div(100.0 * nw.col("xfip") * (2.0 - pf), ctx.weights.lg_xfip)
 
 
 @register_metric(
