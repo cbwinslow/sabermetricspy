@@ -242,6 +242,14 @@ def calculate(
     dag = REGISTRY.resolve_dag(requested_list)
     requested_keys = tuple(REGISTRY.resolve_name(m) for m in requested_list)
 
+    if by is not None:
+        per_row = [reg.spec.name for reg in dag if reg.spec.per_row]
+        if per_row:
+            raise ValueError(
+                f"{', '.join(per_row)} can only be calculated on one row per game: grouping with by= "
+                "would sum its inputs first. Calculate it without by=, then aggregate the results."
+            )
+
     # Check required base columns
     available_cols = set(nw_df.columns)
     if not strict:
@@ -363,7 +371,7 @@ def calculate_suite(
     metric_names: list[str] = []
     for s in suites_list:
         for m in REGISTRY.expand_suite(s):
-            if m not in metric_names:
+            if m not in metric_names and (by is None or not REGISTRY.spec(m).per_row):
                 metric_names.append(m)
     return calculate(
         df,
@@ -392,7 +400,7 @@ def calculate_available(
         nw_df = get_source_translator(preset).transform_nw(nw_df)
     nw_df = normalize_columns(nw_df, column_map=column_map)
     avail_specs = REGISTRY.available_for_columns(nw_df.columns)
-    metric_names = [s.name for s in avail_specs]
+    metric_names = [s.name for s in avail_specs if by is None or not s.per_row]
     return calculate(
         df,
         metric_names,

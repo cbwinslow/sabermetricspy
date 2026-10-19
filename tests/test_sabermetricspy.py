@@ -691,8 +691,11 @@ def test_all_registered_metrics_and_suites_audit() -> None:
     )
 
     # 1. Verify every Metric enum member is registered and evaluates to finite non-null values
-    all_metrics = list(Metric)
-    assert len(all_metrics) >= 105
+    per_game = [Metric.GAME_SCORE, Metric.GAME_SCORE_V2, Metric.SHUTDOWN, Metric.MELTDOWN]
+    all_metrics = [m for m in Metric if m not in per_game]
+    assert len(all_metrics) + len(per_game) >= 105
+    per_game_res = sp.calculate(omni_df, per_game, season=2024)  # one row per game, never grouped
+    assert all(m.value in per_game_res.df.columns for m in per_game)
     res_all = sp.calculate(omni_df, all_metrics, by="player_id", season=2024)
     for m in all_metrics:
         assert m.value in res_all.df.columns, f"Missing computed column for {m}"

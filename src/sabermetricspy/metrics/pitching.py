@@ -80,6 +80,7 @@ def calc_whip(ctx: EvalContext) -> nw.Expr:
 @register_metric(
     MetricSpec(
         metric=Metric.GAME_SCORE,
+        per_row=True,
         display_name="Game Score",
         category=Category.PITCHING,
         kind=ImplKind.DETERMINISTIC,
@@ -111,6 +112,7 @@ def calc_game_score(ctx: EvalContext) -> nw.Expr:
 @register_metric(
     MetricSpec(
         metric=Metric.GAME_SCORE_V2,
+        per_row=True,
         display_name="Game Score 2.0",
         category=Category.PITCHING,
         kind=ImplKind.DETERMINISTIC,
@@ -139,6 +141,7 @@ def calc_game_score_v2(ctx: EvalContext) -> nw.Expr:
 @register_metric(
     MetricSpec(
         metric=Metric.SHUTDOWN,
+        per_row=True,
         display_name="Shutdown",
         category=Category.PITCHING,
         kind=ImplKind.DETERMINISTIC,
@@ -160,6 +163,7 @@ def calc_shutdown(ctx: EvalContext) -> nw.Expr:
 @register_metric(
     MetricSpec(
         metric=Metric.MELTDOWN,
+        per_row=True,
         display_name="Meltdown",
         category=Category.PITCHING,
         kind=ImplKind.DETERMINISTIC,

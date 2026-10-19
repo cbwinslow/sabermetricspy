@@ -39,6 +39,10 @@ class MetricSpec(BaseModel):
     requires: tuple[str, ...] = Field(
         default=(), description="Other metrics that must be evaluated before this metric"
     )
+    per_row: bool = Field(
+        default=False,
+        description="True for per-game metrics that are only valid on one row per game, never on grouped sums",
+    )
     direction: Direction = Field(default=Direction.HIGHER_IS_BETTER)
     formula_latex: str = Field(..., description="LaTeX mathematical representation")
     citation: str = Field(..., description="Primary academic or sabermetric source citation")
