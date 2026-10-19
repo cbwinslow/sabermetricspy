@@ -110,7 +110,7 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
         3.0 + (13 * 2 + 3 * (3 + 1) - 2 * 9) / 18,
         {},
     ),
-    (Metric.KWERA, dict(so=9, bb=3, bf=27), 5.40 - 12 * (9 - 3) / 27, {}),
+    (Metric.KWERA, dict(so=9, bb=3, bf=27), (4.07894181840083 + 1.887) - 12 * (9 - 3) / 27, {}),
     (Metric.SIERA, dict(so=90, bb=30, gb=150, fb=100, bf=400, pu=20), SIERA, {}),
     (
         Metric.ERA_PLUS,

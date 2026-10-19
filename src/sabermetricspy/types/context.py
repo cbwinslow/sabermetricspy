@@ -34,6 +34,10 @@ class WOBAWeights(BaseModel):
     lg_era_al: float | None = Field(
         default=None, description="AL ERA, all pitchers (27 ER / outs; None when unsourced)"
     )
+    kwera_constant: float | None = Field(
+        default=None,
+        description="FanGraphs kwERA constant C in C - 12 (SO - BB) / TBF (None when unsourced; Tango's original is 5.40)",
+    )
     lg_fip: float | None = Field(
         default=None, description="League average FIP (None when unsourced)"
     )

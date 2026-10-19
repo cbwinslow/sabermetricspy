@@ -303,10 +303,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Reciprocal of BB/K (checked against the FanGraphs BB/K leaderboard in tests/golden/batting_counting.yaml); pitcher K/BB is checked separately.
   kwera:
-    status: approximate
-    evidence: primary
-    source_url: https://tht.fangraphs.com/kwera-the-starting-point-for-pitcher-evaluations
-    note: Matches the original Tango/GuyM form 5.40 - 12*(K-BB)/PA. Published variants adjust for HBP and IBB, and the 5.40 constant is league-dependent.
+    status: matches
+    evidence: golden
+    source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit
+    note: 'FanGraphs kwERA = C - 12*(SO-BB)/TBF with a seasonal C (measured; the cited Hardball Times page does not print the formula). For 1990-2020, C = lgERA + 12*(lgSO-lgBB)/lgTBF, exact for 2001 and 2016-2020; for 2021-2025 C = lgERA + 1.887, a term that equals no league K-BB rate, so it is empirical. 13 FanGraphs leaderboard pitcher seasons reproduced within 1e-4 (tests/test_kwera.py). Tango''s original 5.40 constant is the fallback when no constant is bundled.'
   ld_pct:
     status: matches
     evidence: golden

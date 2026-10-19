@@ -459,13 +459,17 @@ def calc_dice(ctx: EvalContext) -> nw.Expr:
         kind=ImplKind.DETERMINISTIC,
         required_columns=("so", "bb", "bf"),
         direction=Direction.LOWER_IS_BETTER,
-        formula_latex=r"kwERA = 5.40 - 12 \times \left(\frac{SO - BB}{TBF}\right)",
+        formula_latex=r"kwERA = C - 12 \times \left(\frac{SO - BB}{TBF}\right)",
         citation="Tango, T. & The Hardball Times",
-        description="Strikeout-and-walk-based ERA estimator.",
+        description="Strikeout-and-walk-based ERA estimator; C is the seasonal FanGraphs constant, or Tango's 5.40 when none is bundled.",
+        caveats=(
+            "C is lgERA + 12 (lgSO - lgBB) / lgTBF through 2020 and lgERA + 1.887 from 2021 (measured against FanGraphs); Tango's original uses 5.40.",
+        ),
     )
 )
 def calc_kwera(ctx: EvalContext) -> nw.Expr:
-    return 5.40 - 12.0 * safe_div(nw.col("so") - nw.col("bb"), nw.col("bf"))
+    constant = ctx.weights.kwera_constant if ctx.weights.kwera_constant is not None else 5.40
+    return constant - 12.0 * safe_div(nw.col("so") - nw.col("bb"), nw.col("bf"))
 
 
 @register_metric(
