@@ -12,8 +12,11 @@ from sabermetricspy.constants import get_pitcher_war_constants, resolve_context
 from sabermetricspy.schema import normalize_columns, safe_div
 from sabermetricspy.telemetry import profiled
 from sabermetricspy.types.context import SeasonContext
+from sabermetricspy.value import position_war
 
-# Standard FanGraphs Positional Adjustments per 162 games (1,350 defensive innings / 600 PA)
+# FanGraphs Positional Adjustments per 162 defensive games (1,458 innings), from
+# https://library.fangraphs.com/misc/war/positional-adjustment/. Without innings the framework
+# approximates the proration as PA / 600.
 POSITIONAL_ADJUSTMENTS_PER_162: dict[str, float] = {
     "C": 12.5,
     "SS": 7.5,
@@ -50,10 +53,11 @@ class WARFramework:
     Follows the structure of the FanGraphs position-player equation:
         WAR = (BattingRuns + BaserunningRuns + FieldingRuns + PositionalRuns + LeagueRuns + ReplacementRuns) / RPW
 
-    It is an approximation, not the FanGraphs or Baseball-Reference calculation (docs/METHODOLOGY.md):
-    replacement level is a flat `replacement_runs_per_600_pa` (FanGraphs derives it from
-    `570 * (G / 2430) * (RPW / lgPA) * PA`), and the positional adjustment is scaled by PA / 600 rather than
-    defensive innings. Pitcher WAR (`calculate_pitcher_war_df`) is further from the published methods.
+    By default it is an approximation (docs/METHODOLOGY.md): replacement level is a flat
+    `replacement_runs_per_600_pa` and the positional adjustment is scaled by PA / 600. Pass `league_pa` (and
+    `mlb_games`) for the FanGraphs replacement formula `570 * (G / 2430) * (RPW / lgPA) * PA`, and a
+    `defensive_innings` column (one row per position) for the innings-based positional proration; see
+    `sabermetricspy.value.position_war`. Pitcher WAR (`calculate_pitcher_war_df`) follows the FanGraphs method.
     """
 
     def __init__(
@@ -62,9 +66,14 @@ class WARFramework:
         *,
         season: int = 2024,
         replacement_runs_per_600_pa: float = 20.0,
+        league_pa: float | None = None,
+        mlb_games: float = 2430.0,
     ) -> None:
+        """`league_pa` switches replacement level to the FanGraphs formula (see `value.position_war`)."""
         self.context = resolve_context(context, season=season)
         self.replacement_runs_per_600_pa = replacement_runs_per_600_pa
+        self.league_pa = league_pa
+        self.mlb_games = mlb_games
 
     @profiled(category="valuation")
     def calculate_position_player_scalar(
@@ -76,13 +85,26 @@ class WARFramework:
         fielding_runs: float = 0.0,
         position: str = "CF",
         league_runs: float = 0.0,
+        defensive_innings: float | None = None,
     ) -> WARComponents:
-        """Compute position-player WAR and return a frozen WARComponents breakdown."""
+        """Compute position-player WAR and return a frozen WARComponents breakdown.
+
+        `defensive_innings` prorates the positional adjustment as the FanGraphs article does; without it
+        the proration is PA / 600. Replacement uses the FanGraphs formula when the framework has `league_pa`.
+        """
         assert self.context.weights is not None
         rpw = self.context.weights.lg_r_per_w
         pos_adj_162 = POSITIONAL_ADJUSTMENTS_PER_162.get(position.upper(), 0.0)
-        positional_runs = (pa / 600.0) * pos_adj_162
-        replacement_runs = (pa / 600.0) * self.replacement_runs_per_600_pa
+        if defensive_innings is None:
+            positional_runs = (pa / 600.0) * pos_adj_162
+        else:
+            positional_runs = position_war.positional_runs(defensive_innings, pos_adj_162)
+        if self.league_pa is None:
+            replacement_runs = (pa / 600.0) * self.replacement_runs_per_600_pa
+        else:
+            replacement_runs = position_war.replacement_runs(
+                pa, runs_per_win_value=rpw, league_pa=self.league_pa, mlb_games=self.mlb_games
+            )
         rar = (
             batting_runs
             + baserunning_runs
@@ -213,11 +235,13 @@ class WARFramework:
         fielding_runs_col: str = "fielding_runs",
         position_col: str = "position",
         league_runs_col: str = "league_runs",
+        innings_col: str = "defensive_innings",
     ) -> Any:
         """Compute Position-Player WAR vectorized over any Polars, DuckDB, PyArrow, or pandas DataFrame.
 
         Adds `positional_runs`, `replacement_runs`, `runs_above_replacement`, and `war` columns
-        to the native DataFrame, matching `calculate_position_player_scalar` row-for-row.
+        to the native DataFrame, matching `calculate_position_player_scalar` row-for-row. Give one row per
+        position played when using `innings_col`.
         """
         assert self.context.weights is not None
         rpw = self.context.weights.lg_r_per_w
@@ -255,10 +279,26 @@ class WARFramework:
         else:
             pos_adj_expr = nw.lit(0.0)
 
-        pos_runs_expr = ((pa_expr / 600.0) * pos_adj_expr).alias("positional_runs")
-        rep_runs_expr = ((pa_expr / 600.0) * self.replacement_runs_per_600_pa).alias(
-            "replacement_runs"
-        )
+        if innings_col in cols:
+            pos_runs_expr = (
+                nw.col(innings_col).cast(nw.Float64)
+                / 9.0
+                / position_war.DEFENSIVE_GAMES_PER_SEASON
+                * pos_adj_expr
+            ).alias("positional_runs")
+        else:
+            pos_runs_expr = ((pa_expr / 600.0) * pos_adj_expr).alias("positional_runs")
+        if self.league_pa is None:
+            rep_runs_expr = ((pa_expr / 600.0) * self.replacement_runs_per_600_pa).alias(
+                "replacement_runs"
+            )
+        else:
+            rep_runs_expr = (
+                position_war.POSITION_PLAYER_WAR_POOL
+                * (self.mlb_games / position_war.STANDARD_SEASON_GAMES)
+                * (rpw / self.league_pa)
+                * pa_expr
+            ).alias("replacement_runs")
 
         out_nw = nw_df.with_columns(pos_runs_expr, rep_runs_expr)
         rar_expr = (

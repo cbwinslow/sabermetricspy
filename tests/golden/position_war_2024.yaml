@@ -1,0 +1,15 @@
+# FanGraphs 2024 leaderboard position-player WAR rows (type=8, qual=400), retrieved 2026-10-18.
+# source: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&season=2024&type=8 (WebFetch; scripted requests are blocked)
+# Fields: PA, Offense (batting + baserunning), Defense (fielding + positional), Fielding, Positional, wLeague, Replacement, WAR.
+# League terms (tests/golden/league_totals_snapshot.yaml, 2024): MLB R 21343, outs 129349 (IP 43116.33), PA 182449; 2429 games played.
+season: 2024
+mlb_games: 2429
+rows:
+- {player: Aaron Judge, league: AL, pa: 704, offense: 95.102679221900246, defense: -9.6583523750305176, fielding: -6.2272820472717285, positional: -3.4310703277587891, wleague: 1.8562067598104477, replacement: 21.286833882331848, war: 11.21465677611457}
+- {player: Bobby Witt Jr., league: AL, pa: 709, offense: 60.524762253899908, defense: 17.510251998901367, fielding: 10.449211120605469, positional: 7.0610408782958984, wleague: 1.8693900464568287, replacement: 21.438018782064319, war: 10.466415366703007}
+- {player: Shohei Ohtani, league: NL, pa: 731, offense: 79.188460985984662, defense: -17.175924301147461, fielding: null, positional: -17.175924301147461, wleague: 2.3121484799776226, replacement: 22.103232340887189, war: 8.9260790929375062, dh_games: 159}
+- {player: Juan Soto, league: AL, pa: 713, offense: 61.264225560456396, defense: -5.4922627210617065, fielding: 1.887708306312561, positional: -7.3799710273742676, wleague: 1.8799366757739335, replacement: 21.558966701850295, war: 8.1807184215280415}
+- {player: Gunnar Henderson, league: AL, pa: 719, offense: 48.808667621190956, defense: 4.4891164302825928, fielding: -2.4141743183135986, positional: 6.9032907485961914, wleague: 1.8957566197495908, replacement: 21.74038858152926, war: 7.9455615414454561}
+- {player: Francisco Lindor, league: NL, pa: 689, offense: 33.433684095235193, defense: 16.989578723907471, fielding: 10.350348472595215, positional: 6.6392302513122559, wleague: 2.1793027396779507, replacement: 20.833279183134437, war: 7.5842873152662058}
+- {player: Jarren Duran, league: AL, pa: 735, offense: 35.441124256643093, defense: 7.5690796375274658, fielding: 9.3226232528686523, positional: -1.7535436153411865, wleague: 1.93794313701801, replacement: 22.224180260673165, war: 6.9374054537908458}
+- {player: Elly De La Cruz, league: NL, pa: 696, offense: 25.958761346031778, defense: 16.732219219207764, fielding: 9.5768709182739258, positional: 7.1553483009338379, wleague: 2.2014436963945627, replacement: 21.044938042759895, war: 6.8098610737655108}

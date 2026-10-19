@@ -720,9 +720,9 @@ models:
     note: Implements the documented FanGraphs method (ifFIP, FIP-to-RA9, FIP park factor, AL/NL league FIP, dynamic runs per win, 0.12/0.03 replacement wins per game, reliever leverage multiplier) and reproduces every figure of FanGraphs' published Stroman 2016 worked example. Against 29 live leaderboard pitchers (2016 and 2024) 27 are within 0.25 WAR (median under 0.1, up to about 0.2 WAR for starters and relievers; the exceptions are one mixed starter/reliever line and one unexplained 0.42 WAR starter), for reasons FanGraphs does not publish; the league correction is published for 2016 only, so other seasons are uncorrected (typically about -0.15 WAR per 200 IP); mixed starter/reliever rows use the page's blended replacement and are less accurate than valuing each role separately.
   WARFramework.calculate_position_player_*:
     status: approximate
-    evidence: primary
+    evidence: golden
     source_url: https://library.fangraphs.com/war/war-position-players/
-    note: Structure follows FanGraphs (batting + baserunning + fielding + positional + league + replacement over runs per win). Replacement is a flat 20 runs per 600 PA instead of 570*(G/2430)*(RPW/lgPA)*PA, and the positional adjustment is scaled by PA/600 instead of defensive innings.
+    note: 'With league_pa (and mlb_games) the replacement term is the FanGraphs formula 570*(G/2430)*(RPW/lgPA)*PA, and with defensive_innings the positional adjustment is prorated by innings/9/162 (1,458-inning table). Against 2024 leaderboard rows (tests/golden/position_war_2024.yaml) replacement matches within 0.01 runs for 8 players, WAR = (Offense + Defense + wLeague + Replacement)/RPW holds within 0.005, and the framework reproduces Ohtani at 8.9259 vs 8.9261. Labeled approximate because the defaults (no league_pa, no innings) are still a flat 20 runs per 600 PA and PA/600 proration, and fielding (UZR), UBR, wGDP and the league adjustment are caller-supplied inputs, not computed here.'
   MarcelProjector (hitters):
     status: approximate
     evidence: primary
