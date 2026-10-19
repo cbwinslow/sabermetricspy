@@ -43,7 +43,8 @@ class MarcelProjector:
     1. Weight the previous 3 seasons by `(5, 4, 3)` for rate stats; playing time is
        `0.5 * last-year + 0.1 * prior-year + 200`.
     2. Regress weighted player rates toward the league mean by adding `regression_pa` (default `1200`)
-       plate appearances of league-average production.
+       plate appearances of league-average production to the weighted total (Tango's Beltran example:
+       7,938 weighted PA + 1,200 = 9,138), the league rate mixed from the player's own seasons and PA.
     3. Apply the age adjustment (`+0.006 * (29 - age)` if `age < 29`, `-0.003 * (age - 29)` if `age > 29`).
 
     Pitchers (Tango's March 2004 post): weights `3/2/1`, innings in place of plate appearances, and the `200`
@@ -124,6 +125,16 @@ class MarcelProjector:
                     float((recent[col] * recent["_recency_w"]).sum()) / total_weighted_exp
                 )
 
+        # Each season's league rate, so a player's league-average component can follow his own seasons (Tango's Beltran example).
+        present_cols = [c for c in league_rates if c in recent.columns]
+        season_rates = recent.group_by("season").agg(
+            [
+                (pl.col(c).sum() / pl.col(self.exposure_col).sum()).alias(f"_lg_{c}")
+                for c in present_cols
+            ]
+        )
+        recent = recent.join(season_rates, on="season")
+
         # Aggregate per player. The playing-time constant is 200 PA for hitters; Tango uses 25 or 60 innings for pitchers.
         base_expr: pl.Expr = (
             pl.col(self.playing_time_base).sort_by("season").last()
@@ -144,6 +155,12 @@ class MarcelProjector:
         for col in self.rate_cols:
             if col in recent.columns:
                 agg_exprs.append((pl.col(col) * pl.col("_recency_w")).sum().alias(f"_w_{col}"))
+        for col in present_cols:
+            agg_exprs.append(
+                (pl.col(self.exposure_col) * pl.col("_recency_w") * pl.col(f"_lg_{col}"))
+                .sum()
+                .alias(f"_wl_{col}")
+            )
 
         player_df = recent.group_by("player_id").agg(*agg_exprs)
 
@@ -162,15 +179,13 @@ class MarcelProjector:
         player_df = player_df.with_columns(age_mult.alias("age_factor"))
 
         proj_cols: list[pl.Expr] = [pl.lit(self.target_season).alias("target_season")]
-        w_sum = w1 + w2 + w3
-        reg_weighted = self.regression_pa * (
-            w_sum / 3.0
-        )  # 1200 PA across 3 seasons weighted by (5+4+3)/3 = 4800
 
-        for col, lg_rate in league_rates.items():
+        for col in present_cols:
+            # Tango adds `regression_pa` of league average, mixed from the player's own seasons, to the weighted total.
+            league_component = self.regression_pa * pl.col(f"_wl_{col}") / pl.col("_weighted_exp")
             regressed_rate = (
-                (pl.col(f"_w_{col}") + reg_weighted * lg_rate)
-                / (pl.col("_weighted_exp") + reg_weighted)
+                (pl.col(f"_w_{col}") + league_component)
+                / (pl.col("_weighted_exp") + self.regression_pa)
             ) * pl.col("age_factor")
             proj_cols.append(regressed_rate.alias(f"proj_{col}_rate"))
             proj_cols.append(

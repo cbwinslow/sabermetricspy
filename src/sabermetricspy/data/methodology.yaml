@@ -725,9 +725,9 @@ models:
     note: 'With league_pa (and mlb_games) the replacement term is the FanGraphs formula 570*(G/2430)*(RPW/lgPA)*PA, and with defensive_innings the positional adjustment is prorated by innings/9/162 (1,458-inning table). Against 2024 leaderboard rows (tests/golden/position_war_2024.yaml) replacement matches within 0.01 runs for 8 players, WAR = (Offense + Defense + wLeague + Replacement)/RPW holds within 0.005, and the framework reproduces Ohtani at 8.9259 vs 8.9261. Labeled approximate because the defaults (no league_pa, no innings) are still a flat 20 runs per 600 PA and PA/600 proration, and fielding (UZR), UBR, wGDP and the league adjustment are caller-supplied inputs, not computed here.'
   MarcelProjector (hitters):
     status: approximate
-    evidence: primary
+    evidence: golden
     source_url: http://www.tangotiger.net/archives/stud0346.shtml
-    note: Weights 5/4/3, regression to 1,200 PA of league average, playing time 0.5*PA1 + 0.1*PA2 + 200 and the age adjustment (+0.006 per year under 29, -0.003 over 29) match Tango's method. The final re-baselining step is not implemented.
+    note: Reproduces Tango's Beltran worked example (weighted 318 HR over 7,938 PA plus 1,200 PA of league average gives .0386 HR/PA and 22 HR; tests/test_model_audit.py), and playing time 0.5*PA1 + 0.1*PA2 + 200. The age adjustment (+0.006 per year under 29, -0.003 over 29) follows Tango's corrected description but has no worked example. The final re-baselining step is not implemented.
   MarcelProjector (pitchers):
     status: approximate
     evidence: primary

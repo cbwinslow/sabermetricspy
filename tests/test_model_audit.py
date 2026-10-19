@@ -147,6 +147,31 @@ def test_marcel_hitter_playing_time_reproduces_tangos_beltran_example() -> None:
     assert out["proj_pa"][0] == pytest.approx(602 * 0.5 + 722 * 0.1 + 200, abs=1e-9)
 
 
+def test_marcel_hitter_rate_reproduces_tangos_beltran_example() -> None:
+    """Tango's post #25: weighted HR 318 over 7,938 PA, plus 1,200 PA of league average, gives .0386 HR/PA."""
+    from sabermetricspy.models import MarcelProjector
+
+    beltran = [(2001, 680, 24, 0.0300), (2002, 722, 29, 0.0279), (2003, 602, 26, 0.0285)]
+    filler_pa = 1_000_000.0
+    rows = []
+    for season, pa, hr, lg_rate in beltran:
+        rows.append(("beltran", season, float(pa), float(hr)))
+        # A large filler player sets each season's league rate (Beltran included) to Tango's figure.
+        rows.append(("league", season, filler_pa, lg_rate * (filler_pa + pa) - hr))
+    hist = pl.DataFrame(rows, schema=["player_id", "season", "pa", "hr"], orient="row")
+
+    out = MarcelProjector(target_season=2004, rate_cols=("hr",)).fit(hist).predict()
+    row = out.filter(pl.col("player_id") == "beltran").row(0, named=True)
+
+    league_hr = sum(w * pa * lg for w, (_, pa, _, lg) in zip((3, 4, 5), beltran, strict=True))
+    weighted_pa = 3 * 680 + 4 * 722 + 5 * 602
+    expected_rate = (318 + league_hr * 1200 / weighted_pa) / (weighted_pa + 1200)
+    assert weighted_pa == 7938
+    assert row["proj_hr_rate"] == pytest.approx(expected_rate, rel=1e-4)
+    assert row["proj_hr_rate"] == pytest.approx(0.0386, abs=5e-5)
+    assert row["proj_hr"] == pytest.approx(22.1, abs=0.1)
+
+
 def test_marcel_pitcher_configuration_uses_tangos_weights_and_innings_base() -> None:
     """Tango's pitcher post: weights 3/2/1 and the 200 replaced by 25 (relievers) or 60 (starters)."""
     from sabermetricspy.models import MarcelProjector
