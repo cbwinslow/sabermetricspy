@@ -124,7 +124,9 @@ presets:
           - "intent_walk"
           - "hit_by_pitch"
           - "sac_fly"
+          - "sac_fly_double_play"
           - "sac_bunt"
+          - "sac_bunt_double_play"
           - "catcher_interf"
         target_col: "pa"
       - source_col: "events"
@@ -175,10 +177,10 @@ presets:
         values: ["strikeout", "strikeout_double_play"]
         target_col: "so"
       - source_col: "events"
-        values: ["sac_fly"]
+        values: ["sac_fly", "sac_fly_double_play"]
         target_col: "sf"
       - source_col: "events"
-        values: ["sac_bunt"]
+        values: ["sac_bunt", "sac_bunt_double_play"]
         target_col: "sh"
       - source_col: "bb_type"
         values: ["ground_ball"]

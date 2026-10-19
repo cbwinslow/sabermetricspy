@@ -88,8 +88,9 @@ def missing_constant() -> nw.Expr:
 def safe_div(numerator: nw.Expr | float, denominator: nw.Expr | float) -> nw.Expr:
     """Construct a zero-denominator-safe division expression in Narwhals.
 
-    Returns NaN when the denominator is 0 or null, preventing ZeroDivisionError
-    or +/-inf across Polars, DuckDB, PyArrow, and pandas.
+    Returns null when the denominator is 0 or null, preventing ZeroDivisionError
+    or +/-inf across Polars, DuckDB, PyArrow, and pandas. Null (not NaN) so that means and
+    sums skip the row and `is_null()` finds it.
     """
     num_f = (
         nw.lit(float(numerator))
@@ -98,10 +99,14 @@ def safe_div(numerator: nw.Expr | float, denominator: nw.Expr | float) -> nw.Exp
     )
     if isinstance(denominator, (int, float)):
         if denominator == 0:
-            return nw.lit(float("nan"))
+            return nw.lit(None, dtype=nw.Float64)
         return num_f / float(denominator)
     den_f = denominator.cast(nw.Float64)
-    return nw.when((den_f != 0.0) & (~den_f.is_null())).then(num_f / den_f).otherwise(float("nan"))
+    return (
+        nw.when((den_f != 0.0) & (~den_f.is_null()))
+        .then(num_f / den_f)
+        .otherwise(nw.lit(None, dtype=nw.Float64))
+    )
 
 
 def ip_notation_to_outs_scalar(ip_val: float | int | str | None) -> int | None:
@@ -156,16 +161,19 @@ def ip_expr_to_outs(col_name: str = "ip") -> nw.Expr:
     ip_col = nw.col(col_name).cast(nw.Float64)
     whole_innings = (ip_col - (ip_col % 1.0)).round(0).cast(nw.Int64)
     rem = (ip_col - whole_innings.cast(nw.Float64)).round(2)
+    # Same notation as `ip_notation_to_outs_scalar`: .0, .1, .2 or the true thirds .333 and .667; anything else is null.
     partial_outs = (
-        nw.when((rem >= 0.09) & (rem <= 0.15))
+        nw.when(rem == 0.0)
+        .then(0)
+        .when(rem == 0.1)
         .then(1)
-        .when((rem >= 0.19) & (rem <= 0.25))
+        .when(rem == 0.2)
         .then(2)
-        .when((rem >= 0.30) & (rem <= 0.36))
+        .when(rem == 0.33)
         .then(1)
-        .when((rem >= 0.64) & (rem <= 0.69))
+        .when(rem == 0.67)
         .then(2)
-        .otherwise(0)
+        .otherwise(nw.lit(None, dtype=nw.Int64))
     )
     return whole_innings * 3 + partial_outs
 

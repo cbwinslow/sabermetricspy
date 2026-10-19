@@ -83,9 +83,9 @@ def test_innings_pitched_conversion() -> None:
     assert math.isclose(out["ip"][0], 20.0 / 3.0, rel_tol=1e-9)
     assert math.isclose(out["era"][0], 2.70, rel_tol=1e-9)
     assert math.isclose(out["whip"][0], 5.0 / (20.0 / 3.0), rel_tol=1e-9)
-    # Zero outs -> NaN, never inf or ZeroDivisionError
-    assert math.isnan(out["era"][1])
-    assert math.isnan(out["whip"][1])
+    # Zero outs -> null, never inf, NaN or ZeroDivisionError
+    assert out["era"][1] is None
+    assert out["whip"][1] is None
 
 
 # ==============================================================================
