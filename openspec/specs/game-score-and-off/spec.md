@@ -12,7 +12,7 @@ The library SHALL provide `game_score` (Bill James) and `game_score_v2` (Tom Tan
 - **WHEN** a start of 27 outs, 20 strikeouts, 1 hit and no walks or runs is evaluated
 - **THEN** `game_score` is 105, and a start of 27 outs, 17 strikeouts and no hits, walks or runs gives 104
 
-#### Scenario: Game Score 2.0 worked example
+#### Scenario: Game Score 2.0 hand-computed example
 - **WHEN** a start of 21 outs, 8 strikeouts, 2 walks, 5 hits including 1 home run and 2 runs is evaluated
 - **THEN** `game_score_v2` is 64
 

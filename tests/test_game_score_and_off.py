@@ -42,7 +42,7 @@ def test_game_score_short_start_has_no_inning_bonus() -> None:
     )
 
 
-def test_game_score_v2_fangraphs_worked_example() -> None:
+def test_game_score_v2_hand_computed_from_the_fangraphs_formula() -> None:
     """7 IP, 8 K, 2 BB, 5 H including 1 HR, 2 R: 40 + 42 + 8 - 4 - 8 - 8 - 6 = 64."""
     row = dict(outs=21, so=8, bb=2, h=5, hr=1, r=2)
     assert _value(row, Metric.GAME_SCORE_V2) == 64

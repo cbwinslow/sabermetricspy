@@ -689,9 +689,9 @@ metrics:
     note: 'Reproduces published games from the Wikipedia page: Kerry Wood 1998 = 105 and Max Scherzer''s 2015 no-hitter = 104. The formula is read from that secondary page; James''s original text was not retrieved. tests/test_game_score_and_off.py'
   game_score_v2:
     status: matches
-    evidence: golden
+    evidence: primary
     source_url: https://blogs.fangraphs.com/instagraphs/game-score-v2-0
-    note: Reproduces the worked example in Tango's FanGraphs article (7 IP, 8 K, 2 BB, 5 H including 1 HR, 2 R = 64). The article's yearly base shift is not modeled. tests/test_game_score_and_off.py
+    note: Implements the formula printed in Tango's FanGraphs article. The article prints no player value, so the 7 IP line (64) in tests/test_game_score_and_off.py is a hand-computed check, not a published one. The article's yearly base shift is not modeled.
   'off':
     status: matches
     evidence: primary

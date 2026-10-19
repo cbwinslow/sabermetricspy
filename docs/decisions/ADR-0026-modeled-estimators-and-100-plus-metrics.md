@@ -10,7 +10,7 @@ Our research blueprint (`media_1792128562811_9f3851c1.md`) defines both:
 
 ## Decision
 1. **Expand `MetricRegistry` to 105 Canonical Metrics**:
-   - Add 24 new metrics (`BAT_K_PCT_PLUS`, `BAT_BB_PCT_PLUS`, `RC27`, `GPA`, `TA`, `PIT_BB_TO_K`, `PIT_K_TO_BB`, `BF_PER_IP`, `K_PCT_PLUS`, `BB_PCT_PLUS`, `QERA`, `DIPS_BOP_PCT`, `XERA`, `HAA`, `BAUER_UNITS`, `RV_PER_100`, `WHIFF_PER_100`, `BIP_PCT`, `PUTAWAY_PCT`, `TWO_STRIKE_CHASE_PCT`, `MEATBALL_SWING_PCT`, `ERR_PCT`, `XBT_PCT`, `WGDP`, `BSR`, `PLI`, `WPA_LI`, `CLUTCH`, `REW`) and `MetricSuite.EXPECTANCY`.
+   - Add 29 new metrics (`BAT_K_PCT_PLUS`, `BAT_BB_PCT_PLUS`, `RC27`, `GPA`, `TA`, `PIT_BB_TO_K`, `PIT_K_TO_BB`, `BF_PER_IP`, `K_PCT_PLUS`, `BB_PCT_PLUS`, `QERA`, `DIPS_BOP_PCT`, `XERA`, `HAA`, `BAUER_UNITS`, `RV_PER_100`, `WHIFF_PER_100`, `BIP_PCT`, `PUTAWAY_PCT`, `TWO_STRIKE_CHASE_PCT`, `MEATBALL_SWING_PCT`, `ERR_PCT`, `XBT_PCT`, `WGDP`, `BSR`, `PLI`, `WPA_LI`, `CLUTCH`, `REW`) and `MetricSuite.EXPECTANCY`.
 2. **Implement Modeled & Empirical Estimators**:
    - `EmpiricalBayesShrinker` (`EmpiricalBayesResults`): Beta-Binomial Empirical Bayes shrinkage with learned $(\hat{\alpha}_0, \hat{\beta}_0)$, shrinkage weights, and Beta credible intervals.
    - `ExpectedOutcomeModel` (`ExpectedOutcomeResults`): Open k-NN contact-quality estimator predicting `xba_est`, `xslg_est`, and `xwoba_est`.
