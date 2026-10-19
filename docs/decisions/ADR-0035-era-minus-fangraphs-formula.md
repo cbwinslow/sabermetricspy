@@ -23,3 +23,9 @@ bundled for 1990 to 2025 from `tests/golden/league_war_totals_snapshot.yaml`), f
 All seven leaderboard fixtures are now within 0.33 points. `era_minus` is `matches` with golden evidence. `fip_minus`
 stays approximate: the same change leaves a 1 to 2 point residual, and Guts! publishes a separate FIP park factor
 column that is not bundled; `xfip_minus` keeps the old method and is unchecked.
+
+## Audit note (2026-10-19)
+A later audit re-ran this table: the seven fixtures' residuals are -0.27, -0.32, -0.12, +0.29, +0.12, -0.08 and -0.12
+(largest 0.32). The Guts! FIP park factor column is public for recent seasons but empty for 2001, and using it for
+Skubal 2024 (101) with the ERA- form still leaves 60.32 against the published 59.58, so the missing column is not the
+whole explanation of the FIP- gap. `fip_minus` stays approximate and its note records these tests.

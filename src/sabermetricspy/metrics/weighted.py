@@ -213,7 +213,7 @@ def calc_rc_tech(ctx: EvalContext) -> nw.Expr:
 @register_metric(
     MetricSpec(
         metric=Metric.BASE_RUNS,
-        display_name="BsR (Est)",
+        display_name="BaseRuns",
         category=Category.WEIGHTED_OFFENSE,
         kind=ImplKind.DETERMINISTIC,
         required_columns=("h", "b2", "b3", "hr", "bb", "ab"),
@@ -221,7 +221,7 @@ def calc_rc_tech(ctx: EvalContext) -> nw.Expr:
         requires=(Metric.TB, Metric.UBB),
         direction=Direction.HIGHER_IS_BETTER,
         formula_latex=r"BaseRuns = \frac{A \times B}{B + C} + D",
-        citation="myth, D. (1991) Base Runs: A New Run Estimator",
+        citation="Smyth, D. (1991) Base Runs: A New Run Estimator",
         description="David Smyth's BaseRuns non-linear run estimator separating baserunners, advancement, outs, and home runs.",
     )
 )
