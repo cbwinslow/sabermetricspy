@@ -42,11 +42,28 @@ class EmpiricalBayesResults(BaseModel):
     n_players_fitted: int
 
 
+def _beta_binomial_mle(k: np.ndarray[Any, Any], n: np.ndarray[Any, Any]) -> tuple[float, float]:
+    """Maximum-likelihood Beta prior `(mean, strength)` for counts `k` out of `n` (beta-binomial)."""
+    from scipy.optimize import minimize
+    from scipy.stats import betabinom
+
+    mu0 = float(np.clip(k.sum() / n.sum(), 1e-4, 1.0 - 1e-4))
+
+    def nll(theta: np.ndarray[Any, Any]) -> float:
+        a, b = np.exp(theta)
+        return -float(np.sum(betabinom.logpmf(k, n, a, b)))
+
+    start = np.log([mu0 * 100.0, (1.0 - mu0) * 100.0])
+    fit = minimize(nll, start, method="Nelder-Mead", options={"xatol": 1e-6, "fatol": 1e-9})
+    a, b = np.exp(fit.x)
+    return float(a / (a + b)), float(a + b)
+
+
 class EmpiricalBayesShrinker:
     """Beta-Binomial Empirical Bayes shrinkage estimator for baseball rate statistics (Efron & Morris 1975; Tango 2007).
 
     Learns the population Beta prior `(alpha_0, beta_0)` from observed player successes `k_i` and
-    trials `n_i` via method-of-moments (with optional explicit `stabilization_trials` override),
+    trials `n_i` by beta-binomial maximum likelihood (with optional explicit `stabilization_trials` override),
     then shrinks each player's noisy observed rate `k_i / n_i` toward the prior mean:
         `eb_rate = (k_i + alpha_0) / (n_i + alpha_0 + beta_0)`
     Also outputs posterior standard deviation (`eb_std`) and exact Beta credible intervals
@@ -91,22 +108,13 @@ class EmpiricalBayesShrinker:
 
         k_arr = valid[self.success_col].to_numpy().astype(np.float64)
         n_arr = valid[self.trials_col].to_numpy().astype(np.float64)
-        rates = k_arr / n_arr
-
-        # Exposure-weighted population mean
-        mu = float(np.sum(k_arr) / np.sum(n_arr))
-        mu = min(max(mu, 1e-4), 1.0 - 1e-4)
 
         if self.stabilization_trials is not None and self.stabilization_trials > 0:
+            # Exposure-weighted population mean with the caller's prior strength.
+            mu = float(np.sum(k_arr) / np.sum(n_arr))
             m_val = float(self.stabilization_trials)
         else:
-            # Method-of-moments Beta-Binomial overdispersion estimate
-            raw_var = float(np.var(rates, ddof=1)) if len(rates) > 1 else 0.001
-            avg_inv_n = float(np.mean(1.0 / n_arr))
-            within_var = mu * (1.0 - mu) * avg_inv_n
-            true_var = max(raw_var - within_var, 1e-5)
-            m_val = max((mu * (1.0 - mu) / true_var) - 1.0, 25.0)
-            m_val = min(m_val, 2000.0)
+            mu, m_val = _beta_binomial_mle(k_arr, n_arr)
 
         alpha_0 = mu * m_val
         beta_0 = (1.0 - mu) * m_val

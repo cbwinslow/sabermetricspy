@@ -766,7 +766,7 @@ models:
     status: matches
     evidence: primary
     source_url: https://en.wikipedia.org/wiki/Empirical_Bayes_method
-    note: Posterior mean (k + a) / (n + a + b), equivalent to shrinkage weight M / (n + M) toward the population mean, is the standard beta-binomial result. The prior is fitted by moments or fixed by stabilization_trials. Efron and Morris (1975) was not retrievable (publisher returned 403). tests/test_model_audit.py
+    note: Posterior mean (k + a) / (n + a + b), equivalent to shrinkage weight M / (n + M) toward the population mean, is the standard beta-binomial result. The prior is fitted by beta-binomial maximum likelihood (no clamps; tests/test_empirical_bayes_fit.py recovers simulated strengths of 10, 100 and 1000) or fixed by stabilization_trials. Efron and Morris (1975) was not retrievable (publisher returned 403). tests/test_model_audit.py
   Log5Model.extended_pythagorean_home_win_prob:
     status: matches
     evidence: primary
