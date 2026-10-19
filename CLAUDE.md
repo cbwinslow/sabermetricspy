@@ -33,3 +33,6 @@
 3. Always sum counting stats before dividing to compute rate metrics.
 4. Always decorate new calculation functions, translators, and estimator `.fit()` / `.transform()` / `.predict()` / `.simulate()` methods with `@profiled(category=...)`, and register new subsystem benchmarks with `@register_benchmark(...)`.
 5. Keep `openspec/` specs and `docs/DECISIONS.md` synchronized with architectural changes.
+6. If an existing tool or library would easily solve a problem, bring it up and consider using it before writing our own. Do not rule options out for arbitrary reasons; a tool that was a poor fit earlier may become viable later.
+7. Only ship metrics and models that use widely established, publicly documented methods and reproduce outside reference values in a test. If there is no consensus method or no outside value to check against, do not ship it as a supported feature; propose removing or clearly quarantining it instead of approximating. Plain arithmetic ratios of standard counting stats (for example HR/PA) are allowed when the name states the denominator and a hand-computed test pins the value.
+8. Every new ADR gets an **Alternatives** section. Phrase each as "not chosen now, because X; revisit if Y", never as a permanent rejection.
