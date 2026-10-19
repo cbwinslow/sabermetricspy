@@ -43,10 +43,10 @@ metrics:
     source_url: https://library.fangraphs.com/offense/babip/
     note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml). Formula (H-HR)/(AB-K-HR+SF) matches the FanGraphs Library.
   barrel_pct:
-    status: approximate
+    status: matches
     evidence: golden
-    source_url: https://www.mlb.com/glossary/statcast/barrel
-    note: The barrel zone is approximated from the glossary anchor (98 mph at 26-30 degrees) with linear widening. On the recorded sample the library finds 28 barrels against Statcast's 32 (FanGraphs Barrels, tests/golden/pitch_arsenal.yaml), so it undercounts by about 12%.
+    source_url: https://baseballsavant.mlb.com/csv-docs
+    note: Barrels are Statcast's own launch_speed_angle == 6 label, so the count equals the FanGraphs Barrels value (32) and the rate equals FanGraphs' 6.65% on the recorded sample (tests/golden/pitch_arsenal.yaml). Without a launch_speed_angle column the preset derives no barrels; the numeric zone table is not published.
   base_runs:
     status: matches
     evidence: primary

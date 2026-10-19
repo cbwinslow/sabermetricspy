@@ -105,7 +105,6 @@ def test_woba_links_the_fangraphs_library() -> None:
         "bsr",
         "fip_minus",
         "pythagenpat_win_pct",
-        "barrel_pct",
         "der",
     ],
 )

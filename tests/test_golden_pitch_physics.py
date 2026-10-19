@@ -108,11 +108,12 @@ def test_hard_hit_rate_counts_batted_balls_only(raw: pl.DataFrame) -> None:
     assert row["hard_hit_pct"] == pytest.approx(ref["hard_hit_pct"], abs=1e-8)
 
 
-def test_barrel_count_undercounts_statcast_by_a_bounded_amount(raw: pl.DataFrame) -> None:
-    """The library's barrel zone is an approximation: 28 against Statcast's 32 on this sample."""
+def test_barrels_come_from_statcasts_launch_speed_angle(raw: pl.DataFrame) -> None:
+    """Statcast labels barrels itself (launch_speed_angle == 6); the count equals FanGraphs' Barrels."""
+    ref = REF["fangraphs_statcast"]
     row = _calc(raw, [Metric.BARREL_PCT])
-    gap = REF["fangraphs_statcast"]["barrels"] - row["barrels"]
-    assert 0 < gap <= 5
+    assert row["barrels"] == ref["barrels"]
+    assert row["barrel_pct"] == pytest.approx(ref["barrel_pct"], abs=1e-8)
 
 
 def test_season_xera_is_close_to_savant_but_not_equal(raw: pl.DataFrame) -> None:

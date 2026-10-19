@@ -217,21 +217,12 @@ class SourceTranslator(BaseModel):
                     nw.when(has_ls).then(1).otherwise(0).alias("ev_count"),
                 ]
             )
-            if "launch_angle" in cols_now and "barrels" not in cols_now:
-                la = nw.col("launch_angle").cast(nw.Float64)
-                has_la = ~la.is_null()
-                min_la = nw.when(ls >= 98.0).then(26.0 - (ls - 98.0)).otherwise(999.0)
-                max_la = nw.when(ls >= 98.0).then(30.0 + (ls - 98.0) * 1.2).otherwise(-999.0)
-                is_barrel = (
-                    has_ls
-                    & has_la
-                    & (ls >= 98.0)
-                    & (la >= min_la)
-                    & (la <= max_la)
-                    & (la >= 8.0)
-                    & (la <= 50.0)
+            if "launch_speed_angle" in cols_now and "barrels" not in cols_now:
+                # Statcast labels barrels itself (launch_speed_angle == 6); its zone table is not published numerically.
+                lsa = nw.col("launch_speed_angle").cast(nw.Float64)
+                post_exprs.append(
+                    nw.when(has_ls & (lsa == 6.0)).then(1).otherwise(0).alias("barrels")
                 )
-                post_exprs.append(nw.when(is_barrel).then(1).otherwise(0).alias("barrels"))
 
         # Statcast expected stats (xBA, xSLG, xwOBA) additive sums
         if "estimated_ba_using_speedangle" in cols_now and "xba_sum" not in cols_now:

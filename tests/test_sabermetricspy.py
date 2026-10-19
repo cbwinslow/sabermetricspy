@@ -374,6 +374,7 @@ def test_retrosheetpy_and_statcast_presets_and_custom_yaml() -> None:
             "bb_type": [None, "fly_ball"],
             "launch_speed": [None, 108.5],
             "launch_angle": [None, 28.0],
+            "launch_speed_angle": [None, 6],
         }
     )
     sc_prepped = prepare_statcast_pitches(sc_raw)
