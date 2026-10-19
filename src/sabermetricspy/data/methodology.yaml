@@ -191,7 +191,7 @@ metrics:
     status: approximate
     evidence: golden
     source_url: https://library.fangraphs.com/pitching/era-fip-xfip/
-    note: Same page, with FIP and the league FIP. The library divides by the park factor and uses the MLB-wide FIP, and the 7 fixtures show a 1 to 2.5 point residual (tests/golden/pitching.yaml). Tested 2026-10-19: the ERA- form 100*FIP*(2-PF/100)/own-league FIP leaves a residual of the same size (Schilling 2001 67.72 vs 69.48; Skubal 2024 60.32 vs 59.58 even with the Guts! FIP park factor of 101), so the cause is unresolved. The Guts! FIP park factor column is empty for 2001, and the factors implied by the published values (ARI about 1.015 to 1.021, NYY 0.994) do not follow from the HR, SO and BB park factors either, so FanGraphs' FIP- park input cannot be reconstructed from public data.
+    note: 'Same page, with FIP and the league FIP. The library divides by the park factor and uses the MLB-wide FIP, and the 7 fixtures show a 1 to 2.5 point residual (tests/golden/pitching.yaml). Tested 2026-10-19: the ERA- form 100*FIP*(2-PF/100)/own-league FIP leaves a residual of the same size (Schilling 2001 67.72 vs 69.48; Skubal 2024 60.32 vs 59.58 even with the Guts! FIP park factor of 101), so the cause is unresolved. The Guts! FIP park factor column is empty for 2001, and the factors implied by the published values (ARI about 1.015 to 1.021, NYY 0.994) do not follow from the HR, SO and BB park factors either, so FanGraphs'' FIP- park input cannot be reconstructed from public data.'
   foul_pct:
     status: approximate
     evidence: secondary
