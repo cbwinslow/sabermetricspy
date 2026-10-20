@@ -3215,16 +3215,12 @@ name = "sabermetricspy"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
-    { name = "duckdb" },
     { name = "narwhals" },
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
-    { name = "pandas" },
     { name = "polars" },
-    { name = "pyarrow" },
     { name = "pydantic" },
     { name = "pyyaml" },
-    { name = "rich" },
     { name = "scipy", version = "1.17.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "scipy", version = "1.18.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
 ]
@@ -3242,6 +3238,15 @@ bayesian = [
     { name = "pymc", version = "5.28.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "pymc", version = "6.3.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
 ]
+duckdb = [
+    { name = "duckdb" },
+]
+pandas = [
+    { name = "pandas" },
+]
+pyarrow = [
+    { name = "pyarrow" },
+]
 retrosheet = [
     { name = "chadwickpy" },
     { name = "retrosheetpy" },
@@ -3249,7 +3254,10 @@ retrosheet = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "duckdb" },
     { name = "hypothesis" },
+    { name = "pandas" },
+    { name = "pyarrow" },
     { name = "pyright" },
     { name = "pytest" },
     { name = "pytest-benchmark" },
@@ -3265,26 +3273,28 @@ docs = [
 [package.metadata]
 requires-dist = [
     { name = "chadwickpy", marker = "extra == 'retrosheet'", specifier = ">=0.4.0" },
-    { name = "duckdb", specifier = ">=1.0.0" },
+    { name = "duckdb", marker = "extra == 'duckdb'", specifier = ">=1.0.0" },
     { name = "narwhals", specifier = ">=1.10.0" },
     { name = "numpy", specifier = ">=1.26.0" },
-    { name = "pandas", specifier = ">=2.2.0" },
+    { name = "pandas", marker = "extra == 'pandas'", specifier = ">=2.2.0" },
     { name = "polars", specifier = ">=1.0.0" },
-    { name = "pyarrow", specifier = ">=16.0.0" },
+    { name = "pyarrow", marker = "extra == 'pyarrow'", specifier = ">=16.0.0" },
     { name = "pybaseball", marker = "extra == 'adapters'", specifier = ">=2.2.7" },
     { name = "pydantic", specifier = ">=2.7.0" },
     { name = "pymc", marker = "extra == 'bayesian'", specifier = ">=5.15.0" },
     { name = "pyyaml", specifier = ">=6.0.1" },
     { name = "retrosheetpy", marker = "extra == 'retrosheet'", specifier = ">=0.1.0" },
-    { name = "rich", specifier = ">=13.7.0" },
     { name = "sabermetricspy", extras = ["retrosheet", "adapters"], marker = "extra == 'all'" },
     { name = "scipy", specifier = ">=1.13.0" },
 ]
-provides-extras = ["retrosheet", "adapters", "bayesian", "all"]
+provides-extras = ["pandas", "pyarrow", "duckdb", "retrosheet", "adapters", "bayesian", "all"]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "duckdb", specifier = ">=1.0.0" },
     { name = "hypothesis", specifier = ">=6.100.0" },
+    { name = "pandas", specifier = ">=2.2.0" },
+    { name = "pyarrow", specifier = ">=16.0.0" },
     { name = "pyright", specifier = ">=1.1.380" },
     { name = "pytest", specifier = ">=8.2.0" },
     { name = "pytest-benchmark", specifier = ">=5.1.0" },
