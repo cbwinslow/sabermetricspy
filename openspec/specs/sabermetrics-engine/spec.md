@@ -55,11 +55,11 @@ The library SHALL provide a `SourceTranslator` class that loads declarative YAML
 - **THEN** `SourceTranslator` translates the raw provider columns and event codes into canonical Tier 2 additive counts and computes the requested metrics across Polars, pandas, PyArrow, or DuckDB
 
 ### Requirement: 288-State Count Expectancy Matrix (RE288)
-The library SHALL provide `CountExpectancyMatrix` supporting `.from_default()`, `.fit(df)`, `.transform(df)`, and frozen `.results` (`RE288Results`) across all 288 `(balls, strikes, outs, base_state)` states, computing `re288_before`, `re288_after`, `pitch_run_value`, and `count_leverage`.
+The library SHALL provide `CountExpectancyMatrix` supporting `.fit(df)`, `.transform(df)`, and frozen `.results` (`RE288Results`) across the 288 `(balls, strikes, outs, base_state)` states (fitted from data with one count per plate appearance; there is no built-in table, and unfitted states are null), computing `re288_before`, `re288_after`, `pitch_run_value`, and `count_leverage`.
 
 #### Scenario: Valuing non-terminal and terminal pitches with RE288
-- **WHEN** `CountExpectancyMatrix.from_default().transform(pitches_df)` is called on pitch records
-- **THEN** a ball moving the count from `0-0` to `1-0` has a positive offensive `pitch_run_value`, a strike moving `0-0` to `0-1` has a negative offensive `pitch_run_value`, and `count_leverage` is positive for all legal counts
+- **WHEN** a `CountExpectancyMatrix` fitted on pitch records with a `pa_id` column calls `.transform(pitches_df)`
+- **THEN** pitches whose before and after states were fitted get `re288_before`, `re288_after` and `pitch_run_value`, pitches in unfitted states get null, and `count_run_value(balls, strikes)` returns Walsh's published run value for each of the 12 live counts
 
 ### Requirement: Win Probability Added (WPA) and Leverage Index (LI) Model
 The library SHALL provide `WinProbabilityModel` supporting `.from_default()`, `.fit(df)`, `.transform(df)`, and frozen `.results` (`WinProbabilityResults`) that annotates play-by-play records with `wp_before`, `wp_after`, `wpa`, `li` (Leverage Index), and `wpa_li`.

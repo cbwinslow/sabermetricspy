@@ -82,12 +82,11 @@ def main() -> None:
     )
 
     # 3. 288-State Count & Base-Out Expectancy Matrix (RE288)
-    re288 = CountExpectancyMatrix.from_default()
-    print(
-        f"\n[4] 288-State Count Expectancy (RE288) — Total States Loaded: {len(re288.results.state_expectancy)}"
-    )
+    # RE288 has no built-in table: it is fitted from pitch-level data (here, a four-pitch toy plate appearance).
     pitches_df = pl.DataFrame(
         {
+            "pa_id": [1, 1, 1, 1],
+            "runs_rest_of_inning": [1.0, 1.0, 1.0, 1.0],
             "pitch_no": [1, 2, 3, 4],
             "outs_before": [1, 1, 1, 1],
             "base_state_before": ["12-", "12-", "12-", "12-"],
@@ -100,6 +99,10 @@ def main() -> None:
             "runs_on_play": [0, 0, 0, 0],
             "pitch_result": ["ball", "called_strike", "foul", "swinging_strike_out"],
         }
+    )
+    re288 = CountExpectancyMatrix().fit(pitches_df)
+    print(
+        f"\n[4] 288-State Count Expectancy (RE288) — States Fitted: {len(re288.results.state_expectancy)} of 288"
     )
     pitches_re288 = re288.transform(pitches_df)
     print(

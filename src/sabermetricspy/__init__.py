@@ -21,6 +21,7 @@ from sabermetricspy.engine import (
 )
 from sabermetricspy.evaluation import CalibrationBin, CalibrationResults
 from sabermetricspy.expectancy import (
+    WALSH_COUNT_RUN_VALUES,
     CountExpectancyMatrix,
     LinearWeightsEstimator,
     LinearWeightsResults,
@@ -29,6 +30,7 @@ from sabermetricspy.expectancy import (
     RunExpectancyMatrix,
     WinProbabilityModel,
     WinProbabilityResults,
+    count_run_value,
 )
 from sabermetricspy.models import (
     Log5Model,
@@ -134,6 +136,7 @@ def search_metrics(
 __all__ = [
     "POSITIONAL_ADJUSTMENTS_PER_162",
     "REGISTRY",
+    "WALSH_COUNT_RUN_VALUES",
     "BaseState",
     "BattedBallType",
     "BenchmarkEntry",
@@ -192,6 +195,7 @@ __all__ = [
     "calculate_available",
     "calculate_rolling",
     "calculate_suite",
+    "count_run_value",
     "describe",
     "formula",
     "get_column_aliases",

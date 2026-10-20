@@ -88,10 +88,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: BB / SO reproduces the FanGraphs leaderboard BB/K for 4 hitters in 2024 (tests/golden/batting_counting.yaml).
   bf_per_ip:
-    status: approximate
+    status: matches
     evidence: secondary
-    source_url: https://www.fangraphs.com/leaders/major-league
-    note: 3 * TBF / outs. A library-defined rate used by xERA; no published standard definition was found.
+    source_url: https://sabr.org/journal/article/new-measures-for-pitchers/
+    note: 'BFP/IP, total batters faced over innings pitched, as SABR''s New Measures for Pitchers defines it (three batters retired per inning, so 4.00 means three quarters of batters retired; the article puts the major league average between 4.2 and 4.3). Computed as 3 * TBF / outs. Pinned by a hand-computed test (tests/test_metric_values.py); no printed player value was reproduced, so the evidence tier is secondary.'
   bip_pct:
     status: approximate
     evidence: secondary
@@ -750,8 +750,8 @@ models:
     note: The built-in default table is the published FanGraphs RE24 matrix (roughly neutral for 2014, 4.15 runs per game), pinned cell by cell by tests/golden/run_expectancy_table.yaml; the previous 'canonical 2024' table was unsourced and differed by up to 0.086 runs (ADR-0028). The empirical fit() computes mean runs to the end of the inning per base-out state; it was not compared with a season fitted from play-by-play, which is not bundled.
   CountExpectancyMatrix:
     status: unverified
-    source_url: ''
-    note: 'Reason: the 12 ball-strike count offsets in DEFAULT_COUNT_OFFSETS are labeled Tango/Roegele but no published count run-value table could be retrieved (a search and the texasleaguers post found none), so they cannot be checked and are used only as a prior that fit() shrinks toward observed data. The base-out part now rests on the sourced RE24 table. Follow-up: source a count table (Tango''s 288-state work) before relying on the default.'
+    source_url: http://tangotiger.com/index.php/site/re288-run-expectancy-by-the-24-base-out-states-x-12-plate-count-states-recu
+    note: 'Reason: there is no built-in table any more (ADR-0049); fit() estimates mean runs to the end of the inning per outs, bases and count state, counting each plate appearance once per count (the ABDWR 3e chapter 6 convention). The estimator has no outside value to reproduce: Tango''s published RE288 is printed only as images with no stated seasons, and the ABDWR Retrosheet 2016 count values need the full season. The pinned reference is the 12 count run values in count_run_value (Walsh 2008, tests/golden/count_run_values.yaml). Follow-up: an opt-in test that fits Retrosheet 2016 and checks the plate-appearance-weighted count averages against ABDWR.'
   LinearWeightsEstimator:
     status: approximate
     evidence: secondary

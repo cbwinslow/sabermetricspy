@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+from collections.abc import Mapping
 from typing import Any, Self
 
 import polars as pl
@@ -47,35 +48,44 @@ DEFAULT_RE24_TABLE: dict[tuple[int, str], float] = {
 # Expected runs for the bases-empty, no-out state; the anchor used to rescale the table to another run environment.
 _RE24_ANCHOR = DEFAULT_RE24_TABLE[(0, "---")]
 
-# Canonical Ball-Strike Count Run Value Offsets relative to 0-0 count (Tango / Roegele)
-DEFAULT_COUNT_OFFSETS: dict[tuple[int, int], float] = {
+# Run value of reaching each ball-strike count, in batting runs relative to the 0-0 count, from John Walsh,
+# "Searching for the game's best pitch", The Hardball Times, 2008-02-26, Table 1:
+# https://tht.fangraphs.com/searching-for-the-games-best-pitch
+# Context-free: the values are not split by base-out state. tests/golden/count_run_values.yaml pins every cell.
+WALSH_COUNT_RUN_VALUES: dict[tuple[int, int], float] = {
     (0, 0): 0.000,
     (1, 0): 0.038,
-    (2, 0): 0.100,
-    (3, 0): 0.210,
-    (0, 1): -0.043,
+    (2, 0): 0.104,
+    (3, 0): 0.220,
+    (0, 1): -0.044,
     (1, 1): -0.015,
-    (2, 1): 0.035,
-    (3, 1): 0.138,
+    (2, 1): 0.037,
+    (3, 1): 0.142,
     (0, 2): -0.106,
     (1, 2): -0.082,
-    (2, 2): -0.038,
-    (3, 2): 0.052,
+    (2, 2): -0.039,
+    (3, 2): 0.059,
 }
 
 
-def _build_default_re288_table() -> dict[str, float]:
-    table: dict[str, float] = {}
-    for (outs, base_state), base_re in DEFAULT_RE24_TABLE.items():
-        # Scale count offset mildly by outs remaining factor
-        out_scale = 1.15 if outs == 0 else (1.00 if outs == 1 else 0.80)
-        for (balls, strikes), offset in DEFAULT_COUNT_OFFSETS.items():
-            key = f"{outs}|{base_state}|{balls}|{strikes}"
-            table[key] = max(0.01, round(base_re + offset * out_scale, 4))
-    return table
+@profiled(category="expectancy")
+def count_run_value(balls: int, strikes: int) -> float:
+    """Return Walsh's run value of a plate appearance reaching `balls`-`strikes`, relative to 0-0."""
+    try:
+        return WALSH_COUNT_RUN_VALUES[(balls, strikes)]
+    except KeyError:
+        raise ValueError(
+            f"count {balls}-{strikes} is not a live count (balls 0-3, strikes 0-2)"
+        ) from None
 
 
-DEFAULT_RE288_TABLE: dict[str, float] = _build_default_re288_table()
+def _walk_transition(base_state: str) -> tuple[str, int]:
+    """Return the base state after a walk and the runs forced in, from a `'123'`-style base state."""
+    first, second, third = (c != "-" for c in base_state)
+    runs = int(first and second and third)
+    new_second = first or second
+    new_third = third or (first and second)
+    return f"1{'2' if new_second else '-'}{'3' if new_third else '-'}", runs
 
 
 class RE24Results(BaseModel):
@@ -378,12 +388,13 @@ class RE288Results(BaseModel):
 
     state_expectancy: dict[str, float] = Field(
         ...,
-        description="Mapping of 'outs|base_state|balls|strikes' (e.g. '0|---|3|2') to expected runs",
+        description="Mapping of 'outs|base_state|balls|strikes' (e.g. '0|---|3|2') to expected runs; states with no data are absent",
     )
     state_counts: dict[str, int] = Field(
-        default_factory=dict, description="Sample count per 288-state"
+        default_factory=dict,
+        description="Plate appearances that reached each fitted state (one per plate appearance per count)",
     )
-    total_pitches: int = 0
+    total_plate_appearances: int = 0
     prior_strength: float = 0.0
 
     def lookup(
@@ -392,71 +403,91 @@ class RE288Results(BaseModel):
         base_state: BaseState | str,
         balls: int = 0,
         strikes: int = 0,
-    ) -> float:
-        """Return expected runs for `(outs, base_state, balls, strikes)`, or 0.0 when `outs >= 3`."""
+    ) -> float | None:
+        """Return expected runs for `(outs, base_state, balls, strikes)`: 0.0 when `outs >= 3`, None when unfitted."""
         if outs >= 3:
             return 0.0
         b = min(max(balls, 0), 3)
         s = min(max(strikes, 0), 2)
         key = f"{outs}|{base_state!s}|{b}|{s}"
-        return self.state_expectancy.get(key, 0.0)
+        return self.state_expectancy.get(key)
 
     def count_leverage(
         self, outs: int, base_state: BaseState | str, balls: int, strikes: int
-    ) -> float:
-        """Compute the run-value swing between a ball and a strike from `(outs, base_state, balls, strikes)`."""
+    ) -> float | None:
+        """Return the run-value swing between a ball and a strike, or None when a needed state is unfitted.
+
+        A fourth ball is a walk: the forced-advance base state at 0-0, plus any run forced in. A third
+        strike is an out at 0-0 with the bases unchanged.
+        """
         if outs >= 3:
             return 0.0
-        # If balls == 3, ball results in walk (forced advancement); otherwise balls + 1
         if balls < 3:
             re_ball = self.lookup(outs, base_state, balls + 1, strikes)
         else:
-            # Walk transition approximation relative to current state
-            re_ball = self.lookup(outs, base_state, 3, strikes) + 0.12
+            walk_state, walk_runs = _walk_transition(str(base_state))
+            walk_re = self.lookup(outs, walk_state, 0, 0)
+            re_ball = None if walk_re is None else walk_re + walk_runs
         if strikes < 2:
             re_strike = self.lookup(outs, base_state, balls, strikes + 1)
         else:
-            # Strikeout transitions to outs + 1 with 0-0 count
             re_strike = self.lookup(outs + 1, base_state, 0, 0)
+        if re_ball is None or re_strike is None:
+            return None
         return max(0.0, re_ball - re_strike)
 
 
 class CountExpectancyMatrix:
     """Empirical 288-State Count & Base-Out Run Expectancy (RE288) estimator and pitch valuation transformer.
 
-    Evaluates all 288 states `3 outs x 8 base states x 4 ball counts x 3 strike counts`.
+    Evaluates all 288 states `3 outs x 8 base states x 4 ball counts x 3 strikes`. There is no built-in
+    table: the table is estimated from the caller's data, and states with no data stay unfitted (null).
+    Tango's published RE288 (http://tangotiger.com/index.php/site/re288-run-expectancy-by-the-24-base-out-states-x-12-plate-count-states-recu)
+    shows the count effect depends on the base state, so a count offset added to RE24 would be wrong.
     """
 
-    def __init__(self, *, prior_strength: float = 25.0) -> None:
+    def __init__(
+        self,
+        *,
+        prior: Mapping[str, float] | None = None,
+        prior_strength: float = 0.0,
+    ) -> None:
+        """Initialize CountExpectancyMatrix.
+
+        Args:
+            prior: Optional caller-supplied table keyed 'outs|base_state|balls|strikes' to shrink toward.
+            prior_strength: Pseudo-observations of weight on `prior`; requires `prior` when above zero.
+        """
+        if prior_strength > 0 and prior is None:
+            raise ValueError("prior_strength > 0 requires a caller-supplied prior table")
+        self.prior = dict(prior) if prior is not None else {}
         self.prior_strength = prior_strength
         self._results: RE288Results | None = None
-
-    @classmethod
-    def from_default(cls) -> CountExpectancyMatrix:
-        """Return a pre-fitted CountExpectancyMatrix initialized with the canonical MLB 288-state table."""
-        inst = cls(prior_strength=0.0)
-        state_exp = dict(DEFAULT_RE288_TABLE)
-        inst._results = RE288Results(
-            state_expectancy=state_exp,
-            state_counts=dict.fromkeys(state_exp, 0),
-            total_pitches=0,
-            prior_strength=0.0,
-        )
-        return inst
 
     @property
     def results(self) -> RE288Results:
         if self._results is None:
-            raise RuntimeError(
-                "CountExpectancyMatrix is not fitted yet. Call .fit(df) or .from_default() first."
-            )
+            raise RuntimeError("CountExpectancyMatrix is not fitted yet. Call .fit(df) first.")
         return self._results
 
     @profiled(category="expectancy")
     def fit(self, df: IntoFrame) -> Self:
-        """Fit the 288-state count-base-out expectancy table from pitch-level records."""
+        """Fit the 288-state table from pitch-level records, counting each plate appearance once per count.
+
+        A plate appearance that fouls off pitches at two strikes repeats a count; only the first pitch at
+        each count in a plate appearance contributes, which is how Albert et al. (ABDWR 3e, ch. 6) average
+        run value by count. Requires `pa_id` (any value that is constant within a plate appearance),
+        `outs_before`, `base_state_before`, `balls`, `strikes`, `runs_rest_of_inning`, with rows in pitch order.
+        """
         pl_df = to_polars_df(df)
-        required = {"outs_before", "base_state_before", "balls", "strikes", "runs_rest_of_inning"}
+        required = {
+            "pa_id",
+            "outs_before",
+            "base_state_before",
+            "balls",
+            "strikes",
+            "runs_rest_of_inning",
+        }
         missing = required - set(pl_df.columns)
         if missing:
             raise ValueError(
@@ -467,37 +498,30 @@ class CountExpectancyMatrix:
             (pl.col("outs_before").is_between(0, 2))
             & (pl.col("balls").is_between(0, 3))
             & (pl.col("strikes").is_between(0, 2))
-        )
+        ).unique(subset=["pa_id", "balls", "strikes"], keep="first", maintain_order=True)
         grouped = valid.group_by(["outs_before", "base_state_before", "balls", "strikes"]).agg(
             pl.col("runs_rest_of_inning").mean().alias("mean_roi"),
             pl.col("runs_rest_of_inning").count().alias("n"),
         )
 
-        state_exp = dict(DEFAULT_RE288_TABLE)
-        state_counts = dict.fromkeys(state_exp, 0)
-
+        state_exp: dict[str, float] = {}
+        state_counts: dict[str, int] = {}
         for row in grouped.iter_rows(named=True):
-            o = int(row["outs_before"])
-            s = str(row["base_state_before"])
-            b = int(row["balls"])
-            k = int(row["strikes"])
-            key = f"{o}|{s}|{b}|{k}"
+            key = f"{int(row['outs_before'])}|{row['base_state_before']!s}|{int(row['balls'])}|{int(row['strikes'])}"
             n = int(row["n"])
             mean_val = float(row["mean_roi"])
-            prior_val = DEFAULT_RE288_TABLE.get(key, mean_val)
-            if self.prior_strength > 0:
-                shrunk = (n * mean_val + self.prior_strength * prior_val) / (
+            prior_val = self.prior.get(key)
+            if self.prior_strength > 0 and prior_val is not None:
+                mean_val = (n * mean_val + self.prior_strength * prior_val) / (
                     n + self.prior_strength
                 )
-            else:
-                shrunk = mean_val
-            state_exp[key] = shrunk
+            state_exp[key] = mean_val
             state_counts[key] = n
 
         self._results = RE288Results(
             state_expectancy=state_exp,
             state_counts=state_counts,
-            total_pitches=len(valid),
+            total_plate_appearances=valid["pa_id"].n_unique(),
             prior_strength=self.prior_strength,
         )
         return self
@@ -507,7 +531,7 @@ class CountExpectancyMatrix:
         """Annotate pitch-level records with `re288_before`, `re288_after`, `pitch_run_value`, and `count_leverage`.
 
         Requires `outs_before`, `base_state_before`, `balls`, `strikes`, `outs_after`, `base_state_after`,
-        `balls_after`, `strikes_after`, and `runs_on_play`.
+        `balls_after`, `strikes_after`, and `runs_on_play`. Pitches whose state was never fitted get null.
         """
         res = self.results
         pl_df = to_polars_df(df)
@@ -531,26 +555,29 @@ class CountExpectancyMatrix:
             + pl.col("strikes_after").clip(0, 2).cast(pl.Utf8)
         )
 
-        leverage_map = {
-            k: res.count_leverage(
-                int(k.split("|")[0]),
-                k.split("|")[1],
-                int(k.split("|")[2]),
-                int(k.split("|")[3]),
-            )
-            for k in res.state_expectancy
-        }
+        leverage_map: dict[str, float] = {}
+        for k in res.state_expectancy:
+            o, bs, b, st = k.split("|")
+            lev = res.count_leverage(int(o), bs, int(b), int(st))
+            if lev is not None:
+                leverage_map[k] = lev
 
-        re_before_expr = key_before.replace_strict(res.state_expectancy, default=0.0).alias(
-            "re288_before"
-        )
+        re_before_expr = key_before.replace_strict(
+            res.state_expectancy, default=None, return_dtype=pl.Float64
+        ).alias("re288_before")
         re_after_expr = (
             pl.when(pl.col("outs_after") >= 3)
             .then(0.0)
-            .otherwise(key_after.replace_strict(res.state_expectancy, default=0.0))
+            .otherwise(
+                key_after.replace_strict(
+                    res.state_expectancy, default=None, return_dtype=pl.Float64
+                )
+            )
             .alias("re288_after")
         )
-        leverage_expr = key_before.replace_strict(leverage_map, default=0.0).alias("count_leverage")
+        leverage_expr = key_before.replace_strict(
+            leverage_map, default=None, return_dtype=pl.Float64
+        ).alias("count_leverage")
 
         pl_df = pl_df.with_columns(re_before_expr, re_after_expr, leverage_expr)
         pl_df = pl_df.with_columns(

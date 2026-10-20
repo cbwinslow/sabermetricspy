@@ -1,0 +1,29 @@
+# Run value of reaching each ball-strike count, in batting runs relative to 0-0.
+# Walsh, "Searching for the game's best pitch", The Hardball Times, 2008-02-26, Table 1.
+# The article names no season for the table (its examples use 2007 data) and gives no step-by-step method.
+source_url: https://tht.fangraphs.com/searching-for-the-games-best-pitch
+counts:
+  "0-0": 0.000
+  "1-0": 0.038
+  "2-0": 0.104
+  "3-0": 0.220
+  "0-1": -0.044
+  "1-1": -0.015
+  "2-1": 0.037
+  "3-1": 0.142
+  "0-2": -0.106
+  "1-2": -0.082
+  "2-2": -0.039
+  "3-2": 0.059
+# Independent cross-check: Albert, Baumer and Marchi, Analyzing Baseball Data with R 3e, chapter 6
+# https://beanumber.github.io/abdwr3e/06-pitchcount.html
+# Retrosheet 2016, mean run value (RE24 change plus runs) of plate appearances passing through the count.
+# Printed to four decimals; the chapter prints no complete 12-count table. Different season and method,
+# so agreement is expected only to a few thousandths of a run.
+abdwr_2016:
+  tolerance: 0.006
+  "1-0": {value: 0.0371, n: 76165}
+  "0-1": {value: -0.0394, n: 94106}
+  "2-2": {value: -0.0368, n: 44254}
+  # The two printed paths into 1-1 pool (n-weighted) to -0.014818.
+  "1-1": {value: -0.014818, n: 75226}

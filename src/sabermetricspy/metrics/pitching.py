@@ -657,7 +657,7 @@ def calc_pit_k_to_bb(ctx: EvalContext) -> nw.Expr:
         required_columns=("bf", "outs"),
         direction=Direction.LOWER_IS_BETTER,
         formula_latex=r"BF/IP = \frac{3 \times TBF}{Outs}",
-        citation="Baseball-Reference Glossary",
+        citation="SABR, New Measures for Pitchers (BFP/IP)",
         description="Batters faced per inning pitched.",
     )
 )
