@@ -97,6 +97,25 @@ sp.player_id("mlbam", "Mike", "Trout", birth_year=1991)  # 545361
 
 Ambiguous names and ids shared by two people raise an error that lists the candidates; nothing is guessed.
 
+### Names from several sources
+
+`sabermetricspy.ids.names` builds one searchable table of names from the Chadwick Register (people and alternate names) and
+Retrosheet's biographical file, and reports where they disagree. Neither source is bundled; credit goes to the Chadwick
+Bureau (ODC-BY 1.0) and Retrosheet (see [credits](docs/CREDITS.md)). Chadwick's files are downloaded by the library; Retrosheet's
+`biofile.zip` is downloaded by you from [retrosheet.org/biofile.htm](https://www.retrosheet.org/biofile.htm) and passed by path
+(the zip, `biofile0.csv`, or the folder holding either). The SHA-256 of the file read is recorded in the result.
+
+```python
+import sabermetricspy as sp
+
+sp.download_register()          # Chadwick people shards, pinned to a commit
+sp.download_name_sources()      # Chadwick names.csv and links.csv from the same commit
+names = sp.load_name_register(retrosheet="path/to/biofile.zip")
+names.search("Hank", "Aaron")   # each person once, with the names and sources that matched
+names.person("Mike", "Trout")   # {'key_uuid': ..., 'key_retro': 'troum001', 'sources': [...]}; raises if none or several
+names.conflicts                 # birth dates, first and last names, first year against debut: both values, never merged
+```
+
 ## Accuracy and Provenance
 
 - Seasonal constants (wOBA weights, cFIP, league run environment, non-pitcher wRC/PA) are FanGraphs Guts! and

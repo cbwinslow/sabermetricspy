@@ -536,6 +536,63 @@ def _ensure_builtin_benchmarks() -> None:
         ids = pl.DataFrame({"key_retro": [f"p{i % 1200:05d}" for i in range(rows)]})
         return translate_ids(ids, "retro", "mlbam", register=register).df
 
+    @register_benchmark(name="ids.build_name_register", category="ids", default_rows=20_000)
+    def _bench_build_name_register(rows: int = 20_000) -> Any:
+        from sabermetricspy.ids.names import build_name_register
+
+        idx = pl.int_range(0, rows, eager=True)
+        text = pl.Utf8
+        people = pl.DataFrame(
+            {
+                "key_person": idx.map_elements(lambda i: f"{i:08x}", return_dtype=text),
+                "key_uuid": idx.map_elements(lambda i: f"{i:08x}-u", return_dtype=text),
+                "key_retro": idx.map_elements(lambda i: f"p{i:06d}", return_dtype=text),
+                "name_first": idx.map_elements(lambda i: f"First{i % 700}", return_dtype=text),
+                "name_given": idx.map_elements(lambda i: f"Given{i % 900}", return_dtype=text),
+                "name_last": idx.map_elements(lambda i: f"Last{i % 1500}", return_dtype=text),
+                "name_nick": pl.Series([None] * rows, dtype=text),
+                "name_matrilineal": pl.Series([None] * rows, dtype=text),
+                "birth_year": 1900 + (idx % 100),
+                "birth_month": pl.Series(["6"] * rows, dtype=text),
+                "birth_day": pl.Series(["15"] * rows, dtype=text),
+                "mlb_played_first": 1920 + (idx % 100),
+            }
+        )
+        names = pl.DataFrame(
+            {
+                c: pl.Series([], dtype=text)
+                for c in (
+                    "key_person",
+                    "name_last",
+                    "name_first",
+                    "altname_type",
+                    "altname_last",
+                    "altname_first",
+                    "altname_given",
+                    "altname_nick",
+                    "altname_date_start",
+                    "altname_date_end",
+                )
+            }
+        )
+        links = pl.DataFrame(
+            {c: pl.Series([], dtype=text) for c in ("key_person", "source", "value")}
+        )
+        bio = pl.DataFrame(
+            {
+                "id": people["key_retro"],
+                "lastname": people["name_last"],
+                "usename": people["name_first"],
+                "fullname": people["name_first"] + " " + people["name_last"],
+                "birthdate": pl.Series(["19000615"] * rows, dtype=text),
+                "birthname": pl.Series([None] * rows, dtype=text),
+                "altname": pl.Series([None] * rows, dtype=text),
+                "debut_p": pl.Series(["19200401"] * rows, dtype=text),
+            }
+        )
+        register = PlayerRegister(people=people, fetched_on=None, commit=None, path="synthetic")
+        return build_name_register(register, names, links, bio).names
+
     @register_benchmark(name="valuation.pitcher_war_df", category="valuation", default_rows=5_000)
     def _bench_pitcher_war(rows: int = 5_000) -> Any:
         idx = pl.int_range(0, rows, eager=True)

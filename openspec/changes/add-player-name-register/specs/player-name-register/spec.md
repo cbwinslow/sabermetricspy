@@ -45,16 +45,24 @@ overwrite or discard either value.
 - **WHEN** two sources spell a last name with and without an accent
 - **THEN** the names are not reported as a conflict after normalization, and both spellings remain searchable
 
+### Requirement: People known only by last name are listed
+A source person who has a last name but no first name (historical players whose first name is unknown) SHALL be listed
+with their source and ids in a separate table, and SHALL NOT be silently dropped.
+
+#### Scenario: Last name only
+- **WHEN** a source lists a person with a last name and no first name
+- **THEN** the person appears in the last-name-only table and has no row in the searchable names
+
 ### Requirement: Attribution and provenance
 Results SHALL carry the credit and license of every source used (Chadwick Bureau under ODC-BY 1.0, and Retrosheet's
-notice statement) and the commit or fetch date each source file was read at.
+notice statement), the commit and fetch date of the Chadwick files, and the SHA-256 of the Retrosheet file that was read.
 
 #### Scenario: Citation travels with a search
 - **WHEN** a search returns people
-- **THEN** the result metadata names each source, its license or notice, and its commit or fetch date
+- **THEN** the result metadata names each source, its license or notice, the Chadwick commit and fetch date, and the Retrosheet file's SHA-256
 
 ### Requirement: Sources are not bundled
-The register SHALL be built from files the caller supplies or downloads, and SHALL NOT ship source data in the package.
+The register SHALL be built from files the caller supplies or downloads, and SHALL NOT ship source data in the package. Retrosheet's biographical file SHALL be accepted as `biofile.zip`, as `biofile0.csv`, or as a folder holding either.
 
 #### Scenario: No data available
 - **WHEN** no source files are available and no download was requested
