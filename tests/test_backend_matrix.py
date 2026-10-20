@@ -9,6 +9,7 @@ from __future__ import annotations
 import math
 import time
 import warnings
+from pathlib import Path
 from typing import Any
 
 import duckdb
@@ -200,3 +201,20 @@ def test_rolling_agrees_across_backends(backend: str) -> None:
     a, b = _to_polars(ref.df), _to_polars(got.df)
     key = ["player_id", "game"]
     assert a.sort(key).equals(b.sort(key).select(a.columns))
+
+
+STATCAST_SAMPLE = Path(__file__).parent / "fixtures" / "statcast" / "skubal_2024_pitches.csv"
+
+
+@pytest.mark.parametrize("backend", BACKENDS)
+def test_statcast_preset_and_every_pitch_metric_agree_across_backends(backend: str) -> None:
+    """Real recorded pitches (Tarik Skubal 2024, 2,868 rows): plate discipline, batted ball, pitch physics and more."""
+    from sabermetricspy.presets import prepare_statcast_pitches
+
+    raw = pl.read_csv(STATCAST_SAMPLE, infer_schema_length=0)
+    ref = sp.calculate_available(prepare_statcast_pitches(raw), by="pitcher_id", season=2024)
+    assert len(ref.requested_metrics) >= 70
+    native = prepare_statcast_pitches(_backend(raw, backend))
+    got = sp.calculate_available(native, by="pitcher_id", season=2024)
+    assert got.requested_metrics == ref.requested_metrics
+    _assert_same(_to_polars(ref.df), _to_polars(got.df), "pitcher_id")
