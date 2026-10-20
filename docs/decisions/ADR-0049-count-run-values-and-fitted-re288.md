@@ -37,5 +37,8 @@ made-up +0.12 for a walk.
 
 ## Consequences
 Anyone relying on `from_default()` must fit a table. `RE288Results.total_pitches` is now `total_plate_appearances`.
-`CountExpectancyMatrix` stays `unverified` because no outside value reproduces `fit()`; the Walsh values themselves match.
+`CountExpectancyMatrix` is `approximate` with golden evidence: an opt-in test (`tests/test_retrosheet_2016_count_fit.py`, set
+`SABERMETRICSPY_RETRO2016` to the abdwr3edata `retro2016.rda`) reproduces the row counts printed in ABDWR chapter 6 exactly
+(76,165 / 94,106 / 44,254 / 75,226 event rows through 1-0, 0-1, 2-2, 1-1) and the mean run values within 0.006 (observed
+differences 0.003 to 0.005, from realised runs being noisier than the chapter's RE24 change). The default suite skips it.
 Tests: `tests/test_count_expectancy.py`.

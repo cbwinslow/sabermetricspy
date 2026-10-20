@@ -26,7 +26,7 @@ glossary and mlb.com glossary pages are unreachable (403 or 406).
 - The FIP- park input (see ADR-0035 audit note) and Baseball-Reference's ERA+ and OPS+ park factors.
 - The GIDP rate and run value behind wGDP; Savant's xERA scale and barrel zone table.
 - The 2021 to 2025 kwERA constant term (1.887), measured but not derived.
-- A reproduction of `CountExpectancyMatrix.fit()` (ADR-0049); Stuff+ and Savant expected-stat training data.
+- Stuff+ and Savant expected-stat training data.
 - Per-game WPA for Shutdown/Meltdown counts.
 
 ## Process gaps

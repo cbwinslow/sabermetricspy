@@ -749,9 +749,10 @@ models:
     source_url: https://library.fangraphs.com/misc/re24/
     note: The built-in default table is the published FanGraphs RE24 matrix (roughly neutral for 2014, 4.15 runs per game), pinned cell by cell by tests/golden/run_expectancy_table.yaml; the previous 'canonical 2024' table was unsourced and differed by up to 0.086 runs (ADR-0028). The empirical fit() computes mean runs to the end of the inning per base-out state; it was not compared with a season fitted from play-by-play, which is not bundled.
   CountExpectancyMatrix:
-    status: unverified
-    source_url: http://tangotiger.com/index.php/site/re288-run-expectancy-by-the-24-base-out-states-x-12-plate-count-states-recu
-    note: 'Reason: there is no built-in table any more (ADR-0049); fit() estimates mean runs to the end of the inning per outs, bases and count state, counting each plate appearance once per count (the ABDWR 3e chapter 6 convention). The estimator has no outside value to reproduce: Tango''s published RE288 is printed only as images with no stated seasons, and the ABDWR Retrosheet 2016 count values need the full season. The pinned reference is the 12 count run values in count_run_value (Walsh 2008, tests/golden/count_run_values.yaml). Follow-up: an opt-in test that fits Retrosheet 2016 and checks the plate-appearance-weighted count averages against ABDWR.'
+    status: approximate
+    evidence: golden
+    source_url: https://beanumber.github.io/abdwr3e/06-pitchcount.html
+    note: 'There is no built-in table (ADR-0049); fit() estimates mean runs to the end of the inning per outs, bases and count state, counting each plate appearance once per count. Opt-in check on Retrosheet 2016 (190,713 event rows, tests/test_retrosheet_2016_count_fit.py, data from abdwr3edata): the number of event rows through 1-0, 0-1, 2-2 and 1-1 equals the n printed in Albert, Baumer and Marchi chapter 6 exactly (76,165; 94,106; 44,254; 75,226), and the mean of RE288(state, count) - RE288(state, 0-0) is within 0.006 runs of their printed mean run value (differences 0.003 to 0.005; fit() uses realised runs, which are noisier than the chapter''s RE24 change). Approximate rather than matches because the default suite does not run that check (it needs the 2.8 MB data file and pyreadr) and Tango''s published RE288 is printed only as images with no stated seasons (tests/golden/count_run_values.yaml pins the Walsh count values).'
   LinearWeightsEstimator:
     status: approximate
     evidence: secondary
