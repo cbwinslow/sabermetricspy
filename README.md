@@ -79,6 +79,24 @@ print(re24.results.matrix_df)
 
 ---
 
+## Player ids across sources
+
+Statcast, Retrosheet, Baseball-Reference, FanGraphs and Lahman name players differently. `sabermetricspy.ids` translates
+between them using the [Chadwick Bureau Register](https://github.com/chadwickbureau/register) (ODC-BY 1.0; credit the
+Chadwick Bureau). The register is not bundled: download it once, then use it on any Polars, pandas, PyArrow or DuckDB frame.
+
+```python
+import sabermetricspy as sp
+
+sp.download_register()  # ~68 MB into ~/.cache/sabermetricspy, or pass a path
+res = sp.translate_ids(
+    df, "retro", "mlbam"
+)  # adds key_mlbam; res.unmatched, res.release, res.license
+sp.player_id("mlbam", "Mike", "Trout", birth_year=1991)  # 545361
+```
+
+Ambiguous names and ids shared by two people raise an error that lists the candidates; nothing is guessed.
+
 ## Accuracy and Provenance
 
 - Seasonal constants (wOBA weights, cFIP, league run environment, non-pitcher wRC/PA) are FanGraphs Guts! and

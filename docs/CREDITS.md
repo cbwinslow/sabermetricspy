@@ -30,6 +30,9 @@ not the evidence.
 ## Data
 - Retrosheet: "The information used here was obtained free of charge from and is copyrighted by Retrosheet.
   Interested parties may contact Retrosheet at www.retrosheet.org."
+- Chadwick Bureau Register (https://github.com/chadwickbureau/register): player ids and names, licensed Open Data Commons
+  Attribution License 1.0. It is not bundled; `sabermetricspy.ids` loads or downloads it, and each translation result
+  carries this credit and the register's release date.
 - Lahman Baseball Database: Sean Lahman, licensed CC BY-SA 3.0.
 - Bundled seasonal constants are FanGraphs Guts! and leaderboard values recorded with source and retrieval date.
   They remain FanGraphs' data; check their terms before redistributing them.
