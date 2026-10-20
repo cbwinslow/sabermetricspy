@@ -1,0 +1,7 @@
+sabermetricspy
+Copyright 2026 C. B. Winslow
+
+This product includes software developed by C. B. Winslow (https://github.com/cbwinslow/sabermetricspy).
+
+The metrics and models implement methods published by others. Their authors and sources are credited in
+docs/CREDITS.md and, per metric, in docs/METHODOLOGY.md.

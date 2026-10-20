@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use sabermetricspy in research or publications, please cite it as below, and cite the original sources of the methods you use (see docs/CREDITS.md)."
+title: "sabermetricspy"
+type: software
+authors:
+  - family-names: "Winslow"
+    given-names: "C. B."
+repository-code: "https://github.com/cbwinslow/sabermetricspy"
+license: Apache-2.0
+version: 0.1.0
+date-released: "2026-10-20"
+keywords:
+  - baseball
+  - sabermetrics

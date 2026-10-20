@@ -96,9 +96,12 @@ print(re24.results.matrix_df)
 - [Naming Conventions & Baseball Nomenclature](docs/NAMING_CONVENTIONS.md)
 - [Architecture Decision Records (ADRs)](docs/DECISIONS.md)
 - [OpenSpec Project Constitution](openspec/project.md)
+- [Credits and how to cite](docs/CREDITS.md)
 
 ---
 
 ## License
 
-Licensed under the [Apache License, Version 2.0](LICENSE).
+Licensed under the [Apache License, Version 2.0](LICENSE). Use it freely, including commercially; keep the
+[NOTICE](NOTICE) file with any redistribution. To cite the library, see `CITATION.cff`, and please also cite the
+original authors of the methods you use ([credits](docs/CREDITS.md)).
