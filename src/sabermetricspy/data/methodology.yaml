@@ -758,11 +758,16 @@ models:
     evidence: secondary
     source_url: https://www.fangraphs.com/guts.aspx?type=cn
     note: Follows the FanGraphs Guts! construction (run value above out times a scale that sets wOBA equal to OBP) and the scale identity is tested. A numeric reproduction of the published weights needs season play-by-play run values, which are not bundled, so no published weight was reproduced. tests/test_model_audit.py
+  WinExpectancyMatrix:
+    status: approximate
+    evidence: golden
+    source_url: http://tangotiger.net/welist.html
+    note: 'The observed home win rate per inning, half, outs, bases and score difference, the construction of Tom Tango''s published win-expectancy tables; there is no built-in table and unobserved states stay unfitted. Hand-computed rates are pinned by tests/test_win_expectancy_matrix.py. The opt-in check on Retrosheet 2016 (2,428 games; tests/test_retrosheet_2016_win_expectancy.py) finds every bottom-of-the-9th cell with 30 or more games within three binomial standard errors (games, not plate appearances) of Tango''s table (tests/golden/win_expectancy_tango.yaml), which states no seasons; all cells with 50 or more games are within 2 standard errors. One season leaves rarer states with few games, so read results.state_games before using a cell. The home win rate of the whole season was 0.530.'
   WinProbabilityModel:
     status: approximate
     evidence: golden
     source_url: http://tangotiger.net/welist.html
-    note: 'A closed-form normal approximation (runs per game, home edge, RE24 scaled to the run environment), compared with 54 cells of Tom Tango''s published win-expectancy table (bottom of the 9th tied and trailing by one, top of the 9th and bottom of the 7th tied; tests/golden/win_expectancy_tango.yaml). Mean absolute error 0.048; tied bottom 9th mean 0.028, max 0.108; trailing by one run is worse (mean 0.078, max 0.194, runner on second and third with no outs: 0.527 against 0.721), because the approximation ignores that one run ties the game. The table states no seasons or run environment. Use a table built from play-by-play when exact values matter.'
+    note: 'A closed-form normal approximation (runs per game, home edge, RE24 scaled to the run environment), compared with 54 cells of Tom Tango''s published win-expectancy table (bottom of the 9th tied and trailing by one, top of the 9th and bottom of the 7th tied; tests/golden/win_expectancy_tango.yaml). Mean absolute error 0.048; tied bottom 9th mean 0.028, max 0.108; trailing by one run is worse (mean 0.078, max 0.194, runner on second and third with no outs: 0.527 against 0.721), because the approximation ignores that one run ties the game. The table states no seasons or run environment. Use WinExpectancyMatrix, built from play-by-play, when exact values matter.'
   EmpiricalBayesShrinker:
     status: matches
     evidence: primary

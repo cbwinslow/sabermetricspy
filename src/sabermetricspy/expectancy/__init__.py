@@ -594,6 +594,125 @@ class CountExpectancyMatrix:
         return arrow_tbl
 
 
+class WinExpectancyResults(BaseModel):
+    """Frozen table learned by WinExpectancyMatrix: the home team's win rate from each game state."""
+
+    model_config = ConfigDict(frozen=True)
+
+    state_expectancy: dict[str, float] = Field(
+        ...,
+        description="Mapping of 'inning|half|outs|base_state|score_diff' (e.g. '9|bottom|2|---|0') to the home win rate; states with no data are absent",
+    )
+    state_counts: dict[str, int] = Field(
+        default_factory=dict, description="Plate appearances observed in each fitted state"
+    )
+    state_games: dict[str, int] = Field(
+        default_factory=dict, description="Distinct games that reached each fitted state"
+    )
+    total_plate_appearances: int = 0
+
+    def lookup(
+        self,
+        inning: int,
+        half_inning: str,
+        outs: int,
+        base_state: BaseState | str,
+        home_score_diff: int,
+    ) -> float | None:
+        """Return the fitted home win rate for a state, or None when no plate appearance reached it."""
+        half = "top" if half_inning.lower().strip() in ("top", "t", "0", "away") else "bottom"
+        return self.state_expectancy.get(f"{inning}|{half}|{outs}|{base_state!s}|{home_score_diff}")
+
+    def standard_error(
+        self,
+        inning: int,
+        half_inning: str,
+        outs: int,
+        base_state: BaseState | str,
+        home_score_diff: int,
+    ) -> float | None:
+        """Binomial standard error sqrt(p (1 - p) / games) of a fitted state, or None when unfitted.
+
+        Uses the number of distinct games, not plate appearances, because plate appearances in one game
+        share one result.
+        """
+        half = "top" if half_inning.lower().strip() in ("top", "t", "0", "away") else "bottom"
+        key = f"{inning}|{half}|{outs}|{base_state!s}|{home_score_diff}"
+        p = self.state_expectancy.get(key)
+        if p is None:
+            return None
+        return math.sqrt(p * (1.0 - p) / self.state_games[key])
+
+
+class WinExpectancyMatrix:
+    """Empirical win expectancy (WE): how often the home team won from each inning, half, outs, bases and score state.
+
+    There is no built-in table; the table is the observed home win rate in the caller's play-by-play, which is
+    how Tom Tango's published win expectancy tables are built (http://tangotiger.net/welist.html). Cells with
+    few games are noisy: check `results.state_games` or `results.standard_error()` before relying on one.
+    """
+
+    def __init__(self) -> None:
+        self._results: WinExpectancyResults | None = None
+
+    @property
+    def results(self) -> WinExpectancyResults:
+        if self._results is None:
+            raise RuntimeError("WinExpectancyMatrix is not fitted yet. Call .fit(df) first.")
+        return self._results
+
+    @profiled(category="expectancy")
+    def fit(self, df: IntoFrame) -> Self:
+        """Fit from plate-appearance records, one row per plate appearance with the state before it.
+
+        Requires `game_id`, `inning`, `is_bottom` (True when the home team bats), `outs_before`,
+        `base_state_before`, `home_score_diff` (home minus away runs before the plate appearance) and
+        `home_win` (1 when the home team won the game, else 0).
+        """
+        pl_df = to_polars_df(df)
+        required = {
+            "game_id",
+            "inning",
+            "is_bottom",
+            "outs_before",
+            "base_state_before",
+            "home_score_diff",
+            "home_win",
+        }
+        missing = required - set(pl_df.columns)
+        if missing:
+            raise ValueError(
+                f"Input dataframe for WinExpectancyMatrix.fit is missing columns: {sorted(missing)}"
+            )
+        valid = pl_df.filter(pl.col("outs_before").is_between(0, 2))
+        grouped = valid.group_by(
+            ["inning", "is_bottom", "outs_before", "base_state_before", "home_score_diff"]
+        ).agg(
+            pl.col("home_win").mean().alias("rate"),
+            pl.len().alias("n"),
+            pl.col("game_id").n_unique().alias("games"),
+        )
+        state_exp: dict[str, float] = {}
+        state_counts: dict[str, int] = {}
+        state_games: dict[str, int] = {}
+        for row in grouped.iter_rows(named=True):
+            half = "bottom" if row["is_bottom"] else "top"
+            key = (
+                f"{int(row['inning'])}|{half}|{int(row['outs_before'])}|"
+                f"{row['base_state_before']!s}|{int(row['home_score_diff'])}"
+            )
+            state_exp[key] = float(row["rate"])
+            state_counts[key] = int(row["n"])
+            state_games[key] = int(row["games"])
+        self._results = WinExpectancyResults(
+            state_expectancy=state_exp,
+            state_counts=state_counts,
+            state_games=state_games,
+            total_plate_appearances=valid.height,
+        )
+        return self
+
+
 class WinProbabilityResults(BaseModel):
     """Frozen parameters and diagnostics for WinProbabilityModel (WPA & LI)."""
 

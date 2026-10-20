@@ -15,4 +15,5 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 - Models and metrics with no public method: Stuff+, expected outcomes, catcher framing, OAA, xERA (ADR-0047).
 
 ### Added
+- `WinExpectancyMatrix`: win expectancy fitted from play-by-play, checked against Tango's table (ADR-0052).
 - LICENSE (Apache-2.0), NOTICE, CITATION.cff, `docs/CREDITS.md`, and a CI workflow.
