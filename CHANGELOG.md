@@ -5,6 +5,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 ## [Unreleased]
 
 ### Changed
+- Backend matrix test: every registered metric, the expectancy models, shrinkage, projection and rolling agree across Polars, LazyFrame, pandas, PyArrow and DuckDB; DuckDB is slow for many metrics (ADR-0056, proposed).
 - Season detection runs on every backend (DuckDB crashed), `translate_ids` preserves the caller's frame and matches ids exactly, the register records its commit and fetch date (`release` is replaced by `fetched_on` and `commit`), fits validate input (ADR-0055).
 - Season constants follow the data: `season` defaults to `None`, a single-season frame uses its own season, a frame
   that contradicts the context raises, and the 2024 fallback warns (ADR-0051).
