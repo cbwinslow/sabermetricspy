@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 
 import narwhals as nw
 from narwhals.typing import IntoFrame
 from pydantic import BaseModel, ConfigDict
 
-from sabermetricspy.constants import get_pitcher_war_constants, resolve_context
+from sabermetricspy.constants import DEFAULT_SEASON, get_pitcher_war_constants, resolve_context
 from sabermetricspy.schema import normalize_columns, safe_div
 from sabermetricspy.telemetry import profiled
 from sabermetricspy.types.context import SeasonContext
@@ -64,13 +65,20 @@ class WARFramework:
         self,
         context: SeasonContext | None = None,
         *,
-        season: int = 2024,
+        season: int | None = None,
         replacement_runs_per_600_pa: float = 20.0,
         league_pa: float | None = None,
         mlb_games: float = 2430.0,
     ) -> None:
         """`league_pa` switches replacement level to the FanGraphs formula (see `value.position_war`)."""
-        self.context = resolve_context(context, season=season)
+        if context is None and season is None:
+            warnings.warn(
+                f"WARFramework was given neither a context nor a season, so it uses {DEFAULT_SEASON} constants. "
+                "Pass season= or context=SeasonContext(season=...).",
+                UserWarning,
+                stacklevel=2,
+            )
+        self.context = resolve_context(context, season=DEFAULT_SEASON if season is None else season)
         self.replacement_runs_per_600_pa = replacement_runs_per_600_pa
         self.league_pa = league_pa
         self.mlb_games = mlb_games

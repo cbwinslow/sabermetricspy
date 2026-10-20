@@ -67,7 +67,7 @@ date, and the project's credits SHALL state the same.
 - **WHEN** no path is given and no cached copy exists and the caller did not ask for a download
 - **THEN** the call fails with an error that says how to supply or download the register
 
-#### Scenario: Attribution and provenance travel with results
+#### Scenario: Attribution travels with results
 - **WHEN** a translation completes
 - **THEN** its result metadata names the Chadwick Bureau, the license, the fetch date, and the commit when the register
   was downloaded with this library

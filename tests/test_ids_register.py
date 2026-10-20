@@ -12,16 +12,17 @@ import polars as pl
 import pyarrow as pa
 import pytest
 
+import sabermetricspy.ids as ids_module
 from sabermetricspy.ids import (
     ID_SYSTEMS,
     REGISTER_LICENSE,
+    download_register,
     find_players,
     load_register,
     normalize_name,
     player_id,
     translate_ids,
 )
-from sabermetricspy.ids import download_register as _download_register
 
 HEADER = (
     "key_person,key_uuid,key_mlbam,key_retro,key_bbref,key_bbref_minors,key_fangraphs,key_npb,key_sr_nfl,"
@@ -154,12 +155,13 @@ def _frame(retro: Sequence[str | None]) -> pl.DataFrame:
     return pl.DataFrame({"key_retro": retro, "pa": list(range(len(retro)))})
 
 
-def test_loader_types_ids_and_records_release(register_dir: Path) -> None:
+def test_loader_types_ids_and_reads_the_fetch_date(register_dir: Path) -> None:
     reg = load_register(register_dir, shards=SHARDS)
     assert reg.people.schema["key_mlbam"] == pl.Int64
     assert reg.people.schema["key_fangraphs"] == pl.Int64
     assert reg.people.schema["key_retro"] == pl.Utf8
-    assert reg.release == "2026-10-20"
+    assert reg.fetched_on == "2026-10-20"
+    assert reg.commit is None
     assert reg.people.height == 7
 
 
@@ -204,7 +206,7 @@ def test_attribution_travels_with_the_result(register_dir: Path) -> None:
     assert (
         res.license == REGISTER_LICENSE == "Open Data Commons Attribution License 1.0 (ODC-BY 1.0)"
     )
-    assert res.release == "2026-10-20"
+    assert res.fetched_on == "2026-10-20"
 
 
 def test_id_shared_by_two_people_raises_naming_both(register_dir: Path) -> None:
@@ -315,15 +317,177 @@ def test_all_id_systems_map_to_register_columns() -> None:
     assert set(ID_SYSTEMS.values()) <= set(COLS)
 
 
-def test_download_register_writes_shards_and_fetch_date(tmp_path: Path, register_dir: Path) -> None:
-    served = register_dir
-    dest = tmp_path / "out"
-    _download_register(dest, base_url=served.as_uri(), shards=SHARDS)
-    assert (dest / "people-0.csv").read_text("utf-8") == (served / "people-0.csv").read_text(
-        "utf-8"
+def _commit_dir(root: Path, commit: str, ids: str) -> None:
+    """A fake register commit: `<root>/<commit>/data/people-*.csv`, one shard per entry in SHARDS."""
+    data = root / commit / "data"
+    data.mkdir(parents=True)
+    for name in SHARDS:
+        row = _row(
+            key_uuid=f"{commit}-{name[7]}",
+            key_mlbam=ids,
+            key_retro=f"r{commit}{name[7]}",
+            name_last="Zed",
+            name_first="Zoe",
+        )
+        (data / name).write_text("\n".join([HEADER, row]) + "\n", encoding="utf-8")
+
+
+def test_download_is_pinned_to_a_commit_and_records_it(tmp_path: Path) -> None:
+    served = tmp_path / "served"
+    _commit_dir(served, "c1", "111")
+    _commit_dir(served, "c2", "222")
+    template = served.as_uri() + "/{ref}/data"
+    first = download_register(tmp_path / "one", commit="c1", base_url=template, shards=SHARDS)
+    second = download_register(tmp_path / "two", commit="c2", base_url=template, shards=SHARDS)
+    reg1, reg2 = load_register(first, shards=SHARDS), load_register(second, shards=SHARDS)
+    assert reg1.commit == "c1" and reg2.commit == "c2"
+    assert set(reg1.people["key_mlbam"].to_list()) == {111}
+    assert set(reg2.people["key_mlbam"].to_list()) == {222}
+    assert reg1.fetched_on is not None and len(reg1.fetched_on) == 10
+
+
+def test_download_resolves_the_ref_to_a_commit(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    served = tmp_path / "served"
+    _commit_dir(served, "abc", "333")
+    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: "abc")  # pyright: ignore[reportUnknownLambdaType]
+    dest = download_register(
+        tmp_path / "d", base_url=served.as_uri() + "/{ref}/data", shards=SHARDS
     )
-    reg = load_register(dest, shards=SHARDS)
-    assert reg.release is not None and len(reg.release) == 10
+    assert load_register(dest, shards=SHARDS).commit == "abc"
+
+
+def test_download_without_a_resolvable_commit_warns_and_records_none(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    served = tmp_path / "served"
+    _commit_dir(served, "master", "444")
+    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: None)  # pyright: ignore[reportUnknownLambdaType]
+    with pytest.warns(UserWarning, match="unpinned"):
+        dest = download_register(
+            tmp_path / "d", base_url=served.as_uri() + "/{ref}/data", shards=SHARDS
+        )
+    assert load_register(dest, shards=SHARDS).commit is None
+
+
+def test_cache_follows_the_files(register_dir: Path, tmp_path: Path) -> None:
+    first = load_register(register_dir, shards=SHARDS)
+    assert load_register(register_dir, shards=SHARDS) is first
+    shard = register_dir / "people-1.csv"
+    shard.write_text(shard.read_text("utf-8").replace("Nomlb", "Changed"), encoding="utf-8")
+    again = load_register(register_dir, shards=SHARDS)
+    assert again is not first
+    assert "Changed" in again.people["name_last"].to_list()
+
+
+def test_relative_path_in_two_directories_loads_each_register(
+    register_dir: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    other = tmp_path / "other"
+    other.mkdir()
+    for name, rows in ROWS.items():
+        (other / name).write_text("\n".join([HEADER, *rows[:1]]) + "\n", encoding="utf-8")
+    monkeypatch.chdir(register_dir)
+    here = load_register(".", shards=SHARDS)
+    monkeypatch.chdir(other)
+    there = load_register(".", shards=SHARDS)
+    assert here.people.height == 7 and there.people.height == 2
+
+
+# --- the caller's frame is preserved ---------------------------------------------------------------------------
+
+
+def test_pandas_keeps_index_columns_and_gets_nullable_integers(register_dir: Path) -> None:
+    reg = load_register(register_dir, shards=SHARDS)
+    frame = pd.DataFrame(
+        {"key_retro": ["aaaaa001", "zzzzz999", "nunez001"], "n": [1.5, 2.5, 3.5]},
+        index=[10, 20, 30],
+    )
+    out = translate_ids(frame, "retro", "mlbam", register=reg).df
+    assert list(out.index) == [10, 20, 30]
+    assert list(out.columns) == ["key_retro", "n", "key_mlbam"]
+    assert out["n"].tolist() == [1.5, 2.5, 3.5]
+    assert str(out["key_mlbam"].dtype) == "Int64"
+    assert out["key_mlbam"].tolist()[0] == 100 and pd.isna(out["key_mlbam"].iloc[1])
+    assert list(frame.columns) == ["key_retro", "n"]  # the input is not modified
+
+
+def test_lazy_frame_stays_lazy(register_dir: Path) -> None:
+    reg = load_register(register_dir, shards=SHARDS)
+    out = translate_ids(_frame(["aaaaa001", "nunez001"]).lazy(), "retro", "mlbam", register=reg).df
+    assert isinstance(out, pl.LazyFrame)
+    assert out.collect()["key_mlbam"].to_list() == [100, 200]
+
+
+@pytest.mark.parametrize("helper", ["__key", "__row", "k", "v", "i"])
+def test_columns_named_like_helpers_survive(register_dir: Path, helper: str) -> None:
+    reg = load_register(register_dir, shards=SHARDS)
+    frame = _frame(["aaaaa001", "nunez001"]).with_columns(pl.Series(helper, [7, 8]))
+    out = translate_ids(frame, "retro", "mlbam", register=reg).df
+    assert out[helper].to_list() == [7, 8]
+    assert out["key_mlbam"].to_list() == [100, 200]
+
+
+def test_duckdb_and_pyarrow_keep_other_columns_exactly(register_dir: Path) -> None:
+    reg = load_register(register_dir, shards=SHARDS)
+    base = _frame(["aaaaa001", "nunez001"]).with_columns(pl.Series("x", [1, 2], dtype=pl.Int32))
+    arrow = translate_ids(base.to_arrow(), "retro", "mlbam", register=reg).df
+    assert arrow.schema.field("x").type == pa.int32()
+    rel = translate_ids(duckdb.from_arrow(base.to_arrow()), "retro", "mlbam", register=reg).df
+    assert rel.columns == ["key_retro", "pa", "x", "key_mlbam"]
+
+
+# --- exact id matching -----------------------------------------------------------------------------------------
+
+
+def test_fractional_and_padded_ids(register_dir: Path) -> None:
+    reg = load_register(register_dir, shards=SHARDS)
+    floats = pl.DataFrame({"key_mlbam": [100.0, 100.7, float("nan"), None]})
+    out = translate_ids(floats, "mlbam", "retro", register=reg)
+    assert out.df["key_retro"].to_list() == ["aaaaa001", None, None, None]
+    padded = pl.DataFrame({"key_retro": [" aaaaa001 ", "aaaaa001\t"]})
+    assert translate_ids(padded, "retro", "mlbam", register=reg).df["key_mlbam"].to_list() == [
+        100,
+        100,
+    ]
+    text = pl.DataFrame({"key_mlbam": [" 100", "100.5", "abc"]})
+    assert translate_ids(text, "mlbam", "retro", register=reg).df["key_retro"].to_list() == [
+        "aaaaa001",
+        None,
+        None,
+    ]
+
+
+# --- names that cannot be normalized ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        ("Bj\u00f8rn", "bjorn"),
+        ("\u0141ukasz", "lukasz"),
+        ("D\u00e6hli", "daehli"),
+        ("\u0110uri\u0107", "duric"),
+        ("S\u00f8ren \u00d8rsted", "soren orsted"),
+        ("Jose\tAbreu", "jose abreu"),
+        ("Stra\u00dfe", "strasse"),
+    ],
+)
+def test_normalize_name_folds_stroked_letters_and_tabs(raw: str, expected: str) -> None:
+    assert normalize_name(raw) == expected
+
+
+def test_non_latin_query_raises_and_empty_register_names_never_match(register_dir: Path) -> None:
+    extra = _row(key_uuid="20000001-hhhh", key_mlbam="700", name_last="", name_first="")
+    shard = register_dir / "people-1.csv"
+    shard.write_text(shard.read_text("utf-8") + extra + "\n", encoding="utf-8")
+    reg = load_register(register_dir, shards=SHARDS)
+    with pytest.raises(ValueError, match="Cannot normalize"):
+        find_players("\u7fd4\u5e73", "\u5927\u8c37", register=reg)
+    with pytest.raises(ValueError, match="Cannot normalize"):
+        player_id("mlbam", "...", "---", register=reg)
+    assert find_players("Al", "Alpha", register=reg).height == 1
 
 
 def test_calls_are_recorded_by_telemetry(register_dir: Path) -> None:

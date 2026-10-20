@@ -2,16 +2,16 @@
 
 ## 1. Engine season detection
 
-- [ ] 1.1 Replace the season reads in `engine` with `min`/`max`/dtype logic that runs on every backend; treat non-year columns as absent; fix the warning text and `stacklevel`. Verify: `tests/test_multi_season_guard.py` runs the same cases on Polars, LazyFrame, pandas, PyArrow and DuckDB, including text, date and all-null season columns.
-- [ ] 1.2 `WARFramework` warns when built with no context and no season. Verify: a test for the warning and for its absence when a season or context is given; existing WAR tests pass.
+- [x] 1.1 Replace the season reads in `engine` with `min`/`max`/dtype logic that runs on every backend; treat non-year columns as absent; fix the warning text and `stacklevel`. Verify: `tests/test_multi_season_guard.py` runs the same cases on Polars, LazyFrame, pandas, PyArrow and DuckDB, including text, date and all-null season columns.
+- [x] 1.2 `WARFramework` warns when built with no context and no season. Verify: a test for the warning and for its absence when a season or context is given; existing WAR tests pass.
 
 ## 2. Player-id crosswalk
 
-- [ ] 2.1 Attach the translated column to the caller's native frame (pandas, PyArrow, DuckDB, Polars, LazyFrame) without touching other columns. Verify: tests for index preservation, nullable integers, LazyFrame stays lazy, `__key` and `__row` columns survive.
-- [ ] 2.2 Exact id matching (integral floats only, trimmed strings). Verify: fractional and padded id tests.
-- [ ] 2.3 Name normalization: transliteration table, any-whitespace separator, empty-query error, empty-name rows excluded. Verify: tests for the reviewed names (Bjorn, Lukasz, Daehli, Durovic, a non-Latin query, tabs).
-- [ ] 2.4 Cache keyed by resolved path and shard state. Verify: tests loading "." in two directories and editing a shard.
-- [ ] 2.5 Download pinned to a commit with fetch date and commit recorded; rename the result field to `fetched_on` and add `commit`. Verify: a test serving two commits from a local directory; attribution test updated.
+- [x] 2.1 Attach the translated column to the caller's native frame (pandas, PyArrow, DuckDB, Polars, LazyFrame) without touching other columns. Verify: tests for index preservation, nullable integers, LazyFrame stays lazy, `__key` and `__row` columns survive.
+- [x] 2.2 Exact id matching (integral floats only, trimmed strings). Verify: fractional and padded id tests.
+- [x] 2.3 Name normalization: transliteration table, any-whitespace separator, empty-query error, empty-name rows excluded. Verify: tests for the reviewed names (Bjorn, Lukasz, Daehli, Durovic, a non-Latin query, tabs).
+- [x] 2.4 Cache keyed by resolved path and shard state. Verify: tests loading "." in two directories and editing a shard.
+- [x] 2.5 Download pinned to a commit with fetch date and commit recorded; rename the result field to `fetched_on` and add `commit`. Verify: a test serving two commits from a local directory; attribution test updated.
 
 ## 3. Fits
 

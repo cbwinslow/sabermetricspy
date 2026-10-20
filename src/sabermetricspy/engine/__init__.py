@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import inspect
 import statistics
 import time
 import warnings
@@ -83,25 +84,54 @@ class _ContextProbe:
         return self._real.available_columns
 
 
-def _frame_season(nw_df: nw.DataFrame[Any] | nw.LazyFrame[Any]) -> int | None:
-    """The one season a frame holds in its `season` column, or None (no column, several, or all null)."""
-    season_col = next((c for c in nw_df.columns if c.lower() == "season"), None)
-    if season_col is None:
+def _season_column(nw_df: nw.DataFrame[Any] | nw.LazyFrame[Any]) -> str | None:
+    return next((c for c in nw_df.columns if c.lower() == "season"), None)
+
+
+def _is_year_text(value: Any) -> bool:
+    return isinstance(value, str) and len(value) == 4 and value.isdigit()
+
+
+def _season_range(nw_df: nw.DataFrame[Any] | nw.LazyFrame[Any]) -> tuple[int, int] | None:
+    """The (earliest, latest) season in the `season` column, or None when it does not hold years.
+
+    Uses only `min` and `max`, which every backend supports. Integer and integral float columns and columns of
+    four-digit text are years; dates, other text and all-null columns are not.
+    """
+    col = _season_column(nw_df)
+    if col is None:
         return None
-    stats = nw_df.select(
-        nw.col(season_col).drop_nulls().n_unique().alias("n"),
-        nw.col(season_col).min().alias("lo"),
-    )
+    dtype = nw_df.collect_schema()[col]
+    if not (dtype.is_integer() or dtype.is_float() or dtype == nw.String):
+        return None
+    stats = nw_df.select(nw.col(col).min().alias("lo"), nw.col(col).max().alias("hi"))
     if isinstance(stats, nw.LazyFrame):
         stats = stats.collect()
-    row = stats.row(0)
-    return int(row[1]) if row[0] == 1 and row[1] is not None else None
+    lo, hi = stats.row(0)
+    if lo is None or hi is None:
+        return None
+    if isinstance(lo, str) or isinstance(hi, str):
+        return (int(lo), int(hi)) if _is_year_text(lo) and _is_year_text(hi) else None
+    if lo != lo or hi != hi or lo != int(lo) or hi != int(hi):  # NaN or fractional
+        return None
+    return int(lo), int(hi)
 
 
 def _default_season(nw_df: nw.DataFrame[Any] | nw.LazyFrame[Any]) -> int:
-    """The season to use when the caller named none: the frame's own, else `DEFAULT_SEASON`."""
-    found = _frame_season(nw_df)
-    return DEFAULT_SEASON if found is None else found
+    """The season to use when the caller named none: the frame's single season, else `DEFAULT_SEASON`."""
+    found = _season_range(nw_df)
+    return found[0] if found is not None and found[0] == found[1] else DEFAULT_SEASON
+
+
+def _user_stacklevel() -> int:
+    """Stack level of the first caller outside this package, so warnings point at the user's code."""
+    level = 1
+    current = inspect.currentframe()
+    frame = current.f_back if current is not None else None
+    while frame is not None and frame.f_globals.get("__name__", "").startswith("sabermetricspy."):
+        frame = frame.f_back
+        level += 1
+    return level
 
 
 def _check_season(
@@ -114,16 +144,10 @@ def _check_season(
 
     Raises when a frame holds several seasons, or one season different from the context's, and a
     requested metric reads the season constants. Warns when the caller named no season, the frame
-    has none, and a metric reads the constants, because `DEFAULT_SEASON` is then a guess.
+    holds no usable season, and a metric reads the constants, because `DEFAULT_SEASON` is then a guess.
     """
-    season_col = next((c for c in nw_df.columns if c.lower() == "season"), None)
-    n_seasons = 0
-    if season_col is not None:
-        counts = nw_df.select(nw.col(season_col).drop_nulls().n_unique())
-        if isinstance(counts, nw.LazyFrame):
-            counts = counts.collect()
-        n_seasons = int(counts.item())
-    if n_seasons == 0 and not inferred:
+    seasons = _season_range(nw_df)
+    if seasons is None and not inferred:
         return
     dependent: list[str] = []
     for reg in dag:
@@ -134,25 +158,25 @@ def _check_season(
     if not dependent:
         return
     names = ", ".join(dependent)
-    if n_seasons > 1:
+    col = _season_column(nw_df)
+    if seasons is not None and seasons[0] != seasons[1]:
         raise ValueError(
-            f"Column {season_col!r} holds more than one season, but one call applies a single "
+            f"Column {col!r} holds more than one season, but one call applies a single "
             f"season's constants to every row (metrics affected: {names}). "
             "Calculate each season separately with context=SeasonContext(season=...)."
         )
     chosen = eval_ctx.season_context.season
-    found = _frame_season(nw_df)
-    if found is not None and found != chosen:
+    if seasons is not None and seasons[0] != chosen:
         raise ValueError(
-            f"Column {season_col!r} holds season {found}, but the context uses {chosen} constants "
-            f"(metrics affected: {names}). Pass context=SeasonContext(season={found})."
+            f"Column {col!r} holds season {seasons[0]}, but the context uses {chosen} constants "
+            f"(metrics affected: {names}). Pass context=SeasonContext(season={seasons[0]})."
         )
-    if found is None:
+    if seasons is None:
         warnings.warn(
-            f"No season was given and the data has no season column, so {names} use "
+            f"No season was given and the data holds no usable season value, so {names} use "
             f"{DEFAULT_SEASON} constants. Pass season= or context=SeasonContext(season=...).",
             UserWarning,
-            stacklevel=4,
+            stacklevel=_user_stacklevel(),
         )
 
 
