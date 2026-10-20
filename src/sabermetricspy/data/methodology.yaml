@@ -733,16 +733,21 @@ models:
     evidence: primary
     source_url: https://en.wikipedia.org/wiki/Log5
     note: Team form (pA - pA pB) / (pA + pB - 2 pA pB) and batter-pitcher odds-ratio form with a league rate both equal the published formulas, including the article's 0.6 vs 0.4 arithmetic (0.36 / 0.52). The sources cite Bill James as the originator; the original text was not retrieved. tests/test_model_audit.py
+  MarkovChainModel.fit_transitions:
+    status: matches
+    evidence: golden
+    source_url: https://beanumber.github.io/abdwr3e/09-simulation.html
+    note: 'Estimates the 24 x 25 base-out transition matrix from play-by-play and solves the absorbing chain exactly (N = (I-Q)^-1), the construction in Albert, Baumer and Marchi, Analyzing Baseball Data with R (3rd ed.), chapter 9.2. On Retrosheet 2016 batting plays in complete half-innings (183,817 plays; opt-in tests/test_markov_transitions.py) it reproduces every printed transition probability (0.0334, 0.676, 0.235, 0.0503, 0.00563 from the empty state; the eight probabilities from runner on second with two outs, 0.650 to end the inning), the 4.27 plate appearances per half-inning, the expected plays to the end of the inning from eight states (4.27, 2.87, 1.46, 4.33, 2.99, 1.53, 4.34, 2.93), and the three-batter state distribution (0.372, 0.241, 0.0815, 0.0739, 0.0529, 0.0286). Its exact run expectancy is within 0.06 of the book matrix, which is a 10,000-inning simulation per state (tests/golden/markov_abdwr_2016.yaml). A home-run-or-out chain reproduces the closed form 3p/(1-p). Batting plays only: steals, wild pitches and passed balls are excluded, as in the book (the book measures their effect at up to 0.08 runs per state).'
   MarkovChainModel:
     status: approximate
     evidence: primary
     source_url: https://en.wikipedia.org/wiki/Markov_chain
-    note: The absorbing-chain solution (N = (I-Q)^-1, E[runs] = N r) is exact and matches the negative-binomial closed form for a home-run-or-out batter (3p/(1-p)). The Bukiet, Harold and Palacios (1997) paper the class cites was not retrievable (publisher returned 403), and the base advancement rules are the simple fixed ones (no double plays, steals or errors, runners advance one base on a single), so results are an approximation of real innings. tests/test_model_audit.py
+    note: 'fit() takes event probabilities and applies fixed advancement rules (a single scores runners from second and third and moves a runner on first to second; a double moves a runner on first to third; no double plays, steals or errors). The absorbing-chain solution is exact and matches the negative-binomial closed form for a home-run-or-out batter (3p/(1-p)). Fed the 2016 league-average event rates (singles 14.9%, doubles 4.5%, triples 0.5%, home runs 3.0%, walks and hit batters 9.1%, everything else an out) it gives 0.479 runs from the empty state against 0.485 from the fitted matrix, 0.846 against 0.848 with a runner on first and 2.13 against 2.21 with the bases loaded and no outs, and 4.41 plate appearances per half-inning against 4.27 because errors and similar plays count as outs. The Bukiet, Harold and Palacios (1997) paper that introduced the event-probability form is behind the publisher paywall and was not read; use fit_transitions when play-by-play is available. tests/test_model_audit.py'
   MonteCarloSimulator:
     status: approximate
     evidence: primary
     source_url: https://en.wikipedia.org/wiki/Monte_Carlo_method
-    note: Uses the same event and advancement rules as MarkovChainModel; its mean runs per game converges to the exact chain value within four standard errors for a fixed seed. Carries the same simplified-advancement caveat. tests/test_model_audit.py
+    note: Uses the same event and advancement rules as MarkovChainModel; its mean runs per game converges to the exact chain value within four standard errors for a fixed seed. Carries the same simplified-advancement caveat; see MarkovChainModel for the measured gap to the fitted chain. tests/test_model_audit.py
   RunExpectancyMatrix:
     status: matches
     evidence: golden

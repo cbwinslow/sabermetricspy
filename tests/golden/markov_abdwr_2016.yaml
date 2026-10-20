@@ -1,0 +1,44 @@
+# Printed values from Albert, Baumer and Marchi, "Analyzing Baseball Data with R" (3rd ed.), chapter 9.2 (Markov chains),
+# https://beanumber.github.io/abdwr3e/09-simulation.html, read 2026-10-20. The chain is built from 2016 Retrosheet batting
+# plays in complete half-innings (three outs); bases are written in this library's notation ('1--' = runner on first).
+# Transition probabilities, fundamental-matrix sums and the three-batter distribution are exact computations.
+# The run expectancy matrix is printed from 10,000 simulated half-innings per state, so it carries sampling noise
+# (about 0.01 to 0.02 in the mean), unlike the exact value this library solves for.
+source_url: https://beanumber.github.io/abdwr3e/09-simulation.html
+transitions:
+  "0|---": {"0|---": 0.0334, "1|---": 0.676, "0|--3": 0.00563, "0|-2-": 0.0503, "0|1--": 0.235}
+  "2|-2-":
+    "2|---": 0.0233
+    "2|--3": 0.00587
+    "2|-2-": 0.0576
+    "2|-23": 0.000451
+    "2|1--": 0.0745
+    "2|1-3": 0.0325
+    "2|12-": 0.156
+    "3": 0.650
+expected_pa_from_start: 4.27
+expected_plays_to_end:   # first eight states in the book's order: 000 0, 000 1, 000 2, 001 0, 001 1, 001 2, 010 0, 010 1
+  "0|---": 4.27
+  "1|---": 2.87
+  "2|---": 1.46
+  "0|--3": 4.33
+  "1|--3": 2.99
+  "2|--3": 1.53
+  "0|-2-": 4.34
+  "1|-2-": 2.93
+after_three_batters_from_start:
+  "3": 0.372
+  "2|1--": 0.241
+  "1|12-": 0.0815
+  "2|-2-": 0.0739
+  "2|---": 0.0529
+  "2|--3": 0.0286
+simulated_run_expectancy:   # outs 0, 1, 2
+  "---": [0.481, 0.255, 0.103]
+  "--3": [1.32, 0.925, 0.338]
+  "-2-": [1.14, 0.640, 0.295]
+  "-23": [1.93, 1.30, 0.474]
+  "1--": [0.855, 0.500, 0.211]
+  "1-3": [1.71, 1.14, 0.425]
+  "12-": [1.39, 0.875, 0.406]
+  "123": [2.19, 1.46, 0.667]

@@ -307,10 +307,25 @@ class MarkovInningResults(BaseModel):
     state_expected_runs: dict[str, float] = Field(
         ..., description="Analytical expected runs from each of the 24 base-out states"
     )
+    state_expected_plate_appearances: dict[str, float] = Field(
+        default_factory=dict,
+        description="Expected plate appearances until the third out from each state ('outs|bases')",
+    )
+    transition_probabilities: dict[str, dict[str, float]] = Field(
+        default_factory=dict,
+        description="Row-stochastic transition matrix keyed 'outs|bases' to 'outs|bases' or '3' (three outs); filled by fit_transitions",
+    )
+    plate_appearances: int = Field(
+        default=0, description="Observed plays behind the transition matrix (fit_transitions)"
+    )
 
 
 class MarkovChainModel:
-    """Exact 24-State Absorbing Markov Chain model of a baseball half-inning (Bukiet, Harold, & Palacios 1997).
+    """Exact 24-State Absorbing Markov Chain model of a baseball half-inning.
+
+    Two ways to build the chain: `fit_transitions` estimates it from play-by-play (Albert, Baumer & Marchi, ABDWR 3e
+    chapter 9.2), `fit` builds it from event probabilities with fixed advancement rules, the batter-level form of
+    Bukiet, Harold & Palacios (1997, Operations Research 45(1)), whose paper was not available to read.
 
     Given a batter or lineup's plate-appearance event probabilities (`p_1b`, `p_2b`, `p_3b`, `p_hr`,
     `p_bb`, `p_out`), constructs the `24 x 24` transient state transition matrix `Q` and expected
@@ -333,6 +348,96 @@ class MarkovChainModel:
         if self._results is None:
             raise RuntimeError("MarkovChainModel is not fitted yet. Call .fit(...) first.")
         return self._results
+
+    @profiled(category="forecasting")
+    def fit_transitions(self, df: IntoFrame) -> Self:
+        """Estimate the 24 x 25 transition matrix from play-by-play and solve the absorbing chain exactly.
+
+        This is the construction in Albert, Baumer and Marchi, *Analyzing Baseball Data with R* (3rd ed.), chapter 9:
+        each row of `P` is the observed frequency of the next base-out state, three outs is the absorbing state,
+        `N = (I - Q)^-1` counts visits to each state, and expected runs from a state are `N @ r` where `r` is the
+        mean runs scored on a play from that state. Pass batting plays from complete half-innings (three outs)
+        only; the book's own filter also drops plays that change neither the state nor the score.
+
+        Requires `outs_before`, `base_state_before`, `outs_after`, `base_state_after` (bases as '---' to '123'; ignored
+        once `outs_after` is 3) and `runs_on_play`. Raises when any of the 24 states was never observed.
+        """
+        pl_df = to_polars_df(df)
+        required = {
+            "outs_before",
+            "base_state_before",
+            "outs_after",
+            "base_state_after",
+            "runs_on_play",
+        }
+        missing = required - set(pl_df.columns)
+        if missing:
+            raise ValueError(
+                f"Input dataframe for MarkovChainModel.fit_transitions is missing columns: {sorted(missing)}"
+            )
+        idx = {s: i for i, s in enumerate(self.STATES)}
+        counts = np.zeros((24, 25), dtype=np.float64)
+        runs_sum = np.zeros(24, dtype=np.float64)
+        for row in (
+            pl_df.filter(pl.col("outs_before").is_between(0, 2))
+            .group_by(["outs_before", "base_state_before", "outs_after", "base_state_after"])
+            .agg(pl.len().alias("n"), pl.col("runs_on_play").sum().alias("runs"))
+            .iter_rows(named=True)
+        ):
+            start = idx[(int(row["outs_before"]), str(row["base_state_before"]))]
+            outs_after = int(row["outs_after"])
+            end = 24 if outs_after >= 3 else idx[(outs_after, str(row["base_state_after"]))]
+            counts[start, end] += row["n"]
+            runs_sum[start] += row["runs"]
+        totals = counts.sum(axis=1)
+        unseen = [f"{o}|{b}" for (o, b), t in zip(self.STATES, totals, strict=True) if t == 0]
+        if unseen:
+            raise ValueError(f"No plays observed from base-out states: {unseen}")
+        p_mat = counts / totals[:, None]
+        q_mat = p_mat[:, :24]
+        n_mat = np.linalg.inv(np.eye(24) - q_mat)
+        reward = runs_sum / totals
+        expected_runs = n_mat @ reward
+        expected_pa = n_mat.sum(axis=1)
+        names = [f"{o}|{b}" for o, b in self.STATES]
+        self._results = MarkovInningResults(
+            expected_runs_per_half_inning=float(expected_runs[0]),
+            expected_runs_per_9_innings=float(expected_runs[0]) * 9.0,
+            expected_pa_per_half_inning=float(expected_pa[0]),
+            state_expected_runs=dict(zip(names, map(float, expected_runs), strict=True)),
+            state_expected_plate_appearances=dict(zip(names, map(float, expected_pa), strict=True)),
+            transition_probabilities={
+                names[i]: {
+                    **{names[j]: float(p_mat[i, j]) for j in range(24) if p_mat[i, j] > 0},
+                    **({"3": float(p_mat[i, 24])} if p_mat[i, 24] > 0 else {}),
+                }
+                for i in range(24)
+            },
+            plate_appearances=int(totals.sum()),
+        )
+        return self
+
+    def state_distribution(
+        self, plate_appearances: int, start: tuple[int, str] = (0, "---")
+    ) -> dict[str, float]:
+        """State probabilities after `plate_appearances` batters from `start`; requires fit_transitions.
+
+        Keys are 'outs|bases' plus '3' for three outs. Zero-probability states are omitted.
+        """
+        table = self.results.transition_probabilities
+        if not table:
+            raise RuntimeError("state_distribution needs a model fitted with fit_transitions().")
+        dist = {f"{start[0]}|{start[1]}": 1.0}
+        for _ in range(plate_appearances):
+            nxt: dict[str, float] = {}
+            for state, prob in dist.items():
+                if state == "3":
+                    nxt["3"] = nxt.get("3", 0.0) + prob
+                    continue
+                for new_state, t in table[state].items():
+                    nxt[new_state] = nxt.get(new_state, 0.0) + prob * t
+            dist = nxt
+        return dist
 
     @profiled(category="forecasting")
     def fit(
