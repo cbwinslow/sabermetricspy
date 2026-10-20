@@ -363,6 +363,29 @@ def _ensure_builtin_benchmarks() -> None:
     from sabermetricspy.uncertainty import EmpiricalBayesShrinker
     from sabermetricspy.value import WARFramework
 
+    @register_benchmark(name="engine.wide_frame", category="engine", default_rows=100_000)
+    def _bench_wide_frame(rows: int = 100_000) -> Any:
+        idx = pl.int_range(0, rows, eager=True)
+        wide = {f"extra_{i}": (idx + i) % 11 for i in range(80)}
+        df = pl.DataFrame(
+            {
+                "player_id": (idx % 250).cast(pl.Utf8),
+                "pa": pl.repeat(4, rows, eager=True),
+                "ab": pl.repeat(3, rows, eager=True),
+                "h": (idx % 3 == 0).cast(pl.Int64),
+                "b2": (idx % 11 == 0).cast(pl.Int64),
+                "b3": (idx % 67 == 0).cast(pl.Int64),
+                "hr": (idx % 19 == 0).cast(pl.Int64),
+                "bb": (idx % 5 == 0).cast(pl.Int64),
+                "ibb": (idx % 47 == 0).cast(pl.Int64),
+                "hbp": (idx % 37 == 0).cast(pl.Int64),
+                "sf": (idx % 41 == 0).cast(pl.Int64),
+                "so": (idx % 4 == 0).cast(pl.Int64),
+                **wide,
+            }
+        )
+        return calculate_suite(df, MetricSuite.TRADITIONAL_BATTING, season=2024).df
+
     @register_benchmark(name="engine.calculate_suite", category="engine", default_rows=20_000)
     def _bench_engine_suite(rows: int = 20_000) -> Any:
         idx = pl.int_range(0, rows, eager=True)

@@ -380,6 +380,11 @@ def calculate(
         available_columns=frozenset(available_cols),
     )
 
+    # An eager Polars frame would run each metric as its own pass over every column; one deferred plan is far cheaper.
+    defer = isinstance(nw_df, nw.DataFrame) and nw_df.implementation is nw.Implementation.POLARS
+    if defer:
+        nw_df = nw_df.lazy()
+
     specs_out: dict[str, MetricSpec] = {}
     for reg in dag:
         expr = reg.builder(eval_ctx).alias(reg.spec.name)
@@ -392,6 +397,8 @@ def calculate(
         )
         specs_out[reg.spec.name] = reg.spec
 
+    if defer and isinstance(nw_df, nw.LazyFrame):
+        nw_df = nw_df.collect()
     native_out = nw.to_native(nw_df)
     t_end = time.perf_counter_ns()
 

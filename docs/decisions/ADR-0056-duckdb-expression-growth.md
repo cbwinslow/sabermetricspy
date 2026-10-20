@@ -9,8 +9,8 @@ found that DuckDB takes far longer to execute the engine's result as the metric 
 columns, materializing the result took: 10 metrics 0.75 s, 20 metrics 2.6 s, 30 metrics 7.0 s, 40 metrics 14.0 s;
 `calculate_available` with 141 metrics took more than two minutes, against 0.3 s on Polars and 2.3 s on pandas. The engine
 adds metrics one at a time with `with_columns`; DuckDB expands each earlier expression inside the later columns that use
-it, so the work grows faster than the number of metrics. The cost depends on the number and nesting of metrics, not on
-the number of rows, so large tables with few metrics are not affected the same way. The first version of this finding came
+it, so the work grows faster than the number of metrics. Measured with 30 metrics: 6.2 s on 60 rows and 11.6 s on 120,000 rows (Polars: 0.05 s and 0.32 s
+after ADR-0057), so the cost is mostly a fixed price per metric that rows add to. The first version of this finding came
 from a prototype that is not in the code: materializing the DuckDB frame every 8 metrics cut 40 metrics from 14.9 s to
 5.4 s but 141 metrics still took 34 s to build.
 
