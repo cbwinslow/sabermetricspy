@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import statistics
 import time
+import warnings
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
@@ -15,7 +16,7 @@ from narwhals.typing import IntoFrame
 from pydantic import BaseModel, ConfigDict
 
 import sabermetricspy.metrics as _metrics_init  # noqa: F401 # pyright: ignore[reportUnusedImport]
-from sabermetricspy.constants import resolve_context
+from sabermetricspy.constants import DEFAULT_SEASON, resolve_context
 from sabermetricspy.presets import SourceTranslator, get_source_translator
 from sabermetricspy.registry import REGISTRY, EvalContext, MetricSpec
 from sabermetricspy.schema import normalize_columns, to_polars_df
@@ -82,19 +83,47 @@ class _ContextProbe:
         return self._real.available_columns
 
 
-def _reject_mixed_seasons(
-    nw_df: nw.DataFrame[Any] | nw.LazyFrame[Any],
-    dag: Sequence[Any],
-    eval_ctx: EvalContext,
-) -> None:
-    """Raise when a frame holds several seasons and a requested metric reads one season's constants."""
+def _frame_season(nw_df: nw.DataFrame[Any] | nw.LazyFrame[Any]) -> int | None:
+    """The one season a frame holds in its `season` column, or None (no column, several, or all null)."""
     season_col = next((c for c in nw_df.columns if c.lower() == "season"), None)
     if season_col is None:
-        return
-    counts = nw_df.select(nw.col(season_col).n_unique())
-    if isinstance(counts, nw.LazyFrame):
-        counts = counts.collect()
-    if counts.item() <= 1:
+        return None
+    stats = nw_df.select(
+        nw.col(season_col).drop_nulls().n_unique().alias("n"),
+        nw.col(season_col).min().alias("lo"),
+    )
+    if isinstance(stats, nw.LazyFrame):
+        stats = stats.collect()
+    row = stats.row(0)
+    return int(row[1]) if row[0] == 1 and row[1] is not None else None
+
+
+def _default_season(nw_df: nw.DataFrame[Any] | nw.LazyFrame[Any]) -> int:
+    """The season to use when the caller named none: the frame's own, else `DEFAULT_SEASON`."""
+    found = _frame_season(nw_df)
+    return DEFAULT_SEASON if found is None else found
+
+
+def _check_season(
+    nw_df: nw.DataFrame[Any] | nw.LazyFrame[Any],
+    dag: Sequence[Any],
+    inferred: bool,
+    eval_ctx: EvalContext,
+) -> None:
+    """Refuse or flag season constants that do not match the data.
+
+    Raises when a frame holds several seasons, or one season different from the context's, and a
+    requested metric reads the season constants. Warns when the caller named no season, the frame
+    has none, and a metric reads the constants, because `DEFAULT_SEASON` is then a guess.
+    """
+    season_col = next((c for c in nw_df.columns if c.lower() == "season"), None)
+    n_seasons = 0
+    if season_col is not None:
+        counts = nw_df.select(nw.col(season_col).drop_nulls().n_unique())
+        if isinstance(counts, nw.LazyFrame):
+            counts = counts.collect()
+        n_seasons = int(counts.item())
+    if n_seasons == 0 and not inferred:
         return
     dependent: list[str] = []
     for reg in dag:
@@ -102,11 +131,28 @@ def _reject_mixed_seasons(
         reg.builder(probe)
         if probe.used:
             dependent.append(reg.spec.name)
-    if dependent:
+    if not dependent:
+        return
+    names = ", ".join(dependent)
+    if n_seasons > 1:
         raise ValueError(
             f"Column {season_col!r} holds more than one season, but one call applies a single "
-            f"season's constants to every row (metrics affected: {', '.join(dependent)}). "
+            f"season's constants to every row (metrics affected: {names}). "
             "Calculate each season separately with context=SeasonContext(season=...)."
+        )
+    chosen = eval_ctx.season_context.season
+    found = _frame_season(nw_df)
+    if found is not None and found != chosen:
+        raise ValueError(
+            f"Column {season_col!r} holds season {found}, but the context uses {chosen} constants "
+            f"(metrics affected: {names}). Pass context=SeasonContext(season={found})."
+        )
+    if found is None:
+        warnings.warn(
+            f"No season was given and the data has no season column, so {names} use "
+            f"{DEFAULT_SEASON} constants. Pass season= or context=SeasonContext(season=...).",
+            UserWarning,
+            stacklevel=4,
         )
 
 
@@ -201,7 +247,7 @@ def calculate(
     *,
     by: Sequence[str] | str | None = None,
     context: SeasonContext | None = None,
-    season: int = 2024,
+    season: int | None = None,
     preset: str | Path | SourceTranslator | None = None,
     column_map: Mapping[str, str] | None = None,
     strict: bool = True,
@@ -223,9 +269,6 @@ def calculate(
     else:
         requested_list = list(metrics)
 
-    resolved_ctx = resolve_context(context, season=season)
-    assert resolved_ctx.weights is not None
-
     nw_df = nw.from_native(df)
     rows_in = _safe_row_count(nw_df)
 
@@ -237,6 +280,12 @@ def calculate(
 
     nw_df = normalize_columns(nw_df, column_map=column_map)
     t_norm_1 = time.perf_counter_ns()
+
+    inferred = context is None and season is None
+    resolved_ctx = resolve_context(
+        context, season=_default_season(nw_df) if season is None else season
+    )
+    assert resolved_ctx.weights is not None
 
     # Resolve DAG
     dag = REGISTRY.resolve_dag(requested_list)
@@ -271,9 +320,10 @@ def calculate(
             details = ", ".join(f"{m} (missing {cols})" for m, cols in missing_by_metric.items())
             raise ValueError(f"Missing required input columns for requested metrics: {details}")
 
-    _reject_mixed_seasons(
+    _check_season(
         nw_df,
         dag,
+        inferred,
         EvalContext(
             season_context=resolved_ctx,
             weights=resolved_ctx.weights,
@@ -354,7 +404,7 @@ def calculate_suite(
     *,
     by: Sequence[str] | str | None = None,
     context: SeasonContext | None = None,
-    season: int = 2024,
+    season: int | None = None,
     preset: str | Path | SourceTranslator | None = None,
     column_map: Mapping[str, str] | None = None,
     strict: bool = False,
@@ -390,7 +440,7 @@ def calculate_available(
     *,
     by: Sequence[str] | str | None = None,
     context: SeasonContext | None = None,
-    season: int = 2024,
+    season: int | None = None,
     preset: str | Path | SourceTranslator | None = None,
     column_map: Mapping[str, str] | None = None,
 ) -> CalculationResult:
@@ -423,7 +473,7 @@ def calculate_rolling(
     order_by: Sequence[str] | str | None = None,
     min_periods: int = 1,
     context: SeasonContext | None = None,
-    season: int = 2024,
+    season: int | None = None,
     preset: str | Path | SourceTranslator | None = None,
     column_map: Mapping[str, str] | None = None,
 ) -> CalculationResult:
@@ -446,9 +496,6 @@ def calculate_rolling(
         requested_list: list[Metric | str] = [metrics]
     else:
         requested_list = list(metrics)
-
-    resolved_ctx = resolve_context(context, season=season)
-    assert resolved_ctx.weights is not None
 
     nw_df = nw.from_native(df)
     t_trans_0 = time.perf_counter_ns()
@@ -505,7 +552,7 @@ def calculate_rolling(
         pl_df,
         requested_list,
         by=None,
-        context=resolved_ctx,
+        context=context,
         season=season,
         strict=True,
     )

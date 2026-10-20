@@ -12,6 +12,9 @@ import yaml
 
 from sabermetricspy.types.context import ParkFactor, PitcherWARConstants, SeasonContext, WOBAWeights
 
+DEFAULT_SEASON = 2024
+"""Season of the bundled constants used when neither the caller nor the data names one."""
+
 _WARNED_FALLBACKS: set[tuple[int, int]] = set()
 _WARNED_WAR_FALLBACKS: set[tuple[int, int]] = set()
 
@@ -95,7 +98,9 @@ def load_custom_constants_yaml(path: str | Path) -> dict[int, WOBAWeights]:
     return {int(yr): WOBAWeights.model_validate(vals) for yr, vals in seasons_raw.items()}
 
 
-def resolve_context(context: SeasonContext | None = None, season: int = 2024) -> SeasonContext:
+def resolve_context(
+    context: SeasonContext | None = None, season: int = DEFAULT_SEASON
+) -> SeasonContext:
     """Ensure a SeasonContext has populated WOBAWeights."""
     if context is None:
         return SeasonContext(season=season, weights=get_woba_weights(season))

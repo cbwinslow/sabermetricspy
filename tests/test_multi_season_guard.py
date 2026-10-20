@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import warnings
+
 import polars as pl
 import pytest
 
@@ -37,3 +39,27 @@ def test_context_metric_one_season_at_a_time_still_works() -> None:
     df = _two_seasons().filter(pl.col("season") == 2001)
     res = sp.calculate(df, [Metric.WRC_PLUS], context=SeasonContext(season=2001))
     assert res.df.height == 1
+
+
+def test_single_season_frame_uses_its_own_season() -> None:
+    df = _two_seasons().filter(pl.col("season") == 2001)
+    res = sp.calculate(df, [Metric.WRC_PLUS])
+    assert res.context.season == 2001
+
+
+def test_frame_season_that_contradicts_the_context_raises() -> None:
+    df = _two_seasons().filter(pl.col("season") == 2001)
+    with pytest.raises(ValueError, match="holds season 2001"):
+        sp.calculate(df, [Metric.WRC_PLUS], context=SeasonContext(season=2024))
+    with pytest.raises(ValueError, match="holds season 2001"):
+        sp.calculate(df, [Metric.WRC_PLUS], season=2024)
+
+
+def test_no_season_anywhere_warns_for_constant_metrics_only() -> None:
+    df = pl.DataFrame([dict(player_id=1, **_LINE)])
+    with pytest.warns(UserWarning, match="use 2024 constants"):
+        sp.calculate(df, [Metric.WRC_PLUS])
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        sp.calculate(df, [Metric.AVG])
+        sp.calculate(df, [Metric.WRC_PLUS], season=2024)
