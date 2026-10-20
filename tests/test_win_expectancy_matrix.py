@@ -59,3 +59,49 @@ def test_missing_columns_and_unfitted_model_raise() -> None:
         sp.WinExpectancyMatrix().fit(_frame().drop("home_win"))
     with pytest.raises(RuntimeError, match="not fitted"):
         _ = sp.WinExpectancyMatrix().results
+
+
+def _bad(column: str, value: object) -> pl.DataFrame:
+    frame = _frame()
+    return frame.with_columns(
+        pl.when(pl.int_range(pl.len()) == 0)
+        .then(pl.lit(value, dtype=frame.schema[column]))
+        .otherwise(pl.col(column))
+        .alias(column)
+    )
+
+
+@pytest.mark.parametrize(
+    ("column", "value", "message"),
+    [
+        ("base_state_before", "1__", "base_state_before has"),
+        ("outs_before", 3, "outs_before has"),
+        ("home_win", 2, "home_win has"),
+        ("inning", None, "null values in inning"),
+        ("inning", 0, "inning must be 1 or more"),
+    ],
+)
+def test_fit_rejects_invalid_values_with_a_named_error(
+    column: str, value: object, message: str
+) -> None:
+    with pytest.raises(ValueError, match=message):
+        sp.WinExpectancyMatrix().fit(_bad(column, value))
+
+
+def test_fit_rejects_text_half_indicator_and_fractional_scores() -> None:
+    text = _frame().with_columns(pl.col("is_bottom").cast(pl.Utf8))
+    with pytest.raises(ValueError, match="is_bottom must be boolean"):
+        sp.WinExpectancyMatrix().fit(text)
+    fractional = _frame().with_columns(pl.col("home_score_diff").cast(pl.Float64) + 0.5)
+    with pytest.raises(ValueError, match="home_score_diff must hold whole numbers"):
+        sp.WinExpectancyMatrix().fit(fractional)
+
+
+def test_fit_accepts_boolean_and_float_results_and_float_whole_numbers() -> None:
+    frame = _frame().with_columns(
+        pl.col("home_win").cast(pl.Boolean),
+        pl.col("inning").cast(pl.Float64),
+        pl.col("home_score_diff").cast(pl.Float64),
+    )
+    res = sp.WinExpectancyMatrix().fit(frame).results
+    assert res.lookup(9, "bottom", 1, "---", 0) == pytest.approx(3 / 4)

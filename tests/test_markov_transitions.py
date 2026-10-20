@@ -19,6 +19,13 @@ BASES = ("---", "1--", "-2-", "--3", "12-", "1-3", "-23", "123")
 PATH = os.environ.get("SABERMETRICSPY_RETRO2016")
 
 
+def _half_unit(printed: float, floor: int) -> float:
+    """Half a unit in the last printed decimal; YAML drops trailing zeros, so `floor` is the book's minimum digits."""
+    text = repr(float(printed))
+    decimals = max(floor, len(text.split(".")[1]) if "e" not in text else floor)
+    return 0.5 * 10**-decimals
+
+
 def _home_run_or_out(hr_per_100: int) -> pl.DataFrame:
     """Every state observed: `hr_per_100` of 100 plays are home runs, the rest outs."""
     rows = []
@@ -130,18 +137,16 @@ def test_transition_rows_equal_the_printed_probabilities(
     got = retro_model.results.transition_probabilities[start]
     assert set(got) == set(REF["transitions"][start])
     for state, printed in REF["transitions"][start].items():
-        assert got[state] == pytest.approx(printed, abs=6e-4), (start, state)
+        assert abs(got[state] - printed) <= _half_unit(printed, 3), (start, state)
 
 
 def test_expected_plate_appearances_equal_the_printed_values(
     retro_model: MarkovChainModel,
 ) -> None:
     res = retro_model.results
-    assert res.expected_pa_per_half_inning == pytest.approx(
-        REF["expected_pa_from_start"], abs=0.005
-    )
+    assert abs(res.expected_pa_per_half_inning - REF["expected_pa_from_start"]) <= 0.005
     for state, printed in REF["expected_plays_to_end"].items():
-        assert res.state_expected_plate_appearances[state] == pytest.approx(printed, abs=0.005)
+        assert abs(res.state_expected_plate_appearances[state] - printed) <= 0.005, state
 
 
 def test_three_batter_distribution_equals_the_printed_values(
@@ -149,7 +154,7 @@ def test_three_batter_distribution_equals_the_printed_values(
 ) -> None:
     dist = retro_model.state_distribution(3)
     for state, printed in REF["after_three_batters_from_start"].items():
-        assert dist[state] == pytest.approx(printed, abs=6e-4), state
+        assert abs(dist[state] - printed) <= _half_unit(printed, 3), state
 
 
 def test_exact_run_expectancy_is_within_simulation_noise_of_the_printed_matrix(
@@ -162,3 +167,109 @@ def test_exact_run_expectancy_is_within_simulation_noise_of_the_printed_matrix(
         for outs, printed in enumerate(by_outs):
             worst = max(worst, abs(res.state_expected_runs[f"{outs}|{bases}"] - printed))
     assert worst < 0.06
+
+
+def _replace(frame: pl.DataFrame, column: str, value: object) -> pl.DataFrame:
+    return frame.with_columns(
+        pl.when(pl.int_range(pl.len()) == 0)
+        .then(pl.lit(value, dtype=frame.schema[column]))
+        .otherwise(pl.col(column))
+        .alias(column)
+    )
+
+
+@pytest.mark.parametrize(
+    ("column", "value", "message"),
+    [
+        ("base_state_before", "___", "base_state_before has"),
+        ("base_state_after", "zzz", "base_state_after has"),
+        ("outs_before", 3, "outs_before has"),
+        ("outs_after", 4, "outs_after has"),
+    ],
+)
+def test_fit_transitions_rejects_invalid_values(column: str, value: object, message: str) -> None:
+    frame = _home_run_or_out(10)
+    with pytest.raises(ValueError, match=message):
+        MarkovChainModel().fit_transitions(_replace(frame, column, value))
+
+
+def test_fit_transitions_rejects_nulls_negative_runs_and_decreasing_outs() -> None:
+    frame = _home_run_or_out(10)
+    nulls = frame.with_columns(pl.lit(None, dtype=pl.Int64).alias("runs_on_play"))
+    with pytest.raises(ValueError, match="null values in runs_on_play"):
+        MarkovChainModel().fit_transitions(nulls)
+    with pytest.raises(ValueError, match="negative"):
+        MarkovChainModel().fit_transitions(_replace(frame, "runs_on_play", -1))
+    backwards = pl.DataFrame([(2, "---", 1, "---", 0)], schema=frame.schema, orient="row")
+    with pytest.raises(ValueError, match="below outs_before"):
+        MarkovChainModel().fit_transitions(frame.vstack(backwards))
+
+
+def test_base_state_after_is_ignored_once_the_inning_is_over() -> None:
+    frame = _home_run_or_out(10).with_columns(
+        pl.when(pl.col("outs_after") == 3)
+        .then(None)
+        .otherwise(pl.col("base_state_after"))
+        .alias("base_state_after")
+    )
+    res = MarkovChainModel().fit_transitions(frame).results
+    assert res.expected_runs_per_half_inning == pytest.approx(3 * 0.1 / 0.9)
+
+
+def test_states_that_never_reach_three_outs_are_named() -> None:
+    frame = _home_run_or_out(10)
+    keep = frame.filter(
+        ~((pl.col("outs_before") == 2) & pl.col("base_state_before").is_in(["123", "12-"]))
+    )
+    loop = pl.DataFrame(
+        [(2, "123", 2, "12-", 0)] * 100 + [(2, "12-", 2, "123", 0)] * 100,
+        schema=frame.schema,
+        orient="row",
+    )
+    with pytest.raises(
+        ValueError,
+        match=r"never reach three outs.*2\|123.*2\|12-|never reach three outs.*2\|12-.*2\|123",
+    ):
+        MarkovChainModel().fit_transitions(keep.vstack(loop))
+
+
+def test_state_distribution_validates_its_arguments() -> None:
+    model = MarkovChainModel().fit_transitions(_home_run_or_out(10))
+    with pytest.raises(ValueError, match="not a base-out state"):
+        model.state_distribution(1, start=(3, "---"))
+    with pytest.raises(ValueError, match="not a base-out state"):
+        model.state_distribution(1, start=(0, "___"))
+    with pytest.raises(ValueError, match="0 or more"):
+        model.state_distribution(-1)
+
+
+def test_event_probability_fit_gap_to_the_fitted_chain_is_as_documented(
+    retro_model: MarkovChainModel,
+) -> None:
+    """The figures quoted in docs/METHODOLOGY.md for MarkovChainModel.fit() on 2016 league-average event rates."""
+    import pyreadr  # pyright: ignore[reportMissingImports]
+
+    events = pl.from_pandas(pyreadr.read_r(PATH)["retro2016"]).filter(pl.col("bat_event_fl"))
+    n = events.height
+    count = {
+        code: events.filter(pl.col("event_cd") == code).height
+        for code in (14, 15, 16, 20, 21, 22, 23)
+    }
+    simplified = MarkovChainModel().fit(
+        p_1b=count[20] / n,
+        p_2b=count[21] / n,
+        p_3b=count[22] / n,
+        p_hr=count[23] / n,
+        p_bb=(count[14] + count[15] + count[16]) / n,
+    )
+    approx, fitted = simplified.results, retro_model.results
+    quoted = {  # state: (event-probability fit, fitted chain)
+        "0|---": (0.479, 0.485),
+        "0|1--": (0.846, 0.848),
+        "0|123": (2.131, 2.212),
+    }
+    for state, (a, b) in quoted.items():
+        assert approx.state_expected_runs[state] == pytest.approx(a, abs=5e-4), state
+        assert fitted.state_expected_runs[state] == pytest.approx(b, abs=5e-4), state
+    assert approx.expected_pa_per_half_inning == pytest.approx(4.41, abs=5e-3)
+    assert fitted.expected_pa_per_half_inning == pytest.approx(4.27, abs=5e-3)

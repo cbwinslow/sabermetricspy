@@ -19,3 +19,12 @@ jobs:
       - run: uv run ruff format --check .
       - run: uv run pyright
       - run: uv run pytest
+      - name: Reference checks against Retrosheet and the Chadwick Register
+        if: matrix.python-version == '3.12'
+        env:
+          SABERMETRICSPY_RETRO2016: ${{ github.workspace }}/retro2016.rda
+          SABERMETRICSPY_REGISTER: ${{ github.workspace }}/chadwick-register
+        run: |
+          curl -sSL https://github.com/beanumber/abdwr3edata/raw/main/data/retro2016.rda -o retro2016.rda
+          uv run python -c "import sabermetricspy as sp; sp.download_register('chadwick-register')"
+          uv run --with pyreadr --with pandas pytest -q tests/test_retrosheet_2016_count_fit.py tests/test_retrosheet_2016_win_expectancy.py tests/test_markov_transitions.py tests/test_ids_real_register.py

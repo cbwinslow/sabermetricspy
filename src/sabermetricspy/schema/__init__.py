@@ -25,6 +25,31 @@ def to_polars_df(df: IntoFrame) -> pl.DataFrame:
     return cast(pl.DataFrame, res)
 
 
+def require_no_nulls(df: pl.DataFrame, columns: Iterable[str], what: str) -> None:
+    """Raise `ValueError` naming the columns of `df` that hold nulls (or NaN)."""
+    bad = {}
+    for col in columns:
+        nulls = df[col].null_count()
+        if df[col].dtype.is_float():
+            nulls += int(df[col].is_nan().sum())
+        if nulls:
+            bad[col] = nulls
+    if bad:
+        detail = ", ".join(f"{c} ({n} rows)" for c, n in bad.items())
+        raise ValueError(f"{what}: null values in {detail}.")
+
+
+def require_values(df: pl.DataFrame, column: str, valid: Iterable[Any], what: str) -> None:
+    """Raise `ValueError` showing examples when `column` holds values outside `valid`."""
+    allowed = list(valid)
+    bad = df.filter(~pl.col(column).is_in(allowed))
+    if bad.height:
+        examples = bad[column].unique().head(3).to_list()
+        raise ValueError(
+            f"{what}: {column} has {bad.height} rows outside {allowed}, for example {examples}."
+        )
+
+
 def _load_bundled_aliases() -> dict[str, str]:
     """Load the default column alias map from bundled `data/presets/aliases.yaml`."""
     pkg_files = resources.files("sabermetricspy")

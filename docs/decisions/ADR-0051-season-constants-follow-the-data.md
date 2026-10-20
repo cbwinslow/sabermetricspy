@@ -16,8 +16,12 @@ caller gives neither `context` nor `season`, the engine uses the one season in t
 - metrics that read no constants (AVG, OBP) are unaffected.
 
 Alternatives considered: (a) require `season` on every call, not chosen now because it breaks context-free metrics and
-every existing call; revisit at 1.0. (b) Always warn on the default, not chosen now because a frame with a season
-column already says which season it is.
+every existing call; revisit if the library reaches 1.0 and callers accept a breaking change. (b) Always warn on the
+default, not chosen now because a frame with a season column already says which season it is; revisit if users report
+frames whose season column is wrong or stale.
+
+Amended by ADR-0055: season detection works on every backend (the first version crashed on DuckDB), and
+`WARFramework` now warns when it falls back to the default season.
 
 ## Consequences
 Behavior changes for callers who relied on 2024 constants for older data: they now get the frame's season, or an

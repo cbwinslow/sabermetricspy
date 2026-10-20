@@ -9,3 +9,6 @@ docs/CREDITS.md and, per metric, in docs/METHODOLOGY.md.
 The optional player-id tools read the Chadwick Bureau Register (https://github.com/chadwickbureau/register),
 licensed under the Open Data Commons Attribution License 1.0. The register is downloaded by the user and is not
 distributed with this package.
+
+The information used in tests and examples derived from Retrosheet event files was obtained free of charge from and is
+copyrighted by Retrosheet. Interested parties may contact Retrosheet at "www.retrosheet.org".

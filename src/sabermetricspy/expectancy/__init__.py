@@ -10,7 +10,7 @@ import polars as pl
 from narwhals.typing import IntoFrame
 from pydantic import BaseModel, ConfigDict, Field
 
-from sabermetricspy.schema import to_polars_df
+from sabermetricspy.schema import require_no_nulls, require_values, to_polars_df
 from sabermetricspy.telemetry import profiled
 from sabermetricspy.types.enums import BaseState
 
@@ -647,9 +647,11 @@ class WinExpectancyResults(BaseModel):
 class WinExpectancyMatrix:
     """Empirical win expectancy (WE): how often the home team won from each inning, half, outs, bases and score state.
 
-    There is no built-in table; the table is the observed home win rate in the caller's play-by-play, which is
-    how Tom Tango's published win expectancy tables are built (http://tangotiger.net/welist.html). Cells with
-    few games are noisy: check `results.state_games` or `results.standard_error()` before relying on one.
+    There is no built-in table; the table is the observed home win rate in the caller's play-by-play. Tom Tango's
+    published tables (http://tangotiger.net/welist.html, a 2002 page that states no method; his current
+    https://tangotiger.net/we.html is a model built from run expectancy) are references to compare with, not the
+    construction used here. Cells with few games are noisy: check `results.state_games` or
+    `results.standard_error()` before relying on one.
     """
 
     def __init__(self) -> None:
@@ -665,9 +667,15 @@ class WinExpectancyMatrix:
     def fit(self, df: IntoFrame) -> Self:
         """Fit from plate-appearance records, one row per plate appearance with the state before it.
 
-        Requires `game_id`, `inning`, `is_bottom` (True when the home team bats), `outs_before`,
-        `base_state_before`, `home_score_diff` (home minus away runs before the plate appearance) and
-        `home_win` (1 when the home team won the game, else 0).
+        Requires `game_id`, `inning`, `is_bottom` (boolean, True when the home team bats), `outs_before` (0 to 2),
+        `base_state_before` (one of the eight base states), `home_score_diff` (home minus away runs before the plate
+        appearance) and `home_win` (1 when the home team won the game, else 0). Nulls and values outside these ranges
+        raise `ValueError`. Pass plate appearances only: rows for substitutions or other non-batting events would be
+        counted as plate appearances.
+
+        A state's rate is the share of its plate appearances that occurred in games the home team won. The standard
+        error reported by the results uses the number of games as the sample size, an approximation because the
+        plate appearances of one game share a result.
         """
         pl_df = to_polars_df(df)
         required = {
@@ -684,7 +692,28 @@ class WinExpectancyMatrix:
             raise ValueError(
                 f"Input dataframe for WinExpectancyMatrix.fit is missing columns: {sorted(missing)}"
             )
-        valid = pl_df.filter(pl.col("outs_before").is_between(0, 2))
+        what = "WinExpectancyMatrix.fit"
+        require_no_nulls(pl_df, sorted(required), what)
+        if pl_df.schema["is_bottom"] != pl.Boolean:
+            raise ValueError(
+                f"{what}: is_bottom must be boolean (True when the home team bats), got {pl_df.schema['is_bottom']}."
+            )
+        require_values(pl_df, "outs_before", (0, 1, 2), what)
+        require_values(pl_df, "base_state_before", [b.value for b in BaseState], what)
+        if pl_df.schema["home_win"] != pl.Boolean:
+            require_values(pl_df, "home_win", (0, 1), what)
+        for col in ("inning", "home_score_diff"):
+            if not pl_df.schema[col].is_numeric() or (
+                pl_df.schema[col].is_float() and (pl_df[col] != pl_df[col].round()).any()
+            ):
+                raise ValueError(f"{what}: {col} must hold whole numbers.")
+        if (pl_df["inning"] < 1).any():
+            raise ValueError(f"{what}: inning must be 1 or more.")
+        valid = pl_df.with_columns(
+            pl.col("inning").cast(pl.Int64),
+            pl.col("home_score_diff").cast(pl.Int64),
+            pl.col("home_win").cast(pl.Int64),
+        )
         grouped = valid.group_by(
             ["inning", "is_bottom", "outs_before", "base_state_before", "home_score_diff"]
         ).agg(

@@ -14,7 +14,8 @@ Add `sabermetricspy.ids` with `load_register`, `download_register`, `translate_i
 Translation keeps every row and order, works on Polars, pandas, PyArrow and DuckDB inputs, nulls and counts ids it cannot
 map, and raises when an id in the frame belongs to more than one person. Names match exactly after accent folding, case
 folding, punctuation removal and dropping generational suffixes; several matches are listed and a single-id request raises.
-Results carry the register's source, license and release date.
+Results carry the register's source, license, the commit it was downloaded from and the fetch date (ADR-0055 replaced
+the earlier "release date", which was only the download date).
 
 Validation (opt-in test against the downloaded register): Mike Trout and Tarik Skubal ids equal those on their Savant,
 Baseball-Reference and FanGraphs pages, and all 184,580 batting events in the Retrosheet 2016 file map to an MLBAM id,
@@ -30,5 +31,10 @@ threshold reported in the result. (d) Take the first or most recent person on a 
 id is a data error that should be seen; revisit if the register documents a tiebreak rule.
 
 ## Consequences
-Cross-source joins are one call. The register's release date is recorded, but the register carries no version marker, so
-the date is the download date. `names.csv` (alternate spellings) is not read because the register calls it very incomplete.
+Cross-source joins are one call. Only the `people-*.csv` shards are read. Not read: `names.csv` (1,346 rows of alternate
+names keyed by `key_person`: 643 aliases, 260 birth names, 251 alternate spellings, 191 legal names and 1 anglicized, with
+language and date range; the register calls it new and very incomplete), `links.csv` (`key_person, source, value`; 21,650
+`tsncards` and 5,682 `findagrave` rows), and `countries.csv` (a code table with no person key). The people files'
+`name_matrilineal` and `name_nick` columns are also not searched. A multi-source name register that adds these and the
+Retrosheet biofile is proposed separately (`add-player-name-register`). The register has git history, so downloads are
+pinned to a commit (ADR-0055).

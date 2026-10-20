@@ -1,7 +1,7 @@
 # park-factors Specification
 
 ## Purpose
-TBD - created by archiving change park-factor-calculation. Update Purpose after archive.
+Define how park factors are computed from home and road runs per game, converted to the composite factor and regressed toward neutral, and how the bundled park table records its sources.
 
 ## Requirements
 

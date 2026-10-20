@@ -1,7 +1,7 @@
 # forecast-evaluation Specification
 
 ## Purpose
-TBD - created by archiving change add-forecast-evaluation. Update Purpose after archive.
+Provide forecast-scoring tools (error metrics for point forecasts, scores for probability forecasts, and calibration tables) so any model in the library can be judged the same way.
 
 ## Requirements
 

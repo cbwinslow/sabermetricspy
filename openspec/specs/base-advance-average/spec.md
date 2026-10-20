@@ -1,7 +1,7 @@
 # base-advance-average Specification
 
 ## Purpose
-TBD - created by archiving change base-advance-average. Update Purpose after archive.
+Define the Base-Advance Average, total bases advanced divided by total base-advance opportunities, and the helper that derives both from base states and runs on each play.
 
 ## Requirements
 

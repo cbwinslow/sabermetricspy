@@ -1,7 +1,7 @@
 # extended-pythagorean Specification
 
 ## Purpose
-TBD - created by archiving change extended-pythagorean. Update Purpose after archive.
+Define the head-to-head extension of Pythagorean expectation, which rescales a home team's runs by the opponent's relative to the league average to give a home win probability.
 
 ## Requirements
 

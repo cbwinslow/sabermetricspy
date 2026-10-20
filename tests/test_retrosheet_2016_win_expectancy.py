@@ -30,6 +30,9 @@ REF = yaml.safe_load(
     (Path(__file__).parent / "golden" / "win_expectancy_tango.yaml").read_text("utf-8")
 )
 MIN_GAMES = 30
+PINNED_WELL_SAMPLED_CELLS = (
+    16  # bottom-9th cells with 30 or more games in 2016, measured 2026-10-20
+)
 
 
 def _occupied(col: str) -> pl.Expr:
@@ -69,7 +72,10 @@ def _plate_appearances() -> pl.DataFrame:
             (pl.col("home_final") > pl.col("away_final")).cast(pl.Int64).alias("home_win")
         )
     )
-    return events.join(final.select("game_id", "home_win"), on="game_id").select(
+    plate_appearances = events.filter(
+        pl.col("bat_event_fl")
+    )  # substitutions and other events are not plate appearances
+    return plate_appearances.join(final.select("game_id", "home_win"), on="game_id").select(
         "game_id",
         pl.col("inn_ct").alias("inning"),
         (pl.col("bat_home_id") == 1).alias("is_bottom"),
@@ -114,3 +120,19 @@ def test_outs_lower_the_home_win_rate_in_the_bottom_of_the_ninth(
     rates = [fitted.lookup(9, "bottom", o, "---", 0) for o in range(3)]
     assert None not in rates
     assert rates[0] > rates[1] > rates[2]  # type: ignore[operator]
+
+
+def test_quoted_figures_are_pinned(fitted: sp.WinExpectancyResults) -> None:
+    """Numbers quoted in ADR-0052 and docs/METHODOLOGY.md.
+
+    The file has 2,428 games; one is tied (suspended) and dropped, leaving 2,427. Of the bottom-of-the-9th cells in
+    Tango's table, 16 have 30 or more games (largest |z| 2.11) and 6 have 100 or more (largest |z| 1.67).
+    """
+    assert (
+        max(fitted.state_games.values()) == 2427
+    )  # every game starts the top of the 1st with the bases empty
+    z = _zscores(fitted)
+    assert len(z) == PINNED_WELL_SAMPLED_CELLS
+    assert max(abs(v) for _, v in z) < 2.2
+    big = [v for k, v in z if fitted.state_games[k] >= 100]
+    assert len(big) == 6 and max(abs(v) for v in big) < 1.8

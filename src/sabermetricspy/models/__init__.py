@@ -10,7 +10,7 @@ import polars as pl
 from narwhals.typing import IntoFrame
 from pydantic import BaseModel, ConfigDict, Field
 
-from sabermetricspy.schema import to_polars_df
+from sabermetricspy.schema import require_no_nulls, require_values, to_polars_df
 from sabermetricspy.telemetry import profiled
 
 
@@ -324,8 +324,9 @@ class MarkovChainModel:
     """Exact 24-State Absorbing Markov Chain model of a baseball half-inning.
 
     Two ways to build the chain: `fit_transitions` estimates it from play-by-play (Albert, Baumer & Marchi, ABDWR 3e
-    chapter 9.2), `fit` builds it from event probabilities with fixed advancement rules, the batter-level form of
-    Bukiet, Harold & Palacios (1997, Operations Research 45(1)), whose paper was not available to read.
+    chapter 9.2); `fit` builds it from event probabilities with fixed advancement rules chosen for this library.
+    Event-probability Markov models of baseball appear in Bukiet, Harold & Palacios (1997, Operations Research
+    45(1)), which was behind a paywall and was not read; its rules are not used here.
 
     Given a batter or lineup's plate-appearance event probabilities (`p_1b`, `p_2b`, `p_3b`, `p_hr`,
     `p_bb`, `p_out`), constructs the `24 x 24` transient state transition matrix `Q` and expected
@@ -375,6 +376,23 @@ class MarkovChainModel:
             raise ValueError(
                 f"Input dataframe for MarkovChainModel.fit_transitions is missing columns: {sorted(missing)}"
             )
+        what = "MarkovChainModel.fit_transitions"
+        require_no_nulls(
+            pl_df.select("outs_before", "base_state_before", "outs_after", "runs_on_play"),
+            ("outs_before", "base_state_before", "outs_after", "runs_on_play"),
+            what,
+        )
+        require_values(pl_df, "outs_before", (0, 1, 2), what)
+        require_values(pl_df, "outs_after", (0, 1, 2, 3), what)
+        bases = ["---", "1--", "-2-", "--3", "12-", "1-3", "-23", "123"]
+        require_values(pl_df, "base_state_before", bases, what)
+        still_batting = pl_df.filter(pl.col("outs_after") < 3)
+        require_no_nulls(still_batting, ("base_state_after",), what)
+        require_values(still_batting, "base_state_after", bases, what)
+        if pl_df.filter(pl.col("outs_after") < pl.col("outs_before")).height:
+            raise ValueError(f"{what}: outs_after is below outs_before on some plays.")
+        if pl_df.filter(pl.col("runs_on_play") < 0).height:
+            raise ValueError(f"{what}: runs_on_play is negative on some plays.")
         idx = {s: i for i, s in enumerate(self.STATES)}
         counts = np.zeros((24, 25), dtype=np.float64)
         runs_sum = np.zeros(24, dtype=np.float64)
@@ -395,6 +413,17 @@ class MarkovChainModel:
             raise ValueError(f"No plays observed from base-out states: {unseen}")
         p_mat = counts / totals[:, None]
         q_mat = p_mat[:, :24]
+        reaches_end = p_mat[:, 24] > 0
+        for _ in range(24):
+            reaches_end = reaches_end | (q_mat[:, reaches_end].sum(axis=1) > 0)
+        if not reaches_end.all():
+            stuck = [
+                f"{o}|{b}" for (o, b), ok in zip(self.STATES, reaches_end, strict=True) if not ok
+            ]
+            raise ValueError(
+                f"{what}: from these states the observed plays never reach three outs: {stuck}. "
+                "Pass complete half-innings only."
+            )
         n_mat = np.linalg.inv(np.eye(24) - q_mat)
         reward = runs_sum / totals
         expected_runs = n_mat @ reward
@@ -427,6 +456,12 @@ class MarkovChainModel:
         table = self.results.transition_probabilities
         if not table:
             raise RuntimeError("state_distribution needs a model fitted with fit_transitions().")
+        if plate_appearances < 0:
+            raise ValueError(f"plate_appearances must be 0 or more, got {plate_appearances}.")
+        if f"{start[0]}|{start[1]}" not in table:
+            raise ValueError(
+                f"start {start!r} is not a base-out state; use (outs 0 to 2, bases such as '---' or '1-3')."
+            )
         dist = {f"{start[0]}|{start[1]}": 1.0}
         for _ in range(plate_appearances):
             nxt: dict[str, float] = {}

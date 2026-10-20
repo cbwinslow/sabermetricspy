@@ -1,7 +1,7 @@
 # game-score-and-off Specification
 
 ## Purpose
-TBD - created by archiving change game-score-and-off-metrics. Update Purpose after archive.
+Define the per-game pitching metrics Game Score (Bill James) and Game Score 2.0 (Tom Tango), and Off, the FanGraphs sum of batting runs above average and baserunning runs.
 
 ## Requirements
 

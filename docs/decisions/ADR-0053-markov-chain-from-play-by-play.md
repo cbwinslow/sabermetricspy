@@ -19,7 +19,11 @@ the three-batter distribution on Retrosheet 2016 (opt-in test), and a home-run-o
 
 `fit()` stays, documented with its measured gap to the fitted chain: league-average 2016 event rates give 0.479 runs
 from the empty state against 0.485, 2.13 against 2.21 with the bases loaded and no outs, and 4.41 plate appearances per
-half-inning against 4.27. The docstring no longer claims the Bukiet paper as its source.
+half-inning against 4.27. The longer innings come from rules with no double plays or outs on the bases; the effect of
+each rule was not separated (an earlier version blamed errors counted as outs, which would shorten innings). The
+docstring no longer claims the Bukiet paper as its source. The method is rated `approximate`, not `matches`, because its
+reference check runs only when the Retrosheet file is supplied; CI supplies it, and the tier can rise once that run
+has passed (ADR-0055).
 
 Alternatives considered: (a) remove `fit()`, not chosen now because it is the only path for a single batter or a
 hypothetical lineup with no play-by-play; revisit if a published advancement model replaces its fixed rules.

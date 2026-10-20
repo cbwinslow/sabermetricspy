@@ -1,7 +1,7 @@
 # modeled-estimators-and-advanced-metrics Specification
 
 ## Purpose
-TBD - created by archiving change 2026-10-17-advanced-metrics-and-modeled-estimators. Update Purpose after archive.
+Describe the registry of advanced metrics and the modeled estimators (empirical Bayes shrinkage and the position-player WAR calculation) that sit on top of the core metric engine.
 
 ## Requirements
 

@@ -59,8 +59,10 @@ the person was active. The result SHALL list every matching person with their id
 
 ### Requirement: Register source, attribution and reproducibility
 The register SHALL be loaded from a path the caller supplies or downloaded to a user cache when the caller asks, never
-bundled in the package. Every result SHALL carry the register's license name (Open Data Commons Attribution License 1.0),
-the Chadwick Bureau as the source, and the register's release date, and the project's credits SHALL state the same.
+bundled in the package. A download SHALL be pinned to a repository commit (the latest on the requested ref unless the
+caller names one) and SHALL record the commit and the fetch date. Every result SHALL carry the register's license name
+(Open Data Commons Attribution License 1.0), the Chadwick Bureau as the source, the commit when known, and the fetch
+date, and the project's credits SHALL state the same.
 
 #### Scenario: Offline use
 - **WHEN** the caller supplies a local register path and no network is available
@@ -72,4 +74,57 @@ the Chadwick Bureau as the source, and the register's release date, and the proj
 
 #### Scenario: Attribution travels with results
 - **WHEN** a translation completes
-- **THEN** its result metadata names the Chadwick Bureau, the license, and the register release date
+- **THEN** its result metadata names the Chadwick Bureau, the license, the fetch date, and the commit when the register
+  was downloaded with this library
+
+#### Scenario: Pinned download
+- **WHEN** a download names a commit
+- **THEN** the shards come from that commit and the recorded commit equals it
+
+### Requirement: The caller's frame is preserved
+Translating ids SHALL return the caller's own frame type with exactly one column added. Existing columns, their dtypes,
+pandas index values, and row order SHALL be unchanged; a Polars LazyFrame SHALL stay lazy; a column the caller already
+has SHALL never be overwritten or removed, including columns whose names look like internal helpers.
+
+#### Scenario: pandas index and nullable dtypes
+- **WHEN** a pandas frame with index 10, 20, 30 is translated
+- **THEN** the result has index 10, 20, 30, no extra columns, the caller's columns unchanged, and the new id column holds
+  nullable integers for integer id systems
+
+#### Scenario: Lazy frame
+- **WHEN** a Polars LazyFrame is translated
+- **THEN** the result is a LazyFrame
+
+#### Scenario: Helper-looking column names
+- **WHEN** the frame has a column named like an internal helper such as `__key` or `__row`
+- **THEN** that column is returned unchanged
+
+### Requirement: Ids match exactly
+A source id SHALL match only when it equals a register id exactly. Non-integral numeric ids (100.7 for an integer
+system) SHALL NOT match a person, and string ids SHALL be compared after trimming surrounding whitespace.
+
+#### Scenario: Fractional id
+- **WHEN** an MLBAM id of 100.7 is translated
+- **THEN** the row is unmatched, not matched to id 100
+
+### Requirement: Names that normalize to nothing never match
+A name query that is empty after normalization SHALL raise an error, and register rows whose names are empty after
+normalization SHALL never match. Letters that cannot be decomposed into a base letter and an accent (o with stroke,
+l with stroke, ae, d with stroke, sharp s) SHALL fold to their conventional Latin spelling, and any whitespace SHALL
+separate name parts.
+
+#### Scenario: Non-Latin query
+- **WHEN** a lookup uses a name with no Latin letters and the register holds people with missing names
+- **THEN** the lookup raises an error saying the name cannot be normalized, and returns no person
+
+#### Scenario: Stroked letters
+- **WHEN** a name containing o with stroke is looked up in plain ASCII
+- **THEN** the person is found
+
+### Requirement: Register cache follows the files
+A loaded register SHALL be reused only while its files are unchanged; loading a different directory, or the same
+directory after a shard changed, SHALL read the current files.
+
+#### Scenario: Same relative path, different directories
+- **WHEN** a register is loaded from "." in one directory and then from "." in another
+- **THEN** each load returns the register of its own directory

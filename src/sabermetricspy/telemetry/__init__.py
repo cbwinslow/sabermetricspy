@@ -355,8 +355,9 @@ def _ensure_builtin_benchmarks() -> None:
 
     from sabermetricspy.engine import calculate_rolling, calculate_suite
     from sabermetricspy.evaluation import calibration_table
-    from sabermetricspy.expectancy import WinProbabilityModel
-    from sabermetricspy.models import MarcelProjector
+    from sabermetricspy.expectancy import WinExpectancyMatrix, WinProbabilityModel
+    from sabermetricspy.ids import PlayerRegister, translate_ids
+    from sabermetricspy.models import MarcelProjector, MarkovChainModel
     from sabermetricspy.presets import prepare_statcast_pitches
     from sabermetricspy.types.enums import Metric, MetricSuite
     from sabermetricspy.uncertainty import EmpiricalBayesShrinker
@@ -462,6 +463,55 @@ def _ensure_builtin_benchmarks() -> None:
         )
         wp = WinProbabilityModel.from_default()
         return wp.transform(plays)
+
+    @register_benchmark(
+        name="expectancy.win_expectancy_fit", category="expectancy", default_rows=100_000
+    )
+    def _bench_win_expectancy_fit(rows: int = 100_000) -> Any:
+        idx = pl.int_range(0, rows, eager=True)
+        bases = ["---", "1--", "-2-", "--3", "12-", "1-3", "-23", "123"]
+        df = pl.DataFrame({"idx": idx}).select(
+            (pl.col("idx") // 40).alias("game_id"),
+            ((pl.col("idx") % 9) + 1).alias("inning"),
+            (pl.col("idx") % 2 == 0).alias("is_bottom"),
+            (pl.col("idx") % 3).alias("outs_before"),
+            pl.Series([bases[i % 8] for i in range(rows)]).alias("base_state_before"),
+            ((pl.col("idx") % 7) - 3).alias("home_score_diff"),
+            ((pl.col("idx") // 40) % 2).alias("home_win"),
+        )
+        return WinExpectancyMatrix().fit(df).results
+
+    @register_benchmark(
+        name="models.markov_fit_transitions", category="forecasting", default_rows=100_000
+    )
+    def _bench_markov_fit_transitions(rows: int = 100_000) -> Any:
+        bases = ["---", "1--", "-2-", "--3", "12-", "1-3", "-23", "123"]
+        idx = pl.int_range(0, rows, eager=True)
+        df = pl.DataFrame({"idx": idx}).select(
+            (pl.col("idx") % 3).alias("outs_before"),
+            pl.Series([bases[i % 8] for i in range(rows)]).alias("base_state_before"),
+            (pl.col("idx") % 3 + 1).alias("outs_after"),
+            pl.lit("---").alias("base_state_after"),
+            (pl.col("idx") % 5 == 0).cast(pl.Int64).alias("runs_on_play"),
+        )
+        return MarkovChainModel().fit_transitions(df).results
+
+    @register_benchmark(name="ids.translate_ids", category="ids", default_rows=100_000)
+    def _bench_translate_ids(rows: int = 100_000) -> Any:
+        people = pl.DataFrame(
+            {
+                "key_person": [f"{i:08x}" for i in range(1000)],
+                "key_uuid": [f"{i:08x}-u" for i in range(1000)],
+                "key_mlbam": list(range(1000)),
+                "key_retro": [f"p{i:05d}" for i in range(1000)],
+                "name_first": ["A"] * 1000,
+                "name_last": ["B"] * 1000,
+                "name_given": ["A"] * 1000,
+            }
+        )
+        register = PlayerRegister(people=people, fetched_on=None, commit=None, path="synthetic")
+        ids = pl.DataFrame({"key_retro": [f"p{i % 1200:05d}" for i in range(rows)]})
+        return translate_ids(ids, "retro", "mlbam", register=register).df
 
     @register_benchmark(name="valuation.pitcher_war_df", category="valuation", default_rows=5_000)
     def _bench_pitcher_war(rows: int = 5_000) -> Any:
