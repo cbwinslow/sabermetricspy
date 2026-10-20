@@ -101,9 +101,14 @@ presets:
       - source_col: "description"
         values: ["called_strike", "automatic_strike"]
         target_col: "called_strikes"
+      # Foul bunts are fouls (Baseball-Reference F/Str counts them: 529 of 1,985 strikes on the Skubal 2024 sample).
       - source_col: "description"
-        values: ["foul"]
+        values: ["foul", "foul_bunt"]
         target_col: "fouls"
+      # Baseball-Reference "total strikes": Statcast pitch type S (strike) or X (in play).
+      - source_col: "type"
+        values: ["S", "X"]
+        target_col: "strike_pitches"
       - source_col: "events"
         values:
           - "single"
@@ -206,6 +211,11 @@ presets:
         min_val: 1.0
         max_val: 14.0
         target_col: "located_pitches"
+      # Savant's Meatball% counts Statcast zone 5, the centre cell of its 3x3 grid (inferred; matches 2 pitchers).
+      - source_col: "zone"
+        min_val: 5.0
+        max_val: 5.0
+        target_col: "meatball_pitches"
       - source_col: "launch_speed"
         min_val: 95.0
         max_val: 200.0

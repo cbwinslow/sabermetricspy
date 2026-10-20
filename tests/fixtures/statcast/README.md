@@ -13,3 +13,13 @@ plate-discipline and pitch-physics audits read).
 - **Use:** unit-test input for `tests/test_golden_plate_discipline.py` (and later the pitch-physics audit).
   Statcast data belongs to MLB Advanced Media; this small sample is kept only as a verification fixture and is
   not redistributed as a data product. Re-download it with the URL above if it is ever refreshed.
+
+## Added 2026-10-20 (ADR-0050)
+
+Both files come from the same public Baseball Savant Statcast Search CSV export and are verification fixtures only.
+
+- `cabrera_2024_pitches.csv`: every regular-season pitch thrown by Edward Cabrera (MLBAM id 665795) in 2024, 1,734 rows,
+  columns `player_name`, `pitcher`, `game_year`, `game_type`, `description`, `zone`, `type`. Second pin for Meatball%
+  and Meatball Swing% (`tests/test_golden_strike_breakdown.py`).
+- `four_seamers_2023_haa.csv`: the four-seamers (`pitch_type == FF`) of five 2023 pitchers (Cole, Gausman, Javier, Cease,
+  Morton), columns `vx0`, `vy0`, `ax`, `ay` and identifiers. Reproduces the HAA table in Chamberlain's FanGraphs primer.

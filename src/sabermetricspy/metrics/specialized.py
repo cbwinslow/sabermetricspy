@@ -208,19 +208,19 @@ def calc_csw_pct(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
-        metric=Metric.FOUL_PCT,
-        display_name="Foul%",
+        metric=Metric.F_TO_STR,
+        display_name="F/Str",
         category=Category.PLATE_DISCIPLINE,
         kind=ImplKind.DETERMINISTIC,
-        required_columns=("fouls", "swings"),
+        required_columns=("fouls", "strike_pitches"),
         direction=Direction.NEUTRAL,
-        formula_latex=r"Foul\% = \frac{Fouls}{Swings}",
-        citation="Baseball Savant Glossary",
-        description="Foul balls divided by total swings.",
+        formula_latex=r"F/Str = \frac{Fouls}{Strikes}",
+        citation="Baseball-Reference pitching glossary (F/Str: pitches fouled off over total strikes seen)",
+        description="Pitches fouled off divided by total strikes (called, swinging, fouled and in play).",
     )
 )
-def calc_foul_pct(ctx: EvalContext) -> nw.Expr:
-    return safe_div(nw.col("fouls"), nw.col("swings"))
+def calc_f_to_str(ctx: EvalContext) -> nw.Expr:
+    return safe_div(nw.col("fouls"), nw.col("strike_pitches"))
 
 
 @register_metric(
@@ -232,8 +232,8 @@ def calc_foul_pct(ctx: EvalContext) -> nw.Expr:
         required_columns=("first_pitch_swings", "pa"),
         direction=Direction.NEUTRAL,
         formula_latex=r"F\text{-}Swing\% = \frac{FirstPitchSwings}{PA}",
-        citation="FanGraphs Library",
-        description="First-pitch swing percentage.",
+        citation="Baseball-Reference 'Swung or Took First Pitch of PA' split (swings over plate appearances)",
+        description="First-pitch swings (bunt attempts included) divided by plate appearances.",
     )
 )
 def calc_fp_swing_pct(ctx: EvalContext) -> nw.Expr:
@@ -1057,7 +1057,7 @@ def calc_vaa(ctx: EvalContext) -> nw.Expr:
         required_columns=("haa_sum", "haa_count"),
         direction=Direction.NEUTRAL,
         formula_latex=r"HAA = \arctan\left(\frac{v_{xf}}{-v_{yf}}\right) \times \frac{180}{\pi}",
-        citation="Nathan, A. M. (2012); Chamberlain, A. (2022) Horizontal Approach Angle",
+        citation="Chamberlain, A. (2023), A Visual Primer on Horizontal Approach Angle (HAA), FanGraphs",
         description="Mean Horizontal Approach Angle (degrees) of the pitch as it crosses the front of home plate.",
     )
 )
@@ -1119,19 +1119,19 @@ def calc_whiff_per_100(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
-        metric=Metric.BIP_PCT,
-        display_name="BIP%",
+        metric=Metric.I_TO_STR,
+        display_name="I/Str",
         category=Category.PLATE_DISCIPLINE,
         kind=ImplKind.DETERMINISTIC,
-        required_columns=("bbe", "swings"),
+        required_columns=("bbe", "strike_pitches"),
         direction=Direction.NEUTRAL,
-        formula_latex=r"BIP\% = \frac{BBE}{Swings}",
-        citation="Baseball Savant Glossary",
-        description="Percentage of swings put into fair play.",
+        formula_latex=r"I/Str = \frac{BIP}{Strikes}",
+        citation="Baseball-Reference pitching glossary (I/Str: balls put into play, home runs included, over total strikes)",
+        description="Balls put into play divided by total strikes (called, swinging, fouled and in play).",
     )
 )
-def calc_bip_pct(ctx: EvalContext) -> nw.Expr:
-    return safe_div(nw.col("bbe"), nw.col("swings"))
+def calc_i_to_str(ctx: EvalContext) -> nw.Expr:
+    return safe_div(nw.col("bbe"), nw.col("strike_pitches"))
 
 
 @register_metric(
@@ -1177,8 +1177,8 @@ def calc_two_strike_chase_pct(ctx: EvalContext) -> nw.Expr:
         required_columns=("meatball_swings", "meatball_pitches"),
         direction=Direction.HIGHER_IS_BETTER,
         formula_latex=r"MeatballSwing\% = \frac{MeatballSwings}{MeatballPitches}",
-        citation="MLB Statcast Attack Zone Glossary",
-        description="Swing percentage on pitches in the heart/meatball attack zone.",
+        citation="Baseball Savant Meatball Swing% (leaderboard); meatball is Statcast zone 5, the centre of the 3x3 zone grid",
+        description="Swing percentage (bunt attempts included) on meatball pitches, Statcast zone 5.",
     )
 )
 def calc_meatball_swing_pct(ctx: EvalContext) -> nw.Expr:

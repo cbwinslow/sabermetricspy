@@ -613,6 +613,7 @@ def test_all_registered_metrics_and_suites_audit() -> None:
             "swings": [1400, 1350],
             "whiffs": [380, 310],
             "called_strikes": [510, 480],
+            "strike_pitches": [1930, 1840],
             "fouls": [520, 510],
             "contacts": [1020, 1040],
             "zone_pitches": [1420, 1380],

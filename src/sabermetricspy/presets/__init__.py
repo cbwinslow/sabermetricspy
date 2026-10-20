@@ -18,6 +18,19 @@ from sabermetricspy.schema import safe_div
 from sabermetricspy.telemetry import profiled
 from sabermetricspy.types.enums import Category, Direction, ImplKind
 
+# Statcast `description` values that are swings when bunt attempts count (foul_bunt, missed_bunt).
+_SWING_DESCRIPTIONS_WITH_BUNTS = (
+    "swinging_strike",
+    "swinging_strike_blocked",
+    "foul",
+    "foul_tip",
+    "foul_bunt",
+    "missed_bunt",
+    "hit_into_play",
+    "hit_into_play_no_out",
+    "hit_into_play_score",
+)
+
 
 class BoolToIntRule(BaseModel):
     """Rule converting a boolean/flag column into a 0/1 integer count column."""
@@ -196,6 +209,28 @@ class SourceTranslator(BaseModel):
                 ]
             )
 
+        # Swings that count bunt attempts, as Baseball-Reference's first-pitch split and Savant's Meatball Swing% do.
+        # The plate-discipline swings above exclude bunts, as FanGraphs does.
+        if "description" in cols_now:
+            swing_with_bunts = nw.col("description").is_in(list(_SWING_DESCRIPTIONS_WITH_BUNTS))
+            if {"balls", "strikes"}.issubset(cols_now) and "first_pitch_swings" not in cols_now:
+                first_pitch = (nw.col("balls").cast(nw.Int64) == 0) & (
+                    nw.col("strikes").cast(nw.Int64) == 0
+                )
+                post_exprs.append(
+                    nw.when(first_pitch & swing_with_bunts)
+                    .then(1)
+                    .otherwise(0)
+                    .alias("first_pitch_swings")
+                )
+            if "meatball_pitches" in created_cols and "meatball_swings" not in cols_now:
+                post_exprs.append(
+                    nw.when((nw.col("meatball_pitches") == 1) & swing_with_bunts)
+                    .then(1)
+                    .otherwise(0)
+                    .alias("meatball_swings")
+                )
+
         if "launch_speed" in cols_now:
             ls = nw.col("launch_speed").cast(nw.Float64)
             # Statcast also tracks exit velocity on foul balls; contact-quality metrics are defined on
@@ -313,6 +348,24 @@ class SourceTranslator(BaseModel):
                 [
                     nw.when(has_kin).then(vaa_deg).otherwise(0.0).alias("vaa_sum"),
                     nw.when(has_kin).then(1).otherwise(0).alias("vaa_count"),
+                ]
+            )
+
+        if {"vx0", "vy0", "ax", "ay"}.issubset(cols_now) and "haa_sum" not in cols_now:
+            # Chamberlain (2023): HAA = -arctan(vx_f / vy_f); same flight time and 5th-order arctan as VAA above.
+            vx0 = nw.col("vx0").cast(nw.Float64)
+            ax = nw.col("ax").cast(nw.Float64)
+            vy0 = nw.col("vy0").cast(nw.Float64)
+            ay = nw.col("ay").cast(nw.Float64)
+            has_h = (~vx0.is_null()) & (~ax.is_null()) & (~vy0.is_null()) & (~ay.is_null())
+            vy_f = -((vy0 * vy0 - 97.166 * ay) ** 0.5)
+            vx_f = vx0 + ax * safe_div(vy_f - vy0, ay)
+            u = safe_div(vx_f, -vy_f)
+            haa_deg = (u - (u**3.0) / 3.0 + (u**5.0) / 5.0) * 57.29577951308232
+            post_exprs.extend(
+                [
+                    nw.when(has_h).then(haa_deg).otherwise(0.0).alias("haa_sum"),
+                    nw.when(has_h).then(1).otherwise(0).alias("haa_count"),
                 ]
             )
 

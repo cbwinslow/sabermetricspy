@@ -28,7 +28,8 @@ When translating baseball notation (`%`, `+`, `-`, `/`) into valid Python identi
 | **`+`** | Park & League Indexed (`100 = avg`, higher is better) | `_PLUS` (e.g., `Metric.WRC_PLUS`, `Metric.OPS_PLUS`, `Metric.ERA_PLUS`) | `_plus` (`wrc_plus`, `ops_plus`, `era_plus`) | `"wRC+"`, `"OPS+"`, `"ERA+"` |
 | **`-`** (Indexed) | Park & League Indexed (`100 = avg`, lower is better) | `_MINUS` (e.g., `Metric.ERA_MINUS`, `Metric.FIP_MINUS`, `Metric.XFIP_MINUS`) | `_minus` (`era_minus`, `fip_minus`, `xfip_minus`) | `"ERA-"`, `"FIP-"`, `"xFIP-"` |
 | **`-`** (Difference) | Rate Differential (e.g., `K% - BB%`) | `_MINUS_` (e.g., `Metric.K_MINUS_BB_PCT`) | `_minus_` (`k_minus_bb_pct`) | `"K-BB%"` |
-| **`/`** (Ratio) | Ratio of Two Counts (e.g., `K/BB`, `GB/FB`, `HR/FB`) | `_TO_` (e.g., `Metric.K_TO_BB`, `Metric.BB_TO_K`, `Metric.GB_TO_FB`, `Metric.HR_TO_FB`) | `_to_` (`k_to_bb`, `bb_to_k`, `gb_to_fb`, `hr_to_fb`) | `"K/BB"`, `"BB/K"`, `"GB/FB"`, `"HR/FB"` |
+| **`/`** (Ratio) | Ratio of Two Counts (e.g., `K/BB`, `GB/FB`, `HR/FB`, and Baseball-Reference `I/Str`, `F/Str`) | `_TO_` (e.g., `Metric.K_TO_BB`, `Metric.BB_TO_K`, `Metric.GB_TO_FB`, `Metric.HR_TO_FB`, `Metric.I_TO_STR`, `Metric.F_TO_STR`) | `_to_` (`k_to_bb`, `bb_to_k`, `gb_to_fb`, `hr_to_fb`, `i_to_str`, `f_to_str`) | `"K/BB"`, `"BB/K"`, `"GB/FB"`, `"HR/FB"` |
+| **`/PA`, `/IP`** | Per-opportunity rate (a count over its named denominator, not a count-to-count ratio) | `_PER_PA`, `_PER_IP` (e.g., `Metric.R_PER_PA`, `Metric.RBI_PER_PA`, `Metric.BF_PER_IP`) | `_per_pa`, `_per_ip` (`r_per_pa`, `rbi_per_pa`, `bf_per_ip`) | `"R/PA"`, `"RBI/PA"`, `"BF/IP"` |
 | **`/9`** | Per 9 Innings Pitched (27 Outs) | `_PER_9` (e.g., `Metric.K_PER_9`, `Metric.BB_PER_9`, `Metric.HR_PER_9`, `Metric.H_PER_9`) | `_per_9` (`k_per_9`, `bb_per_9`, `hr_per_9`, `h_per_9`) | `"K/9"`, `"BB/9"`, `"HR/9"`, `"H/9"` |
 | **Zone Prefixes** | Inside (`Z-`) vs. Outside (`O-`) Strike Zone | `Z_` / `O_` (e.g., `Metric.Z_SWING_PCT`, `Metric.O_SWING_PCT`, `Metric.Z_CONTACT_PCT`, `Metric.O_CONTACT_PCT`) | `z_` / `o_` (`z_swing_pct`, `o_swing_pct`, `z_contact_pct`, `o_contact_pct`) | `"Z-Swing%"`, `"O-Swing%"`, `"Z-Contact%"`, `"O-Contact%"` |
 | **Expected (`x`)** | Statcast / Expected Estimator (`xBA`, `xSLG`, `xwOBA`, `xFIP`) | `X` prefix (e.g., `Metric.XBA`, `Metric.XSLG`, `Metric.XWOBA`, `Metric.XFIP`) | `x` prefix (`xba`, `xslg`, `xwoba`, `xera`, `xfip`) | `"xBA"`, `"xSLG"`, `"xwOBA"`, `"xERA"`, `"xFIP"` |
@@ -99,7 +100,8 @@ To ensure zero ambiguity between Batting, Pitching, Baserunning, and Fielding, c
 | `Stat.SWINGS` | `swings` | `"Swings"` | Total swings |
 | `Stat.WHIFFS` | `whiffs` | `"Whiffs"` | Swinging strikes (`swinging_strike`, `swinging_strike_blocked`, `missed_bunt`) |
 | `Stat.CALLED_STRIKES` | `called_strikes` | `"CStr"` | Called strikes |
-| `Stat.FOULS` | `fouls` | `"Fouls"` | Foul balls (excluding foul tips resulting in strike 3) |
+| `Stat.STRIKE_PITCHES` | `strike_pitches` | `"Str"` | Total strikes (called, swinging, fouled and in play; Statcast pitch type S or X) |
+| `Stat.FOULS` | `fouls` | `"Fouls"` | Foul balls, foul bunts included (foul tips count as swinging strikes) |
 | `Stat.CONTACTS` | `contacts` | `"Contacts"` | Swings making contact (`swings - whiffs`) |
 | `Stat.ZONE_PITCHES` | `zone_pitches` | `"Z-Pitches"` | Pitches inside the strike zone |
 | `Stat.OUT_ZONE_PITCHES` | `out_zone_pitches` | `"O-Pitches"` | Pitches outside the strike zone |

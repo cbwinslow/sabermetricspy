@@ -92,11 +92,11 @@ metrics:
     evidence: secondary
     source_url: https://sabr.org/journal/article/new-measures-for-pitchers/
     note: 'BFP/IP, total batters faced over innings pitched, as SABR''s New Measures for Pitchers defines it (three batters retired per inning, so 4.00 means three quarters of batters retired; the article puts the major league average between 4.2 and 4.3). Computed as 3 * TBF / outs. Pinned by a hand-computed test (tests/test_metric_values.py); no printed player value was reproduced, so the evidence tier is secondary.'
-  bip_pct:
-    status: approximate
-    evidence: secondary
-    source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: Batted-ball events over swings. A library-defined rate with no published standard found.
+  i_to_str:
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/leagues/majors/2024-pitches-pitching.shtml
+    note: 'Baseball-Reference I/Str: balls put into play (home runs included) over total strikes seen, where strikes are Statcast pitch type S or X. Replaces bip_pct (balls in play over swings, which no source publishes; ADR-0050). Reproduces the printed 24.2 percent on the Tarik Skubal 2024 sample (481 of 1,985 strikes; tests/golden/strike_breakdown_rates.yaml).'
   bsr:
     status: approximate
     evidence: primary
@@ -192,21 +192,21 @@ metrics:
     evidence: golden
     source_url: https://library.fangraphs.com/pitching/era-fip-xfip/
     note: 'Same page, which says the calculation is identical to ERA-: 100*FIP*(2-PF/100)/own-league FIP (AL or NL), as implemented since ADR-0045. The 7 fixtures still differ from FanGraphs by 0.2 to 3.1 points (tests/golden/pitching.yaml: Johnson 2001 46.37 vs 47.27, Schilling 67.72 vs 69.48, Pedro Martinez 2000 44.48 vs 47.61, Skubal 2024 60.32 vs 59.58), and the old MLB-wide form was no closer, so the cause is unresolved. The Guts! FIP park factor column is empty for 2001, and the factors implied by the published values (ARI about 1.015 to 1.021, NYY 0.994) do not follow from the HR, SO and BB park factors either, so FanGraphs'' FIP- park input cannot be reconstructed from public data.'
-  foul_pct:
-    status: approximate
-    evidence: secondary
-    source_url: https://tht.fangraphs.com/introducing-plate-discipline-stats/
-    note: Fouls over swings. A library-defined rate; no published definition was found. FanGraphs counts fouls as contact, which this metric does too.
+  f_to_str:
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/leagues/majors/2024-pitches-pitching.shtml
+    note: 'Baseball-Reference F/Str: pitches fouled off over total strikes seen. Replaces foul_pct (fouls over swings, which no leaderboard publishes; ADR-0050). Foul bunts count as fouls and foul tips as swinging strikes: 529 of 1,985 strikes reproduces the printed 26.6 percent for Tarik Skubal 2024, while 525 (foul only) would print 26.4 (tests/golden/strike_breakdown_rates.yaml).'
   fp_strike_pct:
     status: matches
     evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
     note: First-pitch strikes over plate appearances reproduces the FanGraphs F-Strike% for Tarik Skubal 2024 exactly (517/753; tests/golden/plate_discipline.yaml). The statcast preset does not derive the first-pitch columns; supply first_pitch_strikes and pa.
   fp_swing_pct:
-    status: approximate
-    evidence: secondary
-    source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: First-pitch swings over plate appearances, the analogue of F-Strike%. A library-defined rate; FanGraphs' F-Swing% was not retrievable, and the statcast preset does not derive first-pitch columns.
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/players/split.fcgi?id=skubata01&year=2024&t=p
+    note: 'First-pitch swings over plate appearances, with bunt attempts counted as swings. FanGraphs and Savant publish no F-Swing%; Baseball-Reference''s ''Swung or Took First Pitch of PA'' split prints Swung 277 and Took 476 for Tarik Skubal 2024, and the Statcast sample gives 277 first-pitch swings. Jeff Sullivan''s ''Return of the First-Pitch Swing'' (FanGraphs) uses the same split as the first-pitch swing rate. The name F-Swing% is the library''s own, by analogy with F-Strike%. Without bunts the sample count is 272 (tests/golden/strike_breakdown_rates.yaml).'
   fpct:
     status: matches
     evidence: golden
@@ -234,9 +234,9 @@ metrics:
     note: 27 * H / outs reproduces the FanGraphs H/9 for 16 pitcher seasons (2001, 2016, 2024; tests/golden/pitching_indices.yaml) within 1e-5.
   haa:
     status: approximate
-    evidence: secondary
-    source_url: https://en.wikipedia.org/wiki/PITCHf/x
-    note: Horizontal analogue of VAA. The statcast preset does not derive haa_sum and haa_count, so the caller must supply them; no published value was retrieved.
+    evidence: golden
+    source_url: https://blogs.fangraphs.com/a-visual-primer-on-horizontal-approach-angle-haa/
+    note: 'HAA = -arctan(vx_f / vy_f) from the nine-parameter flight, as in Chamberlain''s FanGraphs primer (2023-11-22); the statcast preset now derives haa_sum and haa_count with the same flight time and arctan series as VAA. Positive means toward the catcher''s right. Chamberlain''s 2023 four-seamer table prints 1.3 degrees for Cole, Gausman, Javier, Cease and Morton; the library gives 1.29, 1.31, 1.28, 1.33 and 1.22 (tolerance 0.1 degree, his pitch filtering is not stated). Neither Savant nor FanGraphs publishes player HAA to reproduce beyond that table (tests/golden/strike_breakdown_rates.yaml).'
   hard_hit_pct:
     status: matches
     evidence: golden
@@ -248,10 +248,10 @@ metrics:
     source_url: https://baseballsavant.mlb.com/leaderboard/pitch-movement
     note: Mean pfx_x times 12 inches reproduces Savant's pitcher_break_x for Skubal's four-seamer (6.49 vs 6.5). pfx_x is from the catcher's perspective, so the sign depends on the pitcher's handedness; only a left-handed pitcher was checked. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   hr_pct:
-    status: approximate
-    evidence: secondary
-    source_url: https://www.fangraphs.com/leaders/major-league
-    note: Home runs per plate appearance. No retrieved primary source defines HR% (FanGraphs and Baseball-Reference publish AB/HR and HR/FB); the per-PA form is a library-defined rate.
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/players/j/judgeaa01-bat.shtml
+    note: 'Home runs over plate appearances, Baseball-Reference''s HR%. Aaron Judge 2024: 58 of 704 prints 8.2 (tests/golden/strike_breakdown_rates.yaml).'
   hr_per_9:
     status: matches
     evidence: golden
@@ -319,9 +319,9 @@ metrics:
     note: Matches FanGraphs published values for 12 pitcher seasons (tests/golden/pitching.yaml). Formula (H+BB+HBP-R)/(H+BB+HBP-1.4*HR).
   meatball_swing_pct:
     status: approximate
-    evidence: secondary
-    source_url: https://blogs.fangraphs.com/looking-into-the-heart-zone/
-    note: Swings over meatball (heart-zone) pitches. Baseball Savant publishes Meatball Swing% but its heart-zone boundaries were not retrievable, so the caller must supply meatball counts under their own definition.
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/custom?year=2024&type=pitcher&min=1&selections=pitch_count,meatball_percent,meatball_swing_percent
+    note: 'Swings (bunt attempts included) over pitches in Statcast zone 5. Savant''s Meatball% and Meatball Swing% reproduce on two pitchers (Tarik Skubal 2024: 8.9 and 79.8; Edward Cabrera 2024: 6.3 and 72.7) when meatball is zone 5, the centre cell of its 3x3 grid, over located pitches. Savant publishes no definition, so the zone-5 reading is inferred from those two pitchers, hence approximate. Meatball is not the heart attack zone, which is far larger (FanGraphs, Looking into the heart zone). From 2026 Savant measures plate_x and plate_z at mid-plate and takes the zone from ABS, so check newer data (tests/golden/strike_breakdown_rates.yaml).'
   o_contact_pct:
     status: approximate
     evidence: golden
@@ -428,10 +428,10 @@ metrics:
     source_url: https://en.wikipedia.org/wiki/Quality_start
     note: QS / GS, the share of starts that were quality starts (at least six innings, three earned runs or fewer); confirmed only by secondary sources, and FanGraphs publishes the QS count but not a QS% rate.
   r_per_pa:
-    status: approximate
-    evidence: secondary
-    source_url: https://www.fangraphs.com/leaders/major-league
-    note: Runs scored per plate appearance. A library-defined rate; no published standard was found.
+    status: matches
+    evidence: golden
+    source_url: https://www.fangraphs.com/guts.aspx?type=cn
+    note: 'Runs over plate appearances. League R / TBF rounds to the FanGraphs Guts! R/PA in all 36 seasons from 1990 to 2025 (league totals and Guts! snapshots under tests/golden/).'
   ra9:
     status: matches
     evidence: secondary
@@ -440,8 +440,8 @@ metrics:
   rbi_per_pa:
     status: approximate
     evidence: secondary
-    source_url: https://www.fangraphs.com/leaders/major-league
-    note: RBI per plate appearance. A library-defined rate; no published standard was found.
+    source_url: https://www.baseball-reference.com/players/j/judgeaa01-bat.shtml
+    note: 'RBI per plate appearance, a plain ratio whose name states its denominator; pinned by a hand-computed test. Baseball-Reference prints only AB/RBI, so no outside value reproduces it.'
   rc27:
     status: approximate
     evidence: secondary

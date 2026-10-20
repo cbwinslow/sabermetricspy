@@ -175,10 +175,10 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (Metric.SWSTR_PCT, dict(whiffs=10, pitches=100), 0.1, {}),
     (Metric.CSTR_PCT, dict(called_strikes=15, pitches=100), 0.15, {}),
     (Metric.CSW_PCT, dict(called_strikes=15, whiffs=10, pitches=100), 0.25, {}),
-    (Metric.FOUL_PCT, dict(fouls=15, swings=50), 0.3, {}),
+    (Metric.F_TO_STR, dict(fouls=15, strike_pitches=50), 0.3, {}),
     (Metric.FP_SWING_PCT, dict(first_pitch_swings=12, pa=40), 0.3, {}),
     (Metric.FP_STRIKE_PCT, dict(first_pitch_strikes=24, pa=40), 0.6, {}),
-    (Metric.BIP_PCT, dict(bbe=70, swings=200), 0.35, {}),
+    (Metric.I_TO_STR, dict(bbe=70, strike_pitches=200), 0.35, {}),
     (Metric.PUTAWAY_PCT, dict(two_strike_so=15, two_strike_pitches=100), 0.15, {}),
     (
         Metric.TWO_STRIKE_CHASE_PCT,
