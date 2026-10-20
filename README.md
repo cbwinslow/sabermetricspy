@@ -104,7 +104,7 @@ Ambiguous names and ids shared by two people raise an error that lists the candi
   not defaulted.
 - Park-adjusted metrics (`wRC+`, `OPS+`, `ERA+`/`ERA-`/`FIP-`) use a park factor of `100` (no adjustment) unless you
   pass the published one: `SeasonContext(season=2001, league="NL", park_factor=96.0)`.
-- DuckDB input works for every metric and gives the same results as the other backends, but evaluating many metrics in one call is slow (141 metrics took minutes in a test); see ADR-0056.
+- DuckDB input gives the same results as the other backends. It is read into memory once as Arrow, evaluated on Polars, and returned as a DuckDB relation on DuckDB's default connection (ADR-0056); aggregate a table larger than memory in DuckDB first.
 - Every metric reports a `reference_status` (`matches`, `approximate`, `divergent`, `unverified`) against its
   published method; see [Methodology Audit](docs/METHODOLOGY.md). Published-value tests live in `tests/golden/`.
 

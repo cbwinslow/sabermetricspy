@@ -9,7 +9,7 @@ import warnings
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import narwhals as nw
 import polars as pl
@@ -60,6 +60,16 @@ def _safe_row_count(nw_df: nw.DataFrame[Any] | nw.LazyFrame[Any]) -> int:
     if isinstance(nw_df, nw.DataFrame):
         return len(nw_df)
     return 0
+
+
+def _is_duckdb(nw_df: Any) -> bool:
+    implementation: Any = getattr(nw_df, "implementation", None)
+    return isinstance(nw_df, nw.LazyFrame) and getattr(implementation, "name", "") == "DUCKDB"
+
+
+def _duckdb_to_polars(nw_df: Any) -> pl.DataFrame:
+    """Read a DuckDB relation into memory once, as Polars via Arrow (ADR-0056)."""
+    return cast(pl.DataFrame, pl.from_arrow(nw.to_native(nw_df).to_arrow_table()))
 
 
 class _ContextProbe:
@@ -278,6 +288,9 @@ def calculate(
 ) -> CalculationResult:
     """Calculate one or more sabermetrics over any Polars, DuckDB, PyArrow, or pandas table.
 
+    A DuckDB relation is read into memory once as Arrow, evaluated on Polars, and returned as a DuckDB relation on
+    DuckDB's default connection (ADR-0056); aggregate a table larger than memory in DuckDB before passing it.
+
     Executes the two-stage additive pipeline and records stage-by-stage timing in `.profile`:
     1. Optional declarative YAML `preset` translation (`retrosheetpy_events`, `statcast`, `lahman_batting`, or custom YAML).
     2. Normalizes column aliases via the YAML nomenclature registry and converts baseball `ip` notation to integer `outs`.
@@ -294,6 +307,9 @@ def calculate(
         requested_list = list(metrics)
 
     nw_df = nw.from_native(df)
+    from_duckdb = _is_duckdb(nw_df)
+    if from_duckdb:
+        nw_df = nw.from_native(_duckdb_to_polars(nw_df))
     rows_in = _safe_row_count(nw_df)
 
     t_trans_0 = time.perf_counter_ns()
@@ -400,6 +416,10 @@ def calculate(
     if defer and isinstance(nw_df, nw.LazyFrame):
         nw_df = nw_df.collect()
     native_out = nw.to_native(nw_df)
+    if from_duckdb:
+        import duckdb
+
+        native_out = duckdb.from_arrow(native_out.to_arrow())
     t_end = time.perf_counter_ns()
 
     rows_out = _safe_row_count(nw_df)

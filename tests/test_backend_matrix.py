@@ -7,6 +7,7 @@ values are arbitrary integers: the test compares backends with each other, not w
 from __future__ import annotations
 
 import math
+import time
 import warnings
 from typing import Any
 
@@ -71,26 +72,26 @@ def _all_metrics_frame() -> pl.DataFrame:
     )
 
 
-# DuckDB evaluates the engine's stacked column expressions with work that grows faster than the number of metrics (60
-# rows: 10 metrics 0.8 s, 40 metrics 15 s, all 141 minutes), so its case uses a prefix of the registry. Results on that
-# prefix are still compared in full. Tracked as a known limitation in ADR-0056.
-DUCKDB_METRIC_LIMIT = 25
-
-
 @pytest.mark.parametrize("backend", BACKENDS)
 def test_every_available_metric_agrees_across_backends(backend: str) -> None:
     frame = _all_metrics_frame()
-    names = [m.value for m in Metric]
-    if backend == "duckdb":
-        names = names[:DUCKDB_METRIC_LIMIT]
-    ref = sp.calculate(frame, names, season=2024)
-    if backend != "duckdb":
-        assert len(sp.calculate_available(frame, season=2024).requested_metrics) >= 130
+    ref = sp.calculate_available(frame, season=2024)
+    assert (
+        len(ref.requested_metrics) >= 130
+    )  # the frame carries the inputs of (nearly) every registered metric
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        got = sp.calculate(_backend(frame, backend), names, season=2024)
+        start = time.perf_counter()
+        got = sp.calculate_available(_backend(frame, backend), season=2024)
+        out = _to_polars(got.df)
+        elapsed = time.perf_counter() - start
     assert got.requested_metrics == ref.requested_metrics
-    _assert_same(_to_polars(ref.df), _to_polars(got.df), "player_id")
+    _assert_same(_to_polars(ref.df), out, "player_id")
+    if backend == "duckdb":
+        assert "duckdb" in type(got.df).__module__
+        assert elapsed < 10.0, (
+            f"141 metrics on DuckDB took {elapsed:.1f} s (minutes before ADR-0056)"
+        )
 
 
 @pytest.mark.parametrize("backend", BACKENDS)

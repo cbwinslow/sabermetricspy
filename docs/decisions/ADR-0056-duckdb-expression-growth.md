@@ -1,6 +1,6 @@
-# ADR-0056: DuckDB Evaluation Time Grows Faster Than the Number of Metrics
+# ADR-0056: DuckDB Input Is Evaluated on Polars
 
-Status: Proposed (needs a decision; the library works correctly, it is slow for many metrics on DuckDB)
+Status: Accepted (2026-10-20; implemented by OpenSpec change `evaluate-duckdb-on-polars`)
 
 ## Context
 A backend sweep (ADR-0055 follow-up) ran every registered metric on Polars, LazyFrame, pandas, PyArrow and DuckDB. All 137
@@ -14,14 +14,15 @@ after ADR-0057), so the cost is mostly a fixed price per metric that rows add to
 from a prototype that is not in the code: materializing the DuckDB frame every 8 metrics cut 40 metrics from 14.9 s to
 5.4 s but 141 metrics still took 34 s to build.
 
-## Decision (proposed)
+## Decision
 For DuckDB input, evaluate the metric DAG on a Polars frame converted from Arrow and return a DuckDB relation built from
 the result, as the rolling calculation and the expectancy models already do (`to_polars_df`). On the 60-row frame that
 makes 141 metrics take about 0.5 s (measured: Arrow in, Polars engine, relation out, materialized). This gives up DuckDB's ability to stream a table larger than memory through the
 engine; callers with such tables should aggregate in DuckDB first and pass the aggregate.
 
-Until this is decided, `tests/test_backend_matrix.py` compares the first 25 registered metrics on DuckDB and all of them
-on the other backends, and the README should say that DuckDB is slow for hundreds of metrics in one call.
+Measured after the change (60 rows, 98 columns, all 141 metrics): 0.3 s to build and 0.2 s to materialize on DuckDB, the same as
+Polars (0.3 s); before, the same call took minutes. `tests/test_backend_matrix.py` runs every metric on DuckDB with a 10 s bound.
+The result relation is created on DuckDB's default connection, because a relation does not expose its own.
 
 Alternatives considered: (a) keep evaluating inside DuckDB and flatten every N metrics, not chosen now because the
 prototype still took 34 s for 141 metrics; revisit if DuckDB's optimizer stops inlining projections. (b) Build all metrics
@@ -31,5 +32,4 @@ document, not chosen now because a user asking for the full suite on DuckDB wait
 asks for more than a few dozen metrics.
 
 ## Consequences
-If accepted: DuckDB calls return in about the time Polars takes for any metric count, and the DuckDB metric limit in the
-backend test is removed. The cost is that a DuckDB table is pulled into memory as Arrow for the calculation.
+DuckDB calls return in about the time Polars takes for any metric count,. The cost is that a DuckDB table is pulled into memory as Arrow for the calculation.

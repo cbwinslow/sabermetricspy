@@ -6,7 +6,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ### Changed
 - Polars evaluation builds one lazy plan: 30 metrics on a 120,000-row, 98-column frame take 0.44 s instead of 8.7 s (ADR-0057).
-- Backend matrix test: every registered metric, the expectancy models, shrinkage, projection and rolling agree across Polars, LazyFrame, pandas, PyArrow and DuckDB; DuckDB is slow for many metrics (ADR-0056, proposed).
+- Backend matrix test: every registered metric, the expectancy models, shrinkage, projection and rolling agree across Polars, LazyFrame, pandas, PyArrow and DuckDB; DuckDB input is now evaluated on Polars, so 141 metrics take 0.5 s instead of minutes (ADR-0056).
 - Season detection runs on every backend (DuckDB crashed), `translate_ids` preserves the caller's frame and matches ids exactly, the register records its commit and fetch date (`release` is replaced by `fetched_on` and `commit`), fits validate input (ADR-0055).
 - Season constants follow the data: `season` defaults to `None`, a single-season frame uses its own season, a frame
   that contradicts the context raises, and the 2024 fallback warns (ADR-0051).
