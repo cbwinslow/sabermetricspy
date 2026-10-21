@@ -29,7 +29,7 @@ PLAYERS = [
 
 
 def test_snapshot_agrees_with_the_league_totals_snapshot() -> None:
-    assert sorted(SBCS) == list(range(1990, 2026))
+    assert sorted(SBCS) == list(range(1990, 2027))
     for season, row in SBCS.items():
         t = TOTALS[season]
         assert (row["bb"], row["ibb"], row["hbp"]) == (t["bb"], t["ibb"], t["hbp"]), season

@@ -38,7 +38,7 @@ def test_guts_snapshot_structure_and_provenance() -> None:
     assert snap["source"].startswith("FanGraphs Guts!")
     assert snap["retrieved"]
     seasons = snap["seasons"]
-    assert sorted(seasons) == list(range(1990, 2026))
+    assert sorted(seasons) == list(range(1990, 2027))
     for year, row in seasons.items():
         assert set(row) == set(GUTS_FIELDS), year
         assert row["w_bb"] < row["w_1b"] < row["w_2b"] < row["w_3b"] < row["w_hr"], year

@@ -89,12 +89,12 @@ def test_hr_pct_reproduces_baseball_reference() -> None:
 
 
 def test_r_per_pa_equals_fangraphs_guts_in_every_season() -> None:
-    """League R / TBF rounds to the Guts! R/PA in all 36 seasons (1990 to 2025)."""
+    """League R / TBF rounds to the Guts! R/PA in all 37 seasons (1990 to 2026)."""
     guts = yaml.safe_load((HERE / "golden" / "guts_snapshot.yaml").read_text("utf-8"))["seasons"]
     totals = yaml.safe_load((HERE / "golden" / "league_totals_snapshot.yaml").read_text("utf-8"))[
         "pitching"
     ]
-    assert len(totals) == 36
+    assert len(totals) == 37
     for season, row in totals.items():
         frame = pl.DataFrame({"r": [row["r"]], "pa": [row["tbf"]]})
         got = sp.calculate(frame, [Metric.R_PER_PA]).df["r_per_pa"][0]

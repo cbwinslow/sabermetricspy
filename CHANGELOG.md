@@ -4,6 +4,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [1.0.3] - 2026-10-21
+
+### Added
+- 2026 seasonal constants (wOBA weights, cFIP, league run environment, AL/NL splits, wSB, kwERA constant, pitcher-WAR totals). The Guts! weights equal baseballr 2.0.0 `fg_guts()` and a second scraped copy of Guts!; the golden snapshots now cover 1990-2026.
+- `docs/VERIFICATION.md` lists the outside data sources surveyed (baseballr, SportsDataverse, sportsdataverse-py) and what each can and cannot confirm; a Retrosheet 2016 RE24 matrix agrees with SportsDataverse's within 0.043 runs.
+
 ## [1.0.2] - 2026-10-21
 
 ### Changed

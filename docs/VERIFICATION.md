@@ -65,6 +65,33 @@ page does not define the zone geometrically (our rule is inferred from its count
 Could not read: Savant's glossary (HTTP 406), the Baseball-Reference pitching glossary (no ERA+ text), the FanGraphs
 position-player WAR page (404).
 
+## Outside data sources surveyed (2026-10-21)
+
+- **baseballr repo** (BillPetti/baseballr): its `data/` folder holds only lookup tables (teams, Statcast impute), no
+  reference results. Its metric functions are `woba_plus`, `fip_plus`, `run_expectancy_code` (RE24 from Statcast) and
+  `fg_guts`; the first, second and fourth are already tied out. `fg_park` scrapes the FanGraphs park-factor page (it
+  currently fails against FanGraphs' bot protection; the page itself reads fine).
+- **SportsDataverse** (`sportsdataverse-data` releases `mlb_game_state`, `mlb_hitting_models`, `mlb_pitching_models`,
+  `mlb_fielding_models`; repo `baseballr-data`): per-season RE24 matrices, win-expectancy tables, leverage index, xwOBA,
+  xERA, OAA. Their own `REGISTRY.md` says SIERA, baserunning and tunneling are *not* published because no public oracle
+  exists, which matches our experimental/approximate labels. These are derived from the MLB Stats API, not independent
+  published standards, so they are a cross-check, not a golden source.
+- **sportsdataverse-py** (MIT): a data-access and machine-learning package (MLB Stats API, Statcast, ESPN, Fox, plus 25+
+  other leagues). It has no wRC+ or WAR calculator and no Lahman support; its RE24, win expectancy, xwOBA, Stuff+ and
+  OAA are its own fitted models, validated against Tango's table and Savant. Useful as a data source and for RE24
+  cross-checks, not as a reference for our formulas.
+- **gmalbert/baseball-predictions** (no license; a Streamlit betting app): not a metrics source. Its
+  `data_files/processed/fg_guts.parquet` is a scraped copy of FanGraphs Guts!: all 112 weight and cFIP values for
+  2010-2025 equal ours (third source after FanGraphs and baseballr), and its 2026 row (wBB .698, wHBP .729, w1B .890,
+  w2B 1.261, w3B 1.596, wHR 2.049, cFIP 3.100) equals baseballr 2.0.0 `fg_guts()` for 2026. Its park files carry only a
+  single `pf_basic` per team. Used for checking only, not bundled.
+- **Cross-check done:** a Retrosheet 2016 RE24 matrix (built here) against SportsDataverse's 2016 matrix: all 24 states
+  within 0.043 runs, mean 0.012 (largest gaps in the rarest states, where their sample is 5-35% smaller).
+- **FanGraphs park page** now read for 2024: it publishes a "FIP" park column (2001 has no such column). Backing the
+  park factor out of 2024 FIP- values (Sale, Skubal, Wheeler, Ragans, Lugo, Cease, Sanchez, Webb, Kirby) gives numbers
+  within about 3 points of the Basic and FIP columns but matching neither exactly, so the FIP- gap is still unexplained
+  (likely a pitcher-specific home/road park mix).
+
 ## Research still to do
 
 1. Savant's own Whiff% definition text: its glossary page renders client-side and cannot be fetched; secondary sources (MLB.com articles, third-party glossaries) agree it is swings-and-misses over swings, and the foul-tip/bunt counting is confirmed numerically only.
@@ -74,6 +101,6 @@ position-player WAR page (404).
 5. BsR: a leaderboard row with wSB, UBR, wGDP and BsR (the API's `wBsR`/`BaseRunning`/`GDPRuns` fields are ambiguous); wGDP constants.
 6. DER (reached-on-error treatment, a published team value), XBT%, XBH%, popup rate, VAA: find published references.
 7. Done 2026-10-21 for LinearWeightsEstimator: on Retrosheet 2016 the weights are within 0.001 to 0.031 of Guts! (scale 1.251 vs 1.212), so it stays approximate; the remaining gap needs FanGraphs' unpublished RE24 and event definitions. Still open: MonteCarloSimulator on the fitted matrix; Marcel pitcher regression amounts and Tango's published files.
-8. Bundle league PA and games per season so the position-player WAR default uses the FanGraphs replacement formula; add the 2026 constants.
+8. Bundle league PA and games per season so the position-player WAR default uses the FanGraphs replacement formula (the 2026 constants are done, see 1.0.3).
 9. Outside numbers for the 34 formula-only `matches`: ip, ubb, xbh, rc_basic, rc_tech, base_runs, qera, seca, gpa, ta, off, dice, xfip, dips_bop_pct, k_minus_bb_pct, k_to_bb, bf_per_ip, cg_pct, qs_pct, sv_pct, shutdown, meltdown, game_score_v2, speed_score, err_pct, ra9, pit_bb_to_k, avg_extension, bauer_units, effective_velo, sweet_spot_pct, Log5Model (and its extended Pythagorean form), EmpiricalBayesShrinker.
 10. Most golden fixtures come from a few players and seasons (Skubal 2024, 2001 pitchers); widen them.

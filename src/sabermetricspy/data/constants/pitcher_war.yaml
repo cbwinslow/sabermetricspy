@@ -4,6 +4,27 @@
 # Verified by tests: AL + NL equals the MLB league-totals snapshot, and the 2016 values reproduce the
 # FanGraphs Stroman worked example.
 seasons:
+  2026:
+    al:
+      outs: 64548
+      r: 10837
+      er: 9912
+      hr: 2772
+      bb: 8130
+      hbp: 1038
+      so: 20553
+      iffb: 2512
+    nl:
+      outs: 64691
+      r: 10932
+      er: 10085
+      hr: 2803
+      bb: 8207
+      hbp: 1080
+      so: 20147
+      iffb: 2415
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates; https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl, ind=1)
+    retrieved: '2026-10-21'
   2025:
     al:
       outs: 64693

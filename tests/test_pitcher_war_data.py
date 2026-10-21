@@ -56,7 +56,7 @@ def test_comparison_detects_an_altered_value() -> None:
 
 def test_covers_every_season_with_provenance() -> None:
     seasons = _seasons(BUNDLED)
-    assert sorted(seasons) == list(range(1990, 2026))
+    assert sorted(seasons) == list(range(1990, 2027))
     for year, entry in seasons.items():
         assert entry["source"] and entry["retrieved"], year
 

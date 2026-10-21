@@ -103,7 +103,7 @@ Ambiguous names and ids shared by two people raise an error that lists the candi
 ## Accuracy and Provenance
 
 - Seasonal constants (wOBA weights, cFIP, league run environment, non-pitcher wRC/PA) are FanGraphs Guts! and
-  leaderboard values for 1990-2025, with source and retrieval date; values with no published source are absent,
+  leaderboard values for 1990-2026, with source and retrieval date; values with no published source are absent,
   not defaulted.
 - Park-adjusted metrics (`wRC+`, `OPS+`, `ERA+`/`ERA-`/`FIP-`) use a park factor of `100` (no adjustment) unless you
   pass the published one: `SeasonContext(season=2001, league="NL", park_factor=96.0)`.

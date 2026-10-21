@@ -123,7 +123,7 @@ from sabermetricspy.value import (
     WARFramework,
 )
 
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 
 
 def describe(metric: Metric | str) -> MetricSpec:

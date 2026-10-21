@@ -10,6 +10,49 @@
 # 1990-2020: C = lgERA + 12*(lgSO-lgBB)/lgTBF, exact for 2001, 2016-2020. 2021-2025: FanGraphs uses lgERA + 1.887 (measured for 2021-2025);
 # the 1.887 term equals no league K-BB rate, so those years are empirical, not derived.
 seasons:
+  2026:
+    season: 2026
+    league: MLB
+    lg_woba: 0.316
+    woba_scale: 1.238
+    w_bb: 0.698
+    w_hbp: 0.729
+    w_1b: 0.89
+    w_2b: 1.261
+    w_3b: 1.596
+    w_hr: 2.049
+    r_sb: 0.2
+    r_cs: -0.412
+    lg_r_per_pa: 0.118
+    lg_r_per_w: 9.822
+    c_fip: 3.1
+    lg_era: 4.1776789255146518
+    lg_fip: 4.1776787093121106
+    lg_xfip: 4.1776786417833458
+    lg_hr_per_fb: 0.116138574
+    lg_obp: 0.318458395
+    lg_slg: 0.40047389
+    lg_k_pct: 0.2213797342355328
+    lg_bb_pct: 0.08886193410825306
+    lg_wrc_per_pa: 0.118392
+    lg_wrc_per_pa_nl: 0.12044997440400548
+    lg_wrc_per_pa_al: 0.11631004253857702
+    lg_bb_pct_nl: 0.089647107
+    lg_bb_pct_al: 0.088072311
+    lg_k_pct_nl: 0.219618628
+    lg_k_pct_al: 0.223164613
+    lg_pit_bb_pct_nl: 0.08910676090898234
+    lg_pit_bb_pct_al: 0.08861421751357007
+    lg_pit_k_pct_nl: 0.21874423200112916
+    lg_pit_k_pct_al: 0.22402066575109542
+    lg_era_al: 4.146123814835471
+    lg_era_nl: 4.209163562164752
+    lg_fip_al: 4.1423418636870526
+    lg_fip_nl: 4.21293744224146
+    source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn; equal to baseballr 2.0.0 fg_guts() for 2026); league totals and non-pitcher wRC/PA (21765.230308 / 183844) from FanGraphs leaderboards (team=0,ss).
+    retrieved: '2026-10-21'
+    lg_wsb: 0.005733575647432988
+    kwera_constant: 6.064678925514652
   2025:
     season: 2025
     league: MLB

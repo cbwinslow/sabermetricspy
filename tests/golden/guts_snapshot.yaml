@@ -5,6 +5,20 @@
 source: "FanGraphs Guts! https://www.fangraphs.com/guts.aspx?type=cn"
 retrieved: "2026-10-18"
 seasons:
+  2026:
+    lg_woba: 0.316
+    woba_scale: 1.238
+    w_bb: 0.698
+    w_hbp: 0.729
+    w_1b: 0.89
+    w_2b: 1.261
+    w_3b: 1.596
+    w_hr: 2.049
+    r_sb: 0.2
+    r_cs: -0.412
+    lg_r_per_pa: 0.118
+    lg_r_per_w: 9.822
+    c_fip: 3.1
   2025:
     lg_woba: 0.313
     woba_scale: 1.232

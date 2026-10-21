@@ -77,7 +77,7 @@ Lower layers never import from higher layers.
 
 ## 3. Constants Provenance & Park Factors
 
-Seasonal constants are bundled FanGraphs data (`data/constants/woba_fangraphs.yaml`, 1990-2025). Each entry records
+Seasonal constants are bundled FanGraphs data (`data/constants/woba_fangraphs.yaml`, 1990-2026). Each entry records
 its source and retrieval date; league ERA/FIP/xFIP/HR-FB and non-pitcher wRC/PA are optional and absent when
 unpublished (xFIP is null before 2002). Requesting an unbundled season returns the nearest season and emits a
 `UserWarning`. Park factor is a caller input (`SeasonContext.park_factor`, 100 = no adjustment):
