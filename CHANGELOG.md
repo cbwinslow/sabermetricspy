@@ -4,9 +4,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-21
+
 ### Added
 - Golden tests: xFIP (138 FanGraphs pitcher-seasons), Game Score 2.0, Shutdown and Meltdown (FanGraphs game logs), pitcher WAR (1,477 leaderboard pitcher-seasons). `game_score_v2` is now `approximate` (one point off FanGraphs on 34 of 55 starts); `xfip`, `shutdown` and `meltdown` are tied to FanGraphs values.
 - `get_fip_park_factor(team, season)` and `data/constants/park_fip.yaml`: FanGraphs' FIP park factor for 1990-2026, the park input of FIP-. With it the older FIP- fixtures (Johnson, Schilling, Mussina, Maddux, Morris, Martinez, Skubal) are within 0.25 points.
+
+### Explained
+- Three gaps recorded in 1.1.0 now have causes: FanGraphs computes the 2020 league adjustment from MLB-wide components, divides 2000 WAR by 10.689 while its replacement term uses 10.795, and its own 1998 totals give the bundled runs per win (the published Guts figure is the outlier). BsR's leaderboard total still does not equal its listed parts (standard deviation 1.7 runs in 2016 and 2024).
 
 ## [1.1.0] - 2026-10-21
 

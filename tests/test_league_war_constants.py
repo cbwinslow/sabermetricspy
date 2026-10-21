@@ -19,7 +19,7 @@ ROWS = yaml.safe_load(
 
 
 # 1998 is the one season where the MLB Stats API totals give a runs per win 0.009 above Guts (10.241 vs 10.232);
-# the cause is not known, so it is excluded here and recorded in docs/VERIFICATION.md.
+# FanGraphs' own 1998 league totals give the same 10.241, so the published Guts figure is the outlier; it is excluded here and recorded in docs/VERIFICATION.md.
 KNOWN_GUTS_GAP = {1998}
 
 

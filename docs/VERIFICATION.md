@@ -48,7 +48,7 @@ they are listed under "Research still to do".
 | `rew` | median 1.2% | FanGraphs' conversion inputs are not fully published |
 | pitcher WAR | median absolute error 0.047 to 0.098 WAR by season, 86 to 97 percent within 0.25 WAR (1,477 pitcher-seasons, 2016, 2019, 2022, 2024, 2025) | FanGraphs values a pitcher's starts and relief innings separately, its park factor is unrounded, and its league correction is published for 2016 only |
 | `game_score_v2` | one point lower than FanGraphs on 34 of 55 starts, equal on 21 | no rule found for the point |
-| position-player WAR | replacement within 0.002 runs and WAR within 0.0005 of FanGraphs rows (2013, 2025) | positional adjustment is PA/600 unless innings are given; fielding, UBR and the league adjustment are caller inputs. FanGraphs' league adjustment did not reproduce for 2020 (WAR error up to 0.25) or 2000 (up to 0.21), cause unknown; bundled runs per win differs from Guts by 0.009 in 1998 |
+| position-player WAR | replacement within 0.002 runs and WAR within 0.0005 of FanGraphs rows (2013, 2025) | positional adjustment is PA/600 unless innings are given; fielding, UBR and the league adjustment are caller inputs. FanGraphs computes the 2020 league adjustment from MLB-wide components (not AL/NL; explained 2026-10-21), and divides 2000 WAR by 10.689 where its replacement term uses 10.795; bundled runs per win differs from Guts by 0.009 in 1998 although FanGraphs' own 1998 totals give the bundled value |
 | `MarkovWinExpectancy` | mean 0.0043, largest 0.0172 against 198 cells of Tango's table | one Retrosheet season (2016) against his 2010-2015 |
 | Marcel (hitters, pitchers) | hitter home runs 0.28 off on average; pitcher innings for single-role pitchers within 1 IP for over 80% | Tango's rebaseline step is undefined; the pitcher regression (266.67 IP) is inferred from his reliability column |
 | `vaa` | Woo -3.703 against -3.7; Ryan -3.847 against -3.9 | third-party published values; Savant does not publish VAA |
@@ -83,7 +83,7 @@ David Robinson's empirical Bayes post; the MLB Stats API team totals; FanGraphs 
 The Stroman 2016 pitcher WAR worked example is on a separate FanGraphs page ("Calculating Pitcher WAR, A Complete Example") and
 exists, so that claim holds. baseballr: its computing functions are already tied out, `code_barrel` overcounts Savant's barrels
 by 1 to 4, and `run_expectancy_code` is a Statcast-specific pipeline; none was ported.
-Not resolved: FanGraphs' unrounded FIP park factor (the page shows whole numbers; the earlier note that 2001 had no FIP column was wrong, it exists from 1990); the 1998 runs-per-win gap; SIERA constants are measured, not published;
+Explained after 1.1.0: the 2020 league adjustment (MLB-wide, not AL/NL), the 2000 WAR divisor (10.689), and the 1998 Guts R/W (FanGraphs' own totals give the bundled 10.241). BsR: the leaderboard's BaseRunning minus (wBsR + UBR + GDPRuns) has a standard deviation of 1.7 runs in both 2016 and 2024 (correlation .87), so it is not a rounding or one-year effect; still unexplained. Not resolved: FanGraphs' unrounded FIP park factor (the page shows whole numbers; the earlier note that 2001 had no FIP column was wrong, it exists from 1990); the 1998 runs-per-win gap; SIERA constants are measured, not published;
 pitcher WAR's park factor and yearly league correction; Savant's Whiff% definition text (values reproduce, wording unread).
 
 ## Outside data sources surveyed (2026-10-21)
