@@ -248,6 +248,11 @@ def normalize_columns(
         derived_exprs.append(ip_expr_to_outs("ip").alias("outs"))
         cols_after.add("outs")
 
+    # Same conversion for the innings a pitcher worked as a starter
+    if "start_outs" not in cols_after and "start_ip" in cols_after:
+        derived_exprs.append(ip_expr_to_outs("start_ip").alias("start_outs"))
+        cols_after.add("start_outs")
+
     # Auto-derive singles `b1` if `h`, `b2`, `b3`, `hr` exist and `b1` is missing
     if "b1" not in cols_after and {"h", "b2", "b3", "hr"}.issubset(cols_after):
         derived_exprs.append((nw.col("h") - nw.col("b2") - nw.col("b3") - nw.col("hr")).alias("b1"))

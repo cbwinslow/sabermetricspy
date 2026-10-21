@@ -596,6 +596,7 @@ def test_all_registered_metrics_and_suites_audit() -> None:
             "sb": [24, 12],
             "cs": [5, 4],
             "outs": [576, 540],
+            "start_outs": [576, 0],
             "bf": [760, 740],
             "ra": [58, 72],
             "er": [54, 68],

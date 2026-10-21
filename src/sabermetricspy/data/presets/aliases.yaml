@@ -36,6 +36,8 @@ canonical_aliases:
 
   # Pitching
   outs: ["outs", "outs_recorded", "ipouts", "IPouts", "P_OUT"]
+  start_ip: ["start_ip", "Start_IP", "ip_as_starter"]
+  start_outs: ["start_outs", "outs_as_starter"]
   er: ["er", "earned_runs", "ER", "P_ER"]
   ra: ["ra", "runs_allowed", "RA", "P_R"]
   w: ["w", "wins", "W", "P_W"]

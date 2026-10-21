@@ -1,0 +1,36 @@
+# FanGraphs FIP-, xFIP-, FIP and xFIP for qualified-length pitcher seasons (120+ IP, one team), retrieved 2026-10-21 through
+# baseballr fg_pitcher_leaders (https://www.fangraphs.com/leaders/major-league). pf_fip is the FIP column of the FanGraphs park factors page
+# (baseballr fg_park) for the pitcher's home park. outs = innings x 3. Regenerate with the same calls; FanGraphs revises values slightly.
+rows:
+- {player: Justin Verlander, season: 2011, team: DET, league: AL, pf_fip: 100, outs: 753, hr: 24, bb: 57, hbp: 3, so: 250, fb: 274, fip_minus: 73.8576, xfip_minus: 77.3404, fip: 2.9935, xfip: 3.1219}
+- {player: James Shields, season: 2011, team: TBR, league: AL, pf_fip: 98, outs: 748, hr: 26, bb: 65, hbp: 5, so: 225, fb: 235, fip_minus: 86.3701, xfip_minus: 80.4018, fip: 3.4184, xfip: 3.2469}
+- {player: Dan Haren, season: 2011, team: LAA, league: AL, pf_fip: 98, outs: 715, hr: 20, bb: 33, hbp: 5, so: 192, fb: 266, fip_minus: 75.5962, xfip_minus: 81.5713, fip: 2.9834, xfip: 3.2946}
+- {player: CC Sabathia, season: 2011, team: NYY, league: AL, pf_fip: 104, outs: 712, hr: 17, bb: 61, hbp: 7, so: 230, fb: 203, fip_minus: 68.7148, xfip_minus: 74.8766, fip: 2.8779, xfip: 3.0213}
+- {player: Chris Carpenter, season: 2011, team: STL, league: NL, pf_fip: 97, outs: 712, hr: 16, bb: 55, hbp: 6, so: 191, fb: 213, fip_minus: 81.4974, xfip_minus: 85.9479, fip: 3.0633, xfip: 3.3144}
+- {player: Roy Halladay, season: 2011, team: PHI, league: NL, pf_fip: 101, outs: 701, hr: 10, bb: 35, hbp: 4, so: 220, fb: 198, fip_minus: 56.0247, xfip_minus: 70.0624, fip: 2.1994, xfip: 2.7076}
+- {player: Clayton Kershaw, season: 2011, team: LAD, league: NL, pf_fip: 99, outs: 700, hr: 15, bb: 54, hbp: 3, so: 248, fb: 225, fip_minus: 64.619, xfip_minus: 73.6318, fip: 2.4682, xfip: 2.8439}
+- {player: Cliff Lee, season: 2011, team: PHI, league: NL, pf_fip: 101, outs: 698, hr: 18, bb: 42, hbp: 6, so: 238, fb: 201, fip_minus: 66.4843, xfip_minus: 69.438, fip: 2.6042, xfip: 2.6837}
+- {player: Justin Verlander, season: 2019, team: HOU, league: AL, pf_fip: 99, outs: 669, hr: 36, bb: 42, hbp: 6, so: 300, fb: 225, fip_minus: 72.1712, xfip_minus: 69.6835, fip: 3.2678, xfip: 3.1762}
+- {player: Shane Bieber, season: 2019, team: CLE, league: AL, pf_fip: 99, outs: 643, hr: 31, bb: 40, hbp: 6, so: 259, fb: 193, fip_minus: 73.5406, xfip_minus: 70.898, fip: 3.3213, xfip: 3.2323}
+- {player: Gerrit Cole, season: 2019, team: HOU, league: AL, pf_fip: 99, outs: 637, hr: 29, bb: 48, hbp: 3, so: 326, fb: 172, fip_minus: 58.4651, xfip_minus: 54.5016, fip: 2.6394, xfip: 2.4753}
+- {player: Stephen Strasburg, season: 2019, team: WSN, league: NL, pf_fip: 101, outs: 627, hr: 24, bb: 56, hbp: 10, so: 251, fb: 148, fip_minus: 72.2409, xfip_minus: 71.1652, fip: 3.2523, xfip: 3.1681}
+- {player: Lance Lynn, season: 2019, team: TEX, league: AL, pf_fip: 104, outs: 625, hr: 21, bb: 59, hbp: 8, so: 246, fb: 213, fip_minus: 65.9208, xfip_minus: 84.2986, fip: 3.1276, xfip: 3.851}
+- {player: Madison Bumgarner, season: 2019, team: SFG, league: NL, pf_fip: 95, outs: 623, hr: 30, bb: 43, hbp: 10, so: 203, fb: 239, fip_minus: 92.2987, xfip_minus: 97.2414, fip: 3.9026, xfip: 4.3139}
+- {player: Jacob deGrom, season: 2019, team: NYM, league: NL, pf_fip: 97, outs: 612, hr: 19, bb: 44, hbp: 7, so: 255, fb: 169, fip_minus: 61.5442, xfip_minus: 69.8872, fip: 2.6748, xfip: 3.1119}
+- {player: Aaron Nola, season: 2019, team: PHI, league: NL, pf_fip: 103, outs: 607, hr: 27, bb: 80, hbp: 11, so: 229, fb: 155, fip_minus: 88.5969, xfip_minus: 86.0811, fip: 4.0344, xfip: 3.8235}
+- {player: Logan Gilbert, season: 2024, team: SEA, league: AL, pf_fip: 96, outs: 626, hr: 26, bb: 37, hbp: 4, so: 220, fb: 202, fip_minus: 82.608, xfip_minus: 75.5489, fip: 3.2671, xfip: 3.111}
+- {player: Seth Lugo, season: 2024, team: KCR, league: AL, pf_fip: 101, outs: 620, hr: 16, bb: 48, hbp: 9, so: 181, fb: 217, fip_minus: 78.0523, xfip_minus: 93.433, fip: 3.2487, xfip: 3.8299}
+- {player: Logan Webb, season: 2024, team: SFG, league: NL, pf_fip: 96, outs: 614, hr: 11, bb: 50, hbp: 2, so: 172, fb: 140, fip_minus: 75.6759, xfip_minus: 81.1059, fip: 2.9466, xfip: 3.2822}
+- {player: Zack Wheeler, season: 2024, team: PHI, league: NL, pf_fip: 103, outs: 600, hr: 20, bb: 52, hbp: 8, so: 224, fb: 195, fip_minus: 75.3548, xfip_minus: 81.553, fip: 3.1265, xfip: 3.3007}
+- {player: Aaron Nola, season: 2024, team: PHI, league: NL, pf_fip: 103, outs: 598, hr: 30, bb: 50, hbp: 3, so: 197, fb: 192, fip_minus: 94.6046, xfip_minus: 85.0146, fip: 3.9441, xfip: 3.4439}
+- {player: Corbin Burnes, season: 2024, team: BAL, league: AL, pf_fip: 100, outs: 583, hr: 22, bb: 48, hbp: 2, so: 181, fb: 189, fip_minus: 86.6847, xfip_minus: 86.3725, fip: 3.5473, xfip: 3.5461}
+- {player: "Jos\xE9 Berr\xEDos", season: 2024, team: TOR, league: AL, pf_fip: 101, outs: 577, hr: 31, bb: 54, hbp: 13, so: 153, fb: 207, fip_minus: 114.411, xfip_minus: 103.831, fip: 4.7159, xfip: 4.2479}
+- {player: Dylan Cease, season: 2024, team: SDP, league: NL, pf_fip: 100, outs: 568, hr: 18, bb: 65, hbp: 2, so: 224, fb: 197, fip_minus: 76.9483, xfip_minus: 84.802, fip: 3.0978, xfip: 3.4351}
+- {player: Logan Webb, season: 2025, team: SFG, league: NL, pf_fip: 96, outs: 621, hr: 14, bb: 46, hbp: 6, so: 224, fb: 142, fip_minus: 65.988, xfip_minus: 67.876, fip: 2.6037, xfip: 2.7821}
+- {player: Garrett Crochet, season: 2025, team: BOS, league: AL, pf_fip: 100, outs: 616, hr: 24, bb: 46, hbp: 3, so: 255, fb: 170, fip_minus: 68.6244, xfip_minus: 62.52, fip: 2.8868, xfip: 2.6437}
+- {player: "Cristopher S\xE1nchez", season: 2025, team: PHI, league: NL, pf_fip: 103, outs: 606, hr: 12, bb: 44, hbp: 6, so: 212, fb: 130, fip_minus: 60.7981, xfip_minus: 67.6104, fip: 2.551, xfip: 2.7709}
+- {player: Tarik Skubal, season: 2025, team: DET, league: AL, pf_fip: 101, outs: 586, hr: 18, bb: 33, hbp: 5, so: 241, fb: 179, fip_minus: 57.1599, xfip_minus: 63.0154, fip: 2.4491, xfip: 2.664}
+- {player: Max Fried, season: 2025, team: NYY, league: AL, pf_fip: 102, outs: 586, hr: 14, bb: 51, hbp: 10, so: 189, fb: 161, fip_minus: 71.2954, xfip_minus: 81.1772, fip: 3.0686, xfip: 3.4076}
+- {player: "Carlos Rod\xF3n", season: 2025, team: NYY, league: AL, pf_fip: 102, outs: 586, hr: 22, bb: 73, hbp: 9, so: 203, fb: 199, fip_minus: 88.2941, xfip_minus: 92.8792, fip: 3.7802, xfip: 3.8867}
+- {player: Zac Gallen, season: 2025, team: ARI, league: NL, pf_fip: 98, outs: 576, hr: 31, bb: 66, hbp: 4, so: 175, fb: 213, fip_minus: 111.3749, xfip_minus: 99.4708, fip: 4.5049, xfip: 4.1163}
+- {player: Paul Skenes, season: 2025, team: PIT, league: NL, pf_fip: 100, outs: 563, hr: 11, bb: 42, hbp: 6, so: 216, fb: 174, fip_minus: 57.9315, xfip_minus: 73.7449, fip: 2.3625, xfip: 3.03}

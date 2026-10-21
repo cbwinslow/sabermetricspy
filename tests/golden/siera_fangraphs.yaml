@@ -1,0 +1,22 @@
+# FanGraphs SIERA for pitcher seasons with the inputs needed to recompute it, retrieved 2026-10-21 through baseballr fg_pitcher_leaders
+# (https://www.fangraphs.com/leaders/major-league). outs = innings x 3; start_outs = outs recorded as a starter (Start_IP x 3);
+# tbf = batters faced; gb and fb are FanGraphs ground balls and fly balls (popups are inside fb).
+rows:
+- {player: Randy Johnson, season: 2002, outs: 780, start_outs: 780, tbf: 1035, so: 334, bb: 71, gb: 282, fb: 208, siera: 2.3971}
+- {player: Roy Oswalt, season: 2005, outs: 725, start_outs: 725, tbf: 1002, so: 184, bb: 48, gb: 365, fb: 217, siera: 3.5466}
+- {player: Johan Santana, season: 2008, outs: 703, start_outs: 703, tbf: 964, so: 206, bb: 63, gb: 278, fb: 245, siera: 3.6916}
+- {player: Clayton Kershaw, season: 2011, outs: 700, start_outs: 700, tbf: 912, so: 248, bb: 54, gb: 252, fb: 225, siera: 2.8009}
+- {player: Max Scherzer, season: 2016, outs: 685, start_outs: 685, tbf: 902, so: 284, bb: 56, gb: 179, fb: 260, siera: 3.0457}
+- {player: Justin Verlander, season: 2019, outs: 669, start_outs: 669, tbf: 847, so: 300, bb: 42, gb: 179, fb: 225, siera: 2.9516}
+- {player: Corbin Burnes, season: 2021, outs: 501, start_outs: 501, tbf: 657, so: 234, bb: 34, gb: 185, fb: 115, siera: 2.6107}
+- {player: Sandy Alcantara, season: 2022, outs: 686, start_outs: 686, tbf: 886, so: 207, bb: 50, gb: 328, fb: 188, siera: 3.4171}
+- {player: Tarik Skubal, season: 2024, outs: 576, start_outs: 576, tbf: 753, so: 228, bb: 35, gb: 218, fb: 171, siera: 2.8893}
+- {player: Chris Sale, season: 2024, outs: 533, start_outs: 533, tbf: 702, so: 225, bb: 39, gb: 191, fb: 143, siera: 2.8033}
+- {player: Paul Skenes, season: 2025, outs: 563, start_outs: 563, tbf: 733, so: 216, bb: 42, gb: 207, fb: 174, siera: 3.0966}
+- {player: Sam Gaviglio, season: 2019, outs: 287, start_outs: 0, tbf: 392, so: 88, bb: 22, gb: 131, fb: 102, siera: 3.8845}
+- {player: Junior Guerra, season: 2019, outs: 251, start_outs: 0, tbf: 344, so: 77, bb: 36, gb: 96, fb: 85, siera: 4.5312}
+- {player: Ryan Yarbrough, season: 2024, outs: 296, start_outs: 0, tbf: 398, so: 65, bb: 32, gb: 115, fb: 108, siera: 4.5293}
+- {player: Derek Law, season: 2024, outs: 270, start_outs: 0, tbf: 365, so: 76, bb: 24, gb: 127, fb: 73, siera: 3.5781}
+- {player: Jimmy Herget, season: 2025, outs: 250, start_outs: 0, tbf: 347, so: 81, bb: 26, gb: 83, fb: 103, siera: 3.6872}
+- {player: Spencer Bivens, season: 2025, outs: 243, start_outs: 0, tbf: 343, so: 61, bb: 25, gb: 130, fb: 80, siera: 4.0163}
+- {player: Michael King, season: 2024, outs: 521, start_outs: 511, tbf: 726, so: 201, bb: 63, gb: 181, fb: 165, siera: 3.6298}

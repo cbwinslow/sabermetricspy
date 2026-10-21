@@ -6,11 +6,14 @@
 # lg_wsb: league stolen-base runs per opportunity, (lgSB*r_sb + lgCS*r_cs)/(lg1B + lgBB + lgHBP - lgIBB), from tests/golden/league_sbcs_snapshot.yaml.
 # lg_era_al / lg_era_nl: 27 * ER / outs for all AL / NL pitchers, from tests/golden/league_war_totals_snapshot.yaml.
 # lg_fip_al / lg_fip_nl: (13 HR + 3 (BB + HBP) - 2 SO) / IP + cFIP for all AL / NL pitchers (same snapshot); the IP-weighted mean equals the published MLB lg_fip (tests/test_fip_minus.py).
+# siera_constant: the per-season constant of FanGraphs' SIERA (2011 version), the median of FanGraphs SIERA minus the other terms over pitchers with 50 or more IP,
+# measured from the FanGraphs pitcher leaderboard (max error 0.007 over 8,042 pitcher-seasons); regenerate with tools/siera_constants.R and tools/siera_constants.py.
 # kwera_constant: the constant in FanGraphs' kwERA = C - 12*(SO-BB)/TBF, measured from the FanGraphs pitcher API (tests/test_kwera.py).
 # 1990-2020: C = lgERA + 12*(lgSO-lgBB)/lgTBF, exact for 2001, 2016-2020. 2021-2025: FanGraphs uses lgERA + 1.887 (measured for 2021-2025);
 # the 1.887 term equals no league K-BB rate, so those years are empirical, not derived.
 seasons:
   2026:
+    siera_constant: 5.9750
     season: 2026
     league: MLB
     lg_woba: 0.316
@@ -54,6 +57,7 @@ seasons:
     lg_wsb: 0.005733575647432988
     kwera_constant: 6.064678925514652
   2025:
+    siera_constant: 6.0322
     season: 2025
     league: MLB
     lg_woba: 0.313
@@ -97,6 +101,7 @@ seasons:
     lg_fip_al: 4.178111310342695
     lg_fip_nl: 4.138548627037748
   2024:
+    siera_constant: 6.0347
     season: 2024
     league: MLB
     lg_woba: 0.31
@@ -140,6 +145,7 @@ seasons:
     lg_fip_al: 4.093387529597474
     lg_fip_nl: 4.063562256689118
   2023:
+    siera_constant: 6.2598
     season: 2023
     league: MLB
     lg_woba: 0.318
@@ -183,6 +189,7 @@ seasons:
     lg_fip_al: 4.284768433411088
     lg_fip_nl: 4.3787273164003775
   2022:
+    siera_constant: 5.9170
     season: 2022
     league: MLB
     lg_woba: 0.31
@@ -226,6 +233,7 @@ seasons:
     lg_fip_al: 3.9440087822376153
     lg_fip_nl: 3.9918295894655307
   2021:
+    siera_constant: 6.2497
     season: 2021
     league: MLB
     lg_woba: 0.314
@@ -269,6 +277,7 @@ seasons:
     lg_fip_al: 4.283992630527105
     lg_fip_nl: 4.247652554195338
   2020:
+    siera_constant: 6.3924
     season: 2020
     league: MLB
     lg_woba: 0.32
@@ -312,6 +321,7 @@ seasons:
     lg_fip_al: 4.450362413231639
     lg_fip_nl: 4.45534888156754
   2019:
+    siera_constant: 6.4856
     season: 2019
     league: MLB
     lg_woba: 0.32
@@ -355,6 +365,7 @@ seasons:
     lg_fip_al: 4.575876075731498
     lg_fip_nl: 4.435157090708303
   2018:
+    siera_constant: 6.0597
     season: 2018
     league: MLB
     lg_woba: 0.315
@@ -398,6 +409,7 @@ seasons:
     lg_fip_al: 4.233466498414946
     lg_fip_nl: 4.065382912117279
   2017:
+    siera_constant: 6.1974
     season: 2017
     league: MLB
     lg_woba: 0.321
@@ -441,6 +453,7 @@ seasons:
     lg_fip_al: 4.393329470504838
     lg_fip_nl: 4.323800952542425
   2016:
+    siera_constant: 6.0280
     season: 2016
     league: MLB
     lg_woba: 0.318
@@ -484,6 +497,7 @@ seasons:
     lg_fip_al: 4.248614918328629
     lg_fip_nl: 4.132281012813816
   2015:
+    siera_constant: 5.7949
     season: 2015
     league: MLB
     lg_woba: 0.313
@@ -527,6 +541,7 @@ seasons:
     lg_fip_al: 4.042025137132584
     lg_fip_nl: 3.882434141848327
   2014:
+    siera_constant: 5.5576
     season: 2014
     league: MLB
     lg_woba: 0.31
@@ -570,6 +585,7 @@ seasons:
     lg_fip_al: 3.789563153709707
     lg_fip_nl: 3.6920733440293376
   2013:
+    siera_constant: 5.5882
     season: 2013
     league: MLB
     lg_woba: 0.314
@@ -613,6 +629,7 @@ seasons:
     lg_fip_al: 3.9659125011464735
     lg_fip_nl: 3.76593659027799
   2012:
+    siera_constant: 5.7320
     season: 2012
     league: MLB
     lg_woba: 0.315
@@ -656,6 +673,7 @@ seasons:
     lg_fip_al: 4.135015528715799
     lg_fip_nl: 3.9081191429108086
   2011:
+    siera_constant: 5.4650
     season: 2011
     league: MLB
     lg_woba: 0.316
@@ -699,6 +717,7 @@ seasons:
     lg_fip_al: 4.046676253081348
     lg_fip_nl: 3.85071846498021
   2010:
+    siera_constant: 5.5144
     season: 2010
     league: MLB
     lg_woba: 0.321
@@ -742,6 +761,7 @@ seasons:
     lg_fip_al: 4.1722276302121974
     lg_fip_nl: 3.9969056522052986
   2009:
+    siera_constant: 5.6350
     season: 2009
     league: MLB
     lg_woba: 0.329
@@ -785,6 +805,7 @@ seasons:
     lg_fip_al: 4.417406477197621
     lg_fip_nl: 4.238061533133226
   2008:
+    siera_constant: 5.6433
     season: 2008
     league: MLB
     lg_woba: 0.328
@@ -828,6 +849,7 @@ seasons:
     lg_fip_al: 4.325581353948605
     lg_fip_nl: 4.322214102527159
   2007:
+    siera_constant: 5.7303
     season: 2007
     league: MLB
     lg_woba: 0.331
@@ -871,6 +893,7 @@ seasons:
     lg_fip_al: 4.444460229619229
     lg_fip_nl: 4.498681999369103
   2006:
+    siera_constant: 5.7881
     season: 2006
     league: MLB
     lg_woba: 0.332
@@ -914,6 +937,7 @@ seasons:
     lg_fip_al: 4.521732866159733
     lg_fip_nl: 4.531751696416994
   2005:
+    siera_constant: 5.5596
     season: 2005
     league: MLB
     lg_woba: 0.326
@@ -957,6 +981,7 @@ seasons:
     lg_fip_al: 4.329117938553023
     lg_fip_nl: 4.257488612866377
   2004:
+    siera_constant: 5.7178
     season: 2004
     league: MLB
     lg_woba: 0.33
@@ -1000,6 +1025,7 @@ seasons:
     lg_fip_al: 4.527911497431845
     lg_fip_nl: 4.408975805754774
   2003:
+    siera_constant: 5.6256
     season: 2003
     league: MLB
     lg_woba: 0.328
@@ -1043,6 +1069,7 @@ seasons:
     lg_fip_al: 4.46796927843887
     lg_fip_nl: 4.341414259133721
   2002:
+    siera_constant: 5.5108
     season: 2002
     league: MLB
     lg_woba: 0.326

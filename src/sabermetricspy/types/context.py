@@ -34,6 +34,10 @@ class WOBAWeights(BaseModel):
     lg_era_al: float | None = Field(
         default=None, description="AL ERA, all pitchers (27 ER / outs; None when unsourced)"
     )
+    siera_constant: float | None = Field(
+        default=None,
+        description="Per-season constant of FanGraphs' SIERA, measured from its leaderboard (None when unsourced; 2002 on)",
+    )
     kwera_constant: float | None = Field(
         default=None,
         description="FanGraphs kwERA constant C in C - 12 (SO - BB) / TBF (None when unsourced; Tango's original is 5.40)",
@@ -172,20 +176,26 @@ class WOBAWeights(BaseModel):
 
 
 class SIERACoefficients(BaseModel):
-    """Regression coefficients for SIERA (Skill-Interactive ERA)."""
+    """Coefficients of FanGraphs' SIERA, the 2011 "New SIERA" (Swartz) as FanGraphs displays it.
+
+    The per-season constant is `WOBAWeights.siera_constant`. Every coefficient is the published 2011 value
+    except `bb_per_pa_sq`: the published 27.252 does not reproduce FanGraphs' leaderboard, and 25.264 does
+    (maximum error 0.007 over 8,042 pitcher-seasons, 2002-2026; docs/VERIFICATION.md).
+    """
 
     model_config = ConfigDict(frozen=True)
 
-    version: str = "baseball_prospectus_2010"
-    intercept: float = 6.145
-    so_per_pa: float = -16.986
-    bb_per_pa: float = 11.434
-    net_gb_per_pa: float = -1.858
-    so_per_pa_sq: float = 7.653
-    net_gb_per_pa_sq: float = -6.664
-    so_x_net_gb: float = 10.130
-    bb_x_net_gb: float = -5.195
-    so_x_bb: float = 0.0
+    version: str = "fangraphs_2011_measured"
+    so_per_pa: float = -15.518
+    so_per_pa_sq: float = 9.146
+    bb_per_pa: float = 8.648
+    bb_per_pa_sq: float = 25.264
+    net_gb_per_pa: float = -2.298
+    net_gb_per_pa_sq: float = -4.920
+    so_x_bb: float = -4.036
+    so_x_net_gb: float = 5.155
+    bb_x_net_gb: float = 4.546
+    start_share: float = 0.367
 
 
 class ParkFactor(BaseModel):

@@ -482,35 +482,44 @@ def calc_kwera(ctx: EvalContext) -> nw.Expr:
         display_name="SIERA",
         category=Category.DEFENSE_INDEPENDENT_PITCHING,
         kind=ImplKind.CONTEXTUAL,
-        required_columns=("so", "bb", "gb", "fb", "bf"),
-        optional_columns=("pu",),
+        required_columns=("so", "bb", "gb", "fb", "bf", "outs", "start_outs"),
         direction=Direction.LOWER_IS_BETTER,
-        formula_latex=r"SIERA = \beta_0 + \beta_1(SO/PA) + \beta_2(BB/PA) + \beta_3(netGB/PA) + \dots",
-        citation="Swartz, M. & Seidman, E. (2010) Baseball Prospectus; FanGraphs Library",
-        description="Skill-Interactive Earned Run Average accounting for non-linear strikeout, walk, and ground-ball interactions.",
+        formula_latex=r"SIERA = c_{season} + \beta_1 \frac{SO}{PA} + \beta_2 \frac{BB}{PA} + \beta_3 \frac{netGB}{PA} + \dots + 0.367 \frac{IP_{SP}}{IP}",
+        citation="Swartz, M. & Seidman, E. (2010) Baseball Prospectus; Swartz, M. (2011) New SIERA, FanGraphs",
+        description="Skill-Interactive Earned Run Average, FanGraphs' 2011 version with a measured per-season constant.",
+        caveats=(
+            "netGB is ground balls minus fly balls, popups are not subtracted (the FanGraphs definition).",
+            "Needs the outs recorded as a starter (`start_outs`, or `start_ip`), which sets the 0.367 starter term.",
+            "The per-season constant and the (BB/PA)^2 coefficient are measured from the FanGraphs leaderboard, not published.",
+            "Returns null for seasons without a bundled constant (FanGraphs publishes SIERA from 2002).",
+        ),
     )
 )
 def calc_siera(ctx: EvalContext) -> nw.Expr:
+    constant = ctx.weights.siera_constant
+    if constant is None:
+        return missing_constant()
     c = ctx.season_context.siera_coeffs
-    pu = nw.col("pu") if "pu" in ctx.available_columns else nw.lit(0)
     so_pa = safe_div(nw.col("so"), nw.col("bf"))
     bb_pa = safe_div(nw.col("bb"), nw.col("bf"))
-    net_gb_raw = nw.col("gb") - nw.col("fb") - pu
-    net_gb_pa = safe_div(net_gb_raw, nw.col("bf"))
-    # Sign-adjusted squared net_gb term: negative when net_gb > 0, positive when net_gb <= 0
+    net_gb_pa = safe_div(nw.col("gb") - nw.col("fb"), nw.col("bf"))
+    # The squared net ground-ball term takes the sign of net_gb.
     net_gb_sq_signed = (
         nw.when(net_gb_pa > 0.0).then(net_gb_pa * net_gb_pa).otherwise(-(net_gb_pa * net_gb_pa))
     )
+    start_share = safe_div(nw.col("start_outs"), nw.col("outs"))
     return (
-        c.intercept
+        constant
         + c.so_per_pa * so_pa
-        + c.bb_per_pa * bb_pa
-        + c.net_gb_per_pa * net_gb_pa
         + c.so_per_pa_sq * (so_pa * so_pa)
+        + c.bb_per_pa * bb_pa
+        + c.bb_per_pa_sq * (bb_pa * bb_pa)
+        + c.net_gb_per_pa * net_gb_pa
         + c.net_gb_per_pa_sq * net_gb_sq_signed
+        + c.so_x_bb * (so_pa * bb_pa)
         + c.so_x_net_gb * (so_pa * net_gb_pa)
         + c.bb_x_net_gb * (bb_pa * net_gb_pa)
-        + c.so_x_bb * (so_pa * bb_pa)
+        + c.start_share * start_share
     )
 
 
@@ -576,21 +585,25 @@ def calc_era_minus(ctx: EvalContext) -> nw.Expr:
         optional_columns=("ibb", "hbp"),
         requires=(Metric.FIP,),
         direction=Direction.LOWER_IS_BETTER,
-        formula_latex=r"FIP^- = 100 \times \frac{FIP + (FIP - FIP \times PF/100)}{lgFIP}",
+        formula_latex=r"FIP^- = 100 \times \frac{(rawFIP + c_{lg}) \times (2 - PF/100)}{lgERA}",
         citation="FanGraphs Library (ERA-, FIP-, xFIP-)",
         description="Park- and league-adjusted FIP where 100 is league average and lower is better.",
         caveats=(
-            "Uses the AL/NL league FIP (SeasonContext.league) when the season has it, otherwise the MLB-wide FIP.",
-            "Park factor defaults to 100 (no park adjustment); pass the pitcher's home park factor.",
+            "Uses the pitcher's own league (SeasonContext.league): FanGraphs sets the FIP constant per league so that league FIP equals league ERA, and divides by that league's ERA. Falls back to MLB-wide values for other leagues.",
+            "Park factor defaults to 100 (no park adjustment); pass the FIP column of the FanGraphs park factors page, a whole number, which limits agreement with FanGraphs to about one point.",
         ),
     )
 )
 def calc_fip_minus(ctx: EvalContext) -> nw.Expr:
-    league_fip = ctx.weights.fip_for(ctx.season_context.league)
-    if league_fip is None:
+    league = ctx.season_context.league
+    league_era = ctx.weights.era_for(league)
+    league_fip = ctx.weights.fip_for(league)
+    if league_era is None or league_fip is None:
         return missing_constant()
     pf = ctx.season_context.park_factor / 100.0
-    return safe_div(100.0 * nw.col("fip") * (2.0 - pf), league_fip)
+    # FanGraphs sets the FIP constant per league so that league FIP equals league ERA: the league constant is
+    # cFIP + (lgERA - lgFIP), and lgFIP here already carries the MLB-wide cFIP.
+    return safe_div(100.0 * (nw.col("fip") + (league_era - league_fip)) * (2.0 - pf), league_era)
 
 
 @register_metric(
@@ -603,20 +616,22 @@ def calc_fip_minus(ctx: EvalContext) -> nw.Expr:
         optional_columns=("ibb", "hbp"),
         requires=(Metric.XFIP,),
         direction=Direction.LOWER_IS_BETTER,
-        formula_latex=r"xFIP^- = 100 \times \frac{xFIP + (xFIP - xFIP \times PF/100)}{lgxFIP}",
+        formula_latex=r"xFIP^- = 100 \times \frac{rawxFIP + c_{lg}}{lgERA}",
         citation="FanGraphs Library (ERA-, FIP-, xFIP-)",
-        description="Park- and league-adjusted xFIP where 100 is league average and lower is better.",
+        description="League-adjusted xFIP where 100 is league average and lower is better.",
         caveats=(
-            "Uses the MLB-wide league xFIP: FanGraphs divides by the AL or NL xFIP, which cannot be derived from the bundled data.",
-            "Park factor defaults to 100 (no park adjustment); pass the pitcher's home park factor.",
+            "Measured against the FanGraphs leaderboard, not documented by FanGraphs: no park adjustment is applied (the Library says the calculation is identical to FIP-, but a park term makes the match worse), the constant is the pitcher's league constant and the denominator is that league's ERA.",
+            "The park factor in SeasonContext is ignored.",
         ),
     )
 )
 def calc_xfip_minus(ctx: EvalContext) -> nw.Expr:
-    if ctx.weights.lg_xfip is None:
+    league = ctx.season_context.league
+    league_era = ctx.weights.era_for(league)
+    league_fip = ctx.weights.fip_for(league)
+    if league_era is None or league_fip is None:
         return missing_constant()
-    pf = ctx.season_context.park_factor / 100.0
-    return safe_div(100.0 * nw.col("xfip") * (2.0 - pf), ctx.weights.lg_xfip)
+    return safe_div(100.0 * (nw.col("xfip") + (league_era - league_fip)), league_era)
 
 
 @register_metric(

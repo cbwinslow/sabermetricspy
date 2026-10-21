@@ -120,9 +120,10 @@ def test_speed_score_records_the_four_factor_form() -> None:
     assert "six-factor" in entry.note
 
 
-def test_siera_identifies_the_2010_version_and_the_revised_one() -> None:
+def test_siera_names_the_version_and_what_is_measured() -> None:
     note = metric_entries()["siera"].note
-    assert "2010" in note and "2011" in note
+    assert "2011" in note and "25.264" in note and "27.252" in note
+    assert metric_entries()["siera"].status is ReferenceStatus.APPROXIMATE
 
 
 def test_models_with_known_differences_are_labeled() -> None:
@@ -146,7 +147,7 @@ def test_pitcher_war_docstring_names_the_published_method_and_its_limits() -> No
 def test_siera_coefficients_are_labeled_with_their_source_version() -> None:
     from sabermetricspy.types.context import SIERACoefficients
 
-    assert SIERACoefficients().version == "baseball_prospectus_2010"
+    assert SIERACoefficients().version == "fangraphs_2011_measured"
 
 
 # --- Evidence tiers (literature-sweep-and-method-audit, group 1) ---------------------------------
@@ -225,14 +226,14 @@ def test_audited_entries_cite_a_source_url() -> None:
         assert entry.source_url.startswith("http"), f"{name}: no source URL"
 
 
-@pytest.mark.parametrize("name", ["siera", "rc27", "xfip_minus"])
+@pytest.mark.parametrize("name", ["rc27"])
 def test_quarantined_metrics_are_labeled_experimental(name: str) -> None:
     assert metric_entries()[name].status is ReferenceStatus.EXPERIMENTAL
 
 
 def test_warn_experimental_names_the_item() -> None:
-    with pytest.warns(UserWarning, match="siera is experimental"):
-        warn_experimental("siera")
+    with pytest.warns(UserWarning, match="rc27 is experimental"):
+        warn_experimental("rc27")
 
 
 def test_engine_warns_when_an_experimental_metric_is_calculated() -> None:

@@ -38,18 +38,27 @@ FIP_60 = (13 * 5 + 3 * (15 + 2) - 2 * 60) / 60 + W.c_fip
 XFIP_NUM = 13 * 60 * W.lg_hr_per_fb + 3 * (15 + 2) - 2 * 50  # fb=60, so=50, outs=54 (18 IP)
 XFIP_18 = XFIP_NUM / 18 + W.c_fip
 
-# SIERA: so=90, bb=30, gb=150, fb=100, pu=20, bf=400 -> netGB = 30/400 > 0 so the squared term is negative
-_so, _bb, _ngb = 90 / 400, 30 / 400, (150 - 100 - 20) / 400
+# SIERA (FanGraphs 2011, bb^2 measured): so=90, bb=30, gb=150, fb=100, bf=400, half the outs as a starter
+# -> netGB = (150 - 100) / 400 > 0 so the squared term is negative
+assert W.siera_constant is not None
+_so, _bb, _ngb = 90 / 400, 30 / 400, (150 - 100) / 400
 SIERA = (
-    6.145
-    - 16.986 * _so
-    + 11.434 * _bb
-    - 1.858 * _ngb
-    + 7.653 * _so**2
-    - 6.664 * _ngb**2
-    + 10.130 * _so * _ngb
-    - 5.195 * _bb * _ngb
+    W.siera_constant
+    - 15.518 * _so
+    + 9.146 * _so**2
+    + 8.648 * _bb
+    + 25.264 * _bb**2
+    - 2.298 * _ngb
+    - 4.920 * _ngb**2
+    - 4.036 * _so * _bb
+    + 5.155 * _so * _ngb
+    + 4.546 * _bb * _ngb
+    + 0.367 * 0.5
 )
+
+# League adjustment of FIP- and xFIP-: the MLB league constant is cFIP + (lgERA - lgFIP)
+assert W.lg_era is not None and W.lg_fip is not None
+_LG_DELTA = W.lg_era - W.lg_fip
 
 # Pythagorean: 800 RS, 700 RA, 90-72
 _PY = 800**1.83 / (800**1.83 + 700**1.83)
@@ -110,7 +119,7 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
         {},
     ),
     (Metric.KWERA, dict(so=9, bb=3, bf=27), (4.07894181840083 + 1.887) - 12 * (9 - 3) / 27, {}),
-    (Metric.SIERA, dict(so=90, bb=30, gb=150, fb=100, bf=400, pu=20), SIERA, {}),
+    (Metric.SIERA, dict(so=90, bb=30, gb=150, fb=100, bf=400, outs=270, start_outs=135), SIERA, {}),
     (
         Metric.ERA_PLUS,
         dict(er=10, outs=180),
@@ -126,13 +135,13 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (
         Metric.FIP_MINUS,
         dict(hr=5, bb=15, so=60, outs=180, hbp=2),
-        100 * FIP_60 * (2 - 1.05) / W.lg_fip,
+        100 * (FIP_60 + _LG_DELTA) * (2 - 1.05) / W.lg_era,
         dict(park_factor=105.0),
     ),
     (
         Metric.XFIP_MINUS,
         dict(fb=60, bb=15, so=50, outs=54, hbp=2),
-        100 * XFIP_18 * (2 - 1.05) / W.lg_xfip,
+        100 * (XFIP_18 + _LG_DELTA) / W.lg_era,
         dict(park_factor=105.0),
     ),
     (Metric.PIT_BB_TO_K, dict(bb=3, so=9), 3 / 9, {}),
