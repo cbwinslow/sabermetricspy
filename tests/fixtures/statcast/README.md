@@ -23,3 +23,11 @@ Both files come from the same public Baseball Savant Statcast Search CSV export 
   and Meatball Swing% (`tests/test_golden_strike_breakdown.py`).
 - `four_seamers_2023_haa.csv`: the four-seamers (`pitch_type == FF`) of five 2023 pitchers (Cole, Gausman, Javier, Cease,
   Morton), columns `vx0`, `vy0`, `ax`, `ay` and identifiers. Reproduces the HAA table in Chamberlain's FanGraphs primer.
+
+## Added 2026-10-21
+
+- `cole_2023_zone.csv`: every regular-season pitch thrown by Gerrit Cole (MLBAM id 543037) in 2023, 3,286 rows, columns
+  `player_name`, `pitcher`, `game_year`, `game_type`, `description`, `zone`, `type`, `balls`, `strikes`, `plate_x`,
+  `plate_z`, `sz_top`, `sz_bot`. Same Baseball Savant Statcast Search CSV export (`hfSea=2023|`, `pitchers_lookup[]=543037`),
+  retrieved 2026-10-21 with an ordinary request. Second sample (different pitcher, season) for the geometric strike zone
+  (`tests/test_golden_strike_zone_second_sample.py`, ADR-0062). Verification fixture only.

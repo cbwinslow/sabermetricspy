@@ -101,17 +101,16 @@ def test_mlb_wide_context_falls_back_to_the_mlb_rate() -> None:
 
 
 @pytest.mark.parametrize("entry", load_entries("era_plus.yaml"), ids=lambda e: e["id"])
-def test_era_plus_stays_within_the_documented_divergence_from_baseball_reference(
+def test_era_plus_matches_baseball_reference_with_its_league_and_park_factor(
     entry: dict[str, Any],
 ) -> None:
-    """ERA+ is approximate: Baseball-Reference uses league (AL/NL) ERA and its own park factor."""
+    """With the pitcher's own league ERA and Baseball-Reference's pitching park factor, ERA+ equals the published value."""
     base = next(e for e in load_entries("pitching.yaml") if e["id"] == entry["fixture_id"])
     i = base["inputs"]
     frame = pl.DataFrame({"player_id": [entry["id"]], "er": [i["er"]], "outs": [i["outs"]]})
-    ctx = SeasonContext(season=entry["season"], park_factor=base.get("park_factor", 100.0))
+    ctx = SeasonContext(
+        season=entry["season"], league=entry["league"], park_factor=float(entry["park_factor"])
+    )
     got = sp.calculate(frame, [Metric.ERA_PLUS], context=ctx).df.row(0, named=True)["era_plus"]
     want = entry["published"]["era_plus"]
     assert got == pytest.approx(want, rel=entry["tolerance_relative"])
-    assert got != pytest.approx(want, rel=0.005), (
-        "ERA+ now matches: promote it to matches and tighten"
-    )

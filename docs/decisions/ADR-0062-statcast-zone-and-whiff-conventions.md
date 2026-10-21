@@ -14,4 +14,4 @@ Zone, Z-Swing%, Z-Contact% and Whiff% differed from outside values by up to 4.7 
 - Switch every metric to Savant's counting, not chosen now because FanGraphs' rates match FanGraphs' counting (SwStr% within one pitch); revisit if Savant publishes its definitions.
 
 ## Consequences
-Z-Swing% and Z-Contact% become `matches`; the zone rule is flagged as inferred and checked on one sample only (see VERIFICATION.md).
+Z-Swing% and Z-Contact% become `matches`; the zone rule is flagged as inferred. It was checked on a second pitcher and season (Gerrit Cole 2023, 3,286 pitches, 2026-10-21): every rate is within 0.08 percentage points of FanGraphs, Z-Contact% is exact again, and Savant's zone field is worse on that sample (up to 0.33 points).

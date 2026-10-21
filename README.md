@@ -108,7 +108,7 @@ Ambiguous names and ids shared by two people raise an error that lists the candi
 - Park-adjusted metrics (`wRC+`, `OPS+`, `ERA+`/`ERA-`/`FIP-`) use a park factor of `100` (no adjustment) unless you
   pass the published one: `SeasonContext(season=2001, league="NL", park_factor=96.0)`.
 - DuckDB input gives the same results as the other backends. It is read into memory once as Arrow, evaluated on Polars, and returned as a DuckDB relation on DuckDB's default connection (ADR-0056); aggregate a table larger than memory in DuckDB first.
-- In 1.0.1, 109 of 137 metrics and 5 of 15 models `match` their published method; 25 metrics and 9 models are
+- In 1.0.2, 110 of 137 metrics and 5 of 15 models `match` their published method; 24 metrics and 9 models are
   `approximate` with the size of the gap in [Methodology Audit](docs/METHODOLOGY.md), and 4 items are `experimental` and warn
   when used. [Verification](docs/VERIFICATION.md) lists what is confirmed, what is not, and the research still to do.
 - Every metric reports a `reference_status` (`matches`, `approximate`, `divergent`, `unverified`) against its

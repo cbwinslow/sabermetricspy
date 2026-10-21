@@ -1,0 +1,13 @@
+# FanGraphs Statcast-based ("sc") plate-discipline rates for Gerrit Cole, 2023 regular season, from the FanGraphs leaders API
+# (https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&type=5&season=2023&qual=150, row PlayerName=Gerrit Cole;
+# keys scZ-Zone%, scO-Swing%, scZ-Swing%, scO-Contact%, scZ-Contact%), retrieved 2026-10-21.
+# Pitch-level input: tests/fixtures/statcast/cole_2023_zone.csv (3,286 pitches).
+# tolerance 0.001 (0.1 percentage point, about three pitches here). Observed gaps: Zone% -0.030, O-Swing% -0.078, Z-Swing% +0.043,
+# O-Contact% -0.080, Z-Contact% +0.000 percentage points; Savant's own zone field gives -0.18, -0.05, +0.14, -0.33, +0.15.
+published:
+  zone_pct: 0.49619019
+  o_swing_pct: 0.29764065
+  z_swing_pct: 0.70577396
+  o_contact_pct: 0.60772358
+  z_contact_pct: 0.82941688
+tolerance: 0.001

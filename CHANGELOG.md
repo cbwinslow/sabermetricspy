@@ -4,6 +4,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-10-21
+
+### Changed
+- `era_plus` uses the pitcher's own league ERA (`SeasonContext.league`) and now reproduces Baseball-Reference's 291 / 188 / 174 with its pitching park factors; status `matches` (ADR-0063).
+
+### Added
+- Second strike-zone sample (Gerrit Cole 2023) confirms the geometric zone: every rate within 0.08 percentage points of FanGraphs (`tests/test_golden_strike_zone_second_sample.py`).
+- Opt-in `tests/test_retrosheet_2016_linear_weights.py`: `LinearWeightsEstimator` is within 0.001 to 0.031 of the Guts! 2016 weights.
+
 ## [1.0.1] - 2026-10-21
 
 ### Added
