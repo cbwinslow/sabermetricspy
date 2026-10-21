@@ -4,14 +4,8 @@
 
 `sabermetricspy.ids` (ADR-0054, ADR-0055) loads the Chadwick `people-*.csv` shards and matches normalized first, given and
 last names. The proposal lists the other source files and the measured disagreements. Retrosheet's biographical files
-were first examined on a copy in Chadwick's mirror; the official `biofile.zip` and the notice must be read at retrosheet.org
-before this change is archived.
-
-Facts read from the files on 2026-10-20: Retrosheet `reference/biofile0.csv` (27,049 people; columns `id, lastname, usename,
-fullname, birthdate, ... birthname, altname, debut_p, last_p, ...`) has `YYYYMMDD` birth dates that can be partial
-(`19010000`, 772 rows), 444 birth names and 17 alternate names; `biofile.csv` holds the same people in an older layout
-and is not used. Chadwick `names.csv` types: alias 643, birth 260, alt-spelling 251, legal 191, anglicized 1; the
-alternate parts it leaves blank are the person's current parts.
+were read from Chadwick's mirror during review; they must be re-read at Retrosheet (or its terms confirmed) before
+implementation.
 
 ## Goals / Non-Goals
 
@@ -33,9 +27,7 @@ result; the same backend-independence tests as `ids`.
 4. **Conflicts are computed, not stored:** a function compares paired rows after normalization and returns a table of
    (person, field, value A, source A, value B, source B). Dates are compared as dates, spellings after normalization,
    first major-league year against the year of the debut date, noting the register may count other leagues.
-5. **Provenance is explicit.** Chadwick files record their commit and fetch date, as in `download_register`; the Retrosheet
-   file is identified by its SHA-256 and location. The library does not download Retrosheet's file: the direct address was
-   not confirmed, and a guessed address or a third-party mirror would be fragile. The caller supplies `biofile.zip`.
+5. **Provenance is explicit.** Each source file records its commit or fetch date, as in `download_register`.
 6. **Dependencies:** none new. Reading CSV with Polars, as the crosswalk does.
 
 ## Risks / Trade-offs

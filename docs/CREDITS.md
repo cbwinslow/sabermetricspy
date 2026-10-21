@@ -34,10 +34,6 @@ not the evidence.
 - Chadwick Bureau Register (https://github.com/chadwickbureau/register): player ids and names, licensed Open Data Commons
   Attribution License 1.0. It is not bundled; `sabermetricspy.ids` loads or downloads it, and each translation result
   carries this credit, the commit it was downloaded from and the fetch date.
-- Retrosheet biographical file (`biofile0.csv`, from `biofile.zip` at https://www.retrosheet.org/biofile.htm): used by
-  `sabermetricspy.ids.names` for the multi-source name register, under the Retrosheet notice quoted above. It is not bundled;
-  the caller downloads it. Retrosheet's notice allows any use of its data, including commercial products, provided the
-  statement above appears prominently; results carry the credit and the SHA-256 of the file that was read.
 - Lahman Baseball Database: copyright 1996-2025 by SABR, via the generous donation of Sean Lahman; licensed CC BY-SA 3.0.
 - Bundled seasonal constants are FanGraphs Guts! and leaderboard values recorded with source and retrieval date.
   They remain FanGraphs' data; check their terms before redistributing them.

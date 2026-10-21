@@ -44,12 +44,6 @@ from sabermetricspy.ids import (
     player_id,
     translate_ids,
 )
-from sabermetricspy.ids.names import (
-    NameRegister,
-    build_name_register,
-    download_name_sources,
-    load_name_register,
-)
 from sabermetricspy.models import (
     Log5Model,
     MarcelProjector,
@@ -185,7 +179,6 @@ __all__ = [
     "MetricSuite",
     "MonteCarloSimulationResults",
     "MonteCarloSimulator",
-    "NameRegister",
     "ParkFactor",
     "PerformanceTracker",
     "PitchOutcome",
@@ -214,14 +207,12 @@ __all__ = [
     "benchmark",
     "binomial_rate_interval",
     "bootstrap_interval",
-    "build_name_register",
     "calculate",
     "calculate_available",
     "calculate_rolling",
     "calculate_suite",
     "count_run_value",
     "describe",
-    "download_name_sources",
     "download_register",
     "find_players",
     "formula",
@@ -234,7 +225,6 @@ __all__ = [
     "ip_notation_to_outs_scalar",
     "load_custom_constants_yaml",
     "load_custom_metrics_yaml",
-    "load_name_register",
     "load_register",
     "load_source_translator_yaml",
     "normalize_columns",
