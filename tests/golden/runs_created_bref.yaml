@@ -1,0 +1,15 @@
+# Baseball-Reference Runs Created, retrieved 2026-10-21.
+# technical: 2024 batting leaders https://www.baseball-reference.com/leagues/majors/2024-batting-leaders.shtml ; inputs from FanGraphs 2024 batting lines
+#   (every column the technical formula uses is present, so Baseball-Reference uses the technical formula).
+# basic: 1911 batting leaders https://www.baseball-reference.com/leagues/majors/1911-batting-leaders.shtml ; inputs from the players' Baseball-Reference pages
+#   (no CS, GIDP, IBB, SH or SF recorded, so Baseball-Reference falls back to James's original (H + BB) * TB / (AB + BB); its glossary's printed basic
+#   formula with HBP and SF would give 171 and 157.6, which do not match its own output).
+technical:
+- {player: Aaron Judge, ab: 559, h: 180, b2: 36, b3: 1, hr: 58, bb: 133, ibb: 20, hbp: 9, sh: 0, sf: 2, gidp: 22, sb: 10, cs: 0, rc: 183}
+- {player: Shohei Ohtani, ab: 636, h: 197, b2: 38, b3: 7, hr: 54, bb: 81, ibb: 10, hbp: 6, sh: 0, sf: 5, gidp: 7, sb: 59, cs: 4, rc: 174}
+- {player: Bobby Witt Jr., ab: 636, h: 211, b2: 45, b3: 11, hr: 32, bb: 57, ibb: 9, hbp: 8, sh: 0, sf: 8, gidp: 4, sb: 31, cs: 12, rc: 150}
+- {player: Juan Soto, ab: 576, h: 166, b2: 31, b3: 4, hr: 41, bb: 129, ibb: 2, hbp: 4, sh: 0, sf: 4, gidp: 10, sb: 7, cs: 4, rc: 147}
+- {player: Gunnar Henderson, ab: 630, h: 177, b2: 31, b3: 7, hr: 37, bb: 78, ibb: 1, hbp: 7, sh: 0, sf: 4, gidp: 2, sb: 21, cs: 4, rc: 131}
+basic:
+- {player: Ty Cobb, season: 1911, ab: 592, h: 248, b2: 47, b3: 24, hr: 8, bb: 44, rc: 168}
+- {player: Joe Jackson, season: 1911, ab: 571, h: 233, b2: 45, b3: 19, hr: 7, bb: 56, rc: 155}

@@ -449,14 +449,14 @@ metrics:
     note: 'Experimental: no outside RC/27 value has been reproduced (Bonds 2001 gives 19.49 here, unchecked). Scales Runs Created to 27 outs, as Wikipedia describes RC/27. The out estimate AB - H + SH + SF + CS + GIDP is the common convention but no retrieved primary source states it, so the denominator is a documented assumption.'
   rc_basic:
     status: matches
-    evidence: primary
-    source_url: https://tangotiger.net/wiki_archive/Runs_Created.html
-    note: James's basic Runs Created (H + BB) * TB / (AB + BB), as on the Tango wiki and Wikipedia. Baseball-Reference's glossary lists a basic variant with HBP and SF added to the walk and opportunity terms; this is the original form.
+    evidence: golden
+    source_url: https://www.baseball-reference.com/leagues/majors/1911-batting-leaders.shtml
+    note: 'James''s basic Runs Created (H + BB) * TB / (AB + BB), as on the Tango wiki and Wikipedia. Reproduces Baseball-Reference''s 1911 values for Ty Cobb (292 x 367 / 636 = 168.5, printed 168) and Joe Jackson (155.3, printed 155) (tests/golden/runs_created_bref.yaml, retrieved 2026-10-21). Baseball-Reference''s glossary lists a basic variant with HBP and SF added, (H + BB + HBP) * TB / (AB + BB + HBP + SF); it gives 171 and 157.6 for the same two players, which do not match Baseball-Reference''s own output, so the original form is used.'
   rc_tech:
     status: matches
-    evidence: primary
+    evidence: golden
     source_url: https://www.baseball-reference.com/about/bat_glossary.shtml
-    note: Matches the technical Runs Created formula in the Baseball-Reference glossary.
+    note: 'The technical Runs Created formula of the Baseball-Reference glossary, (H + BB + HBP - CS - GIDP) * (TB + .26 (BB - IBB + HBP) + .52 (SH + SF + SB)) / (AB + BB + HBP + SH + SF), also printed by ESPN. Reproduces Baseball-Reference''s 2024 Runs Created for its top five hitters: Judge 183.48 (printed 183), Ohtani 174.11 (174), Witt 149.93 (150), Soto 147.01 (147) and Henderson 130.97 (131) (tests/golden/runs_created_bref.yaml, retrieved 2026-10-21). Holds when every column is supplied: Baseball-Reference switches to simpler forms when CS, GIDP, IBB, SH or SF are missing (its stolen-base form gives Babe Ruth 1921 229, where this formula with the blanks taken as 0 gives 248.6), and this library treats absent optional columns as 0, so for old seasons use the form that matches the columns you have.'
   rew:
     status: approximate
     evidence: secondary
