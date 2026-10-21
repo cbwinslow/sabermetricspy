@@ -40,11 +40,17 @@ class MarcelProjector:
     Pitchers (Tango's March 2004 post): weights `3/2/1`, innings in place of plate appearances, and the `200`
     in the playing-time formula replaced by 25 for relievers or 60 for starters (part-timers in between by GS/G).
     Configure with `season_weights=(3, 2, 1)`, `exposure_col="ip"` and `playing_time_base` (a number, or the name of
-    a column holding each player's base). Tango gives no innings equivalent for the regression step, so
-    `regression_pa` must be chosen by the caller for pitchers; no source supports a 134 IP constant.
+    a column holding each player's base), or call `MarcelProjector.for_pitchers`. Tango states no innings
+    equivalent for the regression step; `for_pitchers` uses 266.67 IP, the amount that reproduces the reliability
+    column of his published 2004 and 2012 pitcher files (869 of 870 and 941 of 943 rows), an inference from those
+    files, not a number he wrote. No source supports a 134 IP constant.
+
+    Each projection carries `proj_reliability`, Tango's reliability: the weighted exposure over itself plus the
+    regression amount (his "how much of the forecast is based on his performance").
 
     Differences from the published method (see docs/METHODOLOGY.md): the final re-baselining step is not
-    implemented.
+    implemented; pitchers' own hitting must be left out of the league rates by the caller; players with no history
+    are not projected.
     """
 
     def __init__(
@@ -67,6 +73,24 @@ class MarcelProjector:
         self.playing_time_base = playing_time_base
         self._results: MarcelResults | None = None
         self._projections_df: pl.DataFrame | None = None
+
+    @classmethod
+    def for_pitchers(
+        cls, *, target_season: int = 2025, playing_time_base: float | str = 60.0
+    ) -> MarcelProjector:
+        """Tango's pitcher configuration: weights 3/2/1, innings, and 266.67 IP of regression (see the class docs).
+
+        `playing_time_base` is his 60 innings for starters or 25 for relievers, or the name of a column holding
+        each pitcher's base (in between for part-time starters, by GS/G).
+        """
+        return cls(
+            target_season=target_season,
+            season_weights=(3.0, 2.0, 1.0),
+            regression_pa=800.0 / 3.0,
+            rate_cols=("hr", "bb", "so", "h", "er"),
+            exposure_col="ip",
+            playing_time_base=playing_time_base,
+        )
 
     @property
     def results(self) -> MarcelResults:
@@ -166,7 +190,12 @@ class MarcelProjector:
         else:
             age_mult = pl.lit(1.0)
 
-        player_df = player_df.with_columns(age_mult.alias("age_factor"))
+        player_df = player_df.with_columns(
+            age_mult.alias("age_factor"),
+            (pl.col("_weighted_exp") / (pl.col("_weighted_exp") + self.regression_pa)).alias(
+                "proj_reliability"
+            ),
+        )
 
         proj_cols: list[pl.Expr] = [pl.lit(self.target_season).alias("target_season")]
 
