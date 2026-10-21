@@ -7,6 +7,8 @@ entries:
   league: NL
   park_factor: 104.0
   park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001 (Basic 5yr)
+  fip_park_factor: 101.0
+  fip_park_factor_source: FanGraphs park factors page, FIP column (https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001), bundled as park_fip.yaml
   source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2001&qual=100 (PlayerName=Randy Johnson)
   leaderboard_url: https://www.fangraphs.com/leaders/major-league
   retrieved: '2026-10-18'
@@ -41,11 +43,7 @@ entries:
     era_minus: 0.5
     fip_minus: 0.5
   tolerance_rule: 'era, whip, k_per_9, bb_per_9, hr_per_9: 1e-6 because FanGraphs stores innings pitched with ~1e-6 precision;
-    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus/fip_minus: see divergence.'
-  divergence:
-    fip_minus: The library uses the pitcher's own league constant and the FanGraphs park factor input (ADR-0064), but this entry
-      is given the Guts! Basic 5-year park factor, because FanGraphs' park page has no FIP column for 2001 (the only early season checked); the gap
-      (1.3 to 2.1 points) is that park input. The 2024 and 2025 entries in tests/golden/fip_minus_fangraphs.yaml use the FIP column and agree within 0.6.
+    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus: see divergence; fip_minus: 0.5 (the FanGraphs park factor is a whole number).'
 - id: schilling_2001
   player: Curt Schilling
   team: ARI
@@ -53,6 +51,8 @@ entries:
   league: NL
   park_factor: 104.0
   park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001 (Basic 5yr)
+  fip_park_factor: 101.0
+  fip_park_factor_source: FanGraphs park factors page, FIP column (https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001), bundled as park_fip.yaml
   source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2001&qual=100 (PlayerName=Curt Schilling)
   leaderboard_url: https://www.fangraphs.com/leaders/major-league
   retrieved: '2026-10-18'
@@ -87,11 +87,7 @@ entries:
     era_minus: 0.5
     fip_minus: 0.5
   tolerance_rule: 'era, whip, k_per_9, bb_per_9, hr_per_9: 1e-6 because FanGraphs stores innings pitched with ~1e-6 precision;
-    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus/fip_minus: see divergence.'
-  divergence:
-    fip_minus: The library uses the pitcher's own league constant and the FanGraphs park factor input (ADR-0064), but this entry
-      is given the Guts! Basic 5-year park factor, because FanGraphs' park page has no FIP column for 2001 (the only early season checked); the gap
-      (1.3 to 2.1 points) is that park input. The 2024 and 2025 entries in tests/golden/fip_minus_fangraphs.yaml use the FIP column and agree within 0.6.
+    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus: see divergence; fip_minus: 0.5 (the FanGraphs park factor is a whole number).'
 - id: mussina_2001
   player: Mike Mussina
   team: NYY
@@ -99,6 +95,8 @@ entries:
   league: AL
   park_factor: 98.0
   park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001 (Basic 5yr)
+  fip_park_factor: 100.0
+  fip_park_factor_source: FanGraphs park factors page, FIP column (https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001), bundled as park_fip.yaml
   source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2001&qual=100 (PlayerName=Mike Mussina)
   leaderboard_url: https://www.fangraphs.com/leaders/major-league
   retrieved: '2026-10-18'
@@ -133,11 +131,7 @@ entries:
     era_minus: 0.5
     fip_minus: 0.5
   tolerance_rule: 'era, whip, k_per_9, bb_per_9, hr_per_9: 1e-6 because FanGraphs stores innings pitched with ~1e-6 precision;
-    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus/fip_minus: see divergence.'
-  divergence:
-    fip_minus: The library uses the pitcher's own league constant and the FanGraphs park factor input (ADR-0064), but this entry
-      is given the Guts! Basic 5-year park factor, because FanGraphs' park page has no FIP column for 2001 (the only early season checked); the gap
-      (1.3 to 2.1 points) is that park input. The 2024 and 2025 entries in tests/golden/fip_minus_fangraphs.yaml use the FIP column and agree within 0.6.
+    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus: see divergence; fip_minus: 0.5 (the FanGraphs park factor is a whole number).'
 - id: maddux_2001
   player: Greg Maddux
   team: ATL
@@ -145,6 +139,8 @@ entries:
   league: NL
   park_factor: 98.0
   park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001 (Basic 5yr)
+  fip_park_factor: 99.0
+  fip_park_factor_source: FanGraphs park factors page, FIP column (https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001), bundled as park_fip.yaml
   source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2001&qual=100 (PlayerName=Greg Maddux)
   leaderboard_url: https://www.fangraphs.com/leaders/major-league
   retrieved: '2026-10-18'
@@ -179,7 +175,7 @@ entries:
     era_minus: 0.5
     fip_minus: 0.5
   tolerance_rule: 'era, whip, k_per_9, bb_per_9, hr_per_9: 1e-6 because FanGraphs stores innings pitched with ~1e-6 precision;
-    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus/fip_minus: see divergence.'
+    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus: see divergence; fip_minus: 0.5 (the FanGraphs park factor is a whole number).'
 - id: morris_2001
   player: Matt Morris
   team: STL
@@ -187,6 +183,8 @@ entries:
   league: NL
   park_factor: 98.0
   park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001 (Basic 5yr)
+  fip_park_factor: 100.0
+  fip_park_factor_source: FanGraphs park factors page, FIP column (https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2001), bundled as park_fip.yaml
   source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2001&qual=100 (PlayerName=Matt Morris)
   leaderboard_url: https://www.fangraphs.com/leaders/major-league
   retrieved: '2026-10-18'
@@ -221,11 +219,7 @@ entries:
     era_minus: 0.5
     fip_minus: 0.5
   tolerance_rule: 'era, whip, k_per_9, bb_per_9, hr_per_9: 1e-6 because FanGraphs stores innings pitched with ~1e-6 precision;
-    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus/fip_minus: see divergence.'
-  divergence:
-    fip_minus: The library uses the pitcher's own league constant and the FanGraphs park factor input (ADR-0064), but this entry
-      is given the Guts! Basic 5-year park factor, because FanGraphs' park page has no FIP column for 2001 (the only early season checked); the gap
-      (1.3 to 2.1 points) is that park input. The 2024 and 2025 entries in tests/golden/fip_minus_fangraphs.yaml use the FIP column and agree within 0.6.
+    fip: cFIP is published to 3 decimals (0.0005); lob_pct: published to 8 digits; era_minus: see divergence; fip_minus: 0.5 (the FanGraphs park factor is a whole number).'
 - id: bradley_2016
   player: Archie Bradley
   team: ARI
@@ -373,6 +367,8 @@ entries:
   league: AL
   park_factor: 101.0
   park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2000 (Basic 5yr)
+  fip_park_factor: 96.0
+  fip_park_factor_source: FanGraphs park factors page, FIP column (https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2000), bundled as park_fip.yaml
   source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2000&qual=100 (PlayerName=Pedro Martinez)
   leaderboard_url: https://www.fangraphs.com/leaders/major-league
   retrieved: '2026-10-18'
@@ -415,10 +411,6 @@ entries:
   tolerance_rule: see 2001 entries.
   info:
     war: 9.374988555908203
-  divergence:
-    fip_minus: The library uses the pitcher's own league constant and the FanGraphs park factor input (ADR-0064), but this entry
-      is given the Guts! Basic 5-year park factor, because FanGraphs' park page has no FIP column for 2001 (the only early season checked); the gap
-      (1.3 to 2.1 points) is that park input. The 2024 and 2025 entries in tests/golden/fip_minus_fangraphs.yaml use the FIP column and agree within 0.6.
 - id: skubal_2024
   player: Tarik Skubal
   team: DET
@@ -426,6 +418,8 @@ entries:
   league: AL
   park_factor: 101.0
   park_factor_source: https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2024 (Basic 5yr)
+  fip_park_factor: 101.0
+  fip_park_factor_source: FanGraphs park factors page, FIP column (https://www.fangraphs.com/guts.aspx?type=pf&teamid=0&season=2024), bundled as park_fip.yaml
   source_url: https://www.fangraphs.com/api/leaders/major-league/data?stats=pit&season=2024&qual=100 (PlayerName=Tarik Skubal)
   leaderboard_url: https://www.fangraphs.com/leaders/major-league
   retrieved: '2026-10-18'

@@ -41,7 +41,7 @@ they are listed under "Research still to do".
 | Item | Gap against the outside value | Why |
 |---|---|---|
 | `ops_plus` | -1.2% to +1.5% on four Baseball-Reference seasons | B-Ref removes pitchers from the league average and park-adjusts it; we use MLB-wide averages and a caller park factor |
-| `fip_minus` | mean 0.19, largest 0.53 points on 32 pitcher-seasons (2011, 2019, 2024, 2025) | the league constant fixed the old gap; FanGraphs' park column is a whole number. 2000-2001 fixtures still differ 1.3 to 2.1 because no FIP park column exists for 2001 |
+| `fip_minus` | mean 0.19, largest 0.53 points on 32 pitcher-seasons (2011, 2019, 2024, 2025); the 2000, 2001 and 2024 fixtures within 0.25 | the league constant and the FIP park column (bundled for 1990-2026) fixed the old gap; the park column is a whole number, which alone moves FIP- by up to 0.6 |
 | `siera` | within 0.007 of FanGraphs over 8,042 pitcher-seasons (mean 0.0005) | the (BB/PA)^2 coefficient (25.264, published 27.252) and per-season constants are measured from the leaderboard, not published |
 | `xba`, `xslg`, `avg_ev` | -.0015, -.0024, -0.53 mph | Savant's model is unpublished; we sum its own per-pitch estimates |
 | `o_swing_pct`, `o_contact_pct`, `zone_pct`, `swing_pct`, `contact_pct`, `swstr_pct`, `csw_pct` | 0.02 to 0.12 percentage points (one pitch) | cause of the single pitch unknown; FanGraphs' zone rule is unpublished (we infer it) |
@@ -81,7 +81,7 @@ David Robinson's empirical Bayes post; the MLB Stats API team totals; FanGraphs 
 The Stroman 2016 pitcher WAR worked example is on a separate FanGraphs page ("Calculating Pitcher WAR, A Complete Example") and
 exists, so that claim holds. baseballr: its computing functions are already tied out, `code_barrel` overcounts Savant's barrels
 by 1 to 4, and `run_expectancy_code` is a Statcast-specific pipeline; none was ported.
-Not resolved: FanGraphs' unrounded FIP park factor; the 1998 runs-per-win gap; SIERA constants are measured, not published;
+Not resolved: FanGraphs' unrounded FIP park factor (the page shows whole numbers; the earlier note that 2001 had no FIP column was wrong, it exists from 1990); the 1998 runs-per-win gap; SIERA constants are measured, not published;
 pitcher WAR's park factor and yearly league correction; Savant's Whiff% definition text (values reproduce, wording unread).
 
 ## Outside data sources surveyed (2026-10-21)
@@ -115,7 +115,7 @@ pitcher WAR's park factor and yearly league correction; Savant's Whiff% definiti
 
 1. Savant's own Whiff% definition text: its glossary page renders client-side and cannot be fetched; secondary sources (MLB.com articles, third-party glossaries) agree it is swings-and-misses over swings, and the foul-tip/bunt counting is confirmed numerically only.
 2. Done 2026-10-21: the geometric strike zone holds on a second pitcher and season (Cole 2023, within 0.08 points). A left-handed pitcher and a hitter sample would widen it further.
-3. FanGraphs' park input for FIP- (ERA+ is resolved: Baseball-Reference's pitching park factors and own-league ERA reproduce it).
+3. Done in 1.1.0: FanGraphs' park input for FIP- is the FIP column of its park page, bundled for 1990-2026 (ERA+ is resolved: Baseball-Reference's pitching park factors and own-league ERA reproduce it). Still open: the unrounded value.
 4. Done in 1.1.0: SIERA structure and per-season constants (measured). Still open: FanGraphs' production (BB/PA)^2 coefficient.
 5. BsR: why the leaderboard's BaseRunning column is not wBsR + UBR + GDPRuns; wGDP constants.
 6. DER: a published value that uses actual reached-on-error. Done in 1.1.0: XBT%, popup rate, VAA (third-party values).

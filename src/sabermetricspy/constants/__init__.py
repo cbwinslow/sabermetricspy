@@ -185,3 +185,34 @@ def get_league_war_constants(season: int = DEFAULT_SEASON) -> LeagueWARConstants
             stacklevel=2,
         )
     return table[nearest_year].model_copy(update={"season": season})
+
+
+@lru_cache(maxsize=1)
+def _load_fip_park_table() -> dict[int, dict[str, int]]:
+    """Load bundled park_fip.yaml (FanGraphs' FIP park factor by season and team)."""
+    yaml_path = resources.files("sabermetricspy").joinpath("data/constants/park_fip.yaml")
+    raw: dict[str, Any] = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+    return {
+        int(season): {str(t): int(v) for t, v in teams.items()}
+        for season, teams in raw["seasons"].items()
+    }
+
+
+def get_fip_park_factor(team: str, season: int) -> float:
+    """FanGraphs' FIP park factor (100 = neutral) for a team's home park in a season, 1990 on.
+
+    This is the park input of FIP- (pass it as `SeasonContext.park_factor`) and of FanGraphs pitcher WAR. It is the
+    FIP column of the FanGraphs park factors page, a whole number. Raises `ValueError` for an unknown team or season
+    instead of returning a neutral value.
+    """
+    table = _load_fip_park_table()
+    if season not in table:
+        raise ValueError(
+            f"No bundled FIP park factors for season {season}; bundled: {min(table)}-{max(table)}."
+        )
+    key = team.upper()
+    if key not in table[season]:
+        raise ValueError(
+            f"No FIP park factor for team {team!r} in {season}; teams: {sorted(table[season])}."
+        )
+    return float(table[season][key])

@@ -64,6 +64,12 @@ def _compare(
     keys = [k for k in entry["published"] if k in mapping]
     metrics = [mapping[k][0] for k in keys]
     row = sp.calculate(_frame(entry), metrics, context=_context(entry)).df.row(0, named=True)
+    if "fip_minus" in keys and "fip_park_factor" in entry:
+        # FIP- takes the FIP column of FanGraphs' park page, ERA- the basic park factor
+        fip_ctx = _context(entry).model_copy(update={"park_factor": entry["fip_park_factor"]})
+        row["fip_minus"] = sp.calculate(_frame(entry), [Metric.FIP_MINUS], context=fip_ctx).df.row(
+            0, named=True
+        )["fip_minus"]
     divergences = entry.get("divergence", {})
     failures, documented = [], []
     for key in keys:

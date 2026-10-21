@@ -4,6 +4,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+### Added
+- `get_fip_park_factor(team, season)` and `data/constants/park_fip.yaml`: FanGraphs' FIP park factor for 1990-2026, the park input of FIP-. With it the older FIP- fixtures (Johnson, Schilling, Mussina, Maddux, Morris, Martinez, Skubal) are within 0.25 points.
+
 ## [1.1.0] - 2026-10-21
 
 Outside tie-out audit (ADR-0064).

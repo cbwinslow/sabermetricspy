@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from sabermetricspy import evaluation as evaluation
 from sabermetricspy.constants import (
+    get_fip_park_factor,
     get_park_factor,
     get_woba_weights,
     load_custom_constants_yaml,
@@ -218,6 +219,7 @@ __all__ = [
     "find_players",
     "formula",
     "get_column_aliases",
+    "get_fip_park_factor",
     "get_park_factor",
     "get_registered_benchmarks",
     "get_source_translator",
