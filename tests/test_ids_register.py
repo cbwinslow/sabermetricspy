@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
@@ -22,6 +23,7 @@ from sabermetricspy.ids import (
     normalize_name,
     player_id,
     translate_ids,
+    update_register,
 )
 
 HEADER = (
@@ -369,6 +371,86 @@ def test_download_without_a_resolvable_commit_warns_and_records_none(
             tmp_path / "d", base_url=served.as_uri() + "/{ref}/data", shards=SHARDS
         )
     assert load_register(dest, shards=SHARDS).commit is None
+
+
+def test_update_skips_download_when_commit_unchanged(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    served = tmp_path / "served"
+    _commit_dir(served, "c1", "111")
+    dest = download_register(
+        tmp_path / "d", commit="c1", base_url=served.as_uri() + "/{ref}/data", shards=SHARDS
+    )
+    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: "c1")  # pyright: ignore[reportUnknownLambdaType]
+    monkeypatch.setattr(ids_module, "download_register", _must_not_download)
+    result = update_register(dest, shards=SHARDS)
+    assert not result.updated and result.commit == "c1" and result.previous_commit == "c1"
+
+
+def _must_not_download(*args: Any, **kwargs: Any) -> Path:
+    raise AssertionError("download_register must not run when the commit is unchanged")
+
+
+def test_update_downloads_when_a_newer_commit_exists(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    served = tmp_path / "served"
+    _commit_dir(served, "c1", "111")
+    _commit_dir(served, "c2", "222")
+    template = served.as_uri() + "/{ref}/data"
+    dest = download_register(tmp_path / "d", commit="c1", base_url=template, shards=SHARDS)
+    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: "c2")  # pyright: ignore[reportUnknownLambdaType]
+    monkeypatch.setattr(ids_module, "REGISTER_URL", template)
+    real = ids_module.download_register
+    monkeypatch.setattr(
+        ids_module,
+        "download_register",
+        lambda d, **kw: real(d, base_url=template, **kw),  # pyright: ignore[reportUnknownLambdaType]
+    )
+    result = update_register(dest, shards=SHARDS)
+    assert result.updated and result.previous_commit == "c1" and result.commit == "c2"
+    reg = load_register(dest, shards=SHARDS)
+    assert reg.commit == "c2" and set(reg.people["key_mlbam"].to_list()) == {222}
+
+
+def test_update_raises_when_upstream_cannot_be_reached_and_keeps_files(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    served = tmp_path / "served"
+    _commit_dir(served, "c1", "111")
+    dest = download_register(
+        tmp_path / "d", commit="c1", base_url=served.as_uri() + "/{ref}/data", shards=SHARDS
+    )
+    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: None)  # pyright: ignore[reportUnknownLambdaType]
+    with pytest.raises(ConnectionError, match="left unchanged"):
+        update_register(dest, shards=SHARDS)
+    assert load_register(dest, shards=SHARDS).commit == "c1"
+
+
+def test_failed_download_leaves_the_old_register_intact(tmp_path: Path) -> None:
+    served = tmp_path / "served"
+    _commit_dir(served, "c1", "111")
+    _commit_dir(served, "c2", "222")
+    (served / "c2" / "data" / SHARDS[-1]).unlink()
+    template = served.as_uri() + "/{ref}/data"
+    dest = download_register(tmp_path / "d", commit="c1", base_url=template, shards=SHARDS)
+    with pytest.raises(OSError):
+        download_register(dest, commit="c2", base_url=template, shards=SHARDS)
+    reg = load_register(dest, shards=SHARDS)
+    assert reg.commit == "c1" and set(reg.people["key_mlbam"].to_list()) == {111}
+
+
+def test_stale_register_warns_with_the_fix(tmp_path: Path) -> None:
+    served = tmp_path / "served"
+    _commit_dir(served, "c1", "111")
+    dest = download_register(
+        tmp_path / "d", commit="c1", base_url=served.as_uri() + "/{ref}/data", shards=SHARDS
+    )
+    record = json.loads((dest / "provenance.json").read_text(encoding="utf-8"))
+    record["fetched_on"] = "2020-01-01"
+    (dest / "provenance.json").write_text(json.dumps(record), encoding="utf-8")
+    with pytest.warns(UserWarning, match="update_register"):
+        load_register(dest, shards=SHARDS)
 
 
 def test_cache_follows_the_files(register_dir: Path, tmp_path: Path) -> None:

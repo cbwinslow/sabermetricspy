@@ -36,5 +36,19 @@ names keyed by `key_person`: 643 aliases, 260 birth names, 251 alternate spellin
 language and date range; the register calls it new and very incomplete), `links.csv` (`key_person, source, value`; 21,650
 `tsncards` and 5,682 `findagrave` rows), and `countries.csv` (a code table with no person key). The people files'
 `name_matrilineal` and `name_nick` columns are also not searched. A multi-source name register that adds these and the
-Retrosheet biofile is proposed separately (`add-player-name-register`). The register has git history, so downloads are
+Retrosheet biofile is proposed separately (`add-player-name-register`, later reverted as ADR-0058). The register has git history, so downloads are
 pinned to a commit (ADR-0055).
+
+## Update (v1 scope): keeping the register current
+The register changes about weekly, so a one-time download goes stale and new players stop matching. v1 adds
+`update_register()`: it looks up the latest upstream commit, compares it with the commit recorded in `provenance.json`,
+and re-downloads only when they differ or `force=True`. Downloads go to a scratch directory and replace the old shards
+only after every shard arrived, so a failure never leaves a mixed register. If the upstream commit cannot be looked up
+it raises `ConnectionError` instead of assuming the cache is current. `load_register` warns when the files are more than
+90 days old. Nothing fetches implicitly; the network is touched only by `download_register` and `update_register`
+(ADR-0003 holds for all calculations).
+
+Alternatives: (a) auto-refresh inside `load_register`, not chosen now because a calculation call should not make network
+requests or change results between runs; revisit if users ask for an opt-in flag. (b) A background scheduler, not chosen
+now because scheduling belongs to the caller's pipeline (cron, Airflow); revisit never unless retrosheetpy takes it on.
+(c) Bundling a snapshot, see above.

@@ -43,6 +43,7 @@ from sabermetricspy.ids import (
     normalize_name,
     player_id,
     translate_ids,
+    update_register,
 )
 from sabermetricspy.models import (
     Log5Model,
@@ -245,4 +246,5 @@ __all__ = [
     "search_metrics",
     "telemetry",
     "translate_ids",
+    "update_register",
 ]

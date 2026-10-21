@@ -1,7 +1,8 @@
 """Player-id crosswalk and name lookup over the Chadwick Bureau Register.
 
 The register (https://github.com/chadwickbureau/register) is published under the Open Data Commons Attribution License
-1.0 by the Chadwick Bureau. It is not bundled: pass a local copy, or call `download_register` to fetch it.
+1.0 by the Chadwick Bureau. It is not bundled: pass a local copy, or call `download_register` to fetch it and `update_register` to refresh it.
+No function here touches the network unless you call one of those two by name; calculations never do (ADR-0003).
 """
 
 from __future__ import annotations
@@ -10,6 +11,7 @@ import datetime
 import json
 import os
 import re
+import tempfile
 import unicodedata
 import urllib.request
 import warnings
@@ -34,6 +36,7 @@ REGISTER_SOURCE = "Chadwick Bureau Register (https://github.com/chadwickbureau/r
 REGISTER_ENV = "SABERMETRICSPY_REGISTER"
 _PROVENANCE_FILE = "provenance.json"
 _LEGACY_MARKER = "fetched.txt"
+STALE_AFTER_DAYS = 90
 
 # Id system name -> register column.
 ID_SYSTEMS: dict[str, str] = {
@@ -181,6 +184,22 @@ def _read_register(
     )
 
 
+def _warn_if_stale(register: PlayerRegister) -> None:
+    if register.fetched_on is None:
+        return
+    try:
+        age = (datetime.date.today() - datetime.date.fromisoformat(register.fetched_on)).days
+    except ValueError:
+        return
+    if age > STALE_AFTER_DAYS:
+        warnings.warn(
+            f"The Chadwick Register at {register.path} was fetched {age} days ago; players added since will not "
+            "match. Call update_register() to refresh it.",
+            UserWarning,
+            stacklevel=3,
+        )
+
+
 @profiled(category="ids")
 def load_register(
     path: str | Path | None = None, *, shards: Sequence[str] = REGISTER_SHARDS
@@ -203,7 +222,9 @@ def load_register(
         if not p.is_file():
             raise FileNotFoundError(f"Register shard not found: {p}")
     state = tuple((p.stat().st_size, p.stat().st_mtime_ns) for p in paths)
-    return _read_register(str(root), tuple(shards), state)
+    register = _read_register(str(root), tuple(shards), state)
+    _warn_if_stale(register)
+    return register
 
 
 def _resolve_commit(ref: str) -> str | None:
@@ -247,9 +268,14 @@ def download_register(
             stacklevel=2,
         )
     base = base_url.format(ref=pinned or ref)
-    for shard in shards:
-        with urllib.request.urlopen(f"{base}/{shard}", timeout=120) as resp:
-            (root / shard).write_bytes(resp.read())
+    # Fetch every shard into a scratch directory first, so a failure part-way never leaves a mixed old/new register.
+    with tempfile.TemporaryDirectory(dir=root, prefix=".download-") as scratch_name:
+        scratch = Path(scratch_name)
+        for shard in shards:
+            with urllib.request.urlopen(f"{base}/{shard}", timeout=120) as resp:
+                (scratch / shard).write_bytes(resp.read())
+        for shard in shards:
+            os.replace(scratch / shard, root / shard)
     record = {
         "fetched_on": datetime.date.today().isoformat(),
         "ref": ref,
@@ -258,6 +284,45 @@ def download_register(
     }
     (root / _PROVENANCE_FILE).write_text(json.dumps(record, indent=2), encoding="utf-8")
     return root
+
+
+@dataclass(frozen=True)
+class UpdateResult:
+    """Outcome of `update_register`: where the register is, whether files changed, and which commits were involved."""
+
+    path: Path
+    updated: bool
+    commit: str | None
+    previous_commit: str | None
+
+
+@profiled(category="ids")
+def update_register(
+    dest: str | Path | None = None,
+    *,
+    ref: str = "master",
+    force: bool = False,
+    shards: Sequence[str] = REGISTER_SHARDS,
+) -> UpdateResult:
+    """Refresh the register only when the upstream repository has a newer commit.
+
+    Looks up the commit `ref` points to and compares it with the commit recorded in `dest`. If they match and every
+    shard is present the files are left alone (`updated=False`); otherwise (or with `force=True`) the register is
+    downloaded again, pinned to that commit, replacing the old shards only after all of them arrived.
+    Raises `ConnectionError` when the upstream commit cannot be looked up, rather than guessing that the cache is current.
+    """
+    root = Path(dest) if dest is not None else default_register_path()
+    _, previous = _read_provenance(root) if root.is_dir() else (None, None)
+    latest = _resolve_commit(ref)
+    if latest is None:
+        raise ConnectionError(
+            f"Could not look up the latest commit of {REGISTER_REPO}@{ref}; the register at {root} was left unchanged."
+        )
+    complete = root.is_dir() and all((root / sh).is_file() for sh in shards)
+    if complete and previous == latest and not force:
+        return UpdateResult(path=root, updated=False, commit=latest, previous_commit=previous)
+    download_register(root, ref=ref, commit=latest, shards=shards)
+    return UpdateResult(path=root, updated=True, commit=latest, previous_commit=previous)
 
 
 def _as_register(register: PlayerRegister | str | Path | None) -> PlayerRegister:
@@ -499,6 +564,7 @@ __all__ = [
     "REGISTER_SOURCE",
     "PlayerRegister",
     "TranslationResult",
+    "UpdateResult",
     "default_register_path",
     "download_register",
     "find_players",
@@ -506,4 +572,5 @@ __all__ = [
     "normalize_name",
     "player_id",
     "translate_ids",
+    "update_register",
 ]
