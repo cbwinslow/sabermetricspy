@@ -5,6 +5,11 @@
 ### Requirement: baseballr Benchmark Verification
 Golden fixtures taken from baseballr SHALL record the function call, package version and run date, and tests SHALL compare `sabermetricspy` output to them.
 
+#### Scenario: Constants, wOBA and FIP match baseballr
+- **GIVEN** `tests/golden/baseballr/baseballr_tieout.json`
+- **WHEN** bundled constants, `Metric.WOBA` and `Metric.FIP` are computed
+- **THEN** they equal `fg_guts()`, `woba_plus()` and `fip_plus()` within baseballr's rounding.
+
 #### Scenario: Fixture provenance
 - **GIVEN** a baseballr fixture file
 - **WHEN** it is reviewed
