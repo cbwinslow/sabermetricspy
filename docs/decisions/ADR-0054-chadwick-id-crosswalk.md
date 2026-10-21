@@ -39,16 +39,22 @@ language and date range; the register calls it new and very incomplete), `links.
 Retrosheet biofile is proposed separately (`add-player-name-register`, later reverted as ADR-0058). The register has git history, so downloads are
 pinned to a commit (ADR-0055).
 
-## Update (v1 scope): keeping the register current
-The register changes about weekly, so a one-time download goes stale and new players stop matching. v1 adds
-`update_register()`: it looks up the latest upstream commit, compares it with the commit recorded in `provenance.json`,
-and re-downloads only when they differ or `force=True`. Downloads go to a scratch directory and replace the old shards
-only after every shard arrived, so a failure never leaves a mixed register. If the upstream commit cannot be looked up
-it raises `ConnectionError` instead of assuming the cache is current. `load_register` warns when the files are more than
-90 days old. Nothing fetches implicitly; the network is touched only by `download_register` and `update_register`
-(ADR-0003 holds for all calculations).
+## Update (v1 scope): the register keeps itself current
+The register changes about weekly, so a one-time download goes stale and new players stop matching. Two functions
+handle it. `update_register()` looks up the latest upstream commit, compares it with the commit recorded in
+`provenance.json`, and re-downloads only when they differ or `force=True`; downloads go to a scratch directory and replace
+the old shards only after every shard arrived, so a failure never leaves a mixed register; if the upstream commit cannot
+be looked up it raises `ConnectionError` rather than assume the cache is current.
 
-Alternatives: (a) auto-refresh inside `load_register`, not chosen now because a calculation call should not make network
-requests or change results between runs; revisit if users ask for an opt-in flag. (b) A background scheduler, not chosen
-now because scheduling belongs to the caller's pipeline (cron, Airflow); revisit never unless retrosheetpy takes it on.
-(c) Bundling a snapshot, see above.
+`load_register()` with no path calls it automatically: it downloads the register when missing and re-downloads when
+upstream has a newer commit, looking upstream at most once a day (`checked_on` in `provenance.json`; one small GitHub API
+request). Offline, it uses the copy it has and warns; with no copy it raises. A path passed by the caller is never
+updated unless `auto_update=True`, and `SABERMETRICSPY_AUTO_UPDATE=0` or `auto_update=False` turns it off. This is the only
+implicit network use in the package, confined to loading the default register; no calculation function touches the
+network (ADR-0003). An earlier 90-day age warning was dropped because the commit comparison makes it unnecessary.
+
+Alternatives: (a) always check on every load, not chosen now because it costs a request per call and risks GitHub's
+unauthenticated rate limit (60 per hour); revisit if freshness within the day matters. (b) A background scheduler, not
+chosen now because it needs a long-running process; revisit if retrosheetpy runs one. (c) Bundling a snapshot, see above.
+(d) Update only on request, not chosen now because users would forget and silently miss new players; revisit if offline
+CI needs a stricter rule (it can already set `SABERMETRICSPY_AUTO_UPDATE=0`).

@@ -401,7 +401,7 @@ def test_update_downloads_when_a_newer_commit_exists(
     dest = download_register(tmp_path / "d", commit="c1", base_url=template, shards=SHARDS)
     monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: "c2")  # pyright: ignore[reportUnknownLambdaType]
     monkeypatch.setattr(ids_module, "REGISTER_URL", template)
-    real = ids_module.download_register
+    real = download_register
     monkeypatch.setattr(
         ids_module,
         "download_register",
@@ -440,17 +440,101 @@ def test_failed_download_leaves_the_old_register_intact(tmp_path: Path) -> None:
     assert reg.commit == "c1" and set(reg.people["key_mlbam"].to_list()) == {111}
 
 
-def test_stale_register_warns_with_the_fix(tmp_path: Path) -> None:
+def _serve_two_commits(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> str:
+    """Two fake upstream commits on disk; downloads read from them instead of GitHub. Returns the URL template."""
     served = tmp_path / "served"
     _commit_dir(served, "c1", "111")
-    dest = download_register(
-        tmp_path / "d", commit="c1", base_url=served.as_uri() + "/{ref}/data", shards=SHARDS
+    _commit_dir(served, "c2", "222")
+    template = served.as_uri() + "/{ref}/data"
+    real = download_register
+    monkeypatch.setattr(
+        ids_module,
+        "download_register",
+        lambda d, **kw: real(d, base_url=template, **kw),  # pyright: ignore[reportUnknownLambdaType]
     )
-    record = json.loads((dest / "provenance.json").read_text(encoding="utf-8"))
-    record["fetched_on"] = "2020-01-01"
-    (dest / "provenance.json").write_text(json.dumps(record), encoding="utf-8")
-    with pytest.warns(UserWarning, match="update_register"):
-        load_register(dest, shards=SHARDS)
+    return template
+
+
+def _default_register(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    monkeypatch.setenv("SABERMETRICSPY_REGISTER", str(tmp_path / "default"))
+    monkeypatch.setenv("SABERMETRICSPY_AUTO_UPDATE", "1")
+    return tmp_path / "default"
+
+
+def test_default_register_is_downloaded_automatically_when_missing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _serve_two_commits(tmp_path, monkeypatch)
+    root = _default_register(tmp_path, monkeypatch)
+    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: "c1")  # pyright: ignore[reportUnknownLambdaType]
+    monkeypatch.setattr(ids_module, "REGISTER_SHARDS", SHARDS)
+    reg = load_register(shards=SHARDS)
+    assert reg.commit == "c1" and root.is_dir()
+
+
+def test_default_register_updates_itself_when_upstream_has_a_newer_commit(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    template = _serve_two_commits(tmp_path, monkeypatch)
+    root = _default_register(tmp_path, monkeypatch)
+    download_register(root, commit="c1", base_url=template, shards=SHARDS)
+    record = json.loads((root / "provenance.json").read_text(encoding="utf-8"))
+    record["checked_on"] = "2020-01-01"  # last checked long ago
+    (root / "provenance.json").write_text(json.dumps(record), encoding="utf-8")
+    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: "c2")  # pyright: ignore[reportUnknownLambdaType]
+    reg = load_register(shards=SHARDS)
+    assert reg.commit == "c2" and set(reg.people["key_mlbam"].to_list()) == {222}
+
+
+def test_default_register_is_looked_up_at_most_once_a_day(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    template = _serve_two_commits(tmp_path, monkeypatch)
+    root = _default_register(tmp_path, monkeypatch)
+    download_register(root, commit="c1", base_url=template, shards=SHARDS)  # checked today
+
+    def boom(ref: str) -> str:
+        raise AssertionError("upstream must not be contacted twice in one day")
+
+    monkeypatch.setattr(ids_module, "_resolve_commit", boom)
+    assert load_register(shards=SHARDS).commit == "c1"
+
+
+def test_offline_default_register_uses_the_copy_it_has_and_warns(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    template = _serve_two_commits(tmp_path, monkeypatch)
+    root = _default_register(tmp_path, monkeypatch)
+    download_register(root, commit="c1", base_url=template, shards=SHARDS)
+    record = json.loads((root / "provenance.json").read_text(encoding="utf-8"))
+    record["checked_on"] = "2020-01-01"
+    (root / "provenance.json").write_text(json.dumps(record), encoding="utf-8")
+    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: None)  # pyright: ignore[reportUnknownLambdaType]
+    with pytest.warns(UserWarning, match="using the copy already"):
+        reg = load_register(shards=SHARDS)
+    assert reg.commit == "c1"
+
+
+def test_offline_with_no_register_raises_file_not_found(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _default_register(tmp_path, monkeypatch)
+    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: None)  # pyright: ignore[reportUnknownLambdaType]
+    with pytest.raises(FileNotFoundError, match="could not be downloaded"):
+        load_register(shards=SHARDS)
+
+
+def test_explicit_path_and_opt_out_never_touch_the_network(
+    register_dir: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    def boom(ref: str) -> str:
+        raise AssertionError("no network expected")
+
+    monkeypatch.setattr(ids_module, "_resolve_commit", boom)
+    load_register(register_dir, shards=SHARDS)  # explicit path
+    monkeypatch.setenv("SABERMETRICSPY_REGISTER", str(register_dir))
+    monkeypatch.setenv("SABERMETRICSPY_AUTO_UPDATE", "0")
+    load_register(shards=SHARDS)  # default location, opted out
 
 
 def test_cache_follows_the_files(register_dir: Path, tmp_path: Path) -> None:

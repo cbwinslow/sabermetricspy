@@ -20,7 +20,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ### Added
 - Outside tie-outs against baseballr 2.0.0: constants, wOBA and FIP (ADR-0059).
-- `update_register()` refreshes the Chadwick Register only when upstream has a newer commit; downloads are atomic and `load_register` warns after 90 days.
+- The default Chadwick Register updates itself: `load_register()` downloads it when missing and re-downloads it when upstream has a newer commit (checked at most once a day, offline-safe, switch off with `SABERMETRICSPY_AUTO_UPDATE=0`); `update_register()` does the same on request; downloads are atomic.
 - `sabermetricspy.ids`: Chadwick Register player-id crosswalk (`translate_ids`, `find_players`, `player_id`, `load_register`, `download_register`, `update_register`), validated against Savant, Baseball-Reference and FanGraphs pages and the Retrosheet 2016 file (ADR-0054).
 - `MarkovChainModel.fit_transitions` and `state_distribution`: the chain fitted from play-by-play, matching the printed values in Analyzing Baseball Data with R (ADR-0053).
 - `WinExpectancyMatrix`: win expectancy fitted from play-by-play, checked against Tango's table (ADR-0052).

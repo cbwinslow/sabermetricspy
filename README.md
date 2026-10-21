@@ -89,7 +89,9 @@ Chadwick Bureau). The register is not bundled: download it once, then use it on 
 import sabermetricspy as sp
 
 sp.download_register()  # ~68 MB into ~/.cache/sabermetricspy, or pass a path
-sp.update_register()  # later: re-downloads only if the Chadwick repo has a newer commit
+# Using the default location needs no setup: load_register() / translate_ids() download the register when it is missing
+# and re-download it when the Chadwick repo has a newer commit (checked at most once a day; offline uses your copy).
+# Turn it off with SABERMETRICSPY_AUTO_UPDATE=0, or call sp.update_register() yourself.
 res = sp.translate_ids(
     df, "retro", "mlbam"
 )  # adds key_mlbam; res.unmatched, res.release, res.license

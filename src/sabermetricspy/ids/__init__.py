@@ -36,7 +36,7 @@ REGISTER_SOURCE = "Chadwick Bureau Register (https://github.com/chadwickbureau/r
 REGISTER_ENV = "SABERMETRICSPY_REGISTER"
 _PROVENANCE_FILE = "provenance.json"
 _LEGACY_MARKER = "fetched.txt"
-STALE_AFTER_DAYS = 90
+AUTO_UPDATE_ENV = "SABERMETRICSPY_AUTO_UPDATE"
 
 # Id system name -> register column.
 ID_SYSTEMS: dict[str, str] = {
@@ -184,33 +184,73 @@ def _read_register(
     )
 
 
-def _warn_if_stale(register: PlayerRegister) -> None:
-    if register.fetched_on is None:
+def _record_check(root: Path) -> None:
+    """Remember that upstream was checked today, so the default register is looked up at most once a day."""
+    record_path = root / _PROVENANCE_FILE
+    if not record_path.is_file():
+        return
+    record = json.loads(record_path.read_text(encoding="utf-8"))
+    record["checked_on"] = datetime.date.today().isoformat()
+    record_path.write_text(json.dumps(record, indent=2), encoding="utf-8")
+
+
+def _checked_today(root: Path) -> bool:
+    record_path = root / _PROVENANCE_FILE
+    if not record_path.is_file():
+        return False
+    checked = json.loads(record_path.read_text(encoding="utf-8")).get("checked_on")
+    return checked == datetime.date.today().isoformat()
+
+
+def _auto_refresh(root: Path, shards: Sequence[str]) -> None:
+    """Bring the default register up to date: download it if absent, re-download if upstream has a newer commit.
+
+    Looks upstream at most once a day. If upstream cannot be reached the existing copy is used and a warning says so;
+    with no existing copy the error is raised.
+    """
+    complete = root.is_dir() and all((root / sh).is_file() for sh in shards)
+    if complete and _checked_today(root):
         return
     try:
-        age = (datetime.date.today() - datetime.date.fromisoformat(register.fetched_on)).days
-    except ValueError:
-        return
-    if age > STALE_AFTER_DAYS:
+        update_register(root, shards=shards)
+    except (ConnectionError, OSError) as err:
+        if not complete:
+            raise FileNotFoundError(
+                f"No Chadwick Register at {root} and it could not be downloaded ({err}). "
+                f"Pass a path to load_register() or set {REGISTER_ENV}."
+            ) from err
         warnings.warn(
-            f"The Chadwick Register at {register.path} was fetched {age} days ago; players added since will not "
-            "match. Call update_register() to refresh it.",
+            f"Could not check for a newer Chadwick Register ({err}); using the copy already at {root}.",
             UserWarning,
-            stacklevel=3,
+            stacklevel=4,
         )
+
+
+def _auto_update_enabled(path: str | Path | None, auto_update: bool | None) -> bool:
+    if auto_update is not None:
+        return auto_update
+    return path is None and os.environ.get(AUTO_UPDATE_ENV, "1") != "0"
 
 
 @profiled(category="ids")
 def load_register(
-    path: str | Path | None = None, *, shards: Sequence[str] = REGISTER_SHARDS
+    path: str | Path | None = None,
+    *,
+    shards: Sequence[str] = REGISTER_SHARDS,
+    auto_update: bool | None = None,
 ) -> PlayerRegister:
     """Load the register from a directory of `people-*.csv` shards (or a single CSV file).
 
-    With no path, uses `default_register_path()`. Raises `FileNotFoundError` naming the first missing shard, and says
-    how to obtain the register when the default location has none. A register already loaded from the same files is
-    reused; a changed file is read again.
+    With no path, uses `default_register_path()` and keeps it current by itself: it downloads the register when it is
+    missing and re-downloads it when the Chadwick repository has a newer commit, looking upstream at most once a day.
+    Offline, the existing copy is used with a warning. Set `auto_update=False` or `$SABERMETRICSPY_AUTO_UPDATE=0` to
+    never touch the network; a path you pass is never updated unless you pass `auto_update=True`.
+    Raises `FileNotFoundError` naming the first missing shard. A register already loaded from the same files is reused;
+    a changed file is read again.
     """
     target = Path(path) if path is not None else default_register_path()
+    if _auto_update_enabled(path, auto_update) and not target.is_file():
+        _auto_refresh(target, shards)
     if path is None and not target.exists():
         raise FileNotFoundError(
             f"No Chadwick Register at {target}. Pass a path to load_register(), set {REGISTER_ENV}, "
@@ -222,9 +262,7 @@ def load_register(
         if not p.is_file():
             raise FileNotFoundError(f"Register shard not found: {p}")
     state = tuple((p.stat().st_size, p.stat().st_mtime_ns) for p in paths)
-    register = _read_register(str(root), tuple(shards), state)
-    _warn_if_stale(register)
-    return register
+    return _read_register(str(root), tuple(shards), state)
 
 
 def _resolve_commit(ref: str) -> str | None:
@@ -278,6 +316,7 @@ def download_register(
             os.replace(scratch / shard, root / shard)
     record = {
         "fetched_on": datetime.date.today().isoformat(),
+        "checked_on": datetime.date.today().isoformat(),
         "ref": ref,
         "commit": pinned,
         "repository": REGISTER_REPO,
@@ -320,6 +359,7 @@ def update_register(
         )
     complete = root.is_dir() and all((root / sh).is_file() for sh in shards)
     if complete and previous == latest and not force:
+        _record_check(root)
         return UpdateResult(path=root, updated=False, commit=latest, previous_commit=previous)
     download_register(root, ref=ref, commit=latest, shards=shards)
     return UpdateResult(path=root, updated=True, commit=latest, previous_commit=previous)
