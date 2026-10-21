@@ -31,3 +31,16 @@ Both files come from the same public Baseball Savant Statcast Search CSV export 
   `plate_z`, `sz_top`, `sz_bot`. Same Baseball Savant Statcast Search CSV export (`hfSea=2023|`, `pitchers_lookup[]=543037`),
   retrieved 2026-10-21 with an ordinary request. Second sample (different pitcher, season) for the geometric strike zone
   (`tests/test_golden_strike_zone_second_sample.py`, ADR-0062). Verification fixture only.
+
+## Added 2026-10-21 (release 1.1.0)
+
+- `batted_balls_2025.csv`: every regular-season ball in play (`type == X`) hit by Aaron Judge (592450), Shohei Ohtani (660271),
+  Luis Arraez (650333) and Bobby Witt Jr. (677951) in 2025, 1,937 rows, columns `game_year`, `game_type`, `batter`,
+  `player_name`, `type`, `bb_type`, `events`, `description`, `launch_speed`, `launch_angle`, `launch_speed_angle`,
+  `estimated_ba_using_speedangle`. Same Baseball Savant Statcast Search CSV export (`player_type=batter`), retrieved
+  2026-10-21 with an ordinary request. Pins popup rate and barrels against the Savant leaderboards
+  (`tests/test_golden_savant_batted_balls.py`). Verification fixture only.
+- `woo_2025_ff_vaa.csv`, `ryan_2025_vaa.csv`: the 2025 regular-season four-seamers (`pitch_type == FF`) of Bryan Woo (693433, 1,284 pitches) and Joe Ryan
+  (657746, 1,404), columns `game_year`, `game_type`, `pitcher`, `player_name`, `pitch_type`, `vx0`, `vy0`, `vz0`, `ax`, `ay`, `az`. Same Savant
+  export, retrieved 2026-10-21. Pin vertical approach angle against the published values in `tests/golden/vaa_published.yaml`
+  (`tests/test_golden_vaa.py`).

@@ -1011,7 +1011,7 @@ def calc_hb(ctx: EvalContext) -> nw.Expr:
         direction=Direction.HIGHER_IS_BETTER,
         formula_latex=r"\overline{v_{eff}} = \frac{\sum v_{eff}}{N_{v_{eff}}}",
         citation="MLB Statcast Glossary (Perceived / Effective Velocity)",
-        description="Mean perceived velocity adjusted for release extension and drag in mph.",
+        description="Mean of Savant's effective_speed (perceived velocity, derived from release extension) in mph.",
     )
 )
 def calc_effective_velo(ctx: EvalContext) -> nw.Expr:

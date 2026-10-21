@@ -1,0 +1,36 @@
+# Baseball-Reference 2025 MLB baserunning table, team rows, retrieved 2026-10-21.
+# source: https://www.baseball-reference.com/leagues/majors/2025-baserunning-batting.shtml
+# Definition (its tooltip): extra bases taken % = times the runner advanced more than one base on a single or more than two bases on a double, when possible.
+# xbt = on_first_single_13 + on_first_double_1H + on_second_single_2H; xbt_opp = on_first_single + on_first_double + on_second_single.
+# xbt_pct is printed as a whole percent.
+rows:
+- {team: Arizona Diamondbacks, on_first_single: 260, on_first_single_13: 85, on_first_double: 94, on_first_double_1H: 32, on_second_single: 163, on_second_single_2H: 98, xbt_pct: 42}
+- {team: Athletics, on_first_single: 265, on_first_single_13: 71, on_first_double: 98, on_first_double_1H: 40, on_second_single: 159, on_second_single_2H: 92, xbt_pct: 39}
+- {team: Atlanta Braves, on_first_single: 308, on_first_single_13: 107, on_first_double: 76, on_first_double_1H: 26, on_second_single: 169, on_second_single_2H: 105, xbt_pct: 43}
+- {team: Baltimore Orioles, on_first_single: 265, on_first_single_13: 83, on_first_double: 71, on_first_double_1H: 21, on_second_single: 148, on_second_single_2H: 99, xbt_pct: 42}
+- {team: Boston Red Sox, on_first_single: 266, on_first_single_13: 95, on_first_double: 96, on_first_double_1H: 33, on_second_single: 178, on_second_single_2H: 112, xbt_pct: 44}
+- {team: Chicago Cubs, on_first_single: 273, on_first_single_13: 78, on_first_double: 79, on_first_double_1H: 32, on_second_single: 189, on_second_single_2H: 106, xbt_pct: 40}
+- {team: Chicago White Sox, on_first_single: 260, on_first_single_13: 84, on_first_double: 70, on_first_double_1H: 31, on_second_single: 155, on_second_single_2H: 95, xbt_pct: 43}
+- {team: Cincinnati Reds, on_first_single: 307, on_first_single_13: 99, on_first_double: 81, on_first_double_1H: 38, on_second_single: 191, on_second_single_2H: 111, xbt_pct: 43}
+- {team: Cleveland Guardians, on_first_single: 220, on_first_single_13: 73, on_first_double: 72, on_first_double_1H: 24, on_second_single: 148, on_second_single_2H: 89, xbt_pct: 42}
+- {team: Colorado Rockies, on_first_single: 213, on_first_single_13: 75, on_first_double: 80, on_first_double_1H: 37, on_second_single: 126, on_second_single_2H: 84, xbt_pct: 47}
+- {team: Detroit Tigers, on_first_single: 293, on_first_single_13: 136, on_first_double: 89, on_first_double_1H: 38, on_second_single: 147, on_second_single_2H: 105, xbt_pct: 53}
+- {team: Houston Astros, on_first_single: 295, on_first_single_13: 100, on_first_double: 80, on_first_double_1H: 36, on_second_single: 166, on_second_single_2H: 93, xbt_pct: 42}
+- {team: Kansas City Royals, on_first_single: 266, on_first_single_13: 85, on_first_double: 72, on_first_double_1H: 32, on_second_single: 159, on_second_single_2H: 95, xbt_pct: 43}
+- {team: Los Angeles Angels, on_first_single: 234, on_first_single_13: 78, on_first_double: 59, on_first_double_1H: 25, on_second_single: 151, on_second_single_2H: 87, xbt_pct: 43}
+- {team: Los Angeles Dodgers, on_first_single: 286, on_first_single_13: 101, on_first_double: 82, on_first_double_1H: 32, on_second_single: 167, on_second_single_2H: 114, xbt_pct: 46}
+- {team: Miami Marlins, on_first_single: 278, on_first_single_13: 89, on_first_double: 75, on_first_double_1H: 32, on_second_single: 192, on_second_single_2H: 115, xbt_pct: 43}
+- {team: Milwaukee Brewers, on_first_single: 342, on_first_single_13: 108, on_first_double: 79, on_first_double_1H: 31, on_second_single: 230, on_second_single_2H: 146, xbt_pct: 44}
+- {team: Minnesota Twins, on_first_single: 260, on_first_single_13: 74, on_first_double: 77, on_first_double_1H: 33, on_second_single: 173, on_second_single_2H: 106, xbt_pct: 42}
+- {team: New York Mets, on_first_single: 259, on_first_single_13: 83, on_first_double: 83, on_first_double_1H: 33, on_second_single: 163, on_second_single_2H: 96, xbt_pct: 42}
+- {team: New York Yankees, on_first_single: 291, on_first_single_13: 90, on_first_double: 89, on_first_double_1H: 24, on_second_single: 170, on_second_single_2H: 89, xbt_pct: 37}
+- {team: Philadelphia Phillies, on_first_single: 314, on_first_single_13: 97, on_first_double: 93, on_first_double_1H: 48, on_second_single: 158, on_second_single_2H: 90, xbt_pct: 42}
+- {team: Pittsburgh Pirates, on_first_single: 289, on_first_single_13: 82, on_first_double: 93, on_first_double_1H: 43, on_second_single: 169, on_second_single_2H: 99, xbt_pct: 41}
+- {team: San Diego Padres, on_first_single: 308, on_first_single_13: 99, on_first_double: 79, on_first_double_1H: 32, on_second_single: 185, on_second_single_2H: 107, xbt_pct: 42}
+- {team: Seattle Mariners, on_first_single: 258, on_first_single_13: 68, on_first_double: 72, on_first_double_1H: 22, on_second_single: 157, on_second_single_2H: 90, xbt_pct: 37}
+- {team: San Francisco Giants, on_first_single: 257, on_first_single_13: 91, on_first_double: 74, on_first_double_1H: 20, on_second_single: 147, on_second_single_2H: 90, xbt_pct: 42}
+- {team: St. Louis Cardinals, on_first_single: 294, on_first_single_13: 96, on_first_double: 87, on_first_double_1H: 39, on_second_single: 179, on_second_single_2H: 104, xbt_pct: 43}
+- {team: Tampa Bay Rays, on_first_single: 276, on_first_single_13: 83, on_first_double: 75, on_first_double_1H: 23, on_second_single: 186, on_second_single_2H: 108, xbt_pct: 40}
+- {team: Texas Rangers, on_first_single: 275, on_first_single_13: 91, on_first_double: 78, on_first_double_1H: 34, on_second_single: 169, on_second_single_2H: 113, xbt_pct: 46}
+- {team: Toronto Blue Jays, on_first_single: 304, on_first_single_13: 88, on_first_double: 96, on_first_double_1H: 34, on_second_single: 210, on_second_single_2H: 122, xbt_pct: 40}
+- {team: Washington Nationals, on_first_single: 259, on_first_single_13: 79, on_first_double: 81, on_first_double_1H: 30, on_second_single: 185, on_second_single_2H: 103, xbt_pct: 40}

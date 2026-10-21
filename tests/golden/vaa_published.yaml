@@ -1,0 +1,10 @@
+# Published four-seam-fastball vertical approach angles (2025 regular season), raw VAA in degrees at one decimal.
+# source: Chamberlain's Pitch Leaderboard as quoted by Talk Sox, "Baseball's gatekept pitching metric: inside vertical approach angle"
+# https://talksox.com/news-rumors/boston-red-sox/baseballs-gatekept-pitching-metric-inside-vertical-approach-angle-r2743/ (Sept 2025;
+# the year is not printed, the match to 2025 Savant data is the check). Baseball Savant does not publish VAA.
+# The formula is the FanGraphs primer's (https://blogs.fangraphs.com/a-visualized-primer-on-vertical-approach-angle-vaa/):
+#   vy_f = -sqrt(vy0^2 - 2 ay (50 - 17/12)); t = (vy_f - vy0) / ay; vz_f = vz0 + az t; VAA = -atan(vz_f / vy_f) in degrees.
+# The same article's "Skubal overall -7.4" does not reproduce from Savant data (we get -6.15), so it is not used.
+rows:
+- {player: Bryan Woo, pitcher: 693433, fixture: woo_2025_ff_vaa.csv, pitches: 1284, vaa: -3.7}
+- {player: Joe Ryan, pitcher: 657746, fixture: ryan_2025_vaa.csv, pitches: 1404, vaa: -3.9}

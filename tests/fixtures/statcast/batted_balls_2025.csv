@@ -1,0 +1,1938 @@
+game_year,game_type,batter,player_name,type,bb_type,events,description,launch_speed,launch_angle,launch_speed_angle,estimated_ba_using_speedangle
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,101.7,5,4,0.633
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,103.5,55,3,0.02
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,89.8,8,4,0.516
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,73.1,-50,2,0.201
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,112,20,6,0.866
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,95.1,8,4,0.603
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,100.3,36,5,0.326
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,109.7,22,6,0.901
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,96.7,1,4,0.468
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,48.9,-60,1,0.176
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,112,10,5,0.835
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,100.3,34,5,0.369
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,106.9,29,6,0.889
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,105.3,29,6,0.751
+2025,R,592450,"Judge, Aaron",X,fly_ball,single,hit_into_play,70.9,34,3,0.61
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,98.7,35,5,0.307
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,72.4,-5,2,0.063
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,92.6,21,3,0.192
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,101,78,3,0.003
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,100.3,55,3,0.013
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,112.2,39,6,0.848
+2025,R,592450,"Judge, Aaron",X,ground_ball,force_out,hit_into_play,84.8,-20,2,0.058
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,88.2,-2,2,0.226
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,102.2,65,3,0.013
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,92.6,19,4,0.359
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,95.5,18,4,0.428
+2025,R,592450,"Judge, Aaron",X,line_drive,sac_fly,hit_into_play,106,20,6,
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,98.3,14,4,0.863
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,109.6,10,5,0.899
+2025,R,592450,"Judge, Aaron",X,fly_ball,double,hit_into_play,102,25,6,0.566
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,101,-1,4,0.403
+2025,R,592450,"Judge, Aaron",X,line_drive,sac_fly,hit_into_play,104.8,18,5,
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,84.9,-6,2,0.107
+2025,R,592450,"Judge, Aaron",X,fly_ball,single,hit_into_play,70.2,26,4,0.954
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,97.4,19,4,0.349
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,112.7,27,6,0.989
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,113.5,17,6,0.735
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,110.8,5,4,0.684
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,106.9,7,4,0.686
+2025,R,592450,"Judge, Aaron",X,fly_ball,single,hit_into_play,76.7,30,3,0.223
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,98.1,4,4,0.456
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,112.6,32,6,1
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,114.9,32,6,1
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,115.6,-2,4,0.511
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,110.1,28,6,0.988
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,80,10,4,0.39
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,112.6,2,4,0.613
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,97.6,33,5,0.279
+2025,R,592450,"Judge, Aaron",X,line_drive,home_run,hit_into_play,110.6,28,6,0.982
+2025,R,592450,"Judge, Aaron",X,ground_ball,force_out,hit_into_play,59.6,-5,2,0.047
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,107,6,4,0.635
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,104.1,30,6,0.639
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,102.1,4,4,0.554
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,99.7,59,3,0.013
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,107.5,17,6,0.386
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,111.8,20,6,0.866
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,106.9,17,6,0.377
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,91.3,30,3,0.048
+2025,R,592450,"Judge, Aaron",X,popup,force_out,hit_into_play,42.7,44,1,0.099
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,112.6,15,6,0.495
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,76.8,44,3,0.109
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,96.2,24,5,0.177
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,111.4,6,4,0.686
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,86.8,20,4,0.554
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,79.5,66,3,0.008
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,115.9,6,5,0.694
+2025,R,592450,"Judge, Aaron",X,fly_ball,single,hit_into_play,74.2,31,3,0.41
+2025,R,592450,"Judge, Aaron",X,fly_ball,double,hit_into_play,109.3,22,6,0.884
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,86.9,62,3,0.013
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,112.6,21,6,0.924
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,100.4,50,3,0.015
+2025,R,592450,"Judge, Aaron",X,ground_ball,fielders_choice,hit_into_play,90.8,-9,2,0.187
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,111,25,6,0.973
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,84.9,39,3,0.015
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,75.1,-16,2,0.05
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,92.6,31,3,0.119
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,89.3,58,3,0.01
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,95,-26,2,0.069
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,107.2,31,6,0.85
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,89.5,14,4,0.97
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,89.3,30,3,0.03
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,96.5,-7,2,0.26
+2025,R,592450,"Judge, Aaron",X,fly_ball,double,hit_into_play,84.8,35,3,0.008
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,105.2,17,5,0.504
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,,,,
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,108.5,49,5,0.091
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,70.9,-7,2,0.045
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,104.1,42,5,0.23
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,115.7,13,6,0.767
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,103.8,62,3,0.015
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,79.7,31,3,0.073
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,77.5,-28,2,0.043
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,108.2,0,4,0.519
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,93.9,67,3,0.005
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,98,-3,2,0.281
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,89.3,57,3,0.005
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,106.7,10,4,0.863
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,110.2,17,6,0.543
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,112.8,16,6,0.599
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,112.3,29,6,0.986
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,106.1,9,4,0.8
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,105,34,6,0.619
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,68.6,20,4,0.843
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,101.4,28,6,0.557
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,101.9,19,5,0.425
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,76,-20,2,0.065
+2025,R,592450,"Judge, Aaron",X,ground_ball,force_out,hit_into_play,104.8,-16,2,0.184
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,97.3,57,3,0.01
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,98.4,-5,2,0.301
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,87.4,64,3,0.013
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,104.2,53,3,0.023
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,88.8,40,3,0.013
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,110.2,26,6,0.964
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,104.6,-5,2,0.354
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,88.3,10,4,0.557
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,80.9,8,4,0.375
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,96.1,30,5,0.247
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,80.5,37,3,0.035
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,101,1,4,0.494
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,88.4,34,3,0.01
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,80.7,18,4,0.985
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,91.3,-13,2,0.141
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,90.6,62,3,0.018
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,69.1,74,3,0.003
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,106.4,16,5,0.559
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,77.8,-2,2,0.117
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,60.4,5,2,0.126
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,97.1,49,3,0.008
+2025,R,592450,"Judge, Aaron",X,fly_ball,sac_fly,hit_into_play,102.6,41,5,
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,110.1,24,6,0.949
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,102.8,-24,2,0.084
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,83.2,-3,2,0.158
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,94.3,66,3,0.005
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,75.7,39,3,0.119
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,93.1,83,3,0.008
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,105.1,5,4,0.61
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,110.2,29,6,0.967
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,53.5,-73,1,0.254
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,83.8,15,4,0.947
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,98.1,-10,2,0.243
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,102.9,6,4,0.628
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,79.1,-2,2,0.139
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,103.5,21,6,0.531
+2025,R,592450,"Judge, Aaron",X,ground_ball,double,hit_into_play,94.6,8,4,0.603
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,109.3,32,6,0.927
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,105.5,28,6,0.818
+2025,R,592450,"Judge, Aaron",X,fly_ball,sac_fly,hit_into_play,97.3,50,3,
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,80.4,34,3,0.053
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,97,49,3,0.008
+2025,R,592450,"Judge, Aaron",X,fly_ball,sac_fly,hit_into_play,90.9,44,3,
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,105.8,44,5,0.346
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,105.3,22,6,0.677
+2025,R,592450,"Judge, Aaron",X,ground_ball,double,hit_into_play,93.1,-10,2,0.204
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,97.1,8,4,0.633
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,97.9,36,5,0.224
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,98.7,31,6,0.39
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,102.6,26,6,0.618
+2025,R,592450,"Judge, Aaron",X,ground_ball,force_out,hit_into_play,89.7,-3,2,0.228
+2025,R,592450,"Judge, Aaron",X,fly_ball,sac_fly,hit_into_play,103.9,41,5,
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,96.4,40,3,0.041
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,81.6,-3,2,0.16
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,108,-2,4,0.435
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,68.8,-24,2,0.039
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,109.1,32,6,0.927
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,73.7,23,4,0.957
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,97,-7,2,0.263
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,98,-18,2,0.139
+2025,R,592450,"Judge, Aaron",X,fly_ball,double,hit_into_play,106.9,31,6,0.85
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,118.1,7,6,0.737
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,112,27,6,1
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,88.1,67,3,0.008
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,83,15,4,0.952
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,99.7,19,5,0.332
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,110.2,36,6,0.896
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,107,26,6,0.875
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,107.5,37,6,0.629
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,100.1,27,6,0.48
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,74,-23,2,0.042
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,96.6,-5,2,0.291
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,80.7,44,3,0.013
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,105.6,16,5,0.559
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,96.2,38,3,0.076
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,87.2,68,3,0.008
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,70.7,21,4,0.947
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,71.3,72,3,0.001
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,78.2,8,2,0.334
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,104.2,32,6,0.658
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,107.2,40,6,0.555
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,89.3,53,3,0.008
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,83.8,-5,2,0.114
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,93.2,-28,2,0.054
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,100.3,-4,2,0.316
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,104.2,34,6,0.561
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,88.2,18,4,0.744
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,100.4,19,5,0.332
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,66.7,50,3,0.129
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,109.9,20,6,0.781
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,94.7,3,4,0.478
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,107.9,42,6,0.392
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,80.3,75,3,0.003
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,82.4,-6,2,0.112
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,110.7,24,6,0.98
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,109.7,10,5,0.899
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,69.1,-14,2,0.045
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,76,-3,2,0.117
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,115.5,29,6,1
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,93.3,48,3,0.008
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,108.8,24,6,0.924
+2025,R,592450,"Judge, Aaron",X,fly_ball,single,hit_into_play,72.9,52,3,0.129
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,117.9,31,6,1
+2025,R,592450,"Judge, Aaron",X,ground_ball,force_out,hit_into_play,66.8,-33,2,0.058
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,91.4,49,3,0.01
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,108.9,31,6,0.951
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,76.7,-19,2,0.065
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,108.6,27,6,1
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,86.5,32,3,0.018
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,78.9,22,4,0.833
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,90.5,22,3,0.197
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,103.7,0,4,0.466
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,113.2,10,5,0.813
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,81.8,24,3,0.37
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,98.4,-8,2,0.236
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,76.7,10,4,0.319
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,110,46,6,0.246
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,101.9,17,5,0.428
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,96.6,73,3,0.005
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,112.9,13,6,0.739
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,102.8,33,6,0.589
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,91,-9,2,0.187
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,107.9,35,6,0.795
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,71.1,-42,2,0.141
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,113,30,6,1
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,109.6,9,5,0.843
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,84.6,61,3,0.015
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,96.5,39,3,0.058
+2025,R,592450,"Judge, Aaron",X,ground_ball,force_out,hit_into_play,106.8,-7,2,0.351
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,110.4,7,4,0.694
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,103.6,-4,2,0.364
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,78.9,-17,2,0.058
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,91.8,36,3,0.043
+2025,R,592450,"Judge, Aaron",X,fly_ball,single,hit_into_play,69.7,37,3,0.6
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,101.7,4,4,0.554
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,104.1,43,5,0.175
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,76.3,47,3,0.111
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,104.6,35,6,0.616
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,93.4,37,3,0.056
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,82.4,2,2,0.223
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,75.9,-18,2,0.058
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,112.7,0,4,0.587
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,48.3,32,1,0.175
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,79.7,44,3,0.033
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,112.5,2,4,0.61
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,107.3,51,3,0.048
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,114.4,8,5,0.767
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,113,14,6,0.722
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,99.8,36,5,0.326
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,95.2,52,3,0.013
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,92.1,-31,2,0.05
+2025,R,592450,"Judge, Aaron",X,fly_ball,double,hit_into_play,94.2,30,3,0.122
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,49.5,-21,1,0.126
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,81.7,39,3,0.033
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,72.2,-3,2,0.067
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,110.2,6,4,0.678
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,111.7,7,5,0.701
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,87.4,13,4,0.861
+2025,R,592450,"Judge, Aaron",X,line_drive,home_run,hit_into_play,117.7,19,6,1
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,94.5,17,4,0.625
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,100.2,25,6,0.435
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,112.3,14,6,0.694
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,81.9,15,4,0.927
+2025,R,592450,"Judge, Aaron",X,fly_ball,sac_fly,hit_into_play,84.3,40,3,
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,100.8,27,6,0.562
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,110,10,5,0.899
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,108.2,7,4,0.656
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,89.5,18,4,0.666
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,99.8,-6,2,0.269
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,106,36,6,0.594
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,89.5,-1,2,0.263
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,108.7,33,6,1
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,86.8,25,3,0.132
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,96,34,3,0.175
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,114.7,18,6,0.879
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,87.6,4,2,0.406
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,65,-30,2,0.048
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,102,30,6,0.601
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,106,36,6,0.594
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,107.9,2,4,0.575
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,89.3,39,3,0.015
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,108.1,49,5,0.091
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,89.7,-29,2,0.047
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,74.7,5,2,0.221
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,98.8,35,5,0.307
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,113.8,16,6,0.695
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,92.3,11,4,0.754
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,106.1,34,6,0.724
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,82.2,10,4,0.42
+2025,R,592450,"Judge, Aaron",X,ground_ball,double,hit_into_play,81.4,7,2,0.343
+2025,R,592450,"Judge, Aaron",X,fly_ball,triple,hit_into_play,108.5,22,6,0.79
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,97.3,63,3,0.013
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,112.1,31,6,0.986
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,100.4,-12,2,0.243
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,77.9,12,4,0.446
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,94.4,-4,2,0.223
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,83.1,7,4,0.403
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,100.7,35,5,0.473
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,79.3,11,4,0.408
+2025,R,592450,"Judge, Aaron",X,ground_ball,force_out,hit_into_play,98.8,-28,2,0.079
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,86.2,20,4,0.643
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,104.2,28,6,0.688
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,94.3,35,3,0.078
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,101.8,0,4,0.433
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,108.7,21,6,0.819
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,89.5,13,4,0.906
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_error,hit_into_play,73.5,-10,2,0.052
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,97.8,40,3,0.073
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,101.2,12,4,0.944
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,83.3,3,2,0.272
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,94.3,9,4,0.615
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,98.5,-6,2,0.276
+2025,R,592450,"Judge, Aaron",X,fly_ball,triple,hit_into_play,110.9,34,6,0.942
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,81.9,26,3,0.187
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,73.5,16,4,0.668
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,101.4,-15,2,0.196
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,102.9,7,4,0.648
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,107,19,6,0.53
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,82.7,23,3,0.415
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,109.5,44,6,0.357
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,74.8,-8,2,0.042
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,104,63,3,0.015
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,98.2,-4,2,0.276
+2025,R,592450,"Judge, Aaron",X,fly_ball,single,hit_into_play,67.9,31,4,0.899
+2025,R,592450,"Judge, Aaron",X,fly_ball,single,hit_into_play,72.8,28,4,0.754
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,74.9,22,4,0.962
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,100.8,-7,2,0.274
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,110.3,23,6,0.929
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,78.4,6,2,0.291
+2025,R,592450,"Judge, Aaron",X,ground_ball,force_out,hit_into_play,104.1,2,4,0.57
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,92,15,4,0.929
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,98.3,48,3,0.01
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,114.4,15,6,0.56
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,106.4,-1,4,0.524
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,108.7,36,6,0.813
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,93.9,-9,2,0.228
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,93.1,39,3,0.035
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,108.6,17,6,0.47
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,102.4,-9,2,0.286
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,100.6,3,4,0.499
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,74.7,-3,2,0.102
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,116.8,19,6,0.883
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,112.5,10,5,0.835
+2025,R,592450,"Judge, Aaron",X,ground_ball,force_out,hit_into_play,98.4,-20,2,0.122
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,115.2,-2,4,0.524
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,89.8,-21,2,0.076
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,84.5,43,3,0.013
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,93.5,42,3,0.02
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,106.8,-11,2,0.314
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,113.5,3,4,0.638
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,81.1,24,3,0.425
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,92.1,33,3,0.081
+2025,R,592450,"Judge, Aaron",X,fly_ball,single,hit_into_play,70.8,37,3,0.542
+2025,R,592450,"Judge, Aaron",X,ground_ball,single,hit_into_play,110.3,-5,4,0.403
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,95.5,55,3,0.01
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,88.9,63,3,0.01
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,44,-60,1,0.21
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,103.8,35,6,0.57
+2025,R,592450,"Judge, Aaron",X,ground_ball,grounded_into_double_play,hit_into_play,98.2,-3,2,0.281
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,95.9,76,3,0.003
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,76,-4,2,0.099
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,86.9,20,4,0.554
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,83.3,-35,2,0.042
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,106.7,30,6,0.884
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,90.8,15,4,0.952
+2025,R,592450,"Judge, Aaron",X,fly_ball,field_out,hit_into_play,85.5,41,3,0.01
+2025,R,592450,"Judge, Aaron",X,line_drive,double,hit_into_play,111.3,16,6,0.518
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,112.1,22,6,0.945
+2025,R,592450,"Judge, Aaron",X,ground_ball,field_out,hit_into_play,109.5,-2,4,0.473
+2025,R,592450,"Judge, Aaron",X,line_drive,single,hit_into_play,103.7,11,4,0.944
+2025,R,592450,"Judge, Aaron",X,ground_ball,force_out,hit_into_play,102.3,1,4,0.509
+2025,R,592450,"Judge, Aaron",X,popup,field_out,hit_into_play,90.8,72,3,0.003
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,113.1,28,6,0.997
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,107.5,31,6,0.919
+2025,R,592450,"Judge, Aaron",X,ground_ball,force_out,hit_into_play,67.8,-11,2,0.039
+2025,R,592450,"Judge, Aaron",X,fly_ball,double,hit_into_play,100.5,32,6,0.444
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,99.4,29,6,0.414
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,108.9,23,6,0.907
+2025,R,592450,"Judge, Aaron",X,fly_ball,home_run,hit_into_play,115,30,6,1
+2025,R,592450,"Judge, Aaron",X,ground_ball,double,hit_into_play,102.8,-15,2,0.226
+2025,R,592450,"Judge, Aaron",X,line_drive,field_out,hit_into_play,86.2,25,3,0.139
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,103.6,15,5,0.638
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,109.5,32,6,0.927
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,95.1,18,4,0.441
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,96.5,25,5,0.187
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,87.6,33,3,0.01
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,102.3,29,6,0.615
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,102.5,-5,2,0.388
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,84.9,41,3,0.01
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,100.5,29,6,0.561
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,96.7,38,3,0.099
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,grounded_into_double_play,hit_into_play,91.1,-3,2,0.276
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,triple,hit_into_play,108.7,36,6,0.813
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,88.3,68,3,0.008
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,69.2,11,2,0.281
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,71.3,20,4,0.906
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,83.5,23,3,0.357
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,107.4,33,6,0.806
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,100.2,30,6,0.482
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,105.5,19,6,0.428
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,86.5,56,3,0.018
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,double,hit_into_play,107.8,23,6,0.861
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,grounded_into_double_play,hit_into_play,104.7,-1,4,0.496
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,107.4,17,6,0.377
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,107.8,32,6,0.888
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,97.1,23,5,0.253
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,80.2,-45,2,0.107
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,104.3,-11,2,0.314
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,102.9,-10,2,0.28
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,113.4,37,6,0.919
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,double,hit_into_play,89,6,4,0.491
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,91.2,54,3,0.008
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,95.8,32,5,0.206
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,108.6,41,6,0.529
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,single,hit_into_play,83.8,53,3,0.028
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,114.8,25,6,1
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,89.1,25,3,0.111
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,88.6,-6,2,0.163
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,96,-5,2,0.319
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,79,45,3,0.053
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,70.9,8,2,0.297
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,57.8,16,1,0.187
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,103.8,-6,2,0.382
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,108.5,45,6,0.251
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,105.8,0,4,0.506
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,80.2,-17,2,0.06
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,105.9,48,5,0.073
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,114.3,9,5,0.762
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,108.2,27,6,0.926
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,109.8,23,6,0.929
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,67.6,-28,2,0.045
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,89.3,-21,2,0.065
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,84.4,19,4,0.838
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,96.9,23,5,0.253
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,grounded_into_double_play,hit_into_play,110.9,-4,4,0.423
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,99.5,-6,2,0.292
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,86.2,61,3,0.015
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,63.3,69,3,0.001
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,108.7,17,6,0.47
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,65.6,-42,2,0.155
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,,,,
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,120,23,6,0.977
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,double,hit_into_play,104.9,30,6,0.713
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,100.9,18,5,0.403
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,98.4,59,3,0.015
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,94.4,19,4,0.337
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,94.8,38,3,0.063
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,100.9,11,4,0.919
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,double_play,hit_into_play,86.1,29,3,0.058
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,92.1,3,4,0.446
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,98.7,66,3,0.013
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,80.1,3,2,0.261
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,100.8,-23,2,0.093
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,86.4,0,2,0.243
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,102.7,7,4,0.648
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,103.4,41,5,0.232
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,101.8,21,5,0.407
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,97.8,27,6,0.342
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,98.2,48,3,0.01
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,111.3,1,4,0.582
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,93.2,-26,2,0.067
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,76.6,61,3,0.01
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,110,-10,2,0.338
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,108,46,5,0.187
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,108.9,28,6,0.958
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,108.8,44,6,0.269
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,104.5,20,6,0.46
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,87.3,34,3,0.005
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,115,21,6,0.966
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,92.1,-1,2,0.322
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,108.5,35,6,0.795
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,99.2,54,3,0.013
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,101.5,9,4,0.729
+2025,R,660271,"Ohtani, Shohei",X,line_drive,home_run,hit_into_play,115.9,19,6,0.903
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,89.6,-24,2,0.054
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,94,72,3,0.001
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,72.5,-6,2,0.065
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,68.2,55,3,0.051
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,106.5,7,4,0.673
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,101,7,4,0.623
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,110.9,10,5,0.863
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,104,41,5,0.271
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,101.5,26,6,0.573
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,101,10,4,0.833
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,84.6,14,4,0.901
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,83.5,74,3,0.005
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,73.5,10,2,0.271
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,107.3,20,6,0.648
+2025,R,660271,"Ohtani, Shohei",X,line_drive,triple,hit_into_play,107.2,12,5,0.911
+2025,R,660271,"Ohtani, Shohei",X,line_drive,triple_play,hit_into_play,86.8,8,4,0.461
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,63.6,67,3,0.001
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,114.8,29,6,0.997
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,100,33,6,0.418
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,100.1,-8,2,0.294
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,91.9,16,4,0.846
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,106.3,25,6,0.794
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,107.8,27,6,0.926
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,112,14,6,0.694
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_error,hit_into_play,76.3,8,2,0.294
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,101.5,22,5,0.39
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,77.6,-4,2,0.131
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,78.6,-30,2,0.038
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,102.9,18,5,0.43
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,109.5,33,6,0.927
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_error,hit_into_play,83.9,-31,2,0.056
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,grounded_into_double_play,hit_into_play,82.2,-23,2,0.046
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,52.5,-49,1,0.302
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,double,hit_into_play,108.3,7,4,0.656
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,90.6,-17,2,0.134
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,109.2,13,5,0.759
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,60.1,-84,2,0.217
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,double,hit_into_play,97.9,-4,2,0.299
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,105.4,9,4,0.803
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,93.1,9,4,0.562
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,60.3,-47,2,0.205
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,85.8,-8,2,0.118
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,104.5,20,6,0.506
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,90.4,-5,2,0.196
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,75.3,72,3,0.001
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,87.2,25,3,0.132
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,110.7,17,6,0.613
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,71.5,2,2,0.142
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,94,6,4,0.511
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,86.4,1,2,0.278
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,108.9,10,5,0.924
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,96.7,49,3,0.008
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,108.4,35,6,0.795
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,76,14,4,0.58
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,73.5,81,3,0.013
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,110.3,34,6,1
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,99.3,38,3,0.221
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,107.5,28,6,0.905
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,89.7,-19,2,0.098
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,97.4,43,3,0.041
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,113.4,26,6,1
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,85.5,-13,2,0.104
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,108.7,22,6,0.884
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,102.8,10,4,0.82
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,113.9,28,6,1
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,98.6,31,6,0.39
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,92.6,15,4,0.899
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,83.9,-11,2,0.126
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,94.6,0,2,0.413
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,106.7,54,3,0.03
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,101.2,11,4,0.919
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,93,33,3,0.109
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,104.4,37,6,0.504
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,87.3,-12,2,0.118
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,78.1,-26,2,0.041
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,103.2,29,6,0.656
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,106,30,6,0.812
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,74.2,1,2,0.15
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,99.1,-8,2,0.266
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,71.7,36,3,0.471
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,87.8,-17,2,0.118
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,108.4,27,6,1
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,81.6,43,3,0.018
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,87.5,3,2,0.408
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,54.5,-40,1,0.199
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,79.2,52,3,0.066
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,104.2,51,3,0.028
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,98.7,53,3,0.008
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,98.1,-22,2,0.09
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,99.9,1,4,0.468
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,91.9,10,4,0.605
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,89.2,-25,2,0.046
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,96.1,3,4,0.473
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,64.4,2,2,0.118
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,92.4,-31,2,0.056
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,single,hit_into_play,66.7,32,4,0.868
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,74.9,55,3,0.071
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,86,-23,2,0.067
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,96.9,66,3,0.01
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,100.5,-5,2,0.327
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,116.3,42,6,0.71
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,100.7,-9,2,0.317
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,grounded_into_double_play,hit_into_play,93.7,-27,2,0.067
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,91.4,27,3,0.078
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,98.9,44,3,0.058
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,110.6,45,6,0.324
+2025,R,660271,"Ohtani, Shohei",X,line_drive,triple,hit_into_play,112.4,13,6,0.754
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,110.4,35,6,0.911
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,64.7,-9,2,0.058
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,107.8,40,6,0.533
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,92.8,-10,2,0.223
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,88.7,19,4,0.562
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,88.1,60,3,0.018
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,93.8,42,3,0.03
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,101.6,27,6,0.585
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,47,-62,1,0.205
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,109.7,40,6,0.601
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,triple,hit_into_play,101.3,-4,2,0.374
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,101.3,37,5,0.34
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,88.3,-19,2,0.074
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,99.7,54,3,0.013
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,82.7,-12,2,0.098
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,84.9,52,3,0.013
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,95.5,12,4,0.939
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,87.8,50,3,0.008
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,49.2,-66,1,0.243
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,grounded_into_double_play,hit_into_play,97,1,4,0.468
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,101.6,30,6,0.601
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,108.3,42,6,0.392
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,87.9,25,3,0.111
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,105.2,17,5,0.504
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,101.2,13,4,0.929
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,74,-60,2,0.283
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,104.8,-1,4,0.496
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,100.3,-29,2,0.079
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,101.2,26,6,0.516
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,110.3,27,6,0.972
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,83.7,11,4,0.552
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,87.5,-28,2,0.056
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,97.9,43,3,0.058
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,90.3,4,4,0.451
+2025,R,660271,"Ohtani, Shohei",X,line_drive,triple,hit_into_play,106.2,18,6,0.411
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,101.1,3,4,0.499
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,86.6,-1,2,0.256
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,65.6,-6,2,0.079
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,75.6,0,2,0.134
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_error,hit_into_play,64.4,-25,2,0.046
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,111.2,17,6,0.613
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,97.7,61,3,0.01
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,79.7,-12,2,0.082
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,82.9,-10,2,0.137
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,106.5,19,6,0.53
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,89.2,26,3,0.106
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,85.3,62,3,0.018
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,83.3,-20,2,0.069
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,100.2,-2,2,0.374
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,70.5,-41,2,0.15
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,113.4,8,5,0.759
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,grounded_into_double_play,hit_into_play,100,-16,2,0.168
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,101.8,4,4,0.554
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,102,-11,2,0.309
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,86.9,-19,2,0.077
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,106.9,13,5,0.81
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,105.6,-5,2,0.393
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,104.4,47,3,0.058
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,93,50,3,0.01
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,84.7,-19,2,0.074
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,sac_fly,hit_into_play,101.8,37,5,
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,114,37,6,0.923
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,67,13,2,0.271
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,101.6,48,3,0.025
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,89.5,4,4,0.423
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,88.5,-17,2,0.121
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,102.3,-2,2,0.393
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,112.5,42,6,0.594
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,102.8,64,3,0.01
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,73.9,41,3,0.23
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,105.5,31,6,0.775
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,76.5,-1,2,0.126
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,92.4,33,3,0.081
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,104.5,39,6,0.433
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,77.8,84,3,0.005
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,115,28,6,0.999
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,99.8,45,3,0.048
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,75.5,47,3,0.111
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,108.2,31,6,0.919
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,79.7,29,3,0.162
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,104,14,4,0.77
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,88,47,3,0.003
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,63.5,-17,2,0.05
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,52.7,-55,1,0.276
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,100.3,40,3,0.292
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,109,3,4,0.595
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,95.5,5,4,0.509
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,95.2,1,2,0.473
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,89.4,32,3,0.023
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,99.3,20,5,0.311
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,107.4,28,6,0.905
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,98.3,16,4,0.603
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,98.6,5,4,0.552
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,86.7,-8,2,0.131
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,100.8,15,4,0.686
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,78.9,18,4,0.98
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,68,-60,2,0.264
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,102.4,40,5,0.241
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,95.4,22,3,0.215
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,87.7,-28,2,0.056
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,grounded_into_double_play,hit_into_play,99.4,0,4,0.408
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,72.4,-21,2,0.041
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,grounded_into_double_play,hit_into_play,104.3,4,4,0.62
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,104.3,-13,2,0.29
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,114.9,27,6,1
+2025,R,660271,"Ohtani, Shohei",X,line_drive,home_run,hit_into_play,109.6,21,6,0.855
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,sac_fly,hit_into_play,102.4,43,3,
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,102.9,-5,2,0.396
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,102.9,28,6,0.612
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,107.3,2,4,0.582
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,88.5,3,2,0.433
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,54.2,-45,1,0.28
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,108.2,28,6,0.948
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,86.2,72,3,0.005
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,84,1,2,0.264
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,107.9,18,6,0.487
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,102.1,3,4,0.524
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,85.9,-14,2,0.109
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,72.7,-15,2,0.05
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,111,15,6,0.452
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,72.8,-17,2,0.052
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,91.7,22,3,0.142
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,109.5,4,4,0.603
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,double,hit_into_play,107.5,22,6,0.79
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,89.4,23,3,0.17
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,113,26,6,0.995
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,double,hit_into_play,107.9,23,6,0.861
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,103,9,4,0.744
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,96.8,40,3,0.051
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,112.9,22,6,0.963
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,94.2,24,3,0.142
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,99.2,24,5,0.33
+2025,R,660271,"Ohtani, Shohei",X,line_drive,triple,hit_into_play,107,16,5,0.537
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,77,-26,2,0.04
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,110.5,17,6,0.543
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,109,33,6,0.927
+2025,R,660271,"Ohtani, Shohei",X,line_drive,home_run,hit_into_play,117.9,20,6,0.942
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,102.8,44,3,0.111
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,110.1,39,6,0.69
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,109.5,12,5,0.846
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,110,4,4,0.641
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,107.3,35,6,0.758
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,99.6,13,4,0.919
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,110.8,6,4,0.686
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,110.3,20,6,0.781
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,68.3,-46,2,0.182
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,101.3,67,3,0.008
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,97.4,63,3,0.013
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,triple,hit_into_play,101.5,24,6,0.541
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,108,5,4,0.628
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,114.1,23,6,0.981
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,101.3,18,5,0.403
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,113.3,16,6,0.599
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,97.1,-14,2,0.16
+2025,R,660271,"Ohtani, Shohei",X,line_drive,triple,hit_into_play,99.3,12,4,0.937
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,100.1,6,4,0.595
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,107.7,16,6,0.58
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,100.8,22,5,0.39
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,fielders_choice_out,hit_into_play,59.2,-31,1,0.085
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,106.5,45,5,0.157
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,99.2,38,3,0.221
+2025,R,660271,"Ohtani, Shohei",X,popup,field_out,hit_into_play,56.4,53,1,0.025
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,88.6,44,3,0.001
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,single,hit_into_play,67.9,34,4,0.828
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,100.1,44,3,0.068
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,77.1,9,2,0.299
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,78.7,-11,2,0.062
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,82,-7,2,0.101
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,108.5,15,5,0.633
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,96,-12,2,0.179
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,111,32,6,1
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,66.8,-21,2,0.038
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,87,-5,2,0.176
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,104.9,34,6,0.619
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,112,30,6,0.983
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,76.1,-9,2,0.058
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,102.9,14,4,0.77
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,103.4,34,6,0.529
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,91.4,51,3,0.01
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,89.6,-12,2,0.142
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,94.9,-16,2,0.19
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,107.5,17,6,0.386
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,94.2,30,3,0.122
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,105.8,2,4,0.582
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,82.8,20,4,0.77
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,82.4,42,3,0.015
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,86.7,4,2,0.374
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,72,-42,2,0.16
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,64.9,-45,2,0.171
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,106.7,12,5,0.911
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,76.8,29,3,0.263
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,105.5,3,4,0.605
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,86,2,2,0.307
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,triple,hit_into_play,104.9,36,6,0.581
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,101.9,28,6,0.586
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,113.1,6,5,0.701
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,69.7,-52,2,0.251
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,90.3,8,4,0.516
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,110.5,41,6,0.623
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,110.1,32,6,0.96
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,104.3,-3,2,0.382
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,100.5,52,3,0.02
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,110.3,50,5,0.104
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,102.5,31,6,0.604
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,single,hit_into_play,68.4,31,4,0.899
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,101.6,15,4,0.648
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,91.2,0,2,0.352
+2025,R,660271,"Ohtani, Shohei",X,line_drive,single,hit_into_play,86.5,12,4,0.724
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,103.8,0,4,0.466
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,95.9,-4,2,0.304
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,100,-10,2,0.285
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,101.5,57,3,0.01
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,105.3,3,4,0.605
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,110.6,58,3,0.023
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,100.2,-8,2,0.294
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,force_out,hit_into_play,77.6,-24,2,0.058
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,109,0,4,0.489
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,108.9,25,6,0.942
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,109.6,-34,2,0.096
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,89.9,-1,2,0.304
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,home_run,hit_into_play,108.4,35,6,0.795
+2025,R,660271,"Ohtani, Shohei",X,fly_ball,field_out,hit_into_play,105.1,41,5,0.284
+2025,R,660271,"Ohtani, Shohei",X,line_drive,field_out,hit_into_play,96.6,10,4,0.744
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,single,hit_into_play,107.4,7,4,0.686
+2025,R,660271,"Ohtani, Shohei",X,line_drive,double,hit_into_play,107.8,12,5,0.901
+2025,R,660271,"Ohtani, Shohei",X,ground_ball,field_out,hit_into_play,76,-20,2,0.072
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,96.5,-3,2,0.303
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,95.9,35,3,0.165
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,89.6,35,3,0.028
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,99.4,14,4,0.835
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,61.3,0,2,0.079
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,87.4,-14,2,0.102
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,74.1,18,4,0.899
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,101.4,23,6,0.446
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,87.3,14,4,0.954
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,93.7,-1,2,0.301
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,92.9,31,3,0.119
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,95.6,8,4,0.633
+2025,R,650333,"Arraez, Luis",X,ground_ball,grounded_into_double_play,hit_into_play,93.7,9,4,0.615
+2025,R,650333,"Arraez, Luis",X,fly_ball,home_run,hit_into_play,,,,
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,100.4,5,4,0.618
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,81.2,0,2,0.131
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,92.9,-4,2,0.218
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,94.6,12,4,0.939
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,91.3,-20,2,0.074
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,95.5,15,4,0.797
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,93.3,7,4,0.539
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,79.1,17,4,0.977
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,85,59,3,0.02
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,82,68,3,0.003
+2025,R,650333,"Arraez, Luis",X,line_drive,double_play,hit_into_play,98,14,4,0.863
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,98.1,0,4,0.448
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,84.6,17,4,0.962
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,42.1,-33,1,0.218
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,95.7,30,5,0.247
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,94.6,8,4,0.603
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,84.7,24,3,0.235
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,79.1,29,3,0.192
+2025,R,650333,"Arraez, Luis",X,fly_ball,sac_fly,hit_into_play,72.4,39,3,
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,75.4,-52,2,0.221
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,75.8,14,4,0.58
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,85.3,6,4,0.403
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,44.7,-40,1,0.231
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,87.6,5,4,0.433
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91.8,23,3,0.149
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,88.8,14,4,0.962
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,90.3,8,4,0.516
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,71.1,-32,2,0.04
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,56.8,0,1,0.079
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,92,29,3,0.066
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,83.1,60,3,0.023
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,94.9,7,4,0.554
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,91.5,14,4,0.962
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,92.7,2,2,0.458
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,89.3,-17,2,0.109
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,87.5,3,2,0.381
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,89.6,36,3,0.025
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,94.4,11,4,0.851
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,94.9,10,4,0.732
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91.1,29,3,0.03
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,95.1,9,4,0.676
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,89.2,56,3,0.013
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,87.4,-16,2,0.109
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,85.9,-1,2,0.226
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,53.5,-59,1,0.218
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,91.5,-39,2,0.04
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,91.4,23,3,0.162
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,90.3,29,3,0.028
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,91.5,7,4,0.509
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,92.3,33,3,0.081
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,82,3,2,0.269
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,101.5,20,5,0.34
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,77.4,16,4,0.841
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,84.7,34,3,0.015
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,98,8,4,0.615
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,66.4,-18,2,0.036
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,88.9,16,4,0.904
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,92.7,-5,2,0.218
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,90.2,10,4,0.618
+2025,R,650333,"Arraez, Luis",X,ground_ball,force_out,hit_into_play,97.7,-4,2,0.276
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,77.9,35,3,0.086
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,81.1,-7,2,0.102
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,81.5,-28,2,0.043
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,76,43,3,0.122
+2025,R,650333,"Arraez, Luis",X,fly_ball,home_run,hit_into_play,99.6,26,6,0.444
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,88.2,35,3,0.013
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,87.2,18,4,0.815
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,96.5,-3,2,0.303
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,94.4,13,4,0.957
+2025,R,650333,"Arraez, Luis",X,ground_ball,sac_bunt,hit_into_play,53.7,-83,1,
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,96.3,19,4,0.365
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,86.6,-25,2,0.054
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91.5,36,3,0.043
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,80.7,76,3,0.005
+2025,R,650333,"Arraez, Luis",X,fly_ball,single,hit_into_play,71,25,4,0.957
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,95.7,5,4,0.534
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,92.4,16,4,0.846
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_error,hit_into_play,93,-6,2,0.218
+2025,R,650333,"Arraez, Luis",X,ground_ball,sac_bunt,hit_into_play,30,-30,1,
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,74.3,60,3,0.018
+2025,R,650333,"Arraez, Luis",X,ground_ball,grounded_into_double_play,hit_into_play,92.7,-12,2,0.173
+2025,R,650333,"Arraez, Luis",X,line_drive,sac_fly,hit_into_play,94.3,24,3,
+2025,R,650333,"Arraez, Luis",X,line_drive,double_play,hit_into_play,98.7,9,4,0.701
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,99.8,10,4,0.82
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,96.8,-15,2,0.165
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,91.4,-3,2,0.254
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,86.1,59,3,0.018
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,,,,
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,96.3,-13,2,0.141
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,90.8,22,3,0.185
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,85.7,22,3,0.413
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,93.3,6,4,0.499
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,97.7,-9,2,0.231
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,95.4,22,3,0.215
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,98.6,-1,2,0.378
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,95.5,20,4,0.241
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,85.1,47,3,0.008
+2025,R,650333,"Arraez, Luis",X,ground_ball,grounded_into_double_play,hit_into_play,71.1,5,2,0.184
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,84.7,61,3,0.015
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,71.8,-9,2,0.048
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,89.4,18,4,0.666
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,92.5,22,3,0.142
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,75.3,66,3,0.001
+2025,R,650333,"Arraez, Luis",X,ground_ball,grounded_into_double_play,hit_into_play,70.5,10,2,0.299
+2025,R,650333,"Arraez, Luis",X,ground_ball,sac_bunt,hit_into_play,32.7,-79,1,
+2025,R,650333,"Arraez, Luis",X,fly_ball,double,hit_into_play,101.4,23,6,0.446
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,96,-19,2,0.112
+2025,R,650333,"Arraez, Luis",X,ground_ball,sac_bunt,hit_into_play,44.1,-31,1,
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,88.7,17,4,0.8
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,89.4,30,3,0.03
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,81.1,8,4,0.375
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,87.2,15,4,0.965
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,96.2,16,4,0.716
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,84.8,31,3,0.041
+2025,R,650333,"Arraez, Luis",X,fly_ball,force_out,hit_into_play,77.6,50,3,0.053
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,81.7,64,3,0.013
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,102.8,-17,2,0.184
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,94.7,27,5,0.177
+2025,R,650333,"Arraez, Luis",X,ground_ball,force_out,hit_into_play,76.7,-22,2,0.054
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,85.3,28,3,0.081
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,88.5,22,3,0.281
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,90.8,34,3,0.033
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,67.4,10,2,0.254
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,92.6,12,4,0.914
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91.5,29,3,0.03
+2025,R,650333,"Arraez, Luis",X,fly_ball,double,hit_into_play,70.6,45,3,0.278
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,61.9,-1,2,0.06
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,77.7,69,3,0.001
+2025,R,650333,"Arraez, Luis",X,fly_ball,single,hit_into_play,72.4,30,4,0.684
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,94.9,22,3,0.215
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,91.3,-3,2,0.254
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,81,38,3,0.03
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,61.8,49,3,0.111
+2025,R,650333,"Arraez, Luis",X,ground_ball,grounded_into_double_play,hit_into_play,81.8,2,2,0.223
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,95.4,-1,2,0.343
+2025,R,650333,"Arraez, Luis",X,line_drive,sac_fly,hit_into_play,85.5,27,3,
+2025,R,650333,"Arraez, Luis",X,fly_ball,sac_fly,hit_into_play,92.9,25,3,
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,89.1,-42,2,0.054
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,88.1,0,2,0.252
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,77.5,2,2,0.168
+2025,R,650333,"Arraez, Luis",X,ground_ball,grounded_into_double_play,hit_into_play,85.2,-17,2,0.089
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,89.9,-12,2,0.129
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,84.7,32,3,0.03
+2025,R,650333,"Arraez, Luis",X,ground_ball,force_out,hit_into_play,91.2,-13,2,0.141
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,94,1,2,0.425
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,86.7,-9,2,0.117
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,78.9,9,4,0.342
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,94.6,-23,2,0.065
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,88.2,-14,2,0.114
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,100.9,-19,2,0.139
+2025,R,650333,"Arraez, Luis",X,fly_ball,double,hit_into_play,96.3,25,5,0.187
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,95.8,8,4,0.633
+2025,R,650333,"Arraez, Luis",X,ground_ball,grounded_into_double_play,hit_into_play,75.5,-4,2,0.099
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,66.2,-50,2,0.213
+2025,R,650333,"Arraez, Luis",X,ground_ball,double,hit_into_play,88.6,5,4,0.463
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,89.2,25,3,0.111
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,89.6,13,4,0.906
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,89.8,-12,2,0.129
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,63.2,-54,2,0.249
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,77.4,6,2,0.272
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,82.6,36,3,0.023
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,96.4,-16,2,0.165
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,36,-7,1,0.204
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,92.8,-3,2,0.233
+2025,R,650333,"Arraez, Luis",X,ground_ball,fielders_choice_out,hit_into_play,89.4,-15,2,0.112
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91.7,42,3,0.018
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,98,-14,2,0.165
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,86.9,-23,2,0.058
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,86.5,38,3,0.005
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,88.3,21,3,0.385
+2025,R,650333,"Arraez, Luis",X,fly_ball,single,hit_into_play,61,35,4,0.476
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,93.8,20,4,0.273
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,89.5,27,3,0.071
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,79.3,-17,2,0.058
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,92.7,38,3,0.041
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,85.2,32,3,0.03
+2025,R,650333,"Arraez, Luis",X,ground_ball,force_out,hit_into_play,86.9,-27,2,0.05
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,77.3,49,3,0.061
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,86.7,56,3,0.01
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,77.5,24,4,0.704
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,89.3,16,4,0.904
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,92.3,-5,2,0.199
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,91.2,0,2,0.327
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,87.7,13,4,0.899
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,76,20,4,0.98
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,69.1,-52,2,0.243
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,90.5,-19,2,0.094
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,90.6,8,4,0.519
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,94.5,-5,2,0.236
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,89.7,-10,2,0.151
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,91.9,18,4,0.547
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,80.9,14,4,0.795
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,74.4,-12,2,0.063
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,90.9,-6,2,0.153
+2025,R,650333,"Arraez, Luis",X,ground_ball,sac_bunt,hit_into_play,24.6,-5,1,
+2025,R,650333,"Arraez, Luis",X,fly_ball,home_run,hit_into_play,99,35,5,0.307
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,73.2,46,3,0.213
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,94.7,25,5,0.18
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,94.2,12,4,0.922
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,75,15,4,0.638
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,91.5,2,2,0.427
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,91.1,23,3,0.162
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,97.1,-5,2,0.291
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,86.2,15,4,0.967
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,80.6,-2,2,0.139
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,71.7,11,2,0.314
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,72.4,33,3,0.537
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,96.1,1,4,0.494
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,93.8,6,4,0.511
+2025,R,650333,"Arraez, Luis",X,ground_ball,sac_bunt,hit_into_play,37,-24,1,
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,98,29,6,0.365
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,76.2,32,3,0.192
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,63.1,-5,2,0.052
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,94.1,-1,2,0.301
+2025,R,650333,"Arraez, Luis",X,ground_ball,force_out,hit_into_play,77.2,-27,2,0.043
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,98,12,4,0.929
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,90.2,1,2,0.33
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,100.6,10,4,0.833
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,80.6,43,3,0.018
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,82,-4,2,0.143
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,99.6,-20,2,0.129
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,83.2,26,3,0.152
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,94.2,21,3,0.19
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,93.5,16,4,0.749
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,90.2,-23,2,0.054
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,78.7,-30,2,0.034
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,84.9,5,4,0.354
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,68.4,10,2,0.269
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,89.7,-14,2,0.102
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,98.9,18,4,0.38
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,64.2,-13,2,0.039
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,84.1,32,3,0.03
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,101.2,-21,2,0.129
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,90.5,18,4,0.585
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,85.2,-5,2,0.131
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,73.1,19,4,0.924
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,96.7,5,4,0.532
+2025,R,650333,"Arraez, Luis",X,ground_ball,sac_bunt,hit_into_play,13.6,61,1,
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,79.5,22,4,0.833
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,88.4,1,2,0.288
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,74.8,63,3,0.008
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,93.9,9,4,0.615
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,92.4,10,4,0.605
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,97.3,10,4,0.744
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,93,25,3,0.132
+2025,R,650333,"Arraez, Luis",X,ground_ball,sac_bunt,hit_into_play,39.5,-38,1,
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,92.5,44,3,0.005
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,80.4,20,4,0.924
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,83.8,41,3,0.01
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,89.6,20,4,0.377
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,94.2,-13,2,0.151
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,91.3,4,4,0.456
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,88.9,50,3,0.008
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,86.9,1,2,0.263
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,84.8,36,3,0.005
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,83.9,-32,2,0.042
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,92.2,-12,2,0.163
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,97.9,39,3,0.096
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,97.4,-1,2,0.392
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,82,37,3,0.03
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,89.7,1,2,0.33
+2025,R,650333,"Arraez, Luis",X,fly_ball,home_run,hit_into_play,100,33,6,0.418
+2025,R,650333,"Arraez, Luis",X,ground_ball,grounded_into_double_play,hit_into_play,96.4,5,4,0.534
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,92.4,2,2,0.427
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,82.7,8,4,0.392
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,81.2,23,4,0.554
+2025,R,650333,"Arraez, Luis",X,ground_ball,force_out,hit_into_play,91.3,-6,2,0.153
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,95.8,4,4,0.478
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,91.3,19,4,0.471
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,90.9,-11,2,0.158
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,84.3,10,4,0.463
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,71.1,17,4,0.684
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,76.1,17,4,0.886
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,87.9,5,4,0.433
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,92.6,13,4,0.962
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,57.6,-42,1,0.16
+2025,R,650333,"Arraez, Luis",X,ground_ball,force_out,hit_into_play,88.5,-7,2,0.139
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,80.7,6,2,0.338
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,89.7,22,3,0.197
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,92.4,-8,2,0.218
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,90.4,46,3,0.003
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,84.5,49,3,0.025
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,85.1,45,3,0.01
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,94.3,-15,2,0.131
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,78.9,43,3,0.053
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,97.6,-2,2,0.34
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,90.1,17,4,0.77
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,86.6,-20,2,0.054
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,78.8,52,3,0.066
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,87.7,12,4,0.752
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,87,21,3,0.443
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,73.2,65,3,0.001
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,77.5,-41,2,0.099
+2025,R,650333,"Arraez, Luis",X,fly_ball,home_run,hit_into_play,100.4,29,6,0.487
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,89.8,38,3,0.02
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,75.8,-1,2,0.102
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,89.2,-2,2,0.258
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,92.8,22,3,0.18
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,87.2,-13,2,0.109
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,84,28,3,0.089
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,81.2,68,3,0.003
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,86.8,5,4,0.405
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,83.9,6,4,0.377
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,83.5,12,4,0.641
+2025,R,650333,"Arraez, Luis",X,fly_ball,single,hit_into_play,53.9,27,1,0.238
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91.3,25,3,0.109
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,89.8,21,3,0.299
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,77.2,-48,2,0.141
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,88.2,15,4,0.975
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,96.1,35,3,0.165
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,87.6,4,2,0.406
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,98.4,40,3,0.073
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,89.3,-9,2,0.141
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,74.1,-19,2,0.05
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,90.7,-14,2,0.119
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,96.8,2,4,0.486
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,98.1,24,5,0.269
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,81.3,0,2,0.131
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,90.9,29,3,0.03
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,80.4,35,3,0.066
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,96.6,14,4,0.894
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91,58,3,0.025
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,76.4,7,2,0.256
+2025,R,650333,"Arraez, Luis",X,ground_ball,force_out,hit_into_play,81,-17,2,0.06
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,98,23,5,0.242
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,78.3,36,3,0.066
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,83.5,4,2,0.288
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,84.7,72,3,0.003
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,96,25,5,0.187
+2025,R,650333,"Arraez, Luis",X,ground_ball,triple,hit_into_play,81.2,0,2,0.131
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,86.8,14,4,0.954
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,88.2,30,3,0.03
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,60.4,26,4,0.489
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,72.6,17,4,0.759
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,95.7,-1,2,0.381
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,75.8,52,3,0.091
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,92.3,-28,2,0.056
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,93.1,12,4,0.914
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,82.8,22,4,0.511
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,81.1,-27,2,0.043
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,96.9,-5,2,0.291
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,95.6,12,4,0.944
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,75.4,0,2,0.134
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,94.7,17,4,0.587
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,80.6,37,3,0.038
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,41.1,-51,1,0.228
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,86.5,23,3,0.271
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,86.5,-20,2,0.054
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,96,13,4,0.959
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,90.1,29,3,0.028
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,78.2,50,3,0.053
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,73.4,61,3,0.01
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,94.3,-12,2,0.165
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,88.9,-16,2,0.104
+2025,R,650333,"Arraez, Luis",X,ground_ball,grounded_into_double_play,hit_into_play,99.4,6,4,0.585
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,86.7,31,3,0.023
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,93.9,19,4,0.337
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,100,2,4,0.466
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,81.1,7,2,0.343
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,86.2,74,3,0.008
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,94.8,6,4,0.559
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,85.7,13,4,0.851
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,87.2,8,4,0.461
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,98,4,4,0.456
+2025,R,650333,"Arraez, Luis",X,ground_ball,force_out,hit_into_play,84.1,-13,2,0.079
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,75.5,36,3,0.116
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,85.6,-4,2,0.155
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,92.8,37,3,0.056
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,81.8,28,3,0.127
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,91.7,15,4,0.929
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,98.8,-9,2,0.243
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,37.7,-84,1,0.143
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,73.3,-62,2,0.24
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,89.6,27,3,0.071
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,82.7,41,3,0.02
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,85.5,-23,2,0.048
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,88.8,24,3,0.116
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,84.4,33,3,0.023
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,75.6,82,3,0.01
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,85.2,4,2,0.303
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,91.5,-12,2,0.134
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,78.1,-23,2,0.054
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,86.6,-25,2,0.054
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,88.1,-18,2,0.079
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,79.9,23,4,0.635
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,30.3,-28,1,0.26
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,73.2,15,4,0.585
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,93.4,-9,2,0.24
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,100.2,26,6,0.444
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,79.1,59,3,0.03
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,82.1,-14,2,0.072
+2025,R,650333,"Arraez, Luis",X,line_drive,double_play,hit_into_play,79.9,7,2,0.359
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,80.7,4,2,0.26
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,82,9,4,0.392
+2025,R,650333,"Arraez, Luis",X,ground_ball,force_out,hit_into_play,84,-2,2,0.179
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,92.3,8,4,0.537
+2025,R,650333,"Arraez, Luis",X,ground_ball,double,hit_into_play,92.7,0,2,0.364
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,86.4,28,3,0.066
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,87.2,24,3,0.177
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,92.4,32,3,0.089
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,93.6,-4,2,0.223
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,84.3,11,4,0.552
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,81.7,36,3,0.033
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,99.7,-21,2,0.122
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,86.1,33,3,0.015
+2025,R,650333,"Arraez, Luis",X,ground_ball,sac_bunt,hit_into_play,45.9,-81,1,
+2025,R,650333,"Arraez, Luis",X,ground_ball,double,hit_into_play,88,4,2,0.406
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,97.5,9,4,0.673
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,95.2,16,4,0.727
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,84.2,39,3,0.013
+2025,R,650333,"Arraez, Luis",X,fly_ball,sac_fly,hit_into_play,93.4,35,3,
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,79,26,3,0.403
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,90.9,29,3,0.03
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,93.9,0,2,0.378
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,83.2,21,4,0.668
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,85.6,41,3,0.01
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,81.1,36,3,0.033
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,89.1,22,3,0.248
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,84.3,8,4,0.405
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91.2,35,3,0.033
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,88.1,68,3,0.008
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_error,hit_into_play,93.4,1,2,0.419
+2025,R,650333,"Arraez, Luis",X,line_drive,double_play,hit_into_play,82.7,4,2,0.288
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,76.5,73,3,0.001
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,97,-22,2,0.084
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,95.6,-11,2,0.207
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,75.1,41,3,0.167
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,68.5,-20,2,0.037
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,83.7,28,3,0.089
+2025,R,650333,"Arraez, Luis",X,ground_ball,sac_bunt,hit_into_play,46.3,-19,1,
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,73.3,15,4,0.585
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,77,-6,2,0.079
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,85.6,22,3,0.413
+2025,R,650333,"Arraez, Luis",X,ground_ball,grounded_into_double_play,hit_into_play,85.5,-8,2,0.104
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,90.5,15,4,0.954
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,61.9,22,4,0.519
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,87.7,17,4,0.861
+2025,R,650333,"Arraez, Luis",X,ground_ball,triple,hit_into_play,92.4,5,4,0.473
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,82.8,41,3,0.02
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,80.6,34,3,0.041
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,95.7,17,4,0.557
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,61.4,-16,2,0.05
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,86.7,-8,2,0.119
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,91.4,1,2,0.364
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,96.6,18,4,0.403
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,79.5,-35,2,0.048
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,92.9,10,4,0.635
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,90,32,3,0.038
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,92.6,7,4,0.539
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,95.5,12,4,0.939
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,91.2,6,4,0.509
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,,,,
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,83.2,21,4,0.668
+2025,R,650333,"Arraez, Luis",X,fly_ball,single,hit_into_play,60.4,35,3,0.435
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,93.7,11,4,0.851
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,63.6,60,3,0.008
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,74.5,38,3,0.228
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,86.7,53,3,0.01
+2025,R,650333,"Arraez, Luis",X,ground_ball,force_out,hit_into_play,86.6,-7,2,0.119
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,93.3,13,4,0.962
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,93.9,12,4,0.922
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,88.3,29,3,0.043
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,68.2,45,3,0.256
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,63.4,-45,2,0.16
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,77.7,-30,2,0.033
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,71.2,15,4,0.519
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,73.7,61,3,0.01
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,79.5,71,3,0.003
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,90,-25,2,0.04
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,67,-48,2,0.193
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,73.9,-3,2,0.076
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,48.8,38,1,0.127
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,83.5,22,4,0.511
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91.2,26,3,0.094
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,91.6,16,4,0.846
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,86.9,50,3,0.01
+2025,R,650333,"Arraez, Luis",X,ground_ball,triple,hit_into_play,,,,
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,43.1,19,1,0.148
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,84.1,30,3,0.061
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,93.4,32,3,0.256
+2025,R,650333,"Arraez, Luis",X,fly_ball,single,hit_into_play,65.6,48,3,0.159
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,86.1,25,3,0.139
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,97,-13,2,0.153
+2025,R,650333,"Arraez, Luis",X,fly_ball,single,hit_into_play,71,26,4,0.937
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,97.1,5,4,0.532
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,90.4,24,3,0.124
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,61.8,-62,2,0.247
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,81.7,-34,2,0.042
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,76,-11,2,0.05
+2025,R,650333,"Arraez, Luis",X,ground_ball,grounded_into_double_play,hit_into_play,86.5,-11,2,0.117
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,104.4,18,5,0.489
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,73.6,38,3,0.228
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,81.9,31,3,0.051
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,89.3,19,4,0.562
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,71.7,32,3,0.582
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,58.9,16,1,0.203
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,82,3,2,0.269
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,71.6,-51,2,0.213
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,66.2,7,2,0.213
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,89,-19,2,0.081
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,76.4,45,3,0.132
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,69.3,-14,2,0.045
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,83.1,41,3,0.02
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,87.7,16,4,0.934
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,89.7,11,4,0.719
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,91.5,0,2,0.354
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,78.8,5,2,0.276
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91.5,31,3,0.048
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,87.8,-6,2,0.151
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,93.6,26,3,0.154
+2025,R,650333,"Arraez, Luis",X,ground_ball,triple,hit_into_play,89.4,4,4,0.423
+2025,R,650333,"Arraez, Luis",X,popup,field_out,hit_into_play,86.9,67,3,0.008
+2025,R,650333,"Arraez, Luis",X,fly_ball,sac_fly,hit_into_play,84.5,37,3,
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,87.8,22,3,0.281
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,98.4,-11,2,0.218
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,85.7,57,3,0.015
+2025,R,650333,"Arraez, Luis",X,ground_ball,sac_bunt,hit_into_play,34.3,7,1,
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,93,-18,2,0.131
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,96.9,-4,2,0.293
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,95.5,13,4,0.959
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,96.9,-5,2,0.291
+2025,R,650333,"Arraez, Luis",X,fly_ball,home_run,hit_into_play,95,38,3,0.063
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,79.1,-14,2,0.06
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,89.4,35,3,0.02
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,77.3,11,4,0.367
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,76.8,28,3,0.362
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,93,9,4,0.562
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,87.6,30,3,0.03
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,81.7,50,3,0.041
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,76.4,32,3,0.192
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91.3,31,3,0.048
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,89,8,4,0.506
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,95.3,5,4,0.509
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,85.6,24,3,0.205
+2025,R,650333,"Arraez, Luis",X,fly_ball,home_run,hit_into_play,96.5,37,3,0.091
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,96.7,13,4,0.939
+2025,R,650333,"Arraez, Luis",X,ground_ball,double,hit_into_play,84.5,-2,2,0.19
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,94.3,18,4,0.438
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,57.9,-9,1,0.045
+2025,R,650333,"Arraez, Luis",X,ground_ball,grounded_into_double_play,hit_into_play,84.7,-13,2,0.084
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,69.9,-21,2,0.037
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,95.1,16,4,0.727
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,97.1,7,4,0.615
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,83.7,36,3,0.015
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,87.8,22,3,0.281
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,97.2,15,4,0.782
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,81.3,24,3,0.425
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,80.8,39,3,0.03
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91.5,29,3,0.03
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,96.2,-7,2,0.26
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,90.7,25,3,0.109
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,98.2,17,4,0.453
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,77.2,36,3,0.078
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,89.4,30,3,0.03
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,86.5,22,3,0.334
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,85.6,-5,2,0.124
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,93.4,12,4,0.914
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,81.4,41,3,0.025
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,95.7,17,4,0.557
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,91.1,29,3,0.03
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,84.5,-5,2,0.114
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,96.3,6,4,0.572
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,89.6,21,3,0.299
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,94.4,19,4,0.337
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,93.8,6,4,0.511
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,57.8,3,1,0.102
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,90,2,2,0.367
+2025,R,650333,"Arraez, Luis",X,ground_ball,single,hit_into_play,49.9,-69,1,0.247
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,84.7,8,4,0.423
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,81.8,-7,2,0.091
+2025,R,650333,"Arraez, Luis",X,line_drive,double,hit_into_play,100.2,16,4,0.587
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,83.1,-12,2,0.089
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,61.6,27,4,0.633
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,89.5,26,3,0.101
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,89.8,-1,2,0.281
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,90.4,-10,2,0.151
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,87.5,19,4,0.716
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,88.5,37,3,0.013
+2025,R,650333,"Arraez, Luis",X,fly_ball,home_run,hit_into_play,95.6,29,5,0.252
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,94.9,10,4,0.732
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,86.7,-14,2,0.102
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,74.9,0,2,0.134
+2025,R,650333,"Arraez, Luis",X,popup,force_out,hit_into_play,37,68,1,0.043
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,85,-26,2,0.05
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,92.1,-11,2,0.168
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,97.5,-1,2,0.392
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,97.4,28,5,0.298
+2025,R,650333,"Arraez, Luis",X,line_drive,single,hit_into_play,94.5,7,4,0.537
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,88.9,-9,2,0.141
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,96,10,4,0.759
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,89.9,18,4,0.618
+2025,R,650333,"Arraez, Luis",X,fly_ball,field_out,hit_into_play,84.1,38,3,0.01
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,86,-4,2,0.155
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,69.4,-35,2,0.067
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,95.5,22,3,0.215
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,88.4,-19,2,0.067
+2025,R,650333,"Arraez, Luis",X,line_drive,field_out,hit_into_play,82.3,24,3,0.37
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,88.6,-7,2,0.146
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,88.6,-3,2,0.245
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,79.5,7,2,0.359
+2025,R,650333,"Arraez, Luis",X,ground_ball,sac_bunt,hit_into_play,21.9,29,1,
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,107.8,-17,2,0.143
+2025,R,650333,"Arraez, Luis",X,ground_ball,field_out,hit_into_play,59.8,1,2,0.076
+2025,R,650333,"Arraez, Luis",X,fly_ball,sac_fly,hit_into_play,84.5,40,3,
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,101.4,-19,2,0.184
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,104.7,18,5,0.369
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,96.8,20,4,0.294
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,84,59,3,0.03
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,108.8,-1,4,0.471
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,95.9,60,3,0.015
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,65.3,-8,2,0.072
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,83.5,19,4,0.838
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,,,,
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,88.6,-61,2,0.33
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,51.4,30,1,0.175
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,89.7,63,3,0.013
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,108.8,-6,2,0.434
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,104.3,8,4,0.711
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,81.9,16,4,0.98
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,81.3,63,3,0.013
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,111.4,6,4,0.686
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,90.9,21,3,0.251
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_error,hit_into_play,78.4,-1,2,0.162
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,87.8,4,2,0.489
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,75.5,-9,2,0.072
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,100.5,25,6,0.506
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,100.1,27,6,0.48
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,82.2,-19,2,0.082
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,80.2,-10,2,0.104
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,105.9,7,4,0.673
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,101.3,12,4,0.944
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,113.8,11,6,0.79
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,101.6,15,4,0.648
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,98.6,27,6,0.403
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,100.2,-21,2,0.162
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,double,hit_into_play,101,1,4,0.494
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,103.5,29,6,0.656
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,88.4,0,2,0.32
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,93,24,3,0.109
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,88.6,-14,2,0.156
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,103.3,-4,2,0.442
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,91.4,-10,2,0.221
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,92.4,25,3,0.091
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,single,hit_into_play,98.6,-10,2,0.296
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,72.8,80,3,0.013
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,85,57,3,0.02
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,91.2,52,3,0.008
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,105.8,-14,2,0.325
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,79.1,14,4,0.714
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,89.7,68,3,0.005
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,103.9,36,6,0.579
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,80.8,-64,2,0.338
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,102.4,38,5,0.346
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,triple,hit_into_play,100.5,24,6,0.411
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,105.7,24,6,0.787
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,86.1,75,3,0.01
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,80.4,59,3,0.035
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,77.2,-18,2,0.082
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,95.7,70,3,0.005
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,95.3,-41,2,0.064
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,75.3,12,4,0.362
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,104.7,-7,2,0.39
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,90.4,31,3,0.033
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,94.7,23,3,0.197
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,117.5,6,5,0.704
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,100.7,5,4,0.595
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,93.2,49,3,0.008
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,89.7,59,3,0.02
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,78.7,16,4,0.922
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,94.1,32,3,0.122
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,92,-1,2,0.373
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,98.4,47,3,0.018
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,84.5,1,2,0.315
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,grounded_into_double_play,hit_into_play,102.2,-12,2,0.343
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,103.5,35,6,0.532
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,108.3,-15,2,0.271
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,84.2,29,3,0.068
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,triple,hit_into_play,101.3,20,5,0.365
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,96.6,38,3,0.099
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,64.9,57,3,0.005
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,94.7,33,3,0.111
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,83.8,34,3,0.018
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,85.7,25,3,0.139
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,98.1,41,3,0.053
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,105,26,6,0.743
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,100,-1,2,0.474
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,105,13,4,0.835
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,87.9,31,3,0.025
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,88.2,35,3,0.013
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,112.7,-5,4,0.408
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,102.8,-1,4,0.392
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,83.7,-9,2,0.146
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,110.8,4,4,0.663
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,109.9,18,6,0.646
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,112.2,8,5,0.767
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,61,65,3,0.003
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,grounded_into_double_play,hit_into_play,104.1,-3,2,0.437
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,64.4,-12,2,0.06
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,101.3,20,5,0.365
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,82.6,-44,2,0.098
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,71.2,-69,2,0.32
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,105.3,1,4,0.527
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,90.7,56,3,0.01
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,single,hit_into_play,76.2,31,3,0.261
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,102.9,6,4,0.628
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,105.5,-31,2,0.123
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,103.3,38,5,0.408
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,84,68,3,0.005
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,107.3,8,4,0.732
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,79.5,38,3,0.033
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,grounded_into_double_play,hit_into_play,113.6,2,4,0.628
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,grounded_into_double_play,hit_into_play,104.9,-11,2,0.328
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,double,hit_into_play,105.1,36,6,0.581
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,80.9,-15,2,0.091
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,95.8,-3,2,0.379
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,94.6,26,5,0.175
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,91.4,4,4,0.456
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,112.4,14,6,0.694
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,96.3,-15,2,0.196
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,105.7,1,4,0.537
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,single,hit_into_play,65.4,26,4,0.851
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,91.4,-21,2,0.098
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,93,47,3,0.008
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,home_run,hit_into_play,108.2,27,6,1
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,83,-15,2,0.098
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,105.7,-7,2,0.422
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,93.4,27,3,0.165
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,102.9,9,4,0.744
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,88,-3,2,0.278
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,109.3,4,4,0.603
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,73.4,-12,2,0.069
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,double,hit_into_play,101.9,26,6,0.573
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,98.8,14,4,0.835
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,103.4,5,4,0.61
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,100.7,13,4,0.929
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,99.9,27,6,0.48
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,sac_fly,hit_into_play,89.1,41,3,
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,single,hit_into_play,82.1,22,4,0.597
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,105.1,-4,2,0.471
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,60.7,-71,2,0.33
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,78,-2,2,0.156
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,87.6,13,4,0.899
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,104.3,3,4,0.603
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,single,hit_into_play,64,39,4,0.466
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,78.7,-6,2,0.12
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,79,-28,2,0.049
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,90,45,3,0.003
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,87.4,61,3,0.023
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,93,-21,2,0.098
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,93,20,4,0.248
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,108.7,30,6,1
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,102.5,5,4,0.61
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,90.8,47,3,0.005
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,89.6,66,3,0.008
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,85.9,-24,2,0.077
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,triple,hit_into_play,104.9,35,6,0.616
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,91.6,58,3,0.028
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,96.4,11,4,0.889
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,95.6,13,4,0.959
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,80.6,69,3,0.003
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,fielders_choice,hit_into_play,93.5,-4,2,0.281
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,double,hit_into_play,112.9,3,4,0.638
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,91.9,40,3,0.02
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,81.4,-18,2,0.088
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,69.2,71,3,0.001
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,99.9,18,4,0.408
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,108.2,26,6,0.927
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,110.7,13,6,0.752
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,83.3,-2,2,0.208
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,108.7,-6,2,0.434
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,107.2,-12,2,0.373
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,94.9,50,3,0.008
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,89.8,50,3,0.01
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,double,hit_into_play,105.8,-9,2,0.376
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,double,hit_into_play,79.3,45,3,0.053
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,92.8,20,4,0.248
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,110.2,30,6,1
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,82.5,7,4,0.403
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,76,29,3,0.38
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,75.7,5,2,0.304
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,91.6,53,3,0.01
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,81.7,30,3,0.068
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,85.3,8,4,0.423
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,110.2,3,4,0.613
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,93.2,21,3,0.192
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,105.6,-10,2,0.351
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,72.4,-16,2,0.062
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,80.8,-19,2,0.077
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,88.6,38,3,0.018
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,112.3,1,4,0.587
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,94.7,59,3,0.015
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,105.9,10,4,0.878
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,98.5,41,3,0.053
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,97.4,23,5,0.253
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,80.5,34,3,0.053
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,83.3,69,3,0.005
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,94.6,33,3,0.111
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,95.1,-18,2,0.187
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,64.4,-58,2,0.325
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,104.1,44,5,0.144
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,115.7,15,6,0.675
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,88.4,-10,2,0.159
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,grounded_into_double_play,hit_into_play,101.6,-2,2,0.448
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,grounded_into_double_play,hit_into_play,99.3,-1,2,0.46
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,113.7,3,4,0.643
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,104.4,37,6,0.504
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,82.5,54,3,0.023
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,75.5,57,3,0.048
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,93,-3,2,0.299
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,83,-14,2,0.094
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,105,28,6,1
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,111.2,15,6,0.452
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,94,-13,2,0.199
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,95.1,40,3,0.038
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,114.5,16,6,0.695
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,97.2,37,3,0.114
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,90.3,-13,2,0.162
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,101.1,-15,2,0.254
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,107.9,-2,4,0.435
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,sac_fly,hit_into_play,112.7,11,6,
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,104.8,25,6,0.746
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,107.7,31,6,0.919
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,82.9,44,3,0.013
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,108.9,-1,4,0.471
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,112.1,10,5,0.835
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,80.7,77,3,0.005
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,103.9,0,4,0.466
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,88.5,18,4,0.666
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,88,18,4,0.744
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,82.9,15,4,0.952
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,75,30,3,0.387
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,85.7,-8,2,0.143
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,86.5,14,4,0.954
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,88.6,8,4,0.506
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,78.4,18,4,0.972
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,102.9,-7,2,0.39
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,104.7,-5,2,0.434
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,55.4,-36,1,0.19
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,110.6,21,6,0.869
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,87.3,9,4,0.448
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,77.6,-18,2,0.074
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,96.1,22,3,0.233
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,100.7,14,4,0.818
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,double,hit_into_play,68.7,46,3,0.246
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,81.5,-25,2,0.055
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,92.5,9,4,0.559
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,86.6,23,3,0.271
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,87.2,80,3,0.008
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,home_run,hit_into_play,110.7,20,6,0.813
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,93.4,31,3,0.119
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,97.9,21,5,0.296
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,79.2,-2,2,0.184
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,63.5,-49,2,0.278
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,99.1,39,3,0.18
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,96.9,50,3,0.005
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,67.2,55,3,0.038
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,49.5,-47,1,0.346
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,114.5,16,6,0.721
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,96.3,18,4,0.428
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,103.8,-16,2,0.244
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,72.9,71,3,0.001
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,83.2,66,3,0.008
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,95.8,-24,2,0.11
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,101.5,-4,2,0.428
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,109.9,-3,4,0.42
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,99.2,14,4,0.835
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,81.9,-13,2,0.104
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,112.7,17,6,0.697
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,86.4,79,3,0.008
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,98.5,47,3,0.018
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,95,41,3,0.033
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,111.2,22,6,0.898
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,112.9,12,6,0.8
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,92.3,59,3,0.03
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,109.1,5,4,0.625
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,double,hit_into_play,100.1,25,6,0.435
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,86.8,2,2,0.364
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,99.9,2,4,0.466
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,107.8,9,4,0.823
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,110.3,22,6,0.901
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,99.7,36,5,0.326
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,100.3,38,5,0.259
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,double,hit_into_play,109.6,3,4,0.613
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,101.2,9,4,0.752
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,94.9,16,4,0.727
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,107.3,-15,2,0.258
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,92.2,-3,2,0.31
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,87.6,37,3,0.013
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,89.5,-15,2,0.15
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,93.8,1,2,0.508
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,63.9,77,3,0.003
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,79.3,2,2,0.251
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,89.5,54,3,0.008
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,92.4,24,3,0.111
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,68.2,-60,2,0.31
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,94.9,27,5,0.177
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,97.6,48,3,0.01
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,110.1,12,5,0.846
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,98,13,4,0.924
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,92.5,25,3,0.132
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,103.5,-9,2,0.364
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,98.9,-9,2,0.31
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,home_run,hit_into_play,109.4,21,6,0.819
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,102.4,10,4,0.871
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,91.6,55,3,0.01
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,78.3,76,3,0.008
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,102.6,7,4,0.648
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,91.9,30,3,0.073
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,103,-21,2,0.165
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,76.3,17,4,0.886
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,108.9,12,5,0.856
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,60.2,-38,2,0.153
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,90.4,60,3,0.025
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,114.5,9,6,0.772
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,83.4,32,3,0.035
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,104.9,3,4,0.605
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,94.9,26,5,0.175
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,106.9,26,6,0.875
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,102.5,9,4,0.744
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,100.8,-17,2,0.211
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,101.1,26,6,0.516
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,79.1,0,2,0.187
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,89.2,22,3,0.248
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,102.1,35,6,0.456
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,106.6,-8,2,0.393
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,102.7,-18,2,0.23
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,112.3,27,6,1
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,103.8,-28,2,0.107
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,double,hit_into_play,72.3,1,2,0.13
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,89.2,29,3,0.041
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,sac_fly,hit_into_play,100.8,29,6,
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,103.3,37,6,0.466
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,95.6,18,4,0.428
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,88.9,33,3,0.023
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,102,-10,2,0.343
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,91.6,30,3,0.073
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,77.6,70,3,0.001
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,88,33,3,0.01
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,85,21,3,0.552
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,93.1,-37,2,0.06
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,90,73,3,0.003
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,107.1,-1,4,0.494
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,92.9,16,4,0.82
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,85.1,32,3,0.03
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,97.7,24,5,0.269
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,80.3,22,4,0.777
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,93.5,17,4,0.671
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,sac_fly,hit_into_play,98.5,17,4,
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,71.7,-15,2,0.06
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,89,78,3,0.005
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,104.1,-1,4,0.443
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,91.8,-32,2,0.064
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,65.5,-48,2,0.251
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,108.5,1,4,0.559
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double_play,hit_into_play,101.9,9,4,0.729
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,88.5,31,3,0.025
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,87.2,21,3,0.443
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,92.7,52,3,0.01
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,94.5,48,3,0.008
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,92.3,-2,2,0.325
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,99.7,22,5,0.346
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,100.7,39,5,0.281
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,90.7,19,4,0.471
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,108,-5,2,0.477
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,112.1,-5,4,0.413
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,114.8,4,5,0.663
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,triple,hit_into_play,105.9,21,6,0.643
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,81.5,82,3,0.005
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,triple,hit_into_play,111.5,16,6,0.518
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,75.5,-31,2,0.053
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,grounded_into_double_play,hit_into_play,111.6,-6,2,0.425
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,105.8,30,6,0.812
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,104.2,-21,2,0.175
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,triple,hit_into_play,106,19,6,0.478
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,93.3,39,3,0.035
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,90.2,58,3,0.018
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,111,10,5,0.863
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,sac_fly,hit_into_play,107.2,15,5,
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,87.1,68,3,0.008
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,99.4,11,4,0.878
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,double,hit_into_play,106.4,7,4,0.673
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,107.1,23,6,0.79
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,83.6,12,4,0.641
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,102.4,13,4,0.906
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,double,hit_into_play,106.3,22,6,0.714
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,double,hit_into_play,107,2,4,0.582
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,100.7,24,6,0.484
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,99.4,24,5,0.33
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,63,36,4,0.567
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,97.8,-5,2,0.376
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,93.5,49,3,0.01
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,85,56,3,0.025
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,single,hit_into_play,99,32,5,0.375
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,76.4,45,3,0.132
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,88.6,28,3,0.061
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,double,hit_into_play,110.8,5,4,0.684
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,113,6,5,0.701
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,94.8,40,3,0.038
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,95.6,39,3,0.169
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,101.4,9,4,0.752
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,103.8,37,6,0.504
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,106.7,35,6,0.758
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,91.8,23,3,0.149
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,41.9,18,1,0.214
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,76.2,-6,2,0.104
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,81,46,3,0.023
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,100.4,40,3,0.292
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,100.5,25,6,0.506
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,73.3,-3,2,0.104
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,102.9,9,4,0.744
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,fielders_choice_out,hit_into_play,106.2,-8,2,0.39
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,86.9,50,3,0.01
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,94.5,8,4,0.603
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,88.1,32,3,0.02
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,68.7,-61,2,0.325
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,95.7,4,4,0.478
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,89.8,8,4,0.516
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,87.5,38,3,0.005
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,50.5,-75,1,0.271
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,92.8,-5,2,0.281
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,double,hit_into_play,104.5,2,4,0.544
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,68.7,-40,2,0.159
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,96.9,13,4,0.939
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,85.2,5,4,0.354
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,89.5,-18,2,0.13
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,99.6,-4,2,0.393
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,94.5,34,3,0.071
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,81,-3,2,0.196
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,92.6,9,4,0.562
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,94.9,24,5,0.172
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,69.6,45,3,0.266
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,61.5,-30,2,0.077
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,93.8,42,3,0.03
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,73,19,4,0.924
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,99.2,35,5,0.307
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,sac_fly,hit_into_play,81.1,36,3,
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,88.2,25,3,0.111
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_error,hit_into_play,80.8,-10,2,0.123
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,93.6,18,4,0.438
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,75,-21,2,0.074
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,84.3,42,3,0.015
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,109.8,-5,4,0.403
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,84.9,-11,2,0.153
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,82.1,68,3,0.003
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,78.4,-26,2,0.051
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,92.2,26,3,0.089
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,111.9,9,5,0.813
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,108.6,18,6,0.558
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,96.9,-24,2,0.12
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,89.1,-1,2,0.333
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,92.2,39,3,0.025
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,77.5,40,3,0.091
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,110,7,4,0.694
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,105.3,11,4,0.942
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,104,21,6,0.531
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,101.8,-5,2,0.442
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,89,31,3,0.025
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,home_run,hit_into_play,108.3,20,6,0.688
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,86,75,3,0.01
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,79.8,17,4,0.982
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,59.7,15,2,0.197
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,78.8,14,4,0.714
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,92.5,58,3,0.028
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,112.6,0,4,0.587
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,83.1,-9,2,0.156
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,108.4,2,4,0.575
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,109.5,7,4,0.694
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_error,hit_into_play,91.4,-7,2,0.23
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,102.2,9,4,0.729
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,sac_fly,hit_into_play,104.3,32,6,
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,107.9,7,4,0.656
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,96.5,21,4,0.233
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,double,hit_into_play,67.6,13,2,0.301
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,106.4,13,5,0.82
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,74.7,-36,2,0.077
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_error,hit_into_play,38.6,-79,1,0.217
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,101.7,34,6,0.522
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,73.9,-34,2,0.064
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,85.9,31,3,0.038
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,107.8,2,4,0.575
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,88.9,17,4,0.8
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,97.3,6,4,0.565
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_error,hit_into_play,100.9,20,5,0.365
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,home_run,hit_into_play,105.2,25,6,0.746
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,100,-3,2,0.399
+2025,R,677951,"Witt Jr., Bobby",X,popup,field_out,hit_into_play,88.9,57,3,0.005
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,97.5,38,3,0.179
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,90.6,-7,2,0.23
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,106.6,18,6,0.443
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,79.1,-38,2,0.072
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,98.8,-23,2,0.127
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,98.6,55,3,0.01
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,98.6,19,4,0.357
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,99.2,10,4,0.785
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,,,,
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,104.1,18,5,0.489
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,67.8,18,4,0.595
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,109.7,13,5,0.77
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,field_out,hit_into_play,75.8,30,3,0.314
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,single,hit_into_play,105.7,6,4,0.641
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,55.2,-67,1,0.315
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,98.2,44,3,0.048
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,101.5,7,4,0.643
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,field_out,hit_into_play,80.8,-7,2,0.137
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,force_out,hit_into_play,,,,
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,84.4,57,3,0.033
+2025,R,677951,"Witt Jr., Bobby",X,line_drive,double,hit_into_play,82.2,16,4,0.98
+2025,R,677951,"Witt Jr., Bobby",X,ground_ball,single,hit_into_play,103.5,-1,4,0.392
+2025,R,677951,"Witt Jr., Bobby",X,fly_ball,field_out,hit_into_play,101.6,23,6,0.499

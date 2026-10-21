@@ -1,0 +1,9 @@
+# Baseball Savant 2025 leaderboard values for four hitters, retrieved 2026-10-21.
+# pu_rate: https://baseballsavant.mlb.com/leaderboard/batted-ball?type=batter&year=2025&min=1&csv=true
+# barrels, bbe: https://baseballsavant.mlb.com/leaderboard/statcast?type=batter&year=2025&min=1&csv=true
+# bbe is every ball in play (Savant counts the few with no launch data too), so pu_pct = popups / bbe.
+rows:
+- {player: Aaron Judge, batter: 592450, bbe: 388, pu_rate: 0.056701030927835044, barrels: 96}
+- {player: Shohei Ohtani, batter: 660271, bbe: 426, pu_rate: 0.03521126760563384, barrels: 100}
+- {player: Luis Arraez, batter: 650333, bbe: 618, pu_rate: 0.04368932038834954, barrels: 7}
+- {player: Bobby Witt Jr., batter: 677951, bbe: 505, pu_rate: 0.08514851485148511, barrels: 63}

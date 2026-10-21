@@ -383,10 +383,10 @@ metrics:
     source_url: https://library.fangraphs.com/misc/li
     note: 'Average leverage index, the sum of LI over plate appearances divided by PA (Tango''s definition: the average is 1); reproduces FanGraphs'' pLI for the five checked batters. tests/golden/fielding_team_expectancy.yaml'
   pu_pct:
-    status: approximate
-    evidence: primary
-    source_url: https://baseballsavant.mlb.com/csv-docs
-    note: 'Popups per batted-ball event, where popups are a bb_type separate from fly balls (Baseball Savant''s bb_type lists ground_ball, line_drive, fly_ball and popup). FanGraphs'' IFFB% is a different statistic: infield flies divided by fly balls, with infield flies a subset of FB (confirmed on 20 fixture rows). With FanGraphs-style columns (iffb mapped to pu) the schema''s derived bbe adds pu to GB+FB+LD and double counts, so supply bbe explicitly or use pu/fb.'
+    status: matches
+    evidence: golden
+    source_url: https://baseballsavant.mlb.com/leaderboard/batted-ball
+    note: 'Popups per batted-ball event, where popups are a bb_type separate from fly balls (Baseball Savant''s bb_type lists ground_ball, line_drive, fly_ball and popup) and bbe is every ball in play, including the few with no launch data (Savant counts them too). From per-pitch Statcast rows the rate equals the Savant batted-ball leaderboard pu_rate exactly for Judge (22 of 388), Ohtani (15 of 426), Arraez (27 of 618) and Witt (43 of 505) in 2025 (tests/golden/savant_batted_balls_2025.yaml, retrieved 2026-10-21). FanGraphs'' IFFB% is a different statistic: infield flies divided by fly balls, with infield flies a subset of FB (confirmed on 20 fixture rows). With FanGraphs-style columns (iffb mapped to pu) the schema''s derived bbe adds pu to GB+FB+LD and double counts, so supply bbe explicitly or use pu/fb.'
   pull_pct:
     status: matches
     evidence: golden
@@ -549,9 +549,9 @@ metrics:
     note: BB - IBB, the unintentional walk term in the FanGraphs wOBA definition; falls back to BB when IBB is absent.
   vaa:
     status: approximate
-    evidence: secondary
-    source_url: https://en.wikipedia.org/wiki/PITCHf/x
-    note: Arctangent of vertical over longitudinal velocity at the front of home plate from the constant-acceleration (9-parameter) trajectory, evaluated by a fifth-order series. The model is standard (Nathan; Wikipedia PITCHf/x) but no published VAA player value was retrieved and the primary derivation was not accessible, so the implementation is unchecked numerically.
+    evidence: golden
+    source_url: https://blogs.fangraphs.com/a-visualized-primer-on-vertical-approach-angle-vaa/
+    note: 'The FanGraphs primer''s equations (attributed to Harry Pavlidis): vy_f = -sqrt(vy0^2 - 2 ay (50 - 17/12)), t = (vy_f - vy0)/ay, vz_f = vz0 + az t, VAA = -atan(vz_f/vy_f) in degrees, averaged over pitches; the library evaluates the arctangent by a fifth-order series, equal to the exact value within 0.001 (tests/test_golden_vaa.py). Baseball Savant does not publish VAA, so the outside values are Chamberlain''s leaderboard as quoted by Talk Sox: Bryan Woo''s 2025 four-seamer recomputes to -3.703 against -3.7 and Joe Ryan''s to -3.847 against -3.9 (a gap of 0.05 on a one-decimal figure). The same article''s Skubal overall -7.4 does not reproduce (-6.15 here), so it is not used. Two player values, both third-party.'
   whiff_pct:
     status: matches
     evidence: golden
@@ -613,10 +613,10 @@ metrics:
     source_url: https://en.wikipedia.org/wiki/Extra-base_hit
     note: 'Doubles plus triples plus home runs, the definition of an extra-base hit (Wikipedia: any base hit on which the batter advances past first base).'
   xbt_pct:
-    status: approximate
-    evidence: secondary
-    source_url: https://blogs.fangraphs.com/ultimate-base-running-primer/
-    note: Extra bases taken over opportunities; the definition is standard but FanGraphs and Baseball-Reference publish rates, not the opportunity counts, so the recomputation gate cannot be run and no published value was reproduced.
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/leagues/majors/2025-baserunning-batting.shtml
+    note: 'Baseball-Reference''s definition: the share of times a runner advanced more than one base on a single or more than two bases on a double, when possible. Its counts are runner on first and a single (first to third), runner on first and a double (first to home) and runner on second and a single (second to home), over all such chances; this ratio reproduces the printed 2025 team XBT% for all 30 teams (tests/golden/bref_xbt_2025.yaml, retrieved 2026-10-21). The library takes the counts as columns (xbt and xbt_opp); it does not derive them from play-by-play, because Baseball-Reference''s exclusions for "when possible" are not published.'
   xfip:
     status: matches
     evidence: primary
