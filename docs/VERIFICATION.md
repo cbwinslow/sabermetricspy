@@ -3,7 +3,7 @@
 This page explains how sabermetricspy decides a number is trustworthy, lists what has and has not been confirmed, and
 keeps the research still to do. The per-metric detail (formula, source link, measured gap) is generated from
 `src/sabermetricspy/data/methodology.yaml` into [METHODOLOGY.md](METHODOLOGY.md); sources and credits are in
-[CREDITS.md](CREDITS.md). Counts below are for 1.0.2.
+[CREDITS.md](CREDITS.md). Counts below are for 1.1.0 (ADR-0064).
 
 ## The rule
 
@@ -12,12 +12,12 @@ someone else published, in a test (CLAUDE.md rule 7). Each item carries one stat
 
 | Status | Meaning | Items (1.0.1) |
 |---|---|---|
-| `matches` | reproduces the published method and, where an outside number exists, that number | 110 of 137 metrics, 5 of 15 models |
-| `approximate` | follows the published method but a measured gap remains, or the outside source is a black box | 24 metrics, 9 models |
-| `experimental` | no consensus method or no reproducible outside value; warns every time it is used | 3 metrics, 1 model |
+| `matches` | reproduces the published method and, where an outside number exists, that number | 111 of 136 metrics, 4 of 15 models |
+| `approximate` | follows the published method but a measured gap remains, or the outside source is a black box | 20 metrics, 8 models |
+| `experimental` | no consensus method or no reproducible outside value; warns every time it is used | 5 metrics, 3 models |
 
-Each item also records how strong its evidence is: `golden` (a test compares it with a recorded outside value, 81
-`matches`), `primary` (the formula was checked against the published definition text, 26) or `secondary` (a
+Each item also records how strong its evidence is: `golden` (a test compares it with a recorded outside value, 84
+`matches` metrics), `primary` (the formula was checked against the published definition text, 26) or `secondary` (a
 reputable but non-primary description, 8). The 34 `primary`/`secondary` entries have **no outside number reproduced**;
 they are listed under "Research still to do".
 
@@ -33,6 +33,7 @@ they are listed under "Research still to do".
 - **Markov transitions** (`fit_transitions`) reproduce every probability and expected-play figure printed in
   *Analyzing Baseball Data with R* from Retrosheet 2016; the count-expectancy, win-expectancy and player-id checks pass
   against the real data and the real Chadwick Register (run 2026-10-21).
+- **Added in 1.1.0 (2026-10-21):** popup rate equals Savant's `pu_rate` for four hitters; XBT% equals Baseball-Reference's printed team value for all 30 teams (2025); Runs Created equals Baseball-Reference for its 2024 top five (technical) and Cobb and Jackson 1911 (basic); Marcel hitters match Tango's published 2004 file (839 hitters: playing time and reliability to rounding, home runs 0.28 off on average) and pitcher reliability matches for every one of 873 pitchers; Log5 reproduces Tango's .692, .308 and .371 examples; Empirical Bayes reproduces ten of Robinson's printed estimates with his prior; position-player WAR replacement and WAR equal FanGraphs leaderboard rows for 2013 and 2025 (within 0.002 runs and 0.0005 WAR); `MarkovWinExpectancy` is 0.0043 from 198 cells of Tango's win expectancy table (mean) and 0.0172 at most.
 - Batting, pitching and plate-discipline rates, wRC+, ERA, WHIP, K%/BB%, park factors and others: see METHODOLOGY.md.
 
 ## Approximate, and the measured gap
@@ -40,21 +41,27 @@ they are listed under "Research still to do".
 | Item | Gap against the outside value | Why |
 |---|---|---|
 | `ops_plus` | -1.2% to +1.5% on four Baseball-Reference seasons | B-Ref removes pitchers from the league average and park-adjusts it; we use MLB-wide averages and a caller park factor |
-| `fip_minus` | 0.74 to 3.13 points (up to 6.6%) | FanGraphs' park input cannot be reconstructed from public data; a test bounds the gap at 3.2 |
+| `fip_minus` | mean 0.19, largest 0.53 points on 32 pitcher-seasons (2011, 2019, 2024, 2025) | the league constant fixed the old gap; FanGraphs' park column is a whole number. 2000-2001 fixtures still differ 1.3 to 2.1 because no FIP park column exists for 2001 |
+| `siera` | within 0.007 of FanGraphs over 8,042 pitcher-seasons (mean 0.0005) | the (BB/PA)^2 coefficient (25.264, published 27.252) and per-season constants are measured from the leaderboard, not published |
 | `xba`, `xslg`, `avg_ev` | -.0015, -.0024, -0.53 mph | Savant's model is unpublished; we sum its own per-pitch estimates |
 | `o_swing_pct`, `o_contact_pct`, `zone_pct`, `swing_pct`, `contact_pct`, `swstr_pct`, `csw_pct` | 0.02 to 0.12 percentage points (one pitch) | cause of the single pitch unknown; FanGraphs' zone rule is unpublished (we infer it) |
 | `rew`, pitcher WAR | median 1.2% / 0.08 WAR | FanGraphs' conversion and replacement inputs are not fully published |
-| position-player WAR default | +2.2 runs (0.22 WAR) per 704 PA | flat 20 runs per 600 PA unless `league_pa` is passed |
-| `MarkovChainModel` (rule-based `fit`) | up to 3.7% at bases loaded | advancement rules are this library's own |
+| position-player WAR | replacement within 0.002 runs and WAR within 0.0005 of FanGraphs rows (2013, 2025) | positional adjustment is PA/600 unless innings are given; fielding, UBR and the league adjustment are caller inputs. FanGraphs' league adjustment did not reproduce for 2020 (WAR error up to 0.25) or 2000 (up to 0.21), cause unknown; bundled runs per win differs from Guts by 0.009 in 1998 |
+| `MarkovWinExpectancy` | mean 0.0043, largest 0.0172 against 198 cells of Tango's table | one Retrosheet season (2016) against his 2010-2015 |
+| Marcel (hitters, pitchers) | hitter home runs 0.28 off on average; pitcher innings for single-role pitchers within 1 IP for over 80% | Tango's rebaseline step is undefined; the pitcher regression (266.67 IP) is inferred from his reliability column |
+| `vaa` | Woo -3.703 against -3.7; Ryan -3.847 against -3.9 | third-party published values; Savant does not publish VAA |
 | `LinearWeightsEstimator` | -0.001 to +0.031 per weight; scale 1.251 vs 1.212 (Retrosheet 2016) | FanGraphs' RE24 and event definitions are not fully published |
-| `bsr`, `der`, `pu_pct`, `xbt_pct`, `xbh_pct`, `vaa`, `MonteCarloSimulator`, Marcel | no outside value reproduced yet | see below |
+| `haa`, `xbh` and the 34 formula-only `matches` | no outside number reproduced | see below |
 
 ## Experimental (warns on use)
 
-`siera` (published coefficient sets differ and FanGraphs' per-year coefficient is unpublished), `rc27` (the out
-estimate is unsourced), `xfip_minus` (no published value), `WinProbabilityModel` (mean error 0.048 against Tango's
-table; use `WinExpectancyMatrix`). Removed outright in 1.0.1 because they have no published method: `total_break`,
-`whiff_per_100` (just 100 x SwStr%), `two_strike_chase_pct`, `wgdp` (BsR now takes wGDP as an input).
+`rc27` (no published RC/27 value with inputs), `bsr` (wSB matches FanGraphs but no BsR total does: on the leaderboard
+the BaseRunning column is not the sum of its wBsR, UBR and GDPRuns fields, unexplained), `speed_score` (neither
+published form reproduces FanGraphs' Spd), `qera` and `der` (formulas documented, no published value; Baseball-Reference's
+DefEff uses an estimated reached-on-error), the rule-based `MarkovChainModel.fit` and `MonteCarloSimulator` (library-chosen
+advancement rules, no published value), and `Log5Model.extended_pythagorean_home_win_prob` (one paper footnote, only an
+aggregate outside number). Removed outright: `total_break`, `whiff_per_100`, `two_strike_chase_pct`, `wgdp` (1.0.1);
+`WinProbabilityModel` and `xbh_pct` (1.1.0).
 
 ## Checked on 2026-10-21 for this release
 
@@ -64,6 +71,18 @@ Corrections found: an earlier review quoted Judge's 2022 OPS+ as 211 (it is 210)
 page does not define the zone geometrically (our rule is inferred from its counts, not published).
 Could not read: Savant's glossary (HTTP 406), the Baseball-Reference pitching glossary (no ERA+ text), the FanGraphs
 position-player WAR page (404).
+
+## Audit of 2026-10-21 for 1.1.0
+
+Sources read or fetched: Tango's Marcel post, files (2004, 2008, 2012) and `we.html`, `re24.html`, `markov.html`; FanGraphs Library
+(position-player and pitcher WAR, positional adjustment, replacement level, BsR, SIERA part two, VAA primer, ERA-/FIP-/xFIP-);
+Baseball-Reference baserunning and batting glossary and leaders pages; Baseball Savant csv-docs and leaderboards; MLB's glossary;
+David Robinson's empirical Bayes post; the MLB Stats API team totals; FanGraphs leaderboards through baseballr 2.0.0.
+The Stroman 2016 pitcher WAR worked example is on a separate FanGraphs page ("Calculating Pitcher WAR, A Complete Example") and
+exists, so that claim holds. baseballr: its computing functions are already tied out, `code_barrel` overcounts Savant's barrels
+by 1 to 4, and `run_expectancy_code` is a Statcast-specific pipeline; none was ported.
+Not resolved: FanGraphs' unrounded FIP park factor; the 1998 runs-per-win gap; SIERA constants are measured, not published;
+pitcher WAR's park factor and yearly league correction; Savant's Whiff% definition text (values reproduce, wording unread).
 
 ## Outside data sources surveyed (2026-10-21)
 
@@ -97,9 +116,9 @@ position-player WAR page (404).
 1. Savant's own Whiff% definition text: its glossary page renders client-side and cannot be fetched; secondary sources (MLB.com articles, third-party glossaries) agree it is swings-and-misses over swings, and the foul-tip/bunt counting is confirmed numerically only.
 2. Done 2026-10-21: the geometric strike zone holds on a second pitcher and season (Cole 2023, within 0.08 points). A left-handed pitcher and a hitter sample would widen it further.
 3. FanGraphs' park input for FIP- (ERA+ is resolved: Baseball-Reference's pitching park factors and own-league ERA reproduce it).
-4. SIERA: the FanGraphs 2011 coefficients and per-year constants, then a leaderboard check.
-5. BsR: a leaderboard row with wSB, UBR, wGDP and BsR (the API's `wBsR`/`BaseRunning`/`GDPRuns` fields are ambiguous); wGDP constants.
-6. DER (reached-on-error treatment, a published team value), XBT%, XBH%, popup rate, VAA: find published references.
+4. Done in 1.1.0: SIERA structure and per-season constants (measured). Still open: FanGraphs' production (BB/PA)^2 coefficient.
+5. BsR: why the leaderboard's BaseRunning column is not wBsR + UBR + GDPRuns; wGDP constants.
+6. DER: a published value that uses actual reached-on-error. Done in 1.1.0: XBT%, popup rate, VAA (third-party values).
 7. Done 2026-10-21 for LinearWeightsEstimator: on Retrosheet 2016 the weights are within 0.001 to 0.031 of Guts! (scale 1.251 vs 1.212), so it stays approximate; the remaining gap needs FanGraphs' unpublished RE24 and event definitions. Still open: MonteCarloSimulator on the fitted matrix; Marcel pitcher regression amounts and Tango's published files.
 8. Bundle league PA and games per season so the position-player WAR default uses the FanGraphs replacement formula (the 2026 constants are done, see 1.0.3).
 9. Outside numbers for the 34 formula-only `matches`: ip, ubb, xbh, rc_basic, rc_tech, base_runs, qera, seca, gpa, ta, off, dice, xfip, dips_bop_pct, k_minus_bb_pct, k_to_bb, bf_per_ip, cg_pct, qs_pct, sv_pct, shutdown, meltdown, game_score_v2, speed_score, err_pct, ra9, pit_bb_to_k, avg_extension, bauer_units, effective_velo, sweet_spot_pct, Log5Model (and its extended Pythagorean form), EmpiricalBayesShrinker.

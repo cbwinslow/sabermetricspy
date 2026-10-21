@@ -69,12 +69,12 @@ The library SHALL provide `CountExpectancyMatrix` supporting `.fit(df)`, `.trans
 - **WHEN** a `CountExpectancyMatrix` fitted on pitch records with a `pa_id` column calls `.transform(pitches_df)`
 - **THEN** pitches whose before and after states were fitted get `re288_before`, `re288_after` and `pitch_run_value`, pitches in unfitted states get null, and `count_run_value(balls, strikes)` returns Walsh's published run value for each of the 12 live counts
 
-### Requirement: Win Probability Added (WPA) and Leverage Index (LI) Model
-The library SHALL provide `WinProbabilityModel` supporting `.from_default()`, `.fit(df)`, `.transform(df)`, and frozen `.results` (`WinProbabilityResults`) that annotates play-by-play records with `wp_before`, `wp_after`, `wpa`, `li` (Leverage Index), and `wpa_li`.
+### Requirement: Markov Win Expectancy
+The library SHALL provide `MarkovWinExpectancy` supporting `.fit(df)` on batting plays (`outs_before`, `base_state_before`, `outs_after`, `base_state_after`, `runs_on_play`), frozen `.results`, and `.win_expectancy(inning, half_inning, outs, base_state, home_score_diff)`, solving the home team's win probability by backward induction over observed base-out transitions (Tango's `we.html` construction). The removed `WinProbabilityModel` (ADR-0064) is not provided.
 
-#### Scenario: High-leverage late-game home run vs low-leverage blowout play
-- **WHEN** `WinProbabilityModel.from_default().transform(plays_df)` evaluates a 9th-inning tie-breaking home run versus a 9th-inning single in a 10-run blowout
-- **THEN** the 9th-inning tie-breaking home run has `li > 1.5` and `wpa > 0.30`, whereas the blowout play has `li < 0.2` and `|wpa| < 0.02`
+#### Scenario: Hand-solvable chain
+- **WHEN** every state hits a solo home run with probability p and otherwise makes an out
+- **THEN** the bottom of the 9th, tied, with no outs is worth `q + (1 - q) / 2` with `q = 1 - (1 - p)^3`
 
 ### Requirement: Built-In Execution Telemetry and Multi-Backend Benchmarking
 The calculation engine SHALL record stage-by-stage nanosecond timing telemetry in a frozen `ExecutionProfile` attached to `CalculationResult.profile` and provide a `benchmark()` function for comparing throughput across Polars, DuckDB, PyArrow, and pandas.
@@ -108,7 +108,7 @@ The package SHALL expose a `sabermetrics` CLI supporting `list`, `info`, `suites
 The library SHALL provide a `@profiled` decorator and a `PerformanceTracker` singleton (`sb.telemetry`) that automatically capture execution timing (`duration_ms`, `rows_per_sec`), backend type, and row counts across decorated library functions, estimator methods, and user functions.
 
 #### Scenario: Decorating and tracking multi-step pipeline execution
-- **GIVEN** a pipeline that calls `from_statcast`, `calculate_suite`, `WinProbabilityModel.transform`, and a user function decorated with `@sb.profiled`
+- **GIVEN** a pipeline that calls `from_statcast`, `calculate_suite`, `WinExpectancyMatrix.fit`, and a user function decorated with `@sb.profiled`
 - **WHEN** executed inside `with sb.telemetry.session():` (or after `sb.telemetry.reset()`)
 - **THEN** `sb.telemetry.spans` SHALL record a `SpanRecord` for each decorated call with positive `duration_ms`, accurate `rows_in`/`rows_out`, and `sb.telemetry.format_table()` SHALL render the aggregated breakdown.
 

@@ -4,6 +4,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-21
+
+Outside tie-out audit (ADR-0064).
+
+### Removed
+- `WinProbabilityModel` (and its leverage index) and `xbh_pct`: no published method or value.
+
+### Changed
+- Position-player WAR uses the FanGraphs replacement formula with bundled per-season MLB games and plate appearances (`data/constants/league_war.yaml`); the flat 20 runs per 600 PA default is gone (`replacement_runs_per_600_pa` is still available).
+- `siera` is FanGraphs' 2011 version (netGB = GB - FB, starter-innings term, measured per-season constants; needs `start_outs` or `start_ip`). `fip_minus` and `xfip_minus` use the pitcher's own league constant; `xfip_minus` has no park term.
+- `der` is the MLB glossary formula and needs `roe`. `Log5Model.team_matchup_prob` takes `home_advantage` (Tango's multiplicative form) instead of `home_edge`.
+- `MarcelProjector` adds `proj_reliability` and `MarcelProjector.for_pitchers`; `EmpiricalBayesShrinker` accepts an explicit `prior`.
+- `bsr`, `speed_score`, `qera`, `der`, the rule-based `MarkovChainModel.fit`, `MonteCarloSimulator` and `extended_pythagorean_home_win_prob` are `experimental` (warn on use) until a published value is reproduced. `pu_pct` and `xbt_pct` are `matches`.
+
+### Added
+- `MarkovWinExpectancy`: Tango's recursive win expectancy from observed transitions.
+- Golden tests against Savant (popups, barrels), Baseball-Reference (XBT%, Runs Created), FanGraphs (SIERA, FIP-, xFIP-, position-player WAR), Tango's published 2004 Marcel files and Robinson's empirical Bayes estimates.
+
 ## [1.0.3] - 2026-10-21
 
 ### Added
