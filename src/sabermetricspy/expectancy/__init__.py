@@ -742,6 +742,188 @@ class WinExpectancyMatrix:
         return self
 
 
+class MarkovWinExpectancyResults(BaseModel):
+    """Frozen diagnostics of MarkovWinExpectancy: how many plays built the transitions and the solved game length."""
+
+    model_config = ConfigDict(frozen=True)
+
+    n_plays: int
+    max_inning: int
+    max_run_diff: int
+
+
+class MarkovWinExpectancy:
+    """Win expectancy by dynamic programming over base-out transitions (Tango's construction for `we.html`).
+
+    Tom Tango's win expectancy page (https://tangotiger.net/we.html) says it takes the actual run expectancy data
+    "and simply ran it for every game state, recursively". This class does that: `fit` estimates, from plays in
+    completed half-innings, the probability of each next base-out state and the runs scored on the play, and the
+    win expectancy of every (inning, half, outs, bases, run difference) state is solved backward from the end of
+    the game. The bottom of the 9th and later ends when the home team takes the lead; a game tied after the bottom
+    of the 9th goes to extra innings, and the value after `max_inning` is 0.5. The two teams are identical and there
+    is no home-field edge, so the top of the 1st with a tie is 0.5 (up to the run-difference cap), as in Tango's table.
+
+    Tango's table uses completed innings through the 8th only; pass plays from such half-innings. Plays that change
+    neither the base-out state nor the score are dropped, as in Albert and Marchi's construction.
+    """
+
+    STATES: tuple[tuple[int, str], ...] = tuple(
+        (outs, bases)
+        for outs in (0, 1, 2)
+        for bases in ("---", "1--", "-2-", "--3", "12-", "1-3", "-23", "123")
+    )
+
+    def __init__(self, *, max_inning: int = 30, max_run_diff: int = 12) -> None:
+        if max_inning < 9:
+            raise ValueError("max_inning must be at least 9.")
+        self.max_inning = max_inning
+        self.max_run_diff = max_run_diff
+        self._results: MarkovWinExpectancyResults | None = None
+        self._value: dict[tuple[int, bool], Any] = {}
+
+    @property
+    def results(self) -> MarkovWinExpectancyResults:
+        if self._results is None:
+            raise RuntimeError("MarkovWinExpectancy is not fitted yet. Call .fit(df) first.")
+        return self._results
+
+    @profiled(category="expectancy")
+    def fit(self, df: IntoFrame) -> Self:
+        """Estimate the transitions from plays and solve every state's win expectancy.
+
+        Requires `outs_before`, `base_state_before`, `outs_after`, `base_state_after` (ignored once `outs_after` is
+        3) and `runs_on_play`, one row per batting play, the same columns as `MarkovChainModel.fit_transitions`.
+        Raises when any of the 24 base-out states was never observed.
+        """
+        import numpy as np
+
+        what = "MarkovWinExpectancy.fit"
+        pl_df = to_polars_df(df)
+        required = (
+            "outs_before",
+            "base_state_before",
+            "outs_after",
+            "base_state_after",
+            "runs_on_play",
+        )
+        missing = set(required) - set(pl_df.columns)
+        if missing:
+            raise ValueError(f"Input dataframe for {what} is missing columns: {sorted(missing)}")
+        nonnull = ("outs_before", "base_state_before", "outs_after", "runs_on_play")
+        require_no_nulls(pl_df.select(*nonnull), nonnull, what)
+        bases = [b for _, b in self.STATES[:8]]
+        require_values(pl_df, "outs_before", (0, 1, 2), what)
+        require_values(pl_df, "outs_after", (0, 1, 2, 3), what)
+        require_values(pl_df, "base_state_before", bases, what)
+        batting = pl_df.filter(pl.col("outs_after") < 3)
+        require_no_nulls(batting, ("base_state_after",), what)
+        require_values(batting, "base_state_after", bases, what)
+        if pl_df.filter(pl.col("outs_after") < pl.col("outs_before")).height:
+            raise ValueError(f"{what}: outs_after is below outs_before on some plays.")
+        if pl_df.filter(pl.col("runs_on_play") < 0).height:
+            raise ValueError(f"{what}: runs_on_play is negative on some plays.")
+
+        idx = {s: i for i, s in enumerate(self.STATES)}
+        counts: dict[tuple[int, int, int], float] = {}
+        grouped = pl_df.group_by(
+            ["outs_before", "base_state_before", "outs_after", "base_state_after", "runs_on_play"]
+        ).agg(pl.len().alias("n"))
+        for row in grouped.iter_rows(named=True):
+            start = idx[(int(row["outs_before"]), str(row["base_state_before"]))]
+            outs_after = int(row["outs_after"])
+            end = 24 if outs_after >= 3 else idx[(outs_after, str(row["base_state_after"]))]
+            runs = int(row["runs_on_play"])
+            if end == start and runs == 0:
+                continue  # a play that changes neither the state nor the score
+            counts[(start, end, runs)] = counts.get((start, end, runs), 0.0) + float(row["n"])
+        totals = np.zeros(24)
+        for (start, _end, _runs), n in counts.items():
+            totals[start] += n
+        unseen = [f"{o}|{b}" for (o, b), t in zip(self.STATES, totals, strict=True) if t == 0]
+        if unseen:
+            raise ValueError(f"No plays observed from base-out states: {unseen}")
+        max_runs = max(r for (_s, _e, r) in counts)
+        trans = np.zeros((max_runs + 1, 24, 25))
+        for (start, end, runs), n in counts.items():
+            trans[runs, start, end] = n / totals[start]
+        self._solve(trans)
+        self._results = MarkovWinExpectancyResults(
+            n_plays=int(pl_df.height), max_inning=self.max_inning, max_run_diff=self.max_run_diff
+        )
+        return self
+
+    def _solve(self, trans: Any) -> None:
+        """Backward induction over half-innings; trans[r][s, t] is the chance of s to t with r runs (t = 24 ends it)."""
+        import numpy as np
+
+        k = self.max_run_diff
+        max_runs = trans.shape[0] - 1
+        n_d = (
+            2 * (k + max_runs) + 1
+        )  # run differences -(k+R)..(k+R); the outer rows are fixed at 0 and 1
+        d_values = np.arange(-(k + max_runs), k + max_runs + 1)
+        inner = np.abs(d_values) < k
+        value: dict[tuple[int, bool], Any] = {}
+        top_start_next = np.full(n_d, 0.5)  # value at the start of the top of inning max_inning + 1
+        for inning in range(self.max_inning, 0, -1):
+            for is_top in (False, True):
+                if is_top:
+                    ended = value[(inning, False)][
+                        :, 0
+                    ]  # the bottom half begins with the same margin
+                elif inning >= 9:
+                    ended = np.where(d_values > 0, 1.0, np.where(d_values < 0, 0.0, top_start_next))
+                else:
+                    ended = top_start_next
+                walk_off = (not is_top) and inning >= 9
+                sign = -1 if is_top else 1
+                grid = np.zeros((n_d, 25))
+                grid[:, 24] = ended
+                grid[d_values >= k, :] = 1.0
+                grid[d_values <= -k, :] = 0.0
+                for _ in range(2000):
+                    new = np.zeros((n_d, 24))
+                    for runs in range(max_runs + 1):
+                        shifted_idx = np.clip(np.arange(n_d) + sign * runs, 0, n_d - 1)
+                        shifted = grid[shifted_idx]
+                        if walk_off:
+                            shifted = np.where((d_values + runs > 0)[:, None], 1.0, shifted)
+                        new += shifted @ trans[runs].T
+                    change = float(np.max(np.abs(new[inner] - grid[inner, :24])))
+                    grid[inner, :24] = new[inner]
+                    if change < 1e-13:
+                        break
+                value[(inning, is_top)] = grid[:, :24].copy()
+                if is_top:
+                    top_start_next = grid[:, 0].copy()
+        self._value = value
+
+    def win_expectancy(
+        self,
+        inning: int,
+        half_inning: str,
+        outs: int,
+        base_state: BaseState | str,
+        home_score_diff: int,
+    ) -> float:
+        """Home team's win probability from a state (`home_score_diff` is home minus away runs)."""
+        if not self._value:
+            raise RuntimeError("MarkovWinExpectancy is not fitted yet. Call .fit(df) first.")
+        if not 1 <= inning <= self.max_inning:
+            raise ValueError(f"inning must be between 1 and {self.max_inning}.")
+        key = (outs, str(base_state))
+        if key not in self.STATES:
+            raise ValueError(f"Unknown base-out state: {key}.")
+        if home_score_diff >= self.max_run_diff:
+            return 1.0
+        if home_score_diff <= -self.max_run_diff:
+            return 0.0
+        is_top = half_inning.lower().strip() in ("top", "t", "0", "away")
+        grid = self._value[(inning, is_top)]
+        row = home_score_diff + (grid.shape[0] // 2)
+        return float(grid[row, self.STATES.index(key)])
+
+
 def _occupied_base_sum(state: str) -> pl.Expr:
     """Sum of the base numbers occupied in a base-state string such as '1-3' (4 for a runner on first and third)."""
     return sum(
