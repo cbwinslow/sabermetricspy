@@ -10,6 +10,7 @@ import polars as pl
 from narwhals.typing import IntoFrame
 from pydantic import BaseModel, ConfigDict, Field
 
+from sabermetricspy.methodology import warn_experimental
 from sabermetricspy.schema import require_no_nulls, require_values, to_polars_df
 from sabermetricspy.telemetry import profiled
 
@@ -243,17 +244,22 @@ class Log5Model:
         win_pct_a: float,
         win_pct_b: float,
         *,
-        home_edge: float = 0.0,
+        home_advantage: float = 0.5,
     ) -> float:
         """Calculate probability that Team A defeats Team B using Bill James's Log5 equation.
 
         Formula:
             P(A beats B) = (p_A - p_A * p_B) / (p_A + p_B - 2 * p_A * p_B)
+
+        `home_advantage` is the home team's win probability in an even matchup (0.54 for MLB), as in Tango's
+        Log5 page, and team A is then the home team:
+            P = p_A (1 - p_B) HA / (p_A (1 - p_B) HA + (1 - p_A) p_B (1 - HA))
+        The default 0.5 means no home effect, which reduces to plain Log5. Two equal teams return exactly HA.
         """
-        pa = min(max(win_pct_a + home_edge, 1e-6), 1.0 - 1e-6)
-        pb = min(max(win_pct_b - home_edge, 1e-6), 1.0 - 1e-6)
-        num = pa - pa * pb
-        den = pa + pb - 2.0 * pa * pb
+        pa = min(max(win_pct_a, 1e-6), 1.0 - 1e-6)
+        pb = min(max(win_pct_b, 1e-6), 1.0 - 1e-6)
+        num = pa * (1.0 - pb) * home_advantage
+        den = num + (1.0 - pa) * pb * (1.0 - home_advantage)
         return num / den
 
     @staticmethod
@@ -275,6 +281,7 @@ class Log5Model:
         Runs may be per game or totals as long as all four and `league_runs` use the same unit. The exponent is
         required because sources differ (the paper cites Baseball-Reference's 1.87 and notes 1.83 is also common).
         """
+        warn_experimental("Log5Model.extended_pythagorean_home_win_prob", stacklevel=3)
         rs_adj = runs_scored_home * runs_allowed_away / league_runs
         ra_adj = runs_allowed_home * runs_scored_away / league_runs
         num = rs_adj**exponent

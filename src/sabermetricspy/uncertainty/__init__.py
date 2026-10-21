@@ -64,7 +64,7 @@ class EmpiricalBayesShrinker:
 
     Learns the population Beta prior `(alpha_0, beta_0)` from observed player successes `k_i` and
     trials `n_i` by beta-binomial maximum likelihood (with optional explicit `stabilization_trials` override),
-    then shrinks each player's noisy observed rate `k_i / n_i` toward the prior mean:
+    (or takes an explicit published `prior=(alpha_0, beta_0)`), then shrinks each player's noisy observed rate `k_i / n_i` toward the prior mean:
         `eb_rate = (k_i + alpha_0) / (n_i + alpha_0 + beta_0)`
     Also outputs posterior standard deviation (`eb_std`) and exact Beta credible intervals
     (`eb_ci_lower`, `eb_ci_upper`).
@@ -76,6 +76,7 @@ class EmpiricalBayesShrinker:
         success_col: str = "h",
         trials_col: str = "ab",
         stabilization_trials: float | None = None,
+        prior: tuple[float, float] | None = None,
         min_trials_for_fit: int = 20,
         confidence_level: float = 0.95,
         output_prefix: str = "eb",
@@ -83,6 +84,7 @@ class EmpiricalBayesShrinker:
         self.success_col = success_col
         self.trials_col = trials_col
         self.stabilization_trials = stabilization_trials
+        self.prior = prior
         self.min_trials_for_fit = min_trials_for_fit
         self.confidence_level = confidence_level
         self.output_prefix = output_prefix
@@ -109,15 +111,20 @@ class EmpiricalBayesShrinker:
         k_arr = valid[self.success_col].to_numpy().astype(np.float64)
         n_arr = valid[self.trials_col].to_numpy().astype(np.float64)
 
-        if self.stabilization_trials is not None and self.stabilization_trials > 0:
-            # Exposure-weighted population mean with the caller's prior strength.
-            mu = float(np.sum(k_arr) / np.sum(n_arr))
-            m_val = float(self.stabilization_trials)
+        if self.prior is not None:
+            # A published prior, for example David Robinson's Beta(78.661, 224.875) for batting average.
+            alpha_0, beta_0 = self.prior
+            m_val = alpha_0 + beta_0
+            mu = alpha_0 / m_val
         else:
-            mu, m_val = _beta_binomial_mle(k_arr, n_arr)
-
-        alpha_0 = mu * m_val
-        beta_0 = (1.0 - mu) * m_val
+            if self.stabilization_trials is not None and self.stabilization_trials > 0:
+                # Exposure-weighted population mean with the caller's prior strength.
+                mu = float(np.sum(k_arr) / np.sum(n_arr))
+                m_val = float(self.stabilization_trials)
+            else:
+                mu, m_val = _beta_binomial_mle(k_arr, n_arr)
+            alpha_0 = mu * m_val
+            beta_0 = (1.0 - mu) * m_val
         self._results = EmpiricalBayesResults(
             success_col=self.success_col,
             trials_col=self.trials_col,

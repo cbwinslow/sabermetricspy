@@ -205,3 +205,65 @@ def test_marcel_playing_time_base_can_come_from_a_column() -> None:
         .predict()
     )
     assert out["proj_ip"][0] == pytest.approx(80 * 0.5 + 70 * 0.1 + 25, abs=1e-9)
+
+
+# --- Published Log5 and empirical Bayes values (release 1.1.0) ------------------------------------------------------
+
+
+def test_log5_home_advantage_follows_tangos_multiplicative_form() -> None:
+    """Tango wiki, Log5: with HA the even-matchup home win probability, equal teams return exactly HA."""
+    assert Log5Model.team_matchup_prob(0.5, 0.5, home_advantage=0.54) == pytest.approx(0.54)
+    assert Log5Model.team_matchup_prob(0.6, 0.4, home_advantage=0.5) == pytest.approx(0.692307692)
+    a, b, ha = 0.6, 0.45, 0.54
+    odds = (a / (1 - a)) / (b / (1 - b)) * (ha / (1 - ha))
+    assert Log5Model.team_matchup_prob(a, b, home_advantage=ha) == pytest.approx(odds / (1 + odds))
+
+
+def test_log5_reproduces_tangos_odds_ratio_values() -> None:
+    """Tango, 'The Odds Ratio Method' (2006): .600 vs .400 gives .692; .400 hitter, .250 pitcher, .333 league gives .308."""
+    assert round(Log5Model.team_matchup_prob(0.6, 0.4), 3) == 0.692
+    assert round(Log5Model.batter_pitcher_matchup_rate(0.400, 0.250, 1 / 3), 3) == 0.308
+    # Hitter .400 in a .300 league, pitcher .250 in a .350 league, shared environment .380: matchup odds .590, rate .371.
+    odds = (0.4 / 0.6) / (0.30 / 0.70) * (0.25 / 0.75) / (0.35 / 0.65) * (0.38 / 0.62)
+    assert odds == pytest.approx(0.590, abs=0.001)
+    assert round(odds / (1 + odds), 3) == pytest.approx(0.371, abs=0.001)
+
+
+ROBINSON_PRIOR = (78.661, 224.875)
+ROBINSON_ROWS = [
+    # name, hits, at bats, published empirical Bayes estimate (varianceexplained.org, empirical_bayes_baseball)
+    ("Rogers Hornsby", 2930, 8173, 0.355),
+    ("Shoeless Joe Jackson", 1772, 4981, 0.350),
+    ("Ed Delahanty", 2596, 7505, 0.343),
+    ("Billy Hamilton", 2158, 6268, 0.340),
+    ("Harry Heilmann", 2660, 7787, 0.339),
+    ("Bill Bergen", 516, 3028, 0.178),
+    ("Ray Oyler", 221, 1265, 0.191),
+    ("John Vukovich", 90, 559, 0.196),
+    ("John Humphries", 52, 364, 0.196),
+    ("George Baker", 74, 474, 0.196),
+]
+
+
+@pytest.mark.parametrize(("name", "hits", "at_bats", "published"), ROBINSON_ROWS)
+def test_empirical_bayes_reproduces_robinsons_published_estimates(
+    name: str, hits: int, at_bats: int, published: float
+) -> None:
+    """David Robinson's posterior (H + 78.661) / (AB + 303.536), printed to three decimals."""
+    from sabermetricspy.uncertainty import EmpiricalBayesShrinker
+
+    frame = pl.DataFrame({"player_id": [name], "h": [hits], "ab": [at_bats]})
+    out = EmpiricalBayesShrinker(prior=ROBINSON_PRIOR).fit(frame).transform(frame)
+    assert out["eb_rate"][0] == pytest.approx(published, abs=0.0005)
+
+
+def test_empirical_bayes_four_for_ten_example_and_tangos_mets_ballast() -> None:
+    from sabermetricspy.uncertainty import EmpiricalBayesShrinker
+
+    frame = pl.DataFrame({"player_id": ["x"], "h": [4], "ab": [10]})
+    out = EmpiricalBayesShrinker(prior=ROBINSON_PRIOR).fit(frame).transform(frame)
+    assert out["eb_rate"][0] == pytest.approx(0.264, abs=0.0005)
+    # Tango's method for win percentage: ballast 77 games, Mets 12-13 gives (12 + 39) / (25 + 78) = .495.
+    mets = pl.DataFrame({"player_id": ["mets"], "h": [12], "ab": [25]})
+    got = EmpiricalBayesShrinker(prior=(38.5, 38.5)).fit(mets).transform(mets)["eb_rate"][0]
+    assert got == pytest.approx(51 / 103, abs=0.0006)
