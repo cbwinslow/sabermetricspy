@@ -128,7 +128,7 @@ def test_models_with_known_differences_are_labeled() -> None:
     models = model_entries()
     pitcher = models["WARFramework.calculate_pitcher_war_df"]
     assert pitcher.status is ReferenceStatus.APPROXIMATE
-    assert "worked example" in pitcher.note and "0.2 WAR" in pitcher.note
+    assert "worked example" in pitcher.note and "0.25 WAR" in pitcher.note
     assert models["WARFramework.calculate_position_player_*"].status is ReferenceStatus.APPROXIMATE
     assert models["MarcelProjector (pitchers)"].status is ReferenceStatus.APPROXIMATE
     assert "3, 2, 1" in models["MarcelProjector (pitchers)"].note

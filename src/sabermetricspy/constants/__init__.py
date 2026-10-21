@@ -187,6 +187,23 @@ def get_league_war_constants(season: int = DEFAULT_SEASON) -> LeagueWARConstants
     return table[nearest_year].model_copy(update={"season": season})
 
 
+# One abbreviation per franchise in park_fip.yaml; common alternates map onto it.
+_TEAM_ALIASES: dict[str, str] = {
+    "ATH": "OAK",
+    "FLA": "MIA",
+    "MON": "WSN",
+    "TBD": "TBR",
+    "ANA": "LAA",
+    "CAL": "LAA",
+    "SD": "SDP",
+    "SF": "SFG",
+    "TB": "TBR",
+    "KC": "KCR",
+    "WAS": "WSN",
+    "CWS": "CHW",
+}
+
+
 @lru_cache(maxsize=1)
 def _load_fip_park_table() -> dict[int, dict[str, int]]:
     """Load bundled park_fip.yaml (FanGraphs' FIP park factor by season and team)."""
@@ -210,7 +227,7 @@ def get_fip_park_factor(team: str, season: int) -> float:
         raise ValueError(
             f"No bundled FIP park factors for season {season}; bundled: {min(table)}-{max(table)}."
         )
-    key = team.upper()
+    key = _TEAM_ALIASES.get(team.upper(), team.upper())
     if key not in table[season]:
         raise ValueError(
             f"No FIP park factor for team {team!r} in {season}; teams: {sorted(table[season])}."
