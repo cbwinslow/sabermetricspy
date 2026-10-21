@@ -1,6 +1,6 @@
 [project]
 name = "sabermetricspy"
-version = "0.1.0"
+version = "1.0.0"
 description = "Fast, strongly-typed, dataframe-agnostic baseball sabermetrics calculation engine, expectancy matrix builder, and forecasting library."
 readme = "README.md"
 license = "Apache-2.0"
@@ -21,7 +21,7 @@ keywords = [
   "narwhals",
 ]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Science/Research",
   "Intended Audience :: Developers",
   "License :: OSI Approved :: Apache Software License",
