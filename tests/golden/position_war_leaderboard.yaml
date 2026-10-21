@@ -1,0 +1,15 @@
+# FanGraphs leaderboard position-player WAR rows for 2013 and 2025, retrieved 2026-10-21.
+# source: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&season=Y&type=8 (Dashboard columns, scripted request)
+# WAR = (offense + defense + wleague + replacement) / runs per win, where offense = batting + baserunning and
+# defense = fielding + positional. FanGraphs revises components after the fact, so values are dated.
+# League inputs (games, plate appearances, runs, outs) are the bundled data/constants/league_war.yaml values.
+retrieved: '2026-10-21'
+rows:
+- {player: Joey Votto, season: 2013, league: NL, pa: 726, batting: 45.219014, baserunning: -1.087447, fielding: -1.121837, positional: -12.265690, wleague: 1.089567, replacement: 20.745097, war: 5.675622}
+- {player: Mike Trout, season: 2013, league: AL, pa: 716, batting: 62.228537, baserunning: 8.230858, fielding: 1.630952, positional: -1.169981, wleague: 2.625058, replacement: 20.459352, war: 10.147369}
+- {player: Andrew McCutchen, season: 2013, league: NL, pa: 674, batting: 42.684763, baserunning: 6.375218, fielding: 3.155170, positional: 2.362825, wleague: 1.011526, replacement: 19.259222, war: 8.079565}
+- {player: Miguel Cabrera, season: 2013, league: AL, pa: 652, batting: 68.578733, baserunning: -5.988425, fielding: -6.004450, positional: 2.009036, wleague: 2.390416, replacement: 18.630583, war: 8.594158}
+- {player: Aaron Judge, season: 2025, league: AL, pa: 679, batting: 82.710703, baserunning: -4.152730, fielding: 6.430349, positional: -10.279491, wleague: 2.774053, replacement: 20.679632, war: 10.043254}
+- {player: Cal Raleigh, season: 2025, league: AL, pa: 705, batting: 50.762769, baserunning: -2.791178, fielding: 11.238851, positional: 5.085734, wleague: 2.880276, replacement: 21.471489, war: 9.069794}
+- {player: Bobby Witt Jr., season: 2025, league: AL, pa: 687, batting: 24.030420, baserunning: 7.391068, fielding: 16.648956, positional: 6.460904, wleague: 2.806737, replacement: 20.923280, war: 8.007117}
+- {player: Shohei Ohtani, season: 2025, league: NL, pa: 727, batting: 62.098198, baserunning: 3.633097, fielding: null, positional: -17.067900, wleague: 2.016433, replacement: 22.141521, war: 7.450535}

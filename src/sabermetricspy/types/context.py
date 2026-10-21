@@ -328,3 +328,25 @@ class PitcherWARConstants(BaseModel):
         key = league.upper()
         env = self.al if key == "AL" else self.nl if key == "NL" else self.mlb
         return env.iffip_numerator / env.ip + self.iffip_constant + self.ra9_minus_era
+
+
+class LeagueWARConstants(BaseModel):
+    """MLB inputs to the FanGraphs position-player replacement level and runs per win for one season."""
+
+    model_config = ConfigDict(frozen=True)
+
+    season: int
+    games: int = Field(description="MLB games played (team games / 2)")
+    pa: int = Field(description="MLB plate appearances")
+    runs: int = Field(description="MLB runs scored")
+    outs: int = Field(description="MLB outs recorded by pitchers (innings x 3)")
+
+    @property
+    def runs_per_win(self) -> float:
+        """FanGraphs runs per win: 9 * (R / IP) * 1.5 + 3."""
+        return 9.0 * self.runs / (self.outs / 3.0) * 1.5 + 3.0
+
+    @property
+    def replacement_runs_per_600_pa(self) -> float:
+        """Replacement-level runs over 600 plate appearances implied by the FanGraphs formula."""
+        return 570.0 * (self.games / 2430.0) * (self.runs_per_win / self.pa) * 600.0

@@ -1,0 +1,191 @@
+# League inputs to the FanGraphs position-player WAR replacement and runs-per-win formulas.
+# games = MLB games played, pa = MLB plate appearances, runs and outs = MLB totals (outs = innings x 3).
+# Source: MLB Stats API team totals (https://statsapi.mlb.com/api/v1/teams/stats, regular season, 30 teams summed).
+# Regenerate with tools/league_war_constants.py (retrieved 2026-10-21).
+# Verified by tests: runs per win from these totals equals the FanGraphs Guts R/W column for every season.
+seasons:
+  1990:
+    games: 2105
+    pa: 160316
+    runs: 17919
+    outs: 112691
+  1991:
+    games: 2104
+    pa: 160746
+    runs: 18127
+    outs: 113309
+  1992:
+    games: 2106
+    pa: 160545
+    runs: 17341
+    outs: 113489
+  1993:
+    games: 2269
+    pa: 174564
+    runs: 20864
+    outs: 121521
+  1994:
+    games: 1600
+    pa: 124483
+    runs: 15752
+    outs: 85759
+  1995:
+    games: 2017
+    pa: 156703
+    runs: 19554
+    outs: 108096
+  1996:
+    games: 2267
+    pa: 177261
+    runs: 22831
+    outs: 121682
+  1997:
+    games: 2266
+    pa: 175541
+    runs: 21604
+    outs: 121362
+  1998:
+    games: 2432
+    pa: 188280
+    runs: 23297
+    outs: 130304
+  1999:
+    games: 2428
+    pa: 189692
+    runs: 24691
+    outs: 129634
+  2000:
+    games: 2429
+    pa: 190261
+    runs: 24971
+    outs: 129733
+  2001:
+    games: 2429
+    pa: 186976
+    runs: 23199
+    outs: 129862
+  2002:
+    games: 2426
+    pa: 186615
+    runs: 22408
+    outs: 129807
+  2003:
+    games: 2430
+    pa: 187449
+    runs: 22978
+    outs: 130006
+  2004:
+    games: 2428
+    pa: 188539
+    runs: 23376
+    outs: 130182
+  2005:
+    games: 2431
+    pa: 186292
+    runs: 22325
+    outs: 129697
+  2006:
+    games: 2429
+    pa: 188071
+    runs: 23599
+    outs: 129774
+  2007:
+    games: 2431
+    pa: 188623
+    runs: 23322
+    outs: 130277
+  2008:
+    games: 2428
+    pa: 187631
+    runs: 22585
+    outs: 130073
+  2009:
+    games: 2430
+    pa: 187079
+    runs: 22419
+    outs: 129816
+  2010:
+    games: 2430
+    pa: 185553
+    runs: 21308
+    outs: 129916
+  2011:
+    games: 2429
+    pa: 185245
+    runs: 20808
+    outs: 130582
+  2012:
+    games: 2430
+    pa: 184179
+    runs: 21017
+    outs: 130066
+  2013:
+    games: 2431
+    pa: 184873
+    runs: 20255
+    outs: 130960
+  2014:
+    games: 2430
+    pa: 183929
+    runs: 19761
+    outs: 130841
+  2015:
+    games: 2429
+    pa: 183628
+    runs: 20647
+    outs: 130223
+  2016:
+    games: 2428
+    pa: 184580
+    runs: 21744
+    outs: 129919
+  2017:
+    games: 2430
+    pa: 185295
+    runs: 22582
+    outs: 129771
+  2018:
+    games: 2431
+    pa: 185139
+    runs: 21630
+    outs: 130467
+  2019:
+    games: 2429
+    pa: 186517
+    runs: 23467
+    outs: 130270
+  2020:
+    games: 898
+    pa: 66506
+    runs: 8344
+    outs: 46406
+  2021:
+    games: 2429
+    pa: 181818
+    runs: 22010
+    outs: 127845
+  2022:
+    games: 2430
+    pa: 182052
+    runs: 20817
+    outs: 129226
+  2023:
+    games: 2430
+    pa: 184104
+    runs: 22432
+    outs: 129262
+  2024:
+    games: 2429
+    pa: 182449
+    runs: 21343
+    outs: 129349
+  2025:
+    games: 2430
+    pa: 182926
+    runs: 21614
+    outs: 129225
+  2026:
+    games: 2429
+    pa: 183849
+    runs: 21769
+    outs: 129239

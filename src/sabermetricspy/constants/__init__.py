@@ -10,13 +10,20 @@ from typing import Any
 
 import yaml
 
-from sabermetricspy.types.context import ParkFactor, PitcherWARConstants, SeasonContext, WOBAWeights
+from sabermetricspy.types.context import (
+    LeagueWARConstants,
+    ParkFactor,
+    PitcherWARConstants,
+    SeasonContext,
+    WOBAWeights,
+)
 
 DEFAULT_SEASON = 2024
 """Season of the bundled constants used when neither the caller nor the data names one."""
 
 _WARNED_FALLBACKS: set[tuple[int, int]] = set()
 _WARNED_WAR_FALLBACKS: set[tuple[int, int]] = set()
+_WARNED_LEAGUE_WAR_FALLBACKS: set[tuple[int, int]] = set()
 
 
 @lru_cache(maxsize=1)
@@ -147,3 +154,34 @@ def get_pitcher_war_constants(season: int = 2024) -> PitcherWARConstants:
             stacklevel=2,
         )
     return table[nearest_year].model_copy(update={"season": season, "war_ip_correction": None})
+
+
+@lru_cache(maxsize=1)
+def _load_league_war_table() -> dict[int, LeagueWARConstants]:
+    """Load bundled league_war.yaml (MLB games, plate appearances, runs and outs per season)."""
+    yaml_path = resources.files("sabermetricspy").joinpath("data/constants/league_war.yaml")
+    raw: dict[str, Any] = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+    return {
+        int(year): LeagueWARConstants.model_validate({"season": int(year), **entry})
+        for year, entry in raw["seasons"].items()
+    }
+
+
+def get_league_war_constants(season: int = DEFAULT_SEASON) -> LeagueWARConstants:
+    """Retrieve the MLB games, plate appearances, runs and outs behind the FanGraphs replacement level.
+
+    An unbundled season returns the nearest bundled season labeled with the requested season and emits a
+    `UserWarning` (once per requested/substituted pair).
+    """
+    table = _load_league_war_table()
+    if season in table:
+        return table[season]
+    nearest_year = min(table.keys(), key=lambda y: abs(y - season))
+    if (season, nearest_year) not in _WARNED_LEAGUE_WAR_FALLBACKS:
+        _WARNED_LEAGUE_WAR_FALLBACKS.add((season, nearest_year))
+        warnings.warn(
+            f"No bundled league WAR constants for season {season}; using season {nearest_year} instead.",
+            UserWarning,
+            stacklevel=2,
+        )
+    return table[nearest_year].model_copy(update={"season": season})

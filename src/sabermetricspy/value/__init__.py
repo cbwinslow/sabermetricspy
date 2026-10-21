@@ -9,7 +9,12 @@ import narwhals as nw
 from narwhals.typing import IntoFrame
 from pydantic import BaseModel, ConfigDict
 
-from sabermetricspy.constants import DEFAULT_SEASON, get_pitcher_war_constants, resolve_context
+from sabermetricspy.constants import (
+    DEFAULT_SEASON,
+    get_league_war_constants,
+    get_pitcher_war_constants,
+    resolve_context,
+)
 from sabermetricspy.schema import normalize_columns, safe_div
 from sabermetricspy.telemetry import profiled
 from sabermetricspy.types.context import SeasonContext
@@ -54,11 +59,12 @@ class WARFramework:
     Follows the structure of the FanGraphs position-player equation:
         WAR = (BattingRuns + BaserunningRuns + FieldingRuns + PositionalRuns + LeagueRuns + ReplacementRuns) / RPW
 
-    By default it is an approximation (docs/METHODOLOGY.md): replacement level is a flat
-    `replacement_runs_per_600_pa` and the positional adjustment is scaled by PA / 600. Pass `league_pa` (and
-    `mlb_games`) for the FanGraphs replacement formula `570 * (G / 2430) * (RPW / lgPA) * PA`, and a
-    `defensive_innings` column (one row per position) for the innings-based positional proration; see
-    `sabermetricspy.value.position_war`. Pitcher WAR (`calculate_pitcher_war_df`) follows the FanGraphs method.
+    Replacement level is the FanGraphs formula `570 * (G / 2430) * (RPW / lgPA) * PA`, with the season's MLB
+    games and plate appearances taken from the bundled `league_war.yaml` (override with `league_pa` and
+    `mlb_games`). Pass `replacement_runs_per_600_pa` to use a flat rate instead (for example Baseball-Reference's
+    20.5). Give a `defensive_innings` column (one row per position) for the innings-based positional
+    proration; without it the proration is PA / 600, an approximation. See `sabermetricspy.value.position_war`.
+    Pitcher WAR (`calculate_pitcher_war_df`) follows the FanGraphs method.
     """
 
     def __init__(
@@ -66,11 +72,11 @@ class WARFramework:
         context: SeasonContext | None = None,
         *,
         season: int | None = None,
-        replacement_runs_per_600_pa: float = 20.0,
+        replacement_runs_per_600_pa: float | None = None,
         league_pa: float | None = None,
-        mlb_games: float = 2430.0,
+        mlb_games: float | None = None,
     ) -> None:
-        """`league_pa` switches replacement level to the FanGraphs formula (see `value.position_war`)."""
+        """Replacement level defaults to the FanGraphs formula with the bundled season constants."""
         if context is None and season is None:
             warnings.warn(
                 f"WARFramework was given neither a context nor a season, so it uses {DEFAULT_SEASON} constants. "
@@ -80,8 +86,12 @@ class WARFramework:
             )
         self.context = resolve_context(context, season=DEFAULT_SEASON if season is None else season)
         self.replacement_runs_per_600_pa = replacement_runs_per_600_pa
+        if replacement_runs_per_600_pa is None and (league_pa is None or mlb_games is None):
+            league = get_league_war_constants(self.context.season)
+            league_pa = league.pa if league_pa is None else league_pa
+            mlb_games = float(league.games) if mlb_games is None else mlb_games
         self.league_pa = league_pa
-        self.mlb_games = mlb_games
+        self.mlb_games = 2430.0 if mlb_games is None else mlb_games
 
     @profiled(category="valuation")
     def calculate_position_player_scalar(
@@ -107,9 +117,10 @@ class WARFramework:
             positional_runs = (pa / 600.0) * pos_adj_162
         else:
             positional_runs = position_war.positional_runs(defensive_innings, pos_adj_162)
-        if self.league_pa is None:
+        if self.replacement_runs_per_600_pa is not None:
             replacement_runs = (pa / 600.0) * self.replacement_runs_per_600_pa
         else:
+            assert self.league_pa is not None
             replacement_runs = position_war.replacement_runs(
                 pa, runs_per_win_value=rpw, league_pa=self.league_pa, mlb_games=self.mlb_games
             )
@@ -296,11 +307,12 @@ class WARFramework:
             ).alias("positional_runs")
         else:
             pos_runs_expr = ((pa_expr / 600.0) * pos_adj_expr).alias("positional_runs")
-        if self.league_pa is None:
+        if self.replacement_runs_per_600_pa is not None:
             rep_runs_expr = ((pa_expr / 600.0) * self.replacement_runs_per_600_pa).alias(
                 "replacement_runs"
             )
         else:
+            assert self.league_pa is not None
             rep_runs_expr = (
                 position_war.POSITION_PLAYER_WAR_POOL
                 * (self.mlb_games / position_war.STANDARD_SEASON_GAMES)
