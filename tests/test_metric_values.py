@@ -284,8 +284,8 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (Metric.RF_PER_9, dict(po=300, a=100, inn_outs_fld=2700), 27 * 400 / 2700, {}),
     (
         Metric.DER,
-        dict(h=150, hr=20, ab=500, so=100, sf=5),
-        1 - (150 - 20) / (500 - 100 - 20 + 5),
+        dict(h=150, hr=20, pa=600, bb=50, so=100, hbp=5, roe=8),
+        1 - (150 + 8 - 20) / (600 - 50 - 100 - 5 - 20),
         {},
     ),
     (Metric.CATCHER_CS_PCT, dict(cs=8, sb=32), 0.2, {}),

@@ -522,6 +522,7 @@ class MarkovChainModel:
         p_out: float | None = None,
     ) -> Self:
         """Solve the 24-state absorbing Markov chain for the supplied event probabilities."""
+        warn_experimental("MarkovChainModel", stacklevel=3)
         pos_sum = p_1b + p_2b + p_3b + p_hr + p_bb
         out_prob = (1.0 - pos_sum) if p_out is None else p_out
         total = pos_sum + out_prob
@@ -652,6 +653,7 @@ class MonteCarloSimulator:
         p_bb: float,
     ) -> MonteCarloSimulationResults:
         """Simulate `n_simulations` games of `innings` innings and return frozen distribution diagnostics."""
+        warn_experimental("MonteCarloSimulator", stacklevel=3)
         pos_sum = p_1b + p_2b + p_3b + p_hr + p_bb
         p_out = max(0.0, 1.0 - pos_sum)
         probs = np.array([p_out, p_bb, p_1b, p_2b, p_3b, p_hr], dtype=np.float64)

@@ -104,10 +104,8 @@ def test_woba_links_the_fangraphs_library() -> None:
     "name",
     [
         "ops_plus",
-        "bsr",
         "fip_minus",
         "pythagenpat_win_pct",
-        "der",
     ],
 )
 def test_known_approximations_are_labeled(name: str) -> None:
@@ -116,7 +114,7 @@ def test_known_approximations_are_labeled(name: str) -> None:
 
 def test_speed_score_records_the_four_factor_form() -> None:
     entry = metric_entries()["speed_score"]
-    assert entry.status is ReferenceStatus.MATCHES
+    assert entry.status is ReferenceStatus.EXPERIMENTAL
     assert "six-factor" in entry.note
 
 
@@ -226,7 +224,7 @@ def test_audited_entries_cite_a_source_url() -> None:
         assert entry.source_url.startswith("http"), f"{name}: no source URL"
 
 
-@pytest.mark.parametrize("name", ["rc27"])
+@pytest.mark.parametrize("name", ["rc27", "der", "bsr", "speed_score", "qera"])
 def test_quarantined_metrics_are_labeled_experimental(name: str) -> None:
     assert metric_entries()[name].status is ReferenceStatus.EXPERIMENTAL
 

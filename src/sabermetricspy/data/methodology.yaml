@@ -98,10 +98,10 @@ metrics:
     source_url: https://www.baseball-reference.com/leagues/majors/2024-pitches-pitching.shtml
     note: 'Baseball-Reference I/Str: balls put into play (home runs included) over total strikes seen, where strikes are Statcast pitch type S or X. Replaces bip_pct (balls in play over swings, which no source publishes; ADR-0050). Reproduces the printed 24.2 percent on the Tarik Skubal 2024 sample (481 of 1,985 strikes; tests/golden/strike_breakdown_rates.yaml).'
   bsr:
-    status: approximate
+    status: experimental
     evidence: primary
     source_url: https://library.fangraphs.com/offense/bsr/
-    note: 'BsR = wSB + UBR + wGDP, ''added together with no further adjustments'' (FanGraphs Library, read 2026-10-21). wSB is computed and matches FanGraphs; UBR and wGDP are columns you supply (FanGraphs publishes both per player; the wGDP constants are not published, so the library no longer estimates it) and count as 0 when absent. No outside BsR value has been reproduced yet.'
+    note: 'BsR = wSB + UBR + wGDP, ''added together with no further adjustments'' (FanGraphs Library, read 2026-10-21). wSB is computed here and matches FanGraphs (its Votto 2013 example, -0.8 against -0.79 here, and the leaderboard wBsR field for 8 players within 0.01); UBR (which needs Baseball Info Solutions video data) and wGDP (FanGraphs describes it in words with no constant) are columns you supply, and count as 0 when absent. No FanGraphs BsR total is reproduced: on the leaderboard the BaseRunning column does not equal the sum of its wBsR, UBR and GDPRuns fields (Judge 2024: -0.48 against 1.67), and no explanation was found. Held experimental until a total is reproduced.'
   catcher_cs_pct:
     status: matches
     evidence: golden
@@ -138,10 +138,10 @@ metrics:
     source_url: https://library.fangraphs.com/offense/plate-discipline/
     note: 'CSW% = CStr% + SwStr% (FanGraphs C+SwStr%). On one recorded sample (tests/golden/plate_discipline.yaml) 921 against FanGraphs'' 920 of 2868 pitches (0.035 percentage points), inherited from SwStr%.'
   der:
-    status: approximate
+    status: experimental
     evidence: secondary
-    source_url: https://www.baseballprospectus.com/news/article/2387/getting-pade-improving-on-defensive-efficiency/
-    note: Computed as 1 - BABIP. The Baseball Prospectus page cited gives DER as (outs - K) / (BIP - HR), which counts errors as plays not made; 1 - BABIP counts them as outs converted, so the two differ by the error rate. Only a secondary description was retrieved.
+    source_url: https://www.mlb.com/glossary/advanced-stats/defensive-efficiency-ratio
+    note: 'The MLB Glossary formula, 1 - (H + ROE - HR) / (PA - BB - SO - HBP - HR), also given by the Chicago Sun-Times; before 1.1.0 this was 1 - BABIP, which leaves reached-on-error out. No published team value reproduces it: Baseball-Reference''s DefEff (.704 for the 2024 Angels, against .7087 here with the 42 reached-on-error counted from MLB play-by-play) estimates reached-on-error as 0.71 times errors and averages two estimates, and FanGraphs has no DER page. No Tango or Book text on DER was found. Held experimental until a published value is reproduced.'
   dice:
     status: matches
     evidence: secondary
@@ -418,10 +418,10 @@ metrics:
     source_url: https://www.baseball-reference.com/about/war_explained_runs_to_wins.shtml
     note: Default exponent is (runs per game)^0.287; Baseball-Reference uses 0.285 and sources conflict on which is canonical. Set SeasonContext.pythagenpat_exponent to choose.
   qera:
-    status: matches
+    status: experimental
     evidence: primary
-    source_url: https://sabr.org/journal/article/the-many-flavors-of-dips-a-history-and-an-overview/
-    note: (2.69 - 0.66*GB/BIP + 3.88*BB/PA - 3.4*K/PA)^2, the QERA (QuikERA) formula as printed in the SABR Baseball Research Journal survey of DIPS. No published player values were retrieved, so there is no numeric check.
+    source_url: https://www.baseballprospectus.com/news/article/10027/introducing-siera-part-1/
+    note: '(2.69 - 0.66*GB/BIP + 3.88*BB/PA - 3.4*K/PA)^2, the QERA (QuikERA) formula as printed in Baseball Prospectus'' Introducing SIERA, part 1, and the SABR Baseball Research Journal survey of DIPS; GB% there is ground balls per ball in play. No published player value with inputs was found (Baseball Prospectus'' QERA pages are not public and FanGraphs publishes no QERA), so there is no numeric check. Held experimental until a published value is reproduced.'
   qs_pct:
     status: matches
     evidence: secondary
@@ -503,10 +503,10 @@ metrics:
     source_url: https://www.fangraphs.com/leaders/major-league
     note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
   speed_score:
-    status: matches
+    status: experimental
     evidence: primary
     source_url: https://blogs.fangraphs.com/speed-score/
-    note: Implements the four-factor form (stolen-base percentage, attempt rate, triples, runs scored; each limited to 0-10) confirmed by Wikipedia, FanGraphs and a calculator page. James's original six-factor form also averages GIDP and defensive position and range; those constants rest on a single secondary source and are not implemented.
+    note: 'Implements the four-factor form (stolen-base percentage, attempt rate, triples, runs scored; each limited to 0-10) confirmed by Wikipedia, FanGraphs and a calculator page. James''s original six-factor form also averages GIDP and defensive position and range; those constants rest on a single secondary source and are not implemented. Neither a Wikipedia-style nor the denominators from a 2009 FanGraphs comment reproduce FanGraphs'' published Spd (the Wikipedia form lands within 0.005 for 11 of 455 players in 2024), and Baseball-Reference does not publish Speed Score. Held experimental until a published value is reproduced.'
   sv_pct:
     status: matches
     evidence: secondary
@@ -714,15 +714,15 @@ models:
     source_url: https://beanumber.github.io/abdwr3e/09-simulation.html
     note: 'Estimates the 24 x 25 base-out transition matrix from play-by-play and solves the absorbing chain exactly (N = (I-Q)^-1), the construction in Albert, Baumer and Marchi, Analyzing Baseball Data with R (3rd ed.), chapter 9.2. On Retrosheet 2016 batting plays in complete half-innings (183,817 plays; tests/test_markov_transitions.py, which needs the data file) it reproduces every printed transition probability to the printed digits (0.0334, 0.676, 0.235, 0.0503, 0.00563 from the empty state; the eight probabilities from runner on second with two outs, 0.650 to end the inning), the 4.27 plate appearances per half-inning, the expected plays to the end of the inning from eight states (4.27, 2.87, 1.46, 4.33, 2.99, 1.53, 4.34, 2.93), and the three-batter state distribution (0.372, 0.241, 0.0815, 0.0739, 0.0529, 0.0286). Its exact run expectancy is within 0.06 of the book matrix, which is a 10,000-inning simulation per state (tests/golden/markov_abdwr_2016.yaml). A home-run-or-out chain reproduces the closed form 3p/(1-p). Batting plays only: steals, wild pitches and passed balls are excluded, as in the book (the book measures their effect at up to 0.08 runs per state). The reference check runs only when the data file is supplied; it was run on 2026-10-21 against the downloaded retro2016.rda and all of its tests passed (CI supplies the same file).'
   MarkovChainModel:
-    status: approximate
+    status: experimental
     evidence: primary
-    source_url: https://en.wikipedia.org/wiki/Markov_chain
-    note: 'fit() takes event probabilities and applies fixed advancement rules chosen for this library (a single scores runners from second and third and moves a runner on first to second; a double moves a runner on first to third; no double plays, steals or errors). The absorbing-chain solution is exact and matches the negative-binomial closed form for a home-run-or-out batter (3p/(1-p)). Fed the 2016 league-average event rates (singles 14.9%, doubles 4.5%, triples 0.5%, home runs 3.0%, walks and hit batters 9.1%, everything else an out) it gives 0.479 runs from the empty state against 0.485 from the fitted matrix, 0.846 against 0.848 with a runner on first and 2.131 against 2.212 with the bases loaded and no outs, and 4.41 plate appearances per half-inning against 4.27. The longer innings follow from rules with no double plays or outs on the bases; the effect of each rule was not separated. Event-probability Markov models appear in Bukiet, Harold and Palacios (1997), which was behind a paywall and was not read; its rules are not used. The figures above are pinned by tests/test_markov_transitions.py (needs the Retrosheet data file). Use fit_transitions when play-by-play is available. tests/test_model_audit.py'
+    source_url: https://tangotiger.net/markov.html
+    note: 'Experimental: fit() takes event probabilities and applies fixed advancement rules chosen for this library (a single scores runners from second and third and moves a runner on first to second; a double moves a runner on first to third; no double plays, steals or errors), not a published rule set. Tango''s own rule-based Markov engine (tangotiger.net/markov.html, 18 advancement parameters, no runners out on the bases and no stealing) is a published alternative, but it is a JavaScript page whose outputs are not stored tables, so nothing was tied to it. The absorbing-chain solution is exact and matches the negative-binomial closed form for a home-run-or-out batter (3p/(1-p)). Fed the 2016 league-average event rates (singles 14.9%, doubles 4.5%, triples 0.5%, home runs 3.0%, walks and hit batters 9.1%, everything else an out) it gives 0.479 runs from the empty state against 0.485 from the fitted matrix, 0.846 against 0.848 with a runner on first and 2.131 against 2.212 with the bases loaded and no outs, and 4.41 plate appearances per half-inning against 4.27, up to 3.7 percent off. Use MarkovChainModel.fit_transitions, which reproduces Albert and Marchi, for fitted chains.'
   MonteCarloSimulator:
-    status: approximate
+    status: experimental
     evidence: primary
     source_url: https://en.wikipedia.org/wiki/Monte_Carlo_method
-    note: Uses the same event and advancement rules as MarkovChainModel; its mean runs per game converges to the exact chain value within four standard errors for a fixed seed. Carries the same simplified-advancement caveat; see MarkovChainModel for the measured gap to the fitted chain. tests/test_model_audit.py
+    note: 'Experimental: uses the same library-chosen event and advancement rules as MarkovChainModel.fit; its mean runs per game converges to the exact chain value within four standard errors for a fixed seed (tests/test_model_audit.py), but no published simulation value exists to compare with, so only that self-consistency is checked. It carries the same simplified-advancement caveat as MarkovChainModel.'
   RunExpectancyMatrix:
     status: matches
     evidence: golden

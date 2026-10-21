@@ -671,17 +671,22 @@ def calc_rf_per_9(ctx: EvalContext) -> nw.Expr:
         display_name="DER",
         category=Category.FIELDING,
         kind=ImplKind.DETERMINISTIC,
-        required_columns=("h", "hr", "ab", "so"),
-        optional_columns=("sf",),
-        requires=(Metric.BABIP,),
+        required_columns=("h", "hr", "pa", "bb", "so", "roe"),
+        optional_columns=("hbp",),
         direction=Direction.HIGHER_IS_BETTER,
-        formula_latex=r"DER = 1 - BABIP = 1 - \frac{H - HR}{AB - SO - HR + SF}",
-        citation="James, B. (1979); Baseball Prospectus",
-        description="Defensive Efficiency Ratio (rate of balls in play converted into outs).",
+        formula_latex=r"DER = 1 - \frac{H + ROE - HR}{PA - BB - SO - HBP - HR}",
+        citation="MLB Glossary (Defensive Efficiency Ratio); James, B. (1979)",
+        description="Defensive Efficiency Ratio (rate of balls in play converted into outs), counting reached-on-error as a play not made.",
+        caveats=(
+            "Needs reached-on-error (roe); 1 - BABIP leaves errors out and is a different number.",
+            "Baseball-Reference's DefEff estimates reached-on-error as 0.71 times errors and averages two estimates, so it will not match this.",
+        ),
     )
 )
 def calc_der(ctx: EvalContext) -> nw.Expr:
-    return 1.0 - nw.col("babip")
+    hbp = nw.col("hbp") if "hbp" in ctx.available_columns else nw.lit(0)
+    bip = nw.col("pa") - nw.col("bb") - nw.col("so") - hbp - nw.col("hr")
+    return 1.0 - safe_div(nw.col("h") + nw.col("roe") - nw.col("hr"), bip)
 
 
 @register_metric(

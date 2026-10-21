@@ -316,7 +316,6 @@ def test_property_based_offensive_identities(
             Metric.K_PCT,
             Metric.K_MINUS_BB_PCT,
             Metric.BABIP,
-            Metric.DER,
         ],
     )
     r = res.df.row(0, named=True)
@@ -327,8 +326,6 @@ def test_property_based_offensive_identities(
     assert math.isclose(r["iso"], r["slg"] - r["avg"], abs_tol=1e-9)
     # Identity 3: K-BB% == K% - BB%
     assert math.isclose(r["k_minus_bb_pct"], r["k_pct"] - r["bb_pct"], abs_tol=1e-9)
-    # Identity 4: DER == 1.0 - BABIP
-    assert math.isclose(r["der"], 1.0 - r["babip"], abs_tol=1e-9)
     # Identity 5: Bounds 0 <= AVG <= SLG <= 4.0
     assert 0.0 <= r["avg"] <= r["slg"] + 1e-9 <= 4.0 + 1e-9
 
