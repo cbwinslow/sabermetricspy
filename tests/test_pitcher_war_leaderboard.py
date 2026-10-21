@@ -37,7 +37,13 @@ def _share(err: pl.Series, bound: float) -> float:
 
 @pytest.mark.parametrize(
     ("season", "median_bound", "within_quarter"),
-    [(2016, 0.11, 0.85), (2019, 0.08, 0.92), (2022, 0.07, 0.92), (2024, 0.06, 0.95), (2025, 0.06, 0.95)],
+    [
+        (2016, 0.11, 0.85),
+        (2019, 0.08, 0.92),
+        (2022, 0.07, 0.92),
+        (2024, 0.06, 0.95),
+        (2025, 0.06, 0.95),
+    ],
 )
 def test_error_distribution_against_the_leaderboard(
     season: int, median_bound: float, within_quarter: float

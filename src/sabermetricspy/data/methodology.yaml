@@ -619,9 +619,9 @@ metrics:
     note: 'Baseball-Reference''s definition: the share of times a runner advanced more than one base on a single or more than two bases on a double, when possible. Its counts are runner on first and a single (first to third), runner on first and a double (first to home) and runner on second and a single (second to home), over all such chances; this ratio reproduces the printed 2025 team XBT% for all 30 teams (tests/golden/bref_xbt_2025.yaml, retrieved 2026-10-21). The library takes the counts as columns (xbt and xbt_opp); it does not derive them from play-by-play, because Baseball-Reference''s exclusions for "when possible" are not published.'
   xfip:
     status: matches
-    evidence: primary
+    evidence: golden
     source_url: https://library.fangraphs.com/pitching/xfip/
-    note: Formula matches the FanGraphs Library. Null before 2002 because FanGraphs publishes league HR/FB only from 2002. No player-level published xFIP was checked (fly balls not retrieved).
+    note: 'The FanGraphs Library formula with the league HR/FB rate. Equals the FanGraphs leaderboard xFIP for 138 pitcher-seasons (six per season, 2002-2025, 100 or more IP; tests/golden/fg_pitching_xfip.csv, retrieved 2026-10-21) within 0.0006, mean 0.0003. Null before 2002 because FanGraphs publishes league HR/FB only from 2002.'
   xfip_minus:
     status: matches
     evidence: golden
@@ -658,10 +658,10 @@ metrics:
     source_url: https://en.wikipedia.org/wiki/Game_score
     note: 'Reproduces published games from the Wikipedia page: Kerry Wood 1998 = 105 and Max Scherzer''s 2015 no-hitter = 104. The formula is read from that secondary page; James''s original text was not retrieved. tests/test_game_score_and_off.py'
   game_score_v2:
-    status: matches
-    evidence: primary
+    status: approximate
+    evidence: golden
     source_url: https://blogs.fangraphs.com/instagraphs/game-score-v2-0
-    note: Implements the formula printed in Tango's FanGraphs article. The article prints no player value, so the 7 IP line (64) in tests/test_game_score_and_off.py is a hand-computed check, not a published one. The article's yearly base shift is not modeled.
+    note: 'Tango''s formula as printed in his FanGraphs article: 40 + 2 per out + 1 per strikeout - 2 per walk - 2 per hit - 6 per home run - 3 per run. Against the GSv2 column of FanGraphs game logs for 55 starts by Chris Sale and Tarik Skubal (2023, 2024; tests/golden/fg_game_score_v2.csv, retrieved 2026-10-21) it equals FanGraphs on 21 starts and is one point higher on the other 34; no rule that explains the point was found (it does not follow runs, earned runs, hits or innings). The article''s yearly base shift is not modeled.'
   'off':
     status: matches
     evidence: primary
@@ -669,14 +669,14 @@ metrics:
     note: Implements the formula printed on the FanGraphs Library page (wRAA + park term + league term + BsR) and is recomputed from it in tests/test_game_score_and_off.py. The page prints no player value, so no published number was reproduced.
   shutdown:
     status: matches
-    evidence: primary
+    evidence: golden
     source_url: https://library.fangraphs.com/pitching/sd-md/
-    note: Implements the page's definition (reliever, game WPA of +0.06 or more, inclusive). The page prints no player values and the FanGraphs leaderboard SD counts need per-game WPA that is not bundled, so only the threshold semantics are tested (tests/test_shutdown_meltdown.py).
+    note: 'The page''s definition (reliever, game WPA of +0.06 or more, inclusive). With the WPA column of FanGraphs game logs it reproduces the SD flag of every one of 235 relief appearances by four 2024 relievers and their leaderboard season counts (Avila 7, Yarbrough 11, Law 23, Weaver 25; tests/golden/fg_shutdown_meltdown.csv, retrieved 2026-10-21). The library takes the per-game WPA as an input; it does not compute it.'
   meltdown:
     status: matches
-    evidence: primary
+    evidence: golden
     source_url: https://library.fangraphs.com/pitching/sd-md/
-    note: Implements the page's definition (reliever, game WPA of -0.06 or lower, inclusive). Same validation limits as shutdown.
+    note: 'The page''s definition (reliever, game WPA of -0.06 or lower, inclusive). It reproduces the MD flag of the same 235 relief appearances and the season counts (Avila 5, Yarbrough 9, Law 14, Weaver 6; tests/golden/fg_shutdown_meltdown.csv, retrieved 2026-10-21). WPA is an input.'
   base_advance_average:
     status: matches
     evidence: golden
