@@ -15,7 +15,6 @@ from sabermetricspy import (
     CountExpectancyMatrix,
     LinearWeightsEstimator,
     RunExpectancyMatrix,
-    WinProbabilityModel,
 )
 
 
@@ -115,24 +114,6 @@ def main() -> None:
             "re288_after",
             "pitch_run_value",
             "count_leverage",
-        )
-    )
-
-    # 4. Win Probability Added (WPA), Leverage Index (LI), and Context-Neutral Wins (WPA/LI)
-    wp_model = WinProbabilityModel.from_default()
-    plays_wpa = wp_model.transform(plays_re24)
-    print("\n[5] Win Probability Added (WPA) & Leverage Index (LI) on Bottom 9th Walk-Off Rally:")
-    print(
-        plays_wpa.select(
-            "play_id",
-            "play_outcome",
-            "home_score_diff_before",
-            "runs_on_play",
-            "wp_before",
-            "wp_after",
-            "wpa",
-            "li",
-            "wpa_li",
         )
     )
 

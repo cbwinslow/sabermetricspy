@@ -146,21 +146,6 @@ def main() -> None:
 
     with sb.telemetry.session():
         _ = build_custom_pitcher_report(statcast_pitches)
-        wp_model = sb.WinProbabilityModel.from_default()
-        _ = wp_model.transform(
-            pl.DataFrame(
-                {
-                    "inning": [9, 9],
-                    "half_inning": ["bottom", "bottom"],
-                    "outs_before": [1, 1],
-                    "base_state_before": ["12-", "---"],
-                    "home_score_diff_before": [-2, 5],
-                    "outs_after": [1, 2],
-                    "base_state_after": ["---", "---"],
-                    "runs_on_play": [3, 0],
-                }
-            )
-        )
         print(
             "\n[4] Decorator-Captured Telemetry Session (@sb.profiled across library & user functions):"
         )

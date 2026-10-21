@@ -220,24 +220,6 @@ def calc_seca(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
-        metric=Metric.XBH_PCT,
-        display_name="XBH%",
-        category=Category.BATTING,
-        kind=ImplKind.DETERMINISTIC,
-        required_columns=("b2", "b3", "hr", "pa"),
-        requires=(Metric.XBH,),
-        direction=Direction.HIGHER_IS_BETTER,
-        formula_latex=r"XBH\% = \frac{2B + 3B + HR}{PA}",
-        citation="FanGraphs Library",
-        description="Extra-base hits per plate appearance.",
-    )
-)
-def calc_xbh_pct(ctx: EvalContext) -> nw.Expr:
-    return safe_div(nw.col("xbh"), nw.col("pa"))
-
-
-@register_metric(
-    MetricSpec(
         metric=Metric.HR_PCT,
         display_name="HR%",
         category=Category.BATTING,

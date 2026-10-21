@@ -30,8 +30,6 @@ from sabermetricspy.expectancy import (
     RunExpectancyMatrix,
     WinExpectancyMatrix,
     WinExpectancyResults,
-    WinProbabilityModel,
-    WinProbabilityResults,
     count_run_value,
 )
 from sabermetricspy.ids import (
@@ -202,8 +200,6 @@ __all__ = [
     "WOBAWeights",
     "WinExpectancyMatrix",
     "WinExpectancyResults",
-    "WinProbabilityModel",
-    "WinProbabilityResults",
     "__version__",
     "benchmark",
     "binomial_rate_interval",

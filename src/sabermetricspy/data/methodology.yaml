@@ -612,11 +612,6 @@ metrics:
     evidence: primary
     source_url: https://en.wikipedia.org/wiki/Extra-base_hit
     note: 'Doubles plus triples plus home runs, the definition of an extra-base hit (Wikipedia: any base hit on which the batter advances past first base).'
-  xbh_pct:
-    status: approximate
-    evidence: secondary
-    source_url: https://en.wikipedia.org/wiki/Extra-base_hit
-    note: Extra-base hits per plate appearance. The published share-of-hits form (SABR, 1997; Wikipedia's McGwire comparison) divides by hits, and no standard per-PA rate was found, so this is a library-defined rate.
   xbt_pct:
     status: approximate
     evidence: secondary
@@ -748,11 +743,6 @@ models:
     evidence: golden
     source_url: http://tangotiger.net/welist.html
     note: 'The observed home win rate per inning, half, outs, bases and score difference; there is no built-in table and unobserved states stay unfitted. Tom Tango''s published table (tests/golden/win_expectancy_tango.yaml, a 2002 page that states no seasons or method) is a reference to compare with, not the construction used; his current page (tangotiger.net/we.html, 2010 to 2015) describes a model built from run expectancy. A state''s rate is the share of its plate appearances in games the home team won; the reported standard error uses the number of games, an approximation because the plate appearances of one game share a result. Hand-computed rates are pinned by tests/test_win_expectancy_matrix.py. On Retrosheet 2016 (2,428 games, one tied game dropped, 184,541 plate appearances; tests/test_retrosheet_2016_win_expectancy.py, which needs the data file) 16 bottom-of-the-9th cells have 30 or more games and all lie within three standard errors of the published table (largest 2.11); the 6 cells with 100 or more games lie within 1.7. One season leaves rarer states with few games, so read results.state_games before using a cell. The check was run on 2026-10-21 against the downloaded retro2016.rda and passed; the default suite skips it unless the data file is supplied.'
-  WinProbabilityModel:
-    status: experimental
-    evidence: golden
-    source_url: http://tangotiger.net/welist.html
-    note: 'Experimental: mean error 0.048 against Tango''s table, up to 0.194; use WinExpectancyMatrix instead. A closed-form normal approximation (runs per game, home edge, RE24 scaled to the run environment), compared with 54 cells of Tom Tango''s published win-expectancy table (bottom of the 9th tied and trailing by one, top of the 9th and bottom of the 7th tied; tests/golden/win_expectancy_tango.yaml). Mean absolute error 0.048; tied bottom 9th mean 0.028, max 0.108; trailing by one run is worse (mean 0.078, max 0.194, runner on second and third with no outs: 0.527 against 0.721), because the approximation ignores that one run ties the game. The table states no seasons or run environment. Use WinExpectancyMatrix, built from play-by-play, when exact values matter.'
   EmpiricalBayesShrinker:
     status: matches
     evidence: primary

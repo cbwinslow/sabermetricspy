@@ -133,11 +133,6 @@ def test_expectancy_models_agree_across_backends(backend: str) -> None:
     assert (
         sp.RunExpectancyMatrix().fit(native).results == sp.RunExpectancyMatrix().fit(plays).results
     )
-    ref = sp.WinProbabilityModel.from_default().transform(plays)
-    got = sp.WinProbabilityModel.from_default().transform(native)
-    _assert_same(
-        _to_polars(ref), _to_polars(got), "idx" if "idx" in ref.columns else ref.columns[0]
-    )
 
 
 @pytest.mark.parametrize("backend", BACKENDS)

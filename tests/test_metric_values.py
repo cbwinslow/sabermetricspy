@@ -86,7 +86,6 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (Metric.TB, dict(h=10, b2=2, b3=1, hr=3), 4 + 2 * 2 + 3 * 1 + 4 * 3, {}),
     (Metric.UBB, dict(bb=10, ibb=3), 7, {}),
     (Metric.SECA, dict(**BAT, sb=5, cs=2), (12 + (TB - 30) + (5 - 2)) / 100, {}),
-    (Metric.XBH_PCT, dict(b2=6, b3=1, hr=4, pa=110), 11 / 110, {}),
     (Metric.HR_PCT, dict(hr=4, pa=110), 4 / 110, {}),
     (Metric.K_MINUS_BB_PCT, dict(so=25, bb=12, pa=110), 25 / 110 - 12 / 110, {}),
     (Metric.BB_TO_K, dict(bb=12, so=25), 12 / 25, {}),

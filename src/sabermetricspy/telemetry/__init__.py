@@ -355,7 +355,7 @@ def _ensure_builtin_benchmarks() -> None:
 
     from sabermetricspy.engine import calculate_rolling, calculate_suite
     from sabermetricspy.evaluation import calibration_table
-    from sabermetricspy.expectancy import WinExpectancyMatrix, WinProbabilityModel
+    from sabermetricspy.expectancy import WinExpectancyMatrix
     from sabermetricspy.ids import PlayerRegister, translate_ids
     from sabermetricspy.models import MarcelProjector, MarkovChainModel
     from sabermetricspy.presets import prepare_statcast_pitches
@@ -464,28 +464,6 @@ def _ensure_builtin_benchmarks() -> None:
             pl.lit(0.395).alias("estimated_woba_using_speedangle"),
         )
         return prepare_statcast_pitches(raw)
-
-    @register_benchmark(name="expectancy.wpa_transform", category="expectancy", default_rows=10_000)
-    def _bench_wpa_transform(rows: int = 10_000) -> Any:
-        idx = pl.int_range(0, rows, eager=True)
-        plays = pl.DataFrame({"idx": idx}).select(
-            ((pl.col("idx") % 9) + 1).cast(pl.Int64).alias("inning"),
-            pl.when(pl.col("idx") % 2 == 0)
-            .then(pl.lit("top"))
-            .otherwise(pl.lit("bottom"))
-            .alias("half_inning"),
-            (pl.col("idx") % 3).cast(pl.Int64).alias("outs_before"),
-            pl.when(pl.col("idx") % 4 == 0)
-            .then(pl.lit("12-"))
-            .otherwise(pl.lit("---"))
-            .alias("base_state_before"),
-            ((pl.col("idx") % 7) - 3).cast(pl.Int64).alias("home_score_diff_before"),
-            ((pl.col("idx") + 1) % 4).cast(pl.Int64).alias("outs_after"),
-            pl.lit("---").alias("base_state_after"),
-            (pl.col("idx") % 5 == 0).cast(pl.Int64).alias("runs_on_play"),
-        )
-        wp = WinProbabilityModel.from_default()
-        return wp.transform(plays)
 
     @register_benchmark(
         name="expectancy.win_expectancy_fit", category="expectancy", default_rows=100_000

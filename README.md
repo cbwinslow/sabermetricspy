@@ -28,7 +28,7 @@ It integrates seamlessly with [`retrosheetpy`](https://github.com/cbwinslow/retr
 - **DAG Dependency Resolution & Suites**: Request `Metric.WRC_PLUS` and `sabermetricspy` automatically resolves `WOBA -> WRAA -> WRC_PLUS`, or run `calculate_suite(df, MetricSuite.TRADITIONAL_BATTING)` / `calculate_available(df)` to compute all supported metrics in a single pass.
 - **Provenance & Bundled YAML Constants**: Every metric carries a frozen `MetricSpec` with its LaTeX formula, primary academic/sabermetric citation, required columns, and seasonal constants (`wOBA`, `FIP`, park factors).
 - **Scikit-Learn Style Estimators + Statsmodels Diagnostics**:
-  - Empirical Expectancy: `RunExpectancyMatrix` (`RE24`), `CountExpectancyMatrix` (`RE288`), `LinearWeightsEstimator`, `WinProbabilityModel` (`WPA`, `LI`, `pLI`).
+  - Empirical Expectancy: `RunExpectancyMatrix` (`RE24`), `CountExpectancyMatrix` (`RE288`), `LinearWeightsEstimator`, `WinExpectancyMatrix`.
   - Forecasting & Simulation: `MarcelProjector`, `Log5Model`, `MarkovChainModel`, `MonteCarloSimulator`, and modular `WARFramework`.
 
 ---

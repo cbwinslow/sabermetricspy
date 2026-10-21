@@ -300,7 +300,6 @@ class Metric(StrEnum):
     ISO = "iso"
     BABIP = "babip"
     SECA = "seca"
-    XBH_PCT = "xbh_pct"
     HR_PCT = "hr_pct"
     BB_PCT = "bb_pct"
     K_PCT = "k_pct"

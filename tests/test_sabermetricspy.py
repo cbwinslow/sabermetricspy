@@ -749,8 +749,8 @@ def test_all_registered_metrics_and_suites_audit() -> None:
     assert re24_fitted.results.total_plays == 2
 
 
-def test_re288_and_win_probability_model() -> None:
-    """Verify 288-state CountExpectancyMatrix (RE288) and WinProbabilityModel (WPA & LI)."""
+def test_re288_count_expectancy_matrix() -> None:
+    """Verify the 288-state CountExpectancyMatrix (RE288)."""
     pitches_df = pl.DataFrame(
         {
             "pa_id": [1, 1],
@@ -769,31 +769,6 @@ def test_re288_and_win_probability_model() -> None:
     fitted_re288 = sp.CountExpectancyMatrix().fit(pitches_df)
     assert fitted_re288.results.total_plate_appearances == 1
     assert len(fitted_re288.results.state_expectancy) == 2
-
-    # WinProbabilityModel (WPA & LI)
-    wp_model = sp.WinProbabilityModel.from_default()
-    # Tie game in bottom of 9th with bases loaded and 1 out has high home win probability and high leverage
-    wp_walkoff_threat = wp_model.home_win_probability(9, "bottom", 1, "123", 0)
-    li_walkoff_threat = wp_model.leverage_index(9, "bottom", 1, "123", 0)
-    assert wp_walkoff_threat > 0.75
-    assert li_walkoff_threat > 2.0
-
-    plays_df = pl.DataFrame(
-        {
-            "inning": [9, 9],
-            "half_inning": ["bottom", "bottom"],
-            "outs_before": [1, 1],
-            "base_state_before": ["12-", "---"],
-            "home_score_diff_before": [-2, 5],
-            "outs_after": [1, 2],
-            "base_state_after": ["---", "---"],
-            "runs_on_play": [3, 0],
-        }
-    )
-    wpa_df = wp_model.transform(plays_df)
-    # Walk-off 3-run HR down by 2 in bottom of 9th yields wp_after == 1.0 and large positive WPA
-    assert math.isclose(wpa_df["wp_after"][0], 1.0, rel_tol=1e-6)
-    assert wpa_df["wpa"][0] > 0.70
 
 
 def test_telemetry_rolling_physics_and_cli() -> None:
@@ -917,7 +892,7 @@ def test_decorator_telemetry_and_benchmark_registry() -> None:
     entries = sp.get_registered_benchmarks()
     assert "custom.quick_avg" in entries
     assert "engine.calculate_suite" in entries
-    assert "expectancy.wpa_transform" in entries
+    assert "expectancy.win_expectancy_fit" in entries
     assert "uncertainty.empirical_bayes" in entries
 
     reg_res = sp.run_registered_benchmarks(repeats=1, category="custom_test")

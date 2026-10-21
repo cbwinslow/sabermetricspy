@@ -138,7 +138,7 @@ To ensure zero ambiguity between Batting, Pitching, Baserunning, and Fielding, c
 
 - **Classes & Protocols (`PascalCase`):**
   - `MetricSpec`, `CalculationResult`, `SeasonContext`, `WOBAWeights`, `SIERACoefficients`
-  - Estimators & Models: `RunExpectancyMatrix`, `CountExpectancyMatrix`, `LinearWeightsEstimator`, `WinProbabilityModel`, `MarcelProjector`, `Log5Model`, `MarkovChainModel`, `MonteCarloSimulator`, `WARFramework`
+  - Estimators & Models: `RunExpectancyMatrix`, `CountExpectancyMatrix`, `LinearWeightsEstimator`, `MarcelProjector`, `Log5Model`, `MarkovChainModel`, `MonteCarloSimulator`, `WARFramework`
 - **Functions & Methods (`lower_snake_case`):**
   - Top-level API: `calculate()`, `calculate_suite()`, `calculate_available()`, `describe()`, `formula()`, `search_metrics()`
   - Estimator methods: `.fit()`, `.transform()`, `.fit_transform()`, `.predict()`, `.simulate()`
