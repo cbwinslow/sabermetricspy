@@ -5,6 +5,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 ## [Unreleased]
 
 ### Added
+- Golden tests: xFIP (138 FanGraphs pitcher-seasons), Game Score 2.0, Shutdown and Meltdown (FanGraphs game logs), pitcher WAR (1,477 leaderboard pitcher-seasons). `game_score_v2` is now `approximate` (one point off FanGraphs on 34 of 55 starts); `xfip`, `shutdown` and `meltdown` are tied to FanGraphs values.
 - `get_fip_park_factor(team, season)` and `data/constants/park_fip.yaml`: FanGraphs' FIP park factor for 1990-2026, the park input of FIP-. With it the older FIP- fixtures (Johnson, Schilling, Mussina, Maddux, Morris, Martinez, Skubal) are within 0.25 points.
 
 ## [1.1.0] - 2026-10-21

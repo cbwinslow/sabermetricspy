@@ -70,3 +70,11 @@ def test_season_counts_equal_the_leaderboard(player: str, sd: int, md: int) -> N
     frame = rows.select(pl.col("wpa").alias("game_wpa"), pl.lit(1).alias("is_reliever"))
     out = sp.calculate(frame, [Metric.SHUTDOWN, Metric.MELTDOWN]).df
     assert (out["shutdown"].sum(), out["meltdown"].sum()) == (sd, md)
+
+
+def test_batter_walk_to_strikeout_ratio_matches_fangraphs() -> None:
+    """554 qualified batter-seasons (2016, 2024; tests/golden/fg_batting_bb_k.csv): BB/K to FanGraphs' four decimals."""
+    bat = pl.read_csv(GOLDEN / "fg_batting_bb_k.csv")
+    got = sp.calculate(bat.select("bb", "so"), [Metric.BB_TO_K]).df["bb_to_k"]
+    assert bat.height == 554
+    assert cast(float, (got - bat["pub_bb_k"]).abs().max()) < 0.0001
