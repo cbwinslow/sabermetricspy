@@ -1,0 +1,24 @@
+# Baseball-Reference OPS+ for four batter seasons, read from the players' pages on 2026-10-21 (Standard Batting tables).
+# The library uses MLB-wide league OBP/SLG and no park adjustment (park_factor 100); Baseball-Reference removes pitchers from
+# the league average and park-adjusts (https://www.baseball-reference.com/about/bat_glossary.shtml), so the values are not
+# expected to be identical. tolerance is the largest relative gap we accept (observed: 0.6%, 1.5%, 0.1%, see test).
+source: https://www.baseball-reference.com/players/{b/bondsba01,m/mcgwima01,j/judgeaa01}.shtml
+retrieved: '2026-10-21'
+relative_tolerance: 0.02
+entries:
+- id: bonds_2001
+  season: 2001
+  published_ops_plus: 259
+  inputs: {ab: 476, h: 156, b2: 32, b3: 2, hr: 73, bb: 177, hbp: 9, sf: 2}
+- id: mcgwire_1998
+  season: 1998
+  published_ops_plus: 216
+  inputs: {ab: 509, h: 152, b2: 21, b3: 0, hr: 70, bb: 162, hbp: 6, sf: 4}
+- id: judge_2022
+  season: 2022
+  published_ops_plus: 210
+  inputs: {ab: 570, h: 177, b2: 28, b3: 0, hr: 62, bb: 111, hbp: 6, sf: 5}
+- id: judge_2024
+  season: 2024
+  published_ops_plus: 225
+  inputs: {ab: 559, h: 180, b2: 36, b3: 1, hr: 58, bb: 133, hbp: 9, sf: 2}

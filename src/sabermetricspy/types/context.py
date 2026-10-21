@@ -101,10 +101,6 @@ class WOBAWeights(BaseModel):
         default=None,
         description="AL strikeouts per batter faced, all pitchers, the pitcher K%+ denominator (None when unsourced)",
     )
-    lg_gidp_rate: float = Field(
-        default=0.105, description="League average GIDP rate per GIDP opportunity"
-    )
-    r_gidp: float = Field(default=0.44, description="Run value of avoiding a GIDP")
     lg_wsb: float = Field(
         default=0.0, description="League stolen base runs per opportunity (1B + uBB + HBP)"
     )

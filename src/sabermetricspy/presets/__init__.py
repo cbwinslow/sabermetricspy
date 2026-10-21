@@ -31,6 +31,20 @@ _SWING_DESCRIPTIONS_WITH_BUNTS = (
     "hit_into_play_score",
 )
 
+# Savant's Whiff% counts foul tips as whiffs and bunt attempts as swings (it reproduces Savant's published
+# 27.7 / 16.0 / 46.4 for Skubal 2024 four-seam / sinker / changeup; tests/golden/pitch_arsenal.yaml).
+_WHIFF_DESCRIPTIONS_SAVANT = (
+    "swinging_strike",
+    "swinging_strike_blocked",
+    "foul_tip",
+    "missed_bunt",
+)
+
+# Geometric strike zone: a pitch is in the zone when any part of the ball touches the rulebook zone. Plate half-width
+# 8.5 in plus ball radius 1.45 in; top and bottom (sz_top, sz_bot, per batter) widened by the same radius.
+_BALL_RADIUS_FT = 1.45 / 12
+_ZONE_HALF_WIDTH_FT = 8.5 / 12 + _BALL_RADIUS_FT
+
 
 class BoolToIntRule(BaseModel):
     """Rule converting a boolean/flag column into a 0/1 integer count column."""
@@ -134,6 +148,24 @@ class SourceTranslator(BaseModel):
         if exprs:
             nw_df = nw_df.with_columns(*exprs)
 
+        # When the per-pitch geometry is present, the zone is the geometric one FanGraphs' Statcast plate-discipline
+        # rates reproduce (every in-zone count equal on Skubal 2024; the out-of-zone side is one pitch off), not
+        # Savant's `zone` cell. Without it, Savant's `zone` field is used.
+        geometry = {"plate_x", "plate_z", "sz_top", "sz_bot"}
+        if geometry.issubset(set(nw_df.columns)) and "zone_pitches" in created_cols:
+            px, pz = nw.col("plate_x").cast(nw.Float64), nw.col("plate_z").cast(nw.Float64)
+            top, bot = nw.col("sz_top").cast(nw.Float64), nw.col("sz_bot").cast(nw.Float64)
+            tracked = (~px.is_null()) & (~pz.is_null()) & (~top.is_null()) & (~bot.is_null())
+            inside = (
+                (px.abs() <= _ZONE_HALF_WIDTH_FT)
+                & (pz <= top + _BALL_RADIUS_FT)
+                & (pz >= bot - _BALL_RADIUS_FT)
+            )
+            nw_df = nw_df.with_columns(
+                nw.when(tracked & inside).then(1).otherwise(0).alias("zone_pitches"),
+                nw.when(tracked).then(1).otherwise(0).alias("located_pitches"),
+            )
+
         # 6. Post-translation derived composite columns for play-by-play and pitch-level sources
         cols_now = set(nw_df.columns)
         upper_now = {c.upper(): c for c in cols_now}
@@ -213,6 +245,16 @@ class SourceTranslator(BaseModel):
         # The plate-discipline swings above exclude bunts, as FanGraphs does.
         if "description" in cols_now:
             swing_with_bunts = nw.col("description").is_in(list(_SWING_DESCRIPTIONS_WITH_BUNTS))
+            if "swings_savant" not in cols_now:
+                post_exprs.extend(
+                    [
+                        nw.when(swing_with_bunts).then(1).otherwise(0).alias("swings_savant"),
+                        nw.when(nw.col("description").is_in(list(_WHIFF_DESCRIPTIONS_SAVANT)))
+                        .then(1)
+                        .otherwise(0)
+                        .alias("whiffs_savant"),
+                    ]
+                )
             if {"balls", "strikes"}.issubset(cols_now) and "first_pitch_swings" not in cols_now:
                 first_pitch = (nw.col("balls").cast(nw.Int64) == 0) & (
                     nw.col("strikes").cast(nw.Int64) == 0
@@ -314,10 +356,6 @@ class SourceTranslator(BaseModel):
                 [
                     nw.when(has_brk).then(pz * 12.0).otherwise(0.0).alias("ivb_sum"),
                     nw.when(has_brk).then(px * 12.0).otherwise(0.0).alias("hb_sum"),
-                    nw.when(has_brk)
-                    .then(((px * 12.0) ** 2.0 + (pz * 12.0) ** 2.0) ** 0.5)
-                    .otherwise(0.0)
-                    .alias("total_break_sum"),
                     nw.when(has_brk).then(1).otherwise(0).alias("break_count"),
                 ]
             )

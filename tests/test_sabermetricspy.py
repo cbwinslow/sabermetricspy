@@ -656,7 +656,6 @@ def test_all_registered_metrics_and_suites_audit() -> None:
             "ext_count": [2900, 2800],
             "ivb_sum": [49300.0, 42000.0],
             "hb_sum": [-26100.0, 22400.0],
-            "total_break_sum": [55781.0, 47600.0],
             "break_count": [2900, 2800],
             "eff_velo_sum": [281300.0, 266000.0],
             "eff_velo_count": [2900, 2800],
@@ -872,7 +871,6 @@ def test_telemetry_rolling_physics_and_cli() -> None:
     assert math.isclose(prow["avg_velo"], 97.0, rel_tol=1e-9)
     assert math.isclose(prow["ivb"], 18.0, rel_tol=1e-9)
     assert math.isclose(prow["hb"], -6.0, rel_tol=1e-9)
-    assert math.isclose(prow["total_break"], math.sqrt(18.0**2 + 6.0**2), rel_tol=1e-9)
     assert -6.5 <= prow["vaa"] <= -3.5
     assert math.isclose(prow["xba"], 0.450, rel_tol=1e-9)
     assert math.isclose(prow["xwoba"], 0.900, rel_tol=1e-9)

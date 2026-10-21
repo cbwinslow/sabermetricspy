@@ -145,13 +145,17 @@ def calc_o_contact_pct(ctx: EvalContext) -> nw.Expr:
         category=Category.PLATE_DISCIPLINE,
         kind=ImplKind.DETERMINISTIC,
         required_columns=("whiffs", "swings"),
+        optional_columns=("whiffs_savant", "swings_savant"),
         direction=Direction.LOWER_IS_BETTER,
         formula_latex=r"Whiff\% = \frac{Whiffs}{Swings}",
         citation="Baseball Savant / Statcast Glossary",
-        description="Swinging strikes divided by total swings.",
+        description="Whiffs per swing by Savant's counting: foul tips are whiffs and bunt attempts are swings (unlike SwStr%, which uses FanGraphs' counting).",
     )
 )
 def calc_whiff_pct(ctx: EvalContext) -> nw.Expr:
+    # Savant's counting (foul tips are whiffs, bunts are swings) when the statcast preset supplied it.
+    if {"whiffs_savant", "swings_savant"}.issubset(ctx.available_columns):
+        return safe_div(nw.col("whiffs_savant"), nw.col("swings_savant"))
     return safe_div(nw.col("whiffs"), nw.col("swings"))
 
 
@@ -999,23 +1003,6 @@ def calc_hb(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
-        metric=Metric.TOTAL_BREAK,
-        display_name="Total Break",
-        category=Category.PITCH_PHYSICS,
-        kind=ImplKind.DETERMINISTIC,
-        required_columns=("total_break_sum", "break_count"),
-        direction=Direction.HIGHER_IS_BETTER,
-        formula_latex=r"Break_{total} = \frac{\sum \sqrt{IVB_i^2 + HB_i^2}}{N_{break}}",
-        citation="Nathan, A. M. (2008); PitchingBot / Stuff+ Literature",
-        description="Mean per-pitch magnitude of Induced Vertical Break and Horizontal Break in inches.",
-    )
-)
-def calc_total_break(ctx: EvalContext) -> nw.Expr:
-    return safe_div(nw.col("total_break_sum"), nw.col("break_count"))
-
-
-@register_metric(
-    MetricSpec(
         metric=Metric.EFFECTIVE_VELO,
         display_name="Eff Velo",
         category=Category.PITCH_PHYSICS,
@@ -1102,23 +1089,6 @@ def calc_rv_per_100(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
-        metric=Metric.WHIFF_PER_100,
-        display_name="Whiffs/100",
-        category=Category.PITCH_PHYSICS,
-        kind=ImplKind.DETERMINISTIC,
-        required_columns=("whiffs", "pitches"),
-        direction=Direction.HIGHER_IS_BETTER,
-        formula_latex=r"Whiffs/100 = 100 \times \frac{Whiffs}{Pitches}",
-        citation="Baseball Savant Glossary",
-        description="Swinging strikes generated per 100 pitches thrown.",
-    )
-)
-def calc_whiff_per_100(ctx: EvalContext) -> nw.Expr:
-    return safe_div(100.0 * nw.col("whiffs"), nw.col("pitches"))
-
-
-@register_metric(
-    MetricSpec(
         metric=Metric.I_TO_STR,
         display_name="I/Str",
         category=Category.PLATE_DISCIPLINE,
@@ -1149,23 +1119,6 @@ def calc_i_to_str(ctx: EvalContext) -> nw.Expr:
 )
 def calc_putaway_pct(ctx: EvalContext) -> nw.Expr:
     return safe_div(nw.col("two_strike_so"), nw.col("two_strike_pitches"))
-
-
-@register_metric(
-    MetricSpec(
-        metric=Metric.TWO_STRIKE_CHASE_PCT,
-        display_name="2K Chase%",
-        category=Category.PLATE_DISCIPLINE,
-        kind=ImplKind.DETERMINISTIC,
-        required_columns=("two_strike_out_zone_swings", "two_strike_out_zone_pitches"),
-        direction=Direction.LOWER_IS_BETTER,
-        formula_latex=r"2K\text{-}Chase\% = \frac{OutZoneSwings_{2K}}{OutZonePitches_{2K}}",
-        citation="Baseball Savant Glossary",
-        description="Chase rate on pitches outside the strike zone with two strikes.",
-    )
-)
-def calc_two_strike_chase_pct(ctx: EvalContext) -> nw.Expr:
-    return safe_div(nw.col("two_strike_out_zone_swings"), nw.col("two_strike_out_zone_pitches"))
 
 
 @register_metric(
@@ -1222,44 +1175,24 @@ def calc_xbt_pct(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
-        metric=Metric.WGDP,
-        display_name="wGDP",
-        category=Category.BASERUNNING,
-        kind=ImplKind.CONTEXTUAL,
-        required_columns=("gidp", "gidp_opp"),
-        direction=Direction.HIGHER_IS_BETTER,
-        formula_latex=r"wGDP = (GIDPOpp \times lgGIDPRate - GIDP) \times r_{GIDP}",
-        citation="FanGraphs Library (wGDP)",
-        description="Weighted Double Play Runs above average.",
-    )
-)
-def calc_wgdp(ctx: EvalContext) -> nw.Expr:
-    w = ctx.weights
-    return (nw.col("gidp_opp") * w.lg_gidp_rate - nw.col("gidp")) * w.r_gidp
-
-
-@register_metric(
-    MetricSpec(
         metric=Metric.BSR,
         display_name="BsR",
         category=Category.BASERUNNING,
         kind=ImplKind.CONTEXTUAL,
         required_columns=("sb", "cs", "h", "b2", "b3", "hr", "bb"),
-        optional_columns=("ibb", "hbp", "gidp", "gidp_opp", "ubr"),
+        optional_columns=("ibb", "hbp", "ubr", "wgdp"),
         requires=(Metric.WSB,),
         direction=Direction.HIGHER_IS_BETTER,
         formula_latex=r"BsR = wSB + wGDP + UBR",
         citation="FanGraphs Library (BsR - Base Running Runs)",
-        description="Total Baserunning Runs above average combining wSB, wGDP, and UBR.",
+        description="Total Baserunning Runs above average: wSB computed here plus the UBR and wGDP columns you supply (FanGraphs publishes both per player; they are 0 when absent).",
     )
 )
 def calc_bsr(ctx: EvalContext) -> nw.Expr:
-    w = ctx.weights
+    # FanGraphs: BsR = wSB + UBR + wGDP, "simply added together with no further adjustments". UBR and wGDP are
+    # published per player and cannot be rebuilt from counting stats, so they are inputs; a missing one counts as 0.
     ubr = nw.col("ubr") if "ubr" in ctx.available_columns else nw.lit(0.0)
-    if "gidp" in ctx.available_columns and "gidp_opp" in ctx.available_columns:
-        wgdp = (nw.col("gidp_opp") * w.lg_gidp_rate - nw.col("gidp")) * w.r_gidp
-    else:
-        wgdp = nw.lit(0.0)
+    wgdp = nw.col("wgdp") if "wgdp" in ctx.available_columns else nw.lit(0.0)
     return nw.col("wsb") + wgdp + ubr
 
 

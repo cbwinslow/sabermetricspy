@@ -18,12 +18,13 @@ from pydantic import BaseModel, ConfigDict
 
 import sabermetricspy.metrics as _metrics_init  # noqa: F401 # pyright: ignore[reportUnusedImport]
 from sabermetricspy.constants import DEFAULT_SEASON, resolve_context
+from sabermetricspy.methodology import warn_experimental
 from sabermetricspy.presets import SourceTranslator, get_source_translator
 from sabermetricspy.registry import REGISTRY, EvalContext, MetricSpec
 from sabermetricspy.schema import normalize_columns, to_polars_df
 from sabermetricspy.telemetry import profiled
 from sabermetricspy.types.context import SeasonContext
-from sabermetricspy.types.enums import Metric, MetricSuite
+from sabermetricspy.types.enums import Metric, MetricSuite, ReferenceStatus
 
 
 class ExecutionProfile(BaseModel):
@@ -359,6 +360,10 @@ def calculate(
         if missing_by_metric:
             details = ", ".join(f"{m} (missing {cols})" for m, cols in missing_by_metric.items())
             raise ValueError(f"Missing required input columns for requested metrics: {details}")
+
+    for reg in dag:
+        if reg.spec.reference_status is ReferenceStatus.EXPERIMENTAL:
+            warn_experimental(reg.spec.name, stacklevel=_user_stacklevel() + 1)
 
     _check_season(
         nw_df,

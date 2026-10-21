@@ -36,15 +36,17 @@ entries:
     cstr_pct: 1.0e-8
     f_strike_pct: 1.0e-8
     swing_pct_pi: 0.001
-    zone_pct_sc: 0.002
-    o_swing_pct_sc: 0.001
-    z_swing_pct_sc: 0.001
-    o_contact_pct_sc: 0.003
-    z_contact_pct_sc: 0.001
+    zone_pct_sc: 0.0005
+    o_swing_pct_sc: 0.0008
+    z_swing_pct_sc: 1.0e-6
+    o_contact_pct_sc: 0.0015
+    z_contact_pct_sc: 1.0e-6
     contact_pct: 0.001
-    swstr_pct: 0.001
-    csw_pct: 0.001
+    swstr_pct: 0.0005
+    csw_pct: 0.0005
   note: 'FanGraphs TBF is 753; the Savant export has 754 first pitches (one plate appearance is not credited to the pitcher by FanGraphs). The 517 first-pitch strikes agree, so F-Strike% = 517/753.'
-  tolerance_rule: 'cstr_pct and f_strike_pct are exact counts over the same pitches (501/2868, 517/753). The rest compare a Savant-derived
-    rate with a FanGraphs rate built on its own pitch classification (FanGraphs excludes bunts and uses 2,838 located pitches);
-    the observed bound on this sample is 0.25 percentage points (O-Contact%), under 0.15 for the others. Bunt attempts are excluded from swings, as FanGraphs does.'
+  tolerance_rule: 'cstr_pct and f_strike_pct are exact counts over the same pitches (501/2868, 517/753). Zone, Z-Swing% and Z-Contact% use the
+    geometric zone (ball touching the rulebook zone) that reproduces FanGraphs'' in-zone counts exactly (1571 pitches, 1070 swings, 845 contacts);
+    Z-Swing% and Z-Contact% therefore match to rounding. Outside the zone, and for Swing%, Contact%, SwStr% and CSW%, our count is one pitch from
+    FanGraphs'' (observed gaps: O-Swing% 0.055, O-Contact% 0.12, Zone% 0.02, Contact% 0.07, SwStr% and CSW% 0.035 percentage points); the cause of
+    that single pitch is unknown (FanGraphs may have revised a pitch after the export). Bunt attempts are excluded from swings, as FanGraphs does.'

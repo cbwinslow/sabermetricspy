@@ -4,14 +4,17 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import polars as pl
 import pytest
 
+import sabermetricspy as sp
 from sabermetricspy import ReferenceStatus
 from sabermetricspy.methodology import (
     MethodologyEntry,
     metric_entries,
     model_entries,
     render_markdown,
+    warn_experimental,
 )
 from sabermetricspy.registry import REGISTRY, MetricSpec
 from sabermetricspy.types.enums import Metric
@@ -101,7 +104,6 @@ def test_woba_links_the_fangraphs_library() -> None:
     "name",
     [
         "ops_plus",
-        "siera",
         "bsr",
         "fip_minus",
         "pythagenpat_win_pct",
@@ -221,3 +223,30 @@ def test_unverified_models_carry_a_written_reason() -> None:
 def test_audited_entries_cite_a_source_url() -> None:
     for name, entry in _audited_entries().items():
         assert entry.source_url.startswith("http"), f"{name}: no source URL"
+
+
+@pytest.mark.parametrize("name", ["siera", "rc27", "xfip_minus"])
+def test_quarantined_metrics_are_labeled_experimental(name: str) -> None:
+    assert metric_entries()[name].status is ReferenceStatus.EXPERIMENTAL
+
+
+def test_warn_experimental_names_the_item() -> None:
+    with pytest.warns(UserWarning, match="siera is experimental"):
+        warn_experimental("siera")
+
+
+def test_engine_warns_when_an_experimental_metric_is_calculated() -> None:
+    df = pl.DataFrame(
+        {
+            "ab": [500],
+            "h": [150],
+            "bb": [50],
+            "hbp": [5],
+            "sf": [4],
+            "b2": [30],
+            "b3": [2],
+            "hr": [20],
+        }
+    )
+    with pytest.warns(UserWarning, match="rc27 is experimental"):
+        sp.calculate(df, [Metric.RC27], season=2024)

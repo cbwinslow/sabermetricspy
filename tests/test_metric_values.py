@@ -172,6 +172,7 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (Metric.Z_CONTACT_PCT, dict(zone_contacts=27, zone_swings=30), 0.9, {}),
     (Metric.O_CONTACT_PCT, dict(out_zone_contacts=10, out_zone_swings=20), 0.5, {}),
     (Metric.WHIFF_PCT, dict(whiffs=10, swings=50), 0.2, {}),
+    (Metric.WHIFF_PCT, dict(whiffs=10, swings=50, whiffs_savant=12, swings_savant=48), 0.25, {}),
     (Metric.SWSTR_PCT, dict(whiffs=10, pitches=100), 0.1, {}),
     (Metric.CSTR_PCT, dict(called_strikes=15, pitches=100), 0.15, {}),
     (Metric.CSW_PCT, dict(called_strikes=15, whiffs=10, pitches=100), 0.25, {}),
@@ -180,12 +181,6 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (Metric.FP_STRIKE_PCT, dict(first_pitch_strikes=24, pa=40), 0.6, {}),
     (Metric.I_TO_STR, dict(bbe=70, strike_pitches=200), 0.35, {}),
     (Metric.PUTAWAY_PCT, dict(two_strike_so=15, two_strike_pitches=100), 0.15, {}),
-    (
-        Metric.TWO_STRIKE_CHASE_PCT,
-        dict(two_strike_out_zone_swings=10, two_strike_out_zone_pitches=50),
-        0.2,
-        {},
-    ),
     (Metric.MEATBALL_SWING_PCT, dict(meatball_swings=30, meatball_pitches=40), 0.75, {}),
     # ---- batted ball ----
     (Metric.GB_PCT, dict(gb=40, bbe=100), 0.4, {}),
@@ -207,12 +202,6 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (Metric.AVG_EXTENSION, dict(ext_sum=130.0, ext_count=20), 6.5, {}),
     (Metric.IVB, dict(ivb_sum=300.0, break_count=20), 15.0, {}),
     (Metric.HB, dict(hb_sum=-100.0, break_count=20), -5.0, {}),
-    (
-        Metric.TOTAL_BREAK,
-        dict(total_break_sum=400.0, break_count=20),
-        20.0,
-        {},
-    ),
     (Metric.EFFECTIVE_VELO, dict(eff_velo_sum=1900.0, eff_velo_count=20), 95.0, {}),
     (Metric.VAA, dict(vaa_sum=-100.0, vaa_count=20), -5.0, {}),
     (Metric.HAA, dict(haa_sum=20.0, haa_count=20), 1.0, {}),
@@ -223,7 +212,6 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
         {},
     ),
     (Metric.RV_PER_100, dict(pitch_rv_sum=-2.5, pitches=500), -0.5, {}),
-    (Metric.WHIFF_PER_100, dict(whiffs=25, pitches=500), 5.0, {}),
     # ---- statcast expected ----
     (Metric.XBA, dict(xba_sum=30.0, ab=100), 0.30, {}),
     (Metric.XSLG, dict(xslg_sum=45.0, ab=100), 0.45, {}),
@@ -261,7 +249,6 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
         SPEED,
         {},
     ),
-    (Metric.WGDP, dict(gidp=8, gidp_opp=100), (100 * W.lg_gidp_rate - 8) * W.r_gidp, {}),
     (
         Metric.BSR,
         dict(
@@ -274,13 +261,10 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
             bb=40,
             ibb=5,
             hbp=3,
-            gidp=8,
-            gidp_opp=100,
+            wgdp=-0.5,
             ubr=1.5,
         ),
-        (10 * W.r_sb + 2 * W.r_cs - 0.02 * (WSB_1B + 35 + 3))
-        + (100 * W.lg_gidp_rate - 8) * W.r_gidp
-        + 1.5,
+        (10 * W.r_sb + 2 * W.r_cs - 0.02 * (WSB_1B + 35 + 3)) + -0.5 + 1.5,
         dict(lg_wsb=0.02),
     ),
     (Metric.XBT_PCT, dict(xbt=25, xbt_opp=60), 25 / 60, {}),

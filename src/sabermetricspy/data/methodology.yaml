@@ -101,7 +101,7 @@ metrics:
     status: approximate
     evidence: primary
     source_url: https://library.fangraphs.com/offense/bsr/
-    note: BsR = wSB + wGDP + UBR. wSB now matches FanGraphs (league constant bundled); UBR is caller supplied, and the wGDP constants (league GIDP rate 0.105 and run value 0.44) have no published source (the FanGraphs wGDP page gives neither), so BsR stays approximate when GIDP columns are supplied.
+    note: 'BsR = wSB + UBR + wGDP, ''added together with no further adjustments'' (FanGraphs Library, read 2026-10-21). wSB is computed and matches FanGraphs; UBR and wGDP are columns you supply (FanGraphs publishes both per player; the wGDP constants are not published, so the library no longer estimates it) and count as 0 when absent. No outside BsR value has been reproduced yet.'
   catcher_cs_pct:
     status: matches
     evidence: golden
@@ -126,7 +126,7 @@ metrics:
     status: approximate
     evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Foul tips count as contact; fouls count as contact, as FanGraphs does.
+    note: 'Formula matches the FanGraphs Library. On one recorded sample (tests/golden/plate_discipline.yaml) 1059/1479 contacts against FanGraphs'' 1060/1479 (0.07 percentage points, one pitch; the cause is unknown). Foul tips and fouls count as contact, as FanGraphs does.'
   cstr_pct:
     status: matches
     evidence: golden
@@ -136,7 +136,7 @@ metrics:
     status: approximate
     evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. CSW% = CStr% + SwStr% (FanGraphs C+SwStr%).
+    note: 'CSW% = CStr% + SwStr% (FanGraphs C+SwStr%). On one recorded sample (tests/golden/plate_discipline.yaml) 921 against FanGraphs'' 920 of 2868 pitches (0.035 percentage points), inherited from SwStr%.'
   der:
     status: approximate
     evidence: secondary
@@ -171,7 +171,7 @@ metrics:
     status: approximate
     evidence: golden
     source_url: https://www.baseball-reference.com/players/m/martipe02.shtml
-    note: 'Formula 100 * lgERA * PF / ERA matches Wikipedia''s ERA+. Against Baseball-Reference ERA+ (tests/golden/era_plus.yaml) the library runs 2-6% low (Pedro Martinez 2000: 276.6 vs 291; Randy Johnson 2001: 184.7 vs 188; Tarik Skubal 2024: 172.3 vs 174) and the cause is not established: switching to the pitcher''s own league ERA (tested 2026-10-19) helps Martinez (285.4) but widens the gap for Johnson (182.4) and Skubal (169.8), so the residual is most likely Baseball-Reference''s own park factor and league definition, which the 403 glossary pages do not let us read. The library uses the MLB-wide ERA and a caller-supplied park factor.'
+    note: 'Formula 100 * lgERA * PF / ERA matches Wikipedia''s ERA+. Against Baseball-Reference ERA+ (tests/golden/era_plus.yaml) the library runs low: Pedro Martinez 2000 276.6 vs 291 (-5.0%), Randy Johnson 2001 184.7 vs 188 (-1.7%), Tarik Skubal 2024 172.3 vs 174 (-1.0%). The fixture feeds FanGraphs'' 5-year park factors into a Baseball-Reference statistic, which is the most likely cause (Baseball-Reference uses its own pitcher park factor, which could not be read from the site), but that has not been confirmed. Using the pitcher''s own league ERA helps Martinez (285.4) and widens the gap for Johnson (182.4) and Skubal (169.8).'
   err_pct:
     status: matches
     evidence: secondary
@@ -191,7 +191,7 @@ metrics:
     status: approximate
     evidence: golden
     source_url: https://library.fangraphs.com/pitching/era-fip-xfip/
-    note: 'Same page, which says the calculation is identical to ERA-: 100*FIP*(2-PF/100)/own-league FIP (AL or NL), as implemented since ADR-0045. The 7 fixtures still differ from FanGraphs by 0.2 to 3.1 points (tests/golden/pitching.yaml: Johnson 2001 46.37 vs 47.27, Schilling 67.72 vs 69.48, Pedro Martinez 2000 44.48 vs 47.61, Skubal 2024 60.32 vs 59.58), and the old MLB-wide form was no closer, so the cause is unresolved. The Guts! FIP park factor column is empty for 2001, and the factors implied by the published values (ARI about 1.015 to 1.021, NYY 0.994) do not follow from the HR, SO and BB park factors either, so FanGraphs'' FIP- park input cannot be reconstructed from public data.'
+    note: 'FanGraphs'' Library page says the calculation is identical to ERA-: 100*FIP*(2-PF/100)/own-league FIP (AL or NL), as implemented since ADR-0045. All 7 fixtures differ from FanGraphs (tests/golden/pitching.yaml; ours minus FanGraphs): Johnson 2001 -0.90, Schilling 2001 -1.76, Mussina 2001 +0.95, Maddux 2001 +0.75, Morris 2001 +1.61, Pedro Martinez 2000 -3.13, Skubal 2024 +0.74 points; the largest is 6.6%. A test now fails if any gap exceeds 3.2 points. The cause is unresolved: Johnson and Schilling (same team and season) need different park factors under the printed form, so FanGraphs'' FIP- park input cannot be reconstructed from public data.'
   f_to_str:
     status: matches
     evidence: golden
@@ -326,12 +326,12 @@ metrics:
     status: approximate
     evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Largest observed gap on the sample (0.25 points).
+    note: 'Formula matches the FanGraphs Library. On one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) 0.51531 against FanGraphs 0.51407 (0.12 percentage points, one pitch). The in-zone side uses the geometric zone (any part of the ball touching the rulebook zone: plate half-width 8.5 in plus the 1.45 in ball radius, sz_bot/sz_top widened by the same radius) when plate_x, plate_z, sz_top and sz_bot are present, otherwise Savant''s zone field. FanGraphs does not publish its zone rule; this one was inferred because it reproduces FanGraphs'' in-zone counts exactly (1571 pitches, 1070 swings, 845 contacts).'
   o_swing_pct:
     status: approximate
     evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Pitches without a tracked location are no longer counted as out of the zone (corrected, ADR-0028).
+    note: 'Formula matches the FanGraphs Library. On one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) 0.30939 against FanGraphs 0.30885 (0.055 percentage points, one pitch). The in-zone side uses the geometric zone (any part of the ball touching the rulebook zone: plate half-width 8.5 in plus the 1.45 in ball radius, sz_bot/sz_top widened by the same radius) when plate_x, plate_z, sz_top and sz_bot are present, otherwise Savant''s zone field. FanGraphs does not publish its zone rule; this one was inferred because it reproduces FanGraphs'' in-zone counts exactly (1571 pitches, 1070 swings, 845 contacts).'
   obp:
     status: matches
     evidence: golden
@@ -349,9 +349,9 @@ metrics:
     note: Matches FanGraphs published values for Bonds 2001, McGwire 1998 and Judge 2022 (tests/golden/batting.yaml).
   ops_plus:
     status: approximate
-    evidence: primary
+    evidence: golden
     source_url: https://www.baseball-reference.com/about/bat_glossary.shtml
-    note: Baseball-Reference park-adjusts the league OBP and SLG after removing pitchers; the library applies a single 1/PF to the ratio using MLB-wide league averages.
+    note: 'Baseball-Reference removes pitchers from the league average and park-adjusts it; the library applies a single 1/PF to the ratio using MLB-wide league averages and a caller-supplied park factor (default 100). Against Baseball-Reference''s OPS+ read from the players'' pages on 2026-10-21 (tests/golden/ops_plus.yaml, park factor 100): Bonds 2001 257.4 vs 259 (-0.6%), McGwire 1998 219.3 vs 216 (+1.5%), Judge 2022 210.1 vs 210 (+0.0%), Judge 2024 222.4 vs 225 (-1.2%). The test allows 2%.'
   pit_bb_pct:
     status: matches
     evidence: golden
@@ -443,10 +443,10 @@ metrics:
     source_url: https://www.baseball-reference.com/players/j/judgeaa01-bat.shtml
     note: 'RBI per plate appearance, a plain ratio whose name states its denominator; pinned by a hand-computed test. Baseball-Reference prints only AB/RBI, so no outside value reproduces it.'
   rc27:
-    status: approximate
+    status: experimental
     evidence: secondary
     source_url: https://en.wikipedia.org/wiki/Runs_created
-    note: Scales Runs Created to 27 outs, as Wikipedia describes RC/27. The out estimate AB - H + SH + SF + CS + GIDP is the common convention but no retrieved primary source states it, so the denominator is a documented assumption.
+    note: 'Experimental: no outside RC/27 value has been reproduced (Bonds 2001 gives 19.49 here, unchecked). Scales Runs Created to 27 outs, as Wikipedia describes RC/27. The out estimate AB - H + SH + SF + CS + GIDP is the common convention but no retrieved primary source states it, so the denominator is a documented assumption.'
   rc_basic:
     status: matches
     evidence: primary
@@ -493,10 +493,10 @@ metrics:
     source_url: https://tangotiger.net/wiki_archive/Secondary_Average.html
     note: (TB - H + BB + SB - CS) / AB, as published on the Tango wiki and Wikipedia (created by Bill James). The published page has no worked example, so no numeric check exists.
   siera:
-    status: approximate
+    status: experimental
     evidence: primary
     source_url: https://www.baseballprospectus.com/news/article/10045/introducing-siera-part-5/
-    note: 'Implements the original 2010 Baseball Prospectus coefficients (SIERACoefficients.version = baseball_prospectus_2010), including the sign rule on the squared net ground-ball term. FanGraphs displays the revised 2011 version (https://blogs.fangraphs.com/new-siera-part-four-of-five-testing: constant 5.534, adds a (BB/PA)^2 term of 27.252, a 0.367 share-of-innings-as-starter term and per-year coefficients). Tested 2026-10-19 on 16 FanGraphs 2024 pitchers (8 relievers, 8 starters): the 2011 coefficients leave a near-constant offset of about 0.47 to 0.49 (standard deviation 0.006 to 0.01 depending on the net ground-ball definition), which is the unpublished 2024 year coefficient, so the version is confirmed but the formula is not exactly reproduced; the 2010 version here runs about 0.46 to 0.69 lower. Not yet implemented as a selectable version because the per-year coefficients after 2010 are not published.'
+    note: 'Experimental: the formula is not exactly reproduced and no published SIERA value is checked by a test; the published coefficient sets differ between sources (FanGraphs'' revised version has a constant of 5.534 and a per-year coefficient that is not published; Baseball Prospectus'' 2010 article, which is what runs here, has 6.145). Implements the original 2010 Baseball Prospectus coefficients (SIERACoefficients.version = baseball_prospectus_2010), including the sign rule on the squared net ground-ball term. FanGraphs displays the revised 2011 version (https://blogs.fangraphs.com/new-siera-part-four-of-five-testing: constant 5.534, adds a (BB/PA)^2 term of 27.252, a 0.367 share-of-innings-as-starter term and per-year coefficients). Tested 2026-10-19 on 16 FanGraphs 2024 pitchers (8 relievers, 8 starters): the 2011 coefficients leave a near-constant offset of about 0.47 to 0.49 (standard deviation 0.006 to 0.01 depending on the net ground-ball definition), which is the unpublished 2024 year coefficient, so the version is confirmed but the formula is not exactly reproduced; the 2010 version here runs about 0.46 to 0.69 lower. Not yet implemented as a selectable version because the per-year coefficients after 2010 are not published.'
   slg:
     status: matches
     evidence: golden
@@ -521,12 +521,12 @@ metrics:
     status: approximate
     evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Bunt attempts are not swings (corrected from counting them, ADR-0028).
+    note: 'Formula matches the FanGraphs Library (swings over all pitches). The recorded FanGraphs value is its Pitch Info Swing% (swings over located pitches), so the comparison is across two slightly different definitions: 0.51569 against 0.51515 (0.054 percentage points) on one sample (tests/golden/plate_discipline.yaml). Bunt attempts are not swings, as FanGraphs does.'
   swstr_pct:
     status: approximate
     evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Swinging strikes include blocked swinging strikes and exclude foul tips.
+    note: 'Formula matches the FanGraphs Library. On one recorded sample (tests/golden/plate_discipline.yaml) 420 swinging strikes against FanGraphs'' 419 of 2868 pitches (0.035 percentage points; the cause is unknown). Swinging strikes include blocked swinging strikes and exclude foul tips, as FanGraphs does.'
   ta:
     status: matches
     evidence: primary
@@ -542,16 +542,6 @@ metrics:
     evidence: golden
     source_url: https://www.baseball-reference.com/players/w/wittbo02.shtml
     note: PO + A + E reproduces Baseball-Reference's total chances for Witt at shortstop 2024 (583). tests/golden/fielding_team_expectancy.yaml
-  total_break:
-    status: approximate
-    evidence: secondary
-    source_url: https://baseballsavant.mlb.com/leaderboard/pitch-movement
-    note: Mean over pitches of sqrt(IVB^2 + HB^2), summed per pitch by the statcast preset (total_break_sum) so opposite-direction breaks do not cancel (ADR-0040). The geometry is standard, but no published total-break definition was found, so it is checked by hand-computed tests only.
-  two_strike_chase_pct:
-    status: approximate
-    evidence: secondary
-    source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: O-Swing% restricted to two-strike pitches. A library-defined rate; no published 2K-Chase% definition was found, and the statcast preset does not derive the two-strike columns.
   ubb:
     status: matches
     evidence: primary
@@ -562,21 +552,11 @@ metrics:
     evidence: secondary
     source_url: https://en.wikipedia.org/wiki/PITCHf/x
     note: Arctangent of vertical over longitudinal velocity at the front of home plate from the constant-acceleration (9-parameter) trajectory, evaluated by a fifth-order series. The model is standard (Nathan; Wikipedia PITCHf/x) but no published VAA player value was retrieved and the primary derivation was not accessible, so the implementation is unchecked numerically.
-  wgdp:
-    status: approximate
-    evidence: secondary
-    source_url: https://library.fangraphs.com/offense/wgdp/
-    note: Runs from avoiding double plays relative to league opportunity. The formula follows the FanGraphs description, but its league constant was not sourced (out of scope of this change), so no published value was reproduced.
   whiff_pct:
-    status: approximate
+    status: matches
     evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: Swinging strikes over swings, counting foul tips as contact as FanGraphs does. Savant's whiff percent counts foul tips as misses and bunts as swings, so it is higher (four-seamer 27.7 against 23.3 here; counting foul tips as misses gives 27.66). The sources differ, so the metric is labeled approximate; define a custom translator to use Savant's convention. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
-  whiff_per_100:
-    status: approximate
-    evidence: golden
-    source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: 100 times swinging strikes per pitch (FanGraphs SwStr% x 100). Within 0.1 points of FanGraphs on the recorded sample (tests/golden/plate_discipline.yaml). Savant counts foul tips as misses and so would report more.
+    note: 'Whiffs over swings with Savant''s counting (foul tips are whiffs, bunt attempts are swings), supplied by the statcast preset as whiffs_savant / swings_savant. Equals Savant''s published Whiff% for Skubal 2024 at its one-decimal precision: four-seamer 27.66 against 27.7, sinker 16.00 against 16.0, changeup 46.41 against 46.4 (tests/golden/pitch_arsenal.yaml). Without those columns it falls back to generic whiffs / swings. SwStr% uses FanGraphs'' different counting.'
   whip:
     status: matches
     evidence: golden
@@ -648,10 +628,10 @@ metrics:
     source_url: https://library.fangraphs.com/pitching/xfip/
     note: Formula matches the FanGraphs Library. Null before 2002 because FanGraphs publishes league HR/FB only from 2002. No player-level published xFIP was checked (fly balls not retrieved).
   xfip_minus:
-    status: approximate
+    status: experimental
     evidence: primary
     source_url: https://library.fangraphs.com/principles/park-factors/
-    note: Uses the printed ERA-form park term (ADR-0045) but the MLB-wide league xFIP, because FanGraphs divides by the AL or NL xFIP and that cannot be derived from the bundled data. Inherits the FIP- residual (see fip_minus); no published xFIP- value was retrieved, so it is not checked numerically.
+    note: 'Experimental: no published xFIP- value was retrieved, so it is not checked numerically. Uses the printed ERA-form park term (ADR-0045) but the MLB-wide league xFIP, because FanGraphs divides by the AL or NL xFIP and that cannot be derived from the bundled data. Inherits the FIP- residual (see fip_minus); no published xFIP- value was retrieved, so it is not checked numerically.'
   xslg:
     status: approximate
     evidence: golden
@@ -663,20 +643,20 @@ metrics:
     source_url: https://baseballsavant.mlb.com/leaderboard/expected_statistics
     note: Reproduces the player-season est_woba (0.2586 vs 0.259) and the pitch-arsenal est_woba per pitch type (FF 0.262, SI 0.252, CH 0.230) within Savant's three-decimal rounding. Checked on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/pitch_arsenal.yaml).
   z_contact_pct:
-    status: approximate
+    status: matches
     evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: 'Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. '
+    note: 'Equals the FanGraphs Statcast rate on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml): 0.789720 against 0.789720. The in-zone side uses the geometric zone (any part of the ball touching the rulebook zone: plate half-width 8.5 in plus the 1.45 in ball radius, sz_bot/sz_top widened by the same radius) when plate_x, plate_z, sz_top and sz_bot are present, otherwise Savant''s zone field. FanGraphs does not publish its zone rule; this one was inferred because it reproduces FanGraphs'' in-zone counts exactly (1571 pitches, 1070 swings, 845 contacts).'
   z_swing_pct:
-    status: approximate
+    status: matches
     evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Pitches without a tracked location are neither in nor out of the zone (corrected, ADR-0028).
+    note: 'Equals the FanGraphs Statcast rate on one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml): 0.681095 against 0.681095. The in-zone side uses the geometric zone (any part of the ball touching the rulebook zone: plate half-width 8.5 in plus the 1.45 in ball radius, sz_bot/sz_top widened by the same radius) when plate_x, plate_z, sz_top and sz_bot are present, otherwise Savant''s zone field. FanGraphs does not publish its zone rule; this one was inferred because it reproduces FanGraphs'' in-zone counts exactly (1571 pitches, 1070 swings, 845 contacts).'
   zone_pct:
     status: approximate
     evidence: golden
     source_url: https://library.fangraphs.com/offense/plate-discipline/
-    note: Formula matches the FanGraphs Library. On one recorded Baseball Savant pitch sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) the library lands within 0.25 percentage points of the FanGraphs Statcast-based rate; FanGraphs applies its own pitch classification and tracked-pitch subset, so the rates are not identical. Divides by located pitches when out-of-zone pitches are supplied (corrected, ADR-0028); FanGraphs' plain Zone% uses Baseball Info Solutions zones and cannot be reproduced from Savant data.
+    note: 'Formula matches the FanGraphs Library. On one recorded sample (Tarik Skubal 2024, 2,868 pitches; tests/golden/plate_discipline.yaml) 0.55356 against FanGraphs 0.55375 (0.02 percentage points; 1571 in-zone pitches over 2838 located, FanGraphs'' rate equals 1571 over 2837). The in-zone side uses the geometric zone (any part of the ball touching the rulebook zone: plate half-width 8.5 in plus the 1.45 in ball radius, sz_bot/sz_top widened by the same radius) when plate_x, plate_z, sz_top and sz_bot are present, otherwise Savant''s zone field. FanGraphs does not publish its zone rule; this one was inferred because it reproduces FanGraphs'' in-zone counts exactly (1571 pitches, 1070 swings, 845 contacts).'
   game_score:
     status: matches
     evidence: golden
@@ -717,7 +697,7 @@ models:
     status: approximate
     evidence: golden
     source_url: https://library.fangraphs.com/war/war-position-players/
-    note: 'With league_pa (and mlb_games) the replacement term is the FanGraphs formula 570*(G/2430)*(RPW/lgPA)*PA, and with defensive_innings the positional adjustment is prorated by innings/9/162 (1,458-inning table). Against 2024 leaderboard rows (tests/golden/position_war_2024.yaml) replacement matches within 0.01 runs for 8 players, WAR = (Offense + Defense + wLeague + Replacement)/RPW holds within 0.005, and the framework reproduces Ohtani at 8.9259 vs 8.9261. Labeled approximate because the defaults (no league_pa, no innings) are still a flat 20 runs per 600 PA and PA/600 proration, and fielding (UZR), UBR, wGDP and the league adjustment are caller-supplied inputs, not computed here.'
+    note: 'With league_pa (and mlb_games) the replacement term is the FanGraphs formula 570*(G/2430)*(RPW/lgPA)*PA, and with defensive_innings the positional adjustment is prorated by innings/9/162 (1,458-inning table). Against 2024 leaderboard rows (tests/golden/position_war_2024.yaml) replacement matches within 0.01 runs for 8 players, WAR = (Offense + Defense + wLeague + Replacement)/RPW holds within 0.005, and the framework reproduces Ohtani at 8.9259 vs 8.9261. Labeled approximate because the defaults (no league_pa, no innings) are still a flat 20 runs per 600 PA and PA/600 proration (for 704 PA in 2024 the flat default gives 23.5 replacement runs against 21.3 from the FanGraphs formula with 182,449 league PA and 2,429 games, about 0.22 WAR more), and fielding (UZR), UBR, wGDP and the league adjustment are caller-supplied inputs, not computed here.'
   MarcelProjector (hitters):
     status: approximate
     evidence: golden
@@ -734,10 +714,10 @@ models:
     source_url: https://en.wikipedia.org/wiki/Log5
     note: Team form (pA - pA pB) / (pA + pB - 2 pA pB) and batter-pitcher odds-ratio form with a league rate both equal the published formulas, including the article's 0.6 vs 0.4 arithmetic (0.36 / 0.52). The sources cite Bill James as the originator; the original text was not retrieved. tests/test_model_audit.py
   MarkovChainModel.fit_transitions:
-    status: approximate
+    status: matches
     evidence: golden
     source_url: https://beanumber.github.io/abdwr3e/09-simulation.html
-    note: 'Estimates the 24 x 25 base-out transition matrix from play-by-play and solves the absorbing chain exactly (N = (I-Q)^-1), the construction in Albert, Baumer and Marchi, Analyzing Baseball Data with R (3rd ed.), chapter 9.2. On Retrosheet 2016 batting plays in complete half-innings (183,817 plays; tests/test_markov_transitions.py, which needs the data file) it reproduces every printed transition probability to the printed digits (0.0334, 0.676, 0.235, 0.0503, 0.00563 from the empty state; the eight probabilities from runner on second with two outs, 0.650 to end the inning), the 4.27 plate appearances per half-inning, the expected plays to the end of the inning from eight states (4.27, 2.87, 1.46, 4.33, 2.99, 1.53, 4.34, 2.93), and the three-batter state distribution (0.372, 0.241, 0.0815, 0.0739, 0.0529, 0.0286). Its exact run expectancy is within 0.06 of the book matrix, which is a 10,000-inning simulation per state (tests/golden/markov_abdwr_2016.yaml). A home-run-or-out chain reproduces the closed form 3p/(1-p). Batting plays only: steals, wild pitches and passed balls are excluded, as in the book (the book measures their effect at up to 0.08 runs per state). The reference check runs only when the data file is supplied; CI supplies it (step added 2026-10-20, not yet run), so the tier stays approximate until that run has passed.'
+    note: 'Estimates the 24 x 25 base-out transition matrix from play-by-play and solves the absorbing chain exactly (N = (I-Q)^-1), the construction in Albert, Baumer and Marchi, Analyzing Baseball Data with R (3rd ed.), chapter 9.2. On Retrosheet 2016 batting plays in complete half-innings (183,817 plays; tests/test_markov_transitions.py, which needs the data file) it reproduces every printed transition probability to the printed digits (0.0334, 0.676, 0.235, 0.0503, 0.00563 from the empty state; the eight probabilities from runner on second with two outs, 0.650 to end the inning), the 4.27 plate appearances per half-inning, the expected plays to the end of the inning from eight states (4.27, 2.87, 1.46, 4.33, 2.99, 1.53, 4.34, 2.93), and the three-batter state distribution (0.372, 0.241, 0.0815, 0.0739, 0.0529, 0.0286). Its exact run expectancy is within 0.06 of the book matrix, which is a 10,000-inning simulation per state (tests/golden/markov_abdwr_2016.yaml). A home-run-or-out chain reproduces the closed form 3p/(1-p). Batting plays only: steals, wild pitches and passed balls are excluded, as in the book (the book measures their effect at up to 0.08 runs per state). The reference check runs only when the data file is supplied; it was run on 2026-10-21 against the downloaded retro2016.rda and all of its tests passed (CI supplies the same file).'
   MarkovChainModel:
     status: approximate
     evidence: primary
@@ -757,7 +737,7 @@ models:
     status: approximate
     evidence: golden
     source_url: https://beanumber.github.io/abdwr3e/06-pitchcount.html
-    note: 'There is no built-in table (ADR-0049); fit() estimates mean runs to the end of the inning per outs, bases and count state, counting each plate appearance once per count. Opt-in check on Retrosheet 2016 (190,713 event rows, tests/test_retrosheet_2016_count_fit.py, data from abdwr3edata): the number of event rows through 1-0, 0-1, 2-2 and 1-1 equals the n printed in Albert, Baumer and Marchi chapter 6 exactly (76,165; 94,106; 44,254; 75,226), and the mean of RE288(state, count) - RE288(state, 0-0) is within 0.006 runs of their printed mean run value (differences 0.003 to 0.005; fit() uses realised runs, which are noisier than the chapter''s RE24 change). Approximate rather than matches because the default suite does not run that check (it needs the 2.8 MB data file and pyreadr) and Tango''s published RE288 is printed only as images with no stated seasons (tests/golden/count_run_values.yaml pins the Walsh count values).'
+    note: 'There is no built-in table (ADR-0049); fit() estimates mean runs to the end of the inning per outs, bases and count state, counting each plate appearance once per count. Opt-in check on Retrosheet 2016 (190,713 event rows, tests/test_retrosheet_2016_count_fit.py, data from abdwr3edata): the number of event rows through 1-0, 0-1, 2-2 and 1-1 equals the n printed in Albert, Baumer and Marchi chapter 6 exactly (76,165; 94,106; 44,254; 75,226), and the mean of RE288(state, count) - RE288(state, 0-0) is within 0.006 runs of their printed mean run value (differences 0.003 to 0.005; fit() uses realised runs, which are noisier than the chapter''s RE24 change). Approximate rather than matches because, although that check passed when run on 2026-10-21, the default suite skips it (it needs the 2.8 MB data file and pyreadr) and Tango''s published RE288 is printed only as images with no stated seasons (tests/golden/count_run_values.yaml pins the Walsh count values).'
   LinearWeightsEstimator:
     status: approximate
     evidence: secondary
@@ -767,12 +747,12 @@ models:
     status: approximate
     evidence: golden
     source_url: http://tangotiger.net/welist.html
-    note: 'The observed home win rate per inning, half, outs, bases and score difference; there is no built-in table and unobserved states stay unfitted. Tom Tango''s published table (tests/golden/win_expectancy_tango.yaml, a 2002 page that states no seasons or method) is a reference to compare with, not the construction used; his current page (tangotiger.net/we.html, 2010 to 2015) describes a model built from run expectancy. A state''s rate is the share of its plate appearances in games the home team won; the reported standard error uses the number of games, an approximation because the plate appearances of one game share a result. Hand-computed rates are pinned by tests/test_win_expectancy_matrix.py. On Retrosheet 2016 (2,428 games, one tied game dropped, 184,541 plate appearances; tests/test_retrosheet_2016_win_expectancy.py, which needs the data file) 16 bottom-of-the-9th cells have 30 or more games and all lie within three standard errors of the published table (largest 2.11); the 6 cells with 100 or more games lie within 1.7. One season leaves rarer states with few games, so read results.state_games before using a cell. CI supplies the data file (step added 2026-10-20, not yet run).'
+    note: 'The observed home win rate per inning, half, outs, bases and score difference; there is no built-in table and unobserved states stay unfitted. Tom Tango''s published table (tests/golden/win_expectancy_tango.yaml, a 2002 page that states no seasons or method) is a reference to compare with, not the construction used; his current page (tangotiger.net/we.html, 2010 to 2015) describes a model built from run expectancy. A state''s rate is the share of its plate appearances in games the home team won; the reported standard error uses the number of games, an approximation because the plate appearances of one game share a result. Hand-computed rates are pinned by tests/test_win_expectancy_matrix.py. On Retrosheet 2016 (2,428 games, one tied game dropped, 184,541 plate appearances; tests/test_retrosheet_2016_win_expectancy.py, which needs the data file) 16 bottom-of-the-9th cells have 30 or more games and all lie within three standard errors of the published table (largest 2.11); the 6 cells with 100 or more games lie within 1.7. One season leaves rarer states with few games, so read results.state_games before using a cell. The check was run on 2026-10-21 against the downloaded retro2016.rda and passed; the default suite skips it unless the data file is supplied.'
   WinProbabilityModel:
-    status: approximate
+    status: experimental
     evidence: golden
     source_url: http://tangotiger.net/welist.html
-    note: 'A closed-form normal approximation (runs per game, home edge, RE24 scaled to the run environment), compared with 54 cells of Tom Tango''s published win-expectancy table (bottom of the 9th tied and trailing by one, top of the 9th and bottom of the 7th tied; tests/golden/win_expectancy_tango.yaml). Mean absolute error 0.048; tied bottom 9th mean 0.028, max 0.108; trailing by one run is worse (mean 0.078, max 0.194, runner on second and third with no outs: 0.527 against 0.721), because the approximation ignores that one run ties the game. The table states no seasons or run environment. Use WinExpectancyMatrix, built from play-by-play, when exact values matter.'
+    note: 'Experimental: mean error 0.048 against Tango''s table, up to 0.194; use WinExpectancyMatrix instead. A closed-form normal approximation (runs per game, home edge, RE24 scaled to the run environment), compared with 54 cells of Tom Tango''s published win-expectancy table (bottom of the 9th tied and trailing by one, top of the 9th and bottom of the 7th tied; tests/golden/win_expectancy_tango.yaml). Mean absolute error 0.048; tied bottom 9th mean 0.028, max 0.108; trailing by one run is worse (mean 0.078, max 0.194, runner on second and third with no outs: 0.527 against 0.721), because the approximation ignores that one run ties the game. The table states no seasons or run environment. Use WinExpectancyMatrix, built from play-by-play, when exact values matter.'
   EmpiricalBayesShrinker:
     status: matches
     evidence: primary

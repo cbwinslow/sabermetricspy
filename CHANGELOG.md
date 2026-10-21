@@ -4,6 +4,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-21
+
+### Added
+- `ReferenceStatus.EXPERIMENTAL`: `siera`, `rc27`, `xfip_minus` and `WinProbabilityModel` warn every time they are used (ADR-0061).
+- `docs/VERIFICATION.md`: what is confirmed, the measured gap of every approximate item, and the research still to do.
+- Baseball-Reference OPS+ check for four seasons (`tests/golden/ops_plus.yaml`); a bound test so documented divergences cannot grow.
+
+### Changed
+- Z-Swing%, Z-Contact%, Zone% and the other Statcast zone rates use the geometric strike zone when pitch geometry is present; Z-Swing% and Z-Contact% now equal FanGraphs exactly (ADR-0062).
+- Whiff% counts foul tips as whiffs and bunt attempts as swings, as Savant does; it now equals Savant's published values (ADR-0062).
+- `bsr` takes `ubr` and `wgdp` as input columns (FanGraphs: BsR = wSB + UBR + wGDP).
+- `MarkovChainModel.fit_transitions` is `matches` after its Retrosheet 2016 check was run and passed.
+
+### Removed
+- `total_break`, `whiff_per_100`, `two_strike_chase_pct` and `wgdp` (no published method or constants), and the `lg_gidp_rate` / `r_gidp` context fields.
+
 ## [1.0.0] - 2026-10-21
 
 ### Changed

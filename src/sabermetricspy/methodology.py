@@ -7,6 +7,7 @@ document and the registry cannot disagree.
 
 from __future__ import annotations
 
+import warnings
 from functools import lru_cache
 from importlib import resources
 from typing import Any
@@ -48,6 +49,18 @@ def metric_entries() -> dict[str, MethodologyEntry]:
 def model_entries() -> dict[str, MethodologyEntry]:
     """Audit entries for estimators and frameworks that are not registry metrics (WAR, Marcel, ...)."""
     return dict(_load()["models"])
+
+
+def warn_experimental(name: str, *, stacklevel: int = 3) -> None:
+    """Tell the caller that `name` is experimental: no consensus method or reproducible outside value (ADR-0061)."""
+    entry = {**metric_entries(), **model_entries()}.get(name)
+    reason = f" {entry.note.removeprefix('Experimental: ')}" if entry and entry.note else ""
+    warnings.warn(
+        f"{name} is experimental: it has no consensus method or reproducible outside value, so treat its numbers "
+        f"as unverified; it may change or be removed.{reason}",
+        UserWarning,
+        stacklevel=stacklevel,
+    )
 
 
 def _tier(entry: MethodologyEntry) -> str:

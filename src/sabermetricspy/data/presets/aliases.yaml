@@ -53,6 +53,8 @@ canonical_aliases:
   pitches: ["pitches", "total_pitches", "Pitches"]
   swings: ["swings", "Swings"]
   whiffs: ["whiffs", "Whiffs", "swinging_strikes"]
+  swings_savant: ["swings_savant"]
+  whiffs_savant: ["whiffs_savant"]
   called_strikes: ["called_strikes", "cstr", "CStr"]
   strike_pitches: ["strike_pitches", "strikes_thrown", "Str"]
   fouls: ["fouls", "Fouls"]

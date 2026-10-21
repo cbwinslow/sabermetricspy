@@ -28,6 +28,8 @@
 - `src/sabermetricspy/presets/`: Built-in column and event mappers for `retrosheetpy`, `statcast`, and `lahman`.
 - `src/sabermetricspy/telemetry/`: Decorator-based performance telemetry (`@profiled`, `PerformanceTracker`, `sb.telemetry`) and benchmark registry (`@register_benchmark`, `run_registered_benchmarks`).
 
+- `docs/VERIFICATION.md`: what is confirmed against outside values, measured gaps, and the research queue. Update it with every audit change.
+
 ## Key Rules
 1. Follow the **3-Tier Naming Standard** in `docs/NAMING_CONVENTIONS.md` without exception.
 2. Never use per-row Python loops in metric calculations; always build `narwhals.Expr` expressions.

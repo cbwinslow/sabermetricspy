@@ -142,3 +142,26 @@ def test_golden_entries_agree_across_polars_pandas_and_pyarrow(
         expected = base[col][0]
         assert math.isclose(pandas_out[col].iloc[0], expected, abs_tol=1e-9), key
         assert math.isclose(arrow_out[col][0].as_py(), expected, abs_tol=1e-9), key
+
+
+DIVERGENCE_BOUND = (
+    3.2  # largest documented gap is 3.13 (Pedro Martinez 2000 FIP-); a bigger gap is a regression
+)
+
+
+def test_documented_divergences_stay_within_their_measured_bound() -> None:
+    """A documented divergence is not a free pass: it may not grow beyond the gap measured when it was documented."""
+    for fixture, mapping in (
+        ("batting.yaml", BATTING_METRICS),
+        ("pitching.yaml", PITCHING_METRICS),
+    ):
+        for entry in load_entries(fixture):
+            for key in entry.get("divergence", {}):
+                metric, column = mapping[key]
+                row = sp.calculate(_frame(entry), [metric], context=_context(entry)).df.row(
+                    0, named=True
+                )
+                gap = abs(row[column] - entry["published"][key])
+                assert gap <= DIVERGENCE_BOUND, (
+                    f"{entry['id']}.{key} gap {gap:.2f} exceeds the bound"
+                )

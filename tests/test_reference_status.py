@@ -13,12 +13,14 @@ def test_reference_status_enum_follows_naming_convention() -> None:
         "APPROXIMATE",
         "DIVERGENT",
         "UNVERIFIED",
+        "EXPERIMENTAL",
     ]
     assert [s.value for s in ReferenceStatus] == [
         "matches",
         "approximate",
         "divergent",
         "unverified",
+        "experimental",
     ]
 
 

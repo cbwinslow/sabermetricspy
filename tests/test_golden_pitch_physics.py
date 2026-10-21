@@ -129,3 +129,11 @@ def test_putaway_rate_matches_savant(raw: pl.DataFrame) -> None:
         )
         got = sp.calculate(frame, [Metric.PUTAWAY_PCT]).df.row(0, named=True)["putaway_pct"]
         assert 100 * got == pytest.approx(REF["pitch_types"][pitch_type]["put_away"], abs=0.05)
+
+
+@pytest.mark.parametrize("pitch_type", ["FF", "SI", "CH"])
+def test_whiff_pct_matches_savant(raw: pl.DataFrame, pitch_type: str) -> None:
+    """Savant's Whiff% (foul tips are whiffs, bunts are swings) equals the published value at its one-decimal precision."""
+    ref = REF["pitch_types"][pitch_type]["whiff_percent"]
+    row = _calc(raw.filter(pl.col("pitch_type") == pitch_type), [Metric.WHIFF_PCT])
+    assert 100 * row["whiff_pct"] == pytest.approx(ref, abs=0.05)

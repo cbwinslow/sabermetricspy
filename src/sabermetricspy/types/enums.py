@@ -39,12 +39,16 @@ class ImplKind(StrEnum):
 
 
 class ReferenceStatus(StrEnum):
-    """How closely a metric follows the published method of its reference source."""
+    """How closely a metric follows the published method of its reference source.
+
+    `experimental` means there is no consensus method or no reproducible outside value; it warns when used (ADR-0061).
+    """
 
     MATCHES = "matches"
     APPROXIMATE = "approximate"
     DIVERGENT = "divergent"
     UNVERIFIED = "unverified"
+    EXPERIMENTAL = "experimental"
 
 
 class EvidenceTier(StrEnum):
@@ -205,6 +209,8 @@ class Stat(StrEnum):
     PITCHES = "pitches"
     SWINGS = "swings"
     WHIFFS = "whiffs"
+    SWINGS_SAVANT = "swings_savant"
+    WHIFFS_SAVANT = "whiffs_savant"
     CALLED_STRIKES = "called_strikes"
     STRIKE_PITCHES = "strike_pitches"
     FOULS = "fouls"
@@ -219,8 +225,6 @@ class Stat(StrEnum):
     FIRST_PITCH_STRIKES = "first_pitch_strikes"
     TWO_STRIKE_SO = "two_strike_so"
     TWO_STRIKE_PITCHES = "two_strike_pitches"
-    TWO_STRIKE_OUT_ZONE_SWINGS = "two_strike_out_zone_swings"
-    TWO_STRIKE_OUT_ZONE_PITCHES = "two_strike_out_zone_pitches"
     MEATBALL_SWINGS = "meatball_swings"
     MEATBALL_PITCHES = "meatball_pitches"
 
@@ -254,7 +258,6 @@ class Stat(StrEnum):
     IVB_SUM = "ivb_sum"
     HB_SUM = "hb_sum"
     BREAK_COUNT = "break_count"
-    TOTAL_BREAK_SUM = "total_break_sum"
     EFF_VELO_SUM = "eff_velo_sum"
     EFF_VELO_COUNT = "eff_velo_count"
     VAA_SUM = "vaa_sum"
@@ -328,7 +331,6 @@ class Metric(StrEnum):
     WSB = "wsb"
     SPEED_SCORE = "speed_score"
     XBT_PCT = "xbt_pct"
-    WGDP = "wgdp"
     BSR = "bsr"
 
     # Traditional Pitching
@@ -388,7 +390,6 @@ class Metric(StrEnum):
     FP_SWING_PCT = "fp_swing_pct"
     FP_STRIKE_PCT = "fp_strike_pct"
     PUTAWAY_PCT = "putaway_pct"
-    TWO_STRIKE_CHASE_PCT = "two_strike_chase_pct"
     MEATBALL_SWING_PCT = "meatball_swing_pct"
 
     # Batted-Ball & Contact Quality
@@ -419,13 +420,11 @@ class Metric(StrEnum):
     AVG_EXTENSION = "avg_extension"
     IVB = "ivb"
     HB = "hb"
-    TOTAL_BREAK = "total_break"
     EFFECTIVE_VELO = "effective_velo"
     VAA = "vaa"
     HAA = "haa"
     BAUER_UNITS = "bauer_units"
     RV_PER_100 = "rv_per_100"
-    WHIFF_PER_100 = "whiff_per_100"
 
     # Fielding
     TC = "tc"

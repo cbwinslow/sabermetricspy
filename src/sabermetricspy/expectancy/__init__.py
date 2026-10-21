@@ -10,6 +10,7 @@ import polars as pl
 from narwhals.typing import IntoFrame
 from pydantic import BaseModel, ConfigDict, Field
 
+from sabermetricspy.methodology import warn_experimental
 from sabermetricspy.schema import require_no_nulls, require_values, to_polars_df
 from sabermetricspy.telemetry import profiled
 from sabermetricspy.types.enums import BaseState
@@ -760,6 +761,7 @@ class WinProbabilityModel:
     """
 
     def __init__(self, *, runs_per_9: float = 4.50, home_edge: float = 0.035) -> None:
+        warn_experimental("WinProbabilityModel", stacklevel=3)
         self.runs_per_9 = runs_per_9
         self.home_edge = home_edge
         self._results = WinProbabilityResults(runs_per_9=runs_per_9, home_edge=home_edge)
