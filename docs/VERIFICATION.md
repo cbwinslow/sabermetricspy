@@ -58,7 +58,7 @@ they are listed under "Research still to do".
 ## Experimental (warns on use)
 
 `bsr` only: wSB matches FanGraphs but no BsR total does (on the leaderboard the BaseRunning column is not the sum of its
-wBsR, UBR and GDPRuns fields, unexplained). `off` depends on it. Removed outright in 1.4.0 because no published
+wBsR, UBR and GDPRuns fields, SD 1.9 runs, unexplained; FanGraphs' Offense is exactly Batting plus BaseRunning, so BaseRunning is the total it uses). `off` depends on it. Removed outright in 1.4.0 because no published
 value or documented method could be found: `rc27` (no source states its out count), `qera` (formula printed by
 Baseball Prospectus, values paywalled, superseded by SIERA), `speed_score` (neither published form reproduces
 FanGraphs' Spd), the rule-based `MarkovChainModel.fit` and `MonteCarloSimulator` (library-chosen advancement rules;

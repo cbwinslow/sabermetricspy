@@ -1,6 +1,6 @@
 [project]
 name = "sabermetricspy"
-version = "1.4.0"
+version = "1.4.1"
 description = "Fast, strongly-typed, dataframe-agnostic baseball sabermetrics calculation engine, expectancy matrix builder, and forecasting library."
 readme = "README.md"
 license = "Apache-2.0"

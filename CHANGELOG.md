@@ -4,6 +4,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [1.4.1] - 2026-10-21
+
+### Documented
+- BsR gap narrowed: FanGraphs' Offense equals Batting plus BaseRunning exactly (146, 135 and 111 players in 2016, 2019, 2024), so BaseRunning is the total in use; its listed parts differ from it by a standard deviation of 1.9 runs. `bsr` stays experimental.
+
 ## [1.4.0] - 2026-10-21
 
 Review-driven cleanup (ADR-0065).
