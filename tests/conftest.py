@@ -58,7 +58,7 @@ def _missing_local_fixture(path: Path) -> str | None:
     except OSError:
         return None
     for name, pattern in LOCAL_ONLY:
-        if re.search(pattern, source) and not any(HERE.rglob(name)):
+        if re.search(pattern, source) and not any((HERE / "golden").rglob(name)):
             return name
     return None
 
