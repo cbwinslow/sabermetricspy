@@ -138,10 +138,10 @@ metrics:
     source_url: https://library.fangraphs.com/offense/plate-discipline/
     note: 'CSW% = CStr% + SwStr% (FanGraphs C+SwStr%). On one recorded sample (tests/golden/plate_discipline.yaml) 921 against FanGraphs'' 920 of 2868 pitches (0.035 percentage points), inherited from SwStr%.'
   der:
-    status: experimental
-    evidence: secondary
+    status: approximate
+    evidence: golden
     source_url: https://www.mlb.com/glossary/advanced-stats/defensive-efficiency-ratio
-    note: 'The MLB Glossary formula, 1 - (H + ROE - HR) / (PA - BB - SO - HBP - HR), also given by the Chicago Sun-Times; before 1.1.0 this was 1 - BABIP, which leaves reached-on-error out. No published team value reproduces it: Baseball-Reference''s DefEff (.704 for the 2024 Angels, against .7087 here with the 42 reached-on-error counted from MLB play-by-play) estimates reached-on-error as 0.71 times errors and averages two estimates, and FanGraphs has no DER page. No Tango or Book text on DER was found. Held experimental until a published value is reproduced.'
+    note: 'The MLB Glossary formula, 1 - (H + ROE - HR) / (PA - BB - SO - HBP - HR), also given by the Chicago Sun-Times. Measured against Baseball-Reference''s team DefEff for all 30 teams in 2016 (tests/golden/bref_defeff_2016.csv, reached-on-error counted from Retrosheet play-by-play): the library value is higher by 0.0026 on average and at most 0.0047, because Baseball-Reference estimates reached-on-error as 0.71 times errors and averages two estimates rather than counting it. FanGraphs has no DER page.'
   dice:
     status: matches
     evidence: secondary
@@ -266,7 +266,7 @@ metrics:
     status: matches
     evidence: primary
     source_url: https://www.baseball-reference.com/players/m/martipe02.shtml
-    note: Outs divided by 3. Published innings use the .1/.2 notation for thirds (Baseball-Reference 217.0, FanGraphs 182.1); the golden ERA and H/9 fixtures convert it to outs and reproduce the published rates.
+    note: 'Outs divided by 3. Published innings use the .1/.2 notation for thirds (Baseball-Reference 217.0, FanGraphs 182.1); on 2,005 FanGraphs pitcher-seasons the converted value equals the published innings exactly (tests/test_golden_fg_rates.py).'
   iso:
     status: matches
     evidence: golden
@@ -281,7 +281,7 @@ metrics:
     status: matches
     evidence: primary
     source_url: https://library.fangraphs.com/pitching/rate-stats
-    note: K% minus BB%, with K% and BB% as the FanGraphs Library defines them (per plate appearance); FanGraphs publishes the same difference as K-BB% for pitchers.
+    note: 'K% minus BB%, with K% and BB% as the FanGraphs Library defines them (per plate appearance). Reproduces FanGraphs published K-BB% for pitchers on 2,005 pitcher-seasons, and for qualified batters equals the difference of the published K% and BB% (833 batter-seasons; tests/test_golden_fg_rates.py).'
   k_pct:
     status: matches
     evidence: golden
@@ -361,7 +361,7 @@ metrics:
     status: matches
     evidence: primary
     source_url: https://www.fangraphs.com/leaders/major-league
-    note: BB / SO, the reciprocal of the FanGraphs K/BB reproduced in tests/golden/pitching_indices.yaml.
+    note: 'BB / SO, the reciprocal of the FanGraphs K/BB, which pit_k_to_bb reproduces to the fourth decimal on 2,005 FanGraphs pitcher-seasons (tests/test_golden_fg_rates.py; also tests/golden/pitching_indices.yaml).'
   pit_k_minus_bb_pct:
     status: matches
     evidence: golden
@@ -434,9 +434,9 @@ metrics:
     note: 'Runs over plate appearances. League R / TBF rounds to the FanGraphs Guts! R/PA in all 36 seasons from 1990 to 2025 (league totals and Guts! snapshots under tests/golden/).'
   ra9:
     status: matches
-    evidence: secondary
-    source_url: https://en.wikipedia.org/wiki/Run_average
-    note: 9 * runs allowed / IP (27 * R / outs), counting earned and unearned runs; confirmed only by secondary sources (Wikipedia run average), and the FanGraphs and Baseball-Reference definitions were not retrievable.
+    evidence: primary
+    source_url: https://www.fangraphs.com/leaders/major-league
+    note: '9 * runs allowed / IP (27 * R / outs), counting earned and unearned runs (Wikipedia run average). With earned runs in the run column it reproduces FanGraphs ERA on 2,005 pitcher-seasons to the fourth decimal (tests/test_golden_fg_rates.py); FanGraphs and Baseball-Reference do not publish a separate RA9 column in the leaderboards pulled.'
   rbi_per_pa:
     status: approximate
     evidence: secondary

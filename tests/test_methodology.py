@@ -224,7 +224,7 @@ def test_audited_entries_cite_a_source_url() -> None:
         assert entry.source_url.startswith("http"), f"{name}: no source URL"
 
 
-@pytest.mark.parametrize("name", ["rc27", "der", "bsr", "speed_score", "qera"])
+@pytest.mark.parametrize("name", ["rc27", "bsr", "speed_score", "qera"])
 def test_quarantined_metrics_are_labeled_experimental(name: str) -> None:
     assert metric_entries()[name].status is ReferenceStatus.EXPERIMENTAL
 

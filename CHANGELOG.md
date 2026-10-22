@@ -4,6 +4,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-10-21
+
+### Added
+- Golden tests against FanGraphs leaderboards (833 batter-seasons, 2,005 pitcher-seasons; `tools/fg_leaderboards.R`): OBP, SLG, ISO, BB%, K%, BB/K, K-BB%, K/BB match to the fourth decimal; IP matches exactly; RA9 equals ERA when every run is earned.
+- Golden test of `der` against Baseball-Reference's team DefEff, all 30 teams of 2016.
+
+### Changed
+- `der` is `approximate` rather than `experimental`: 0.0026 above Baseball-Reference on average (0.0047 at most), since Baseball-Reference estimates reached-on-error rather than counting it.
+
 ## [1.2.0] - 2026-10-21
 
 ### Added
