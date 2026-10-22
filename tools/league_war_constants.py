@@ -1,4 +1,4 @@
-"""Regenerates src/sabermetricspy/data/constants/league_war.yaml from the MLB Stats API.
+"""Regenerates league_war.yaml (a file in the constants directory you supply; docs/CONSTANTS.md) from the MLB Stats API.
 
 Run: uv run python tools/league_war_constants.py   (needs internet)
 

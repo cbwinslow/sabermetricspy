@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from pathlib import Path
 
 import polars as pl
@@ -29,9 +30,11 @@ WEB = {
 
 
 @pytest.fixture(autouse=True)
-def _restore_constants() -> object:
+def _restore_constants() -> Iterator[None]:
     before = constants_dir()
+    sp.use_guts(None)
     yield
+    sp.use_guts(None)
     sp.use_constants(before)
 
 
@@ -59,11 +62,21 @@ def test_use_guts_feeds_the_lookup_and_a_missing_season_raises() -> None:
         get_woba_weights(2031)
 
 
-def test_use_constants_clears_the_guts_table() -> None:
+def test_use_constants_keeps_the_guts_table_and_use_guts_none_clears_it() -> None:
     sp.use_guts(pl.DataFrame(WEB))
     sp.use_constants(constants_dir())
+    assert get_woba_weights(2030).w_bb == 0.7
+    sp.use_guts(None)
     with pytest.raises(ConstantsNotFoundError):
         get_woba_weights(2030)
+
+
+def test_a_guts_table_alone_does_not_invent_league_rates() -> None:
+    """Guts! has no league K% or BB%; K%+ must say so instead of dividing by a default."""
+    sp.use_guts(pl.DataFrame(WEB))
+    batters = pl.DataFrame({"so": [100], "pa": [600]})
+    with pytest.raises(ConstantsNotFoundError, match="lg_k_pct"):
+        sp.calculate(batters, [sp.Metric.BAT_K_PCT_PLUS], context=sp.SeasonContext(season=2030))
 
 
 def test_a_table_missing_a_column_says_which() -> None:

@@ -17,7 +17,7 @@ Pitcher WAR SHALL be computed from ifFIP (infield flies counted as strikeouts, u
 - **THEN** replacement is 0.03 wins per game and WAR before correction is multiplied by (1 + gmLI) / 2
 
 ### Requirement: Run-environment constants are sourced per league and season
-The library SHALL bundle, for every season 1990-2025, the AL and NL pitching totals (innings, runs, earned runs, home runs, walks, hit batters, strikeouts, infield flies) needed to derive the MLB ifFIP constant, league RA9 and ERA, and AL/NL league FIP, with source and retrieval date, and infield flies SHALL be treated as zero for seasons without published values.
+The library SHALL read, from the constants table the caller supplies (it ships none), the AL and NL pitching totals (innings, runs, earned runs, home runs, walks, hit batters, strikeouts, infield flies) needed to derive the MLB ifFIP constant, league RA9 and ERA, and AL/NL league FIP, with source and retrieval date, and infield flies SHALL be treated as zero for seasons without published values.
 
 #### Scenario: Totals are consistent
 - **WHEN** the AL and NL totals for a season are added

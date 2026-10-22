@@ -5,6 +5,10 @@ from __future__ import annotations
 from pydantic import BaseModel, ConfigDict, Field
 
 
+class ConstantsNotFoundError(FileNotFoundError):
+    """Raised when a constant, a constants file or a season is needed but was not supplied."""
+
+
 class WOBAWeights(BaseModel):
     """Linear weights and scaling constants for wOBA, wRAA, and wRC+ in a given season."""
 
@@ -69,10 +73,18 @@ class WOBAWeights(BaseModel):
     lg_wrc_per_pa_al: float | None = Field(
         default=None, description="AL wRC/PA excluding pitchers (None when unsourced)"
     )
-    lg_obp: float = Field(default=0.315, description="League average OBP for OPS+")
-    lg_slg: float = Field(default=0.410, description="League average SLG for OPS+")
-    lg_k_pct: float = Field(default=0.226, description="League average strikeout rate (SO/PA)")
-    lg_bb_pct: float = Field(default=0.083, description="League average walk rate (BB/PA)")
+    lg_obp: float | None = Field(
+        default=None, description="League average OBP for OPS+ (None when not supplied)"
+    )
+    lg_slg: float | None = Field(
+        default=None, description="League average SLG for OPS+ (None when not supplied)"
+    )
+    lg_k_pct: float | None = Field(
+        default=None, description="League average strikeout rate, SO/PA (None when not supplied)"
+    )
+    lg_bb_pct: float | None = Field(
+        default=None, description="League average walk rate, BB/PA (None when not supplied)"
+    )
     lg_bb_pct_nl: float | None = Field(
         default=None,
         description="NL walk rate excluding pitchers, the BB%+ denominator (None when unsourced)",
@@ -111,6 +123,16 @@ class WOBAWeights(BaseModel):
     source: str = Field(default="FanGraphs Guts!", description="Provenance source")
     retrieved: str | None = Field(default=None, description="Date the values were retrieved (ISO)")
 
+    def require(self, name: str) -> float:
+        """A constant that has no default: its value, or `ConstantsNotFoundError` saying it was not supplied."""
+        value = getattr(self, name)
+        if value is None:
+            raise ConstantsNotFoundError(
+                f"{name} (season {self.season}) is not in the constants you supplied. A FanGraphs Guts! table "
+                "does not carry it; add it to woba_fangraphs.yaml (see docs/CONSTANTS.md)."
+            )
+        return float(value)
+
     def wrc_per_pa_for(self, league: str) -> float | None:
         """Non-pitcher wRC/PA for `league` ("AL", "NL", otherwise MLB-wide); None when unsourced."""
         key = league.upper()
@@ -145,7 +167,7 @@ class WOBAWeights(BaseModel):
             return self.lg_bb_pct_nl
         if key == "AL" and self.lg_bb_pct_al is not None:
             return self.lg_bb_pct_al
-        return self.lg_bb_pct
+        return self.require("lg_bb_pct")
 
     def k_pct_for(self, league: str) -> float:
         """Strikeout rate for `league` ("AL", "NL", otherwise the MLB-wide `lg_k_pct`)."""
@@ -154,7 +176,7 @@ class WOBAWeights(BaseModel):
             return self.lg_k_pct_nl
         if key == "AL" and self.lg_k_pct_al is not None:
             return self.lg_k_pct_al
-        return self.lg_k_pct
+        return self.require("lg_k_pct")
 
     def pit_bb_pct_for(self, league: str) -> float:
         """Pitcher walk rate per batter faced for `league` ("AL", "NL", otherwise the MLB-wide `lg_bb_pct`)."""
@@ -163,7 +185,7 @@ class WOBAWeights(BaseModel):
             return self.lg_pit_bb_pct_nl
         if key == "AL" and self.lg_pit_bb_pct_al is not None:
             return self.lg_pit_bb_pct_al
-        return self.lg_bb_pct
+        return self.require("lg_bb_pct")
 
     def pit_k_pct_for(self, league: str) -> float:
         """Pitcher strikeout rate per batter faced for `league` ("AL", "NL", otherwise the MLB-wide `lg_k_pct`)."""
@@ -172,7 +194,7 @@ class WOBAWeights(BaseModel):
             return self.lg_pit_k_pct_nl
         if key == "AL" and self.lg_pit_k_pct_al is not None:
             return self.lg_pit_k_pct_al
-        return self.lg_k_pct
+        return self.require("lg_k_pct")
 
 
 class SIERACoefficients(BaseModel):

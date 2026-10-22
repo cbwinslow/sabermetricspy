@@ -15,9 +15,9 @@ from sabermetricspy.value.park import (
     regress_park_factor,
 )
 
-GUTS = yaml.safe_load(
-    (Path(__file__).parent / "golden" / "park_factors_2024.yaml").read_text("utf-8")
-)
+GUTS_FILE = (
+    Path(__file__).parent / "golden" / "park_factors_2024.yaml"
+)  # local only: a league-wide compilation
 
 
 def test_raw_factor_matches_the_article_formula_and_rounds_to_its_example() -> None:
@@ -54,6 +54,9 @@ def test_invalid_inputs_are_rejected() -> None:
 
 @pytest.mark.full_constants
 def test_bundled_table_covers_thirty_teams_and_equals_guts() -> None:
+    if not GUTS_FILE.exists():
+        pytest.skip("needs the local park_factors_2024.yaml")
+    GUTS = yaml.safe_load(GUTS_FILE.read_text("utf-8"))
     assert len(GUTS["teams"]) == 30
     for team, row in GUTS["teams"].items():
         pf = sp.get_park_factor(team)

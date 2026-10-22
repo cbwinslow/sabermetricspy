@@ -157,7 +157,7 @@ def calc_off(ctx: EvalContext) -> nw.Expr:
 def calc_ops_plus(ctx: EvalContext) -> nw.Expr:
     w = ctx.weights
     pf = ctx.season_context.park_factor / 100.0
-    raw = (nw.col("obp") / w.lg_obp) + (nw.col("slg") / w.lg_slg) - 1.0
+    raw = (nw.col("obp") / w.require("lg_obp")) + (nw.col("slg") / w.require("lg_slg")) - 1.0
     return (100.0 / pf) * raw
 
 

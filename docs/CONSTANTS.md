@@ -6,28 +6,32 @@ needs, the quickest way to get it, and what it can compute for you.
 
 ## The quickest start: a FanGraphs Guts! table
 
-wOBA, wRAA, wRC+ and FIP need only the Guts! constants. Download them yourself, for your own use and under FanGraphs'
-[terms of service](https://www.fangraphs.com/about/terms-of-service); the library does not redistribute them.
+wOBA, wRAA and FIP need only the Guts! constants. Get them yourself, for your own use and under FanGraphs'
+[terms of service](https://www.fangraphs.com/about/terms-of-service); the library does not redistribute them, and this
+page does not automate the download.
+
+- In a browser, open the [Guts! constants page](https://www.fangraphs.com/guts.aspx?type=cn) and save the page, or copy
+  the table into a spreadsheet and save it as `guts.csv`.
+- Or in R, `baseballr::fg_guts()` returns the same table: `write.csv(baseballr::fg_guts(), "guts.csv", row.names = FALSE)`.
 
 ```python
-import io
-import urllib.request
-
-import pandas as pd
 import sabermetricspy as sp
 
-req = urllib.request.Request(
-    "https://www.fangraphs.com/guts.aspx?type=cn", headers={"User-Agent": "Mozilla/5.0"}
-)
-html = urllib.request.urlopen(req).read().decode("utf-8")
-guts = max(pd.read_html(io.StringIO(html)), key=len)  # Season, wOBA, wOBAScale, wBB ... R/W, cFIP
-guts.to_csv("guts.csv", index=False)  # keep a copy; do not commit or redistribute it
-
-sp.use_guts("guts.csv")  # or sp.use_guts(guts)
+sp.use_guts(
+    "guts.csv"
+)  # Season, wOBA, wOBAScale, wBB ... R/PA, R/W, cFIP (web or baseballr column names)
 ```
 
-In R, `baseballr::fg_guts()` returns the same table. `sp.load_guts` accepts either set of column names.
 A season missing from your table raises `ConstantsNotFoundError`; the library never borrows another season's values.
+
+### What a Guts!-only table supports
+
+| Works | Needs more than Guts! (add the field to `woba_fangraphs.yaml`, or the call raises or returns null) |
+|---|---|
+| wOBA, wRAA, FIP, the batting rate metrics | `OPS+` (`lg_obp`, `lg_slg`), `K%+` and `BB%+` (`lg_k_pct`, `lg_bb_pct`, and the league versions): raise `ConstantsNotFoundError` naming the field |
+| wRC+ is computed, but with league runs per PA (which includes pitchers) | exact wRC+ needs `lg_wrc_per_pa` (non-pitcher wRC/PA) |
+| kwERA, using Tango's 5.40 when no seasonal constant is given | the seasonal kwERA constant (`kwera_constant`; Lahman computes it through 2020) |
+| | xFIP (`lg_hr_per_fb`), SIERA (`siera_constant`), FIP- / ERA- / ERA+ (league ERA and FIP): null |
 
 ## Constants directory (park factors, WAR inputs)
 

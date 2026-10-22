@@ -2,7 +2,7 @@
 # source: https://www.fangraphs.com/api/leaders/major-league/data?stats=bat&season=Y&type=8 (Dashboard columns, scripted request)
 # WAR = (offense + defense + wleague + replacement) / runs per win, where offense = batting + baserunning and
 # defense = fielding + positional. FanGraphs revises components after the fact, so values are dated.
-# League inputs (games, plate appearances, runs, outs) are the bundled data/constants/league_war.yaml values.
+# League inputs (games, plate appearances, runs, outs) are the supplied league_war.yaml constants file values.
 retrieved: '2026-10-21'
 rows:
 - {player: Joey Votto, season: 2013, league: NL, pa: 726, batting: 45.219014, baserunning: -1.087447, fielding: -1.121837, positional: -12.265690, wleague: 1.089567, replacement: 20.745097, war: 5.675622}

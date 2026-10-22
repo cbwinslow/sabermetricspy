@@ -35,3 +35,4 @@ tests/golden/fg_batting_bb_k.csv
 tests/golden/fg_pitching_xfip.csv
 tests/golden/fg_game_score_v2.csv
 tests/golden/fg_shutdown_meltdown.csv
+tests/golden/park_factors_2024.yaml

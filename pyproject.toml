@@ -1,6 +1,6 @@
 [project]
 name = "sabermetricspy"
-version = "2.0.0"
+version = "2.0.1"
 description = "Fast, strongly-typed, dataframe-agnostic baseball sabermetrics calculation engine, expectancy matrix builder, and forecasting library."
 readme = "README.md"
 license = "Apache-2.0"
@@ -21,7 +21,7 @@ keywords = [
   "narwhals",
 ]
 classifiers = [
-  "Development Status :: 5 - Production/Stable",
+  "Development Status :: 4 - Beta",
   "Intended Audience :: Science/Research",
   "Intended Audience :: Developers",
   "License :: OSI Approved :: Apache Software License",
@@ -91,9 +91,7 @@ packages = ["src/sabermetricspy"]
 [tool.hatch.build.targets.sdist]
 include = [
   "src",
-  "tests",
   "docs",
-  "openspec",
   "README.md",
   "LICENSE",
   "CHANGELOG.md",

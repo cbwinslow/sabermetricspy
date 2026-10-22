@@ -201,7 +201,9 @@ def load_register(
     paths = [root] if root.is_file() else [root / s for s in shards]
     for p in paths:
         if not p.is_file():
-            raise FileNotFoundError(f"Register shard not found: {p}")
+            raise FileNotFoundError(
+                f"Register shard not found: {p}. Point load_register at the `data` folder of a copy of {REGISTER_REPO_URL}."
+            )
     state = tuple((p.stat().st_size, p.stat().st_mtime_ns) for p in paths)
     return _read_register(str(root), tuple(shards), state)
 

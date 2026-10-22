@@ -14,4 +14,4 @@ The package is published by `.github/workflows/publish.yml` with PyPI trusted pu
 4. Create a GitHub release from the tag. The workflow builds, runs `twine check` and uploads.
 5. Verify in a clean environment: `pip install sabermetricspy==X.Y.Z` and run the quickstart.
 
-Seasonal constants go stale each offseason: re-run the scripts in `tools/` (see `docs/VERIFICATION.md`) and release a data update.
+The package ships no seasonal constants (ADR-0068), so there is no data to refresh at release time. The maintainer refreshes the local-only test tables each offseason with the scripts in `tools/`.

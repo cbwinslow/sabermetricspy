@@ -101,7 +101,8 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo[Any]) -> 
     report = outcome.get_result()
     if HAVE_FULL or not report.failed or call.excinfo is None:
         return
-    if isinstance(call.excinfo.value, ConstantsNotFoundError):
+    error = call.excinfo.value
+    if isinstance(error, ConstantsNotFoundError) and "for season" in str(error):
         report.outcome = "skipped"
         report.longrepr = (
             str(item.path),

@@ -15,6 +15,7 @@ from typing import Any
 import yaml
 
 from sabermetricspy.types.context import (
+    ConstantsNotFoundError,
     LeagueWARConstants,
     ParkFactor,
     PitcherWARConstants,
@@ -36,10 +37,6 @@ CONSTANTS_FILES: tuple[str, ...] = (
 GUTS_URL = "https://www.fangraphs.com/guts.aspx?type=cn"
 
 
-class ConstantsNotFoundError(FileNotFoundError):
-    """Raised when a constants file is needed but no constants directory (or file) is available."""
-
-
 _constants_override: Path | None = None
 _GUTS_OVERRIDE: dict[int, WOBAWeights] = {}
 _TABLES: dict[tuple[str, str], Any] = {}
@@ -53,7 +50,6 @@ def use_constants(path: str | Path | None) -> None:
     global _constants_override
     _constants_override = Path(path) if path is not None else None
     _TABLES.clear()
-    _GUTS_OVERRIDE.clear()
 
 
 def constants_dir() -> Path:
@@ -65,7 +61,7 @@ def constants_dir() -> Path:
         return Path(env)
     raise ConstantsNotFoundError(
         "No seasonal constants directory is set. sabermetricspy ships no constants and downloads none: call "
-        f"use_constants(path) or set {CONSTANTS_ENV}. wOBA weights and league constants can be taken from "
+        f"use_constants(path), use_guts(table) or set {CONSTANTS_ENV}. wOBA weights and league constants can be taken from "
         f"FanGraphs' Guts! page ({GUTS_URL}) under its terms, or computed from your own data (see docs/CONSTANTS.md)."
     )
 
@@ -151,10 +147,15 @@ def load_guts(source: Any) -> dict[int, WOBAWeights]:
 def use_guts(source: Any) -> None:
     """Use a Guts! table (see `load_guts`) for wOBA weights and league constants, instead of a YAML file.
 
-    The table lives in memory until `use_constants` is called again. Other constants (park factors, WAR inputs)
-    still come from the constants directory when a calculation needs them.
+    The table stays in memory until `use_guts(None)`; `use_constants` does not clear it. Other constants (park
+    factors, WAR inputs) still come from the constants directory when a calculation needs them.
     """
+    if source is None:
+        _GUTS_OVERRIDE.clear()
+        return
     table = load_guts(source)
+    if not table:
+        raise ValueError("The Guts! table has no rows.")
     root = constants_dir_or_none()
     key = (str(root.resolve()) if root else "<none>", "table:woba")
     _GUTS_OVERRIDE.clear()
@@ -340,8 +341,8 @@ def get_fip_park_factor(team: str, season: int) -> float:
     """FanGraphs' FIP park factor (100 = neutral) for a team's home park in a season, 1990 on.
 
     This is the park input of FIP- (pass it as `SeasonContext.park_factor`) and of FanGraphs pitcher WAR. It is the
-    FIP column of the FanGraphs park factors page, a whole number. Raises `ValueError` for an unknown team or season
-    instead of returning a neutral value.
+    FIP column of the FanGraphs park factors page, a whole number. Raises `ConstantsNotFoundError` for a season missing
+    from your table and `ValueError` for an unknown team, instead of returning a neutral value.
     """
     table = _load_fip_park_table()
     if season not in table:

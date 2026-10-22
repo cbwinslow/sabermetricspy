@@ -30,12 +30,16 @@ Supplied constants SHALL satisfy published identities: league FIP matches league
 - **WHEN** a season's cFIP and league totals are checked
 - **THEN** the implied league FIP equals league ERA within the stated tolerance
 
-### Requirement: Explicit handling of missing seasons
-When constants are requested for a season absent from the supplied table, the library SHALL return the nearest season's constants labeled with the requested season and SHALL emit a `UserWarning` naming both seasons, once per requested and substituted pair.
+### Requirement: Missing seasons raise
+When constants are requested for a season absent from the supplied table, the library SHALL raise `ConstantsNotFoundError` naming the season and the range the table covers, and SHALL NOT substitute another season's values. A constant the supplied table does not carry and that has no sourced default (for example league K% and BB%, OBP and SLG) SHALL raise the same error naming the constant.
 
 #### Scenario: Requesting a missing season
 - **WHEN** constants are requested for a season that is not in the table
-- **THEN** a `UserWarning` names the requested and substituted seasons, and the values equal the nearest season's
+- **THEN** `ConstantsNotFoundError` is raised and no values are returned
+
+#### Scenario: Guts-only table and a metric that needs league K%
+- **WHEN** only a Guts! table is supplied and `bat_k_pct_plus` is calculated
+- **THEN** `ConstantsNotFoundError` names `lg_k_pct`
 
 ### Requirement: League constants computed from the Lahman database
 `sabermetricspy.lahman.league_constants` SHALL compute a season's league runs per PA, OBP, SLG, ERA, cFIP, kwERA constant and caught-stealing run value from Lahman CSV files the caller supplies, and SHALL NOT download them.

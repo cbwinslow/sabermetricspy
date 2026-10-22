@@ -91,8 +91,8 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (Metric.K_TO_BB, dict(so=25, bb=12), 25 / 12, {}),
     (Metric.R_PER_PA, dict(r=20, pa=110), 20 / 110, {}),
     (Metric.RBI_PER_PA, dict(rbi=22, pa=110), 22 / 110, {}),
-    (Metric.BAT_K_PCT_PLUS, dict(so=25, pa=110), 100 * (25 / 110) / W.lg_k_pct, {}),
-    (Metric.BAT_BB_PCT_PLUS, dict(bb=12, pa=110), 100 * (12 / 110) / W.lg_bb_pct, {}),
+    (Metric.BAT_K_PCT_PLUS, dict(so=25, pa=110), 100 * (25 / 110) / W.require("lg_k_pct"), {}),
+    (Metric.BAT_BB_PCT_PLUS, dict(bb=12, pa=110), 100 * (12 / 110) / W.require("lg_bb_pct"), {}),
     # ---- pitching ----
     (Metric.IP, dict(outs=20), 20 / 3, {}),
     (Metric.RA9, dict(ra=5, outs=54), 27 * 5 / 54, {}),
@@ -152,8 +152,8 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (Metric.MELTDOWN, dict(game_wpa=-0.06, is_reliever=True), 1, {}),
     (Metric.PIT_K_TO_BB, dict(so=9, bb=3), 9 / 3, {}),
     (Metric.BF_PER_IP, dict(bf=27, outs=18), 3 * 27 / 18, {}),
-    (Metric.K_PCT_PLUS, dict(so=9, bf=27), 100 * (9 / 27) / W.lg_k_pct, {}),
-    (Metric.BB_PCT_PLUS, dict(bb=3, bf=27), 100 * (3 / 27) / W.lg_bb_pct, {}),
+    (Metric.K_PCT_PLUS, dict(so=9, bf=27), 100 * (9 / 27) / W.require("lg_k_pct"), {}),
+    (Metric.BB_PCT_PLUS, dict(bb=3, bf=27), 100 * (3 / 27) / W.require("lg_bb_pct"), {}),
     (Metric.DIPS_BOP_PCT, dict(hr=5, bb=15, so=60, bf=300, hbp=2), (5 + 15 + 2 + 60) / 300, {}),
     # ---- plate discipline ----
     (Metric.SWING_PCT, dict(swings=50, pitches=100), 0.5, {}),
@@ -278,7 +278,7 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (
         Metric.OPS_PLUS,
         dict(**BAT, hbp=1, sf=1),
-        (100 / 1.10) * (OBP / W.lg_obp + SLG / W.lg_slg - 1),
+        (100 / 1.10) * (OBP / W.require("lg_obp") + SLG / W.require("lg_slg") - 1),
         dict(park_factor=110.0),
     ),
     (Metric.RC_BASIC, dict(**BAT), (30 + 12) * TB / (100 + 12), {}),

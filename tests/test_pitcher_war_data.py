@@ -32,7 +32,7 @@ def snapshot_problems(
     problems = []
     for year, entry in snap.items():
         if year not in bundled:
-            problems.append(f"{year}: missing from bundled data")
+            problems.append(f"{year}: missing from the constants data")
             continue
         for lg in ("al", "nl"):
             for field in FIELDS:

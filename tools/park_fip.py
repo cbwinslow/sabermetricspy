@@ -1,4 +1,4 @@
-"""Builds src/sabermetricspy/data/constants/park_fip.yaml from the CSVs written by tools/park_fip.R.
+"""Builds park_fip.yaml (a file in the constants directory you supply; docs/CONSTANTS.md) from the CSVs written by tools/park_fip.R.
 
 Run: uv run python tools/park_fip.py <folder written by tools/park_fip.R>
 """

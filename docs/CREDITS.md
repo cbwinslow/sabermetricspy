@@ -34,7 +34,7 @@ not the evidence.
 - Chadwick Bureau Register (https://github.com/chadwickbureau/register): player ids and names, licensed Open Data Commons
   Attribution License 1.0. It is not bundled and the library never downloads it; `sabermetricspy.ids` loads your copy, and each translation result
   carries this credit, the commit it was downloaded from and the fetch date.
-- Lahman Baseball Database: copyright 1996-2025 by SABR, via the generous donation of Sean Lahman; licensed CC BY-SA 3.0. `sabermetricspy.lahman` downloads it to the user's cache and computes league constants from it; a small sample is kept in `tests/fixtures/lahman` under the same license.
+- Lahman Baseball Database: copyright 1996-2025 by SABR, via the generous donation of Sean Lahman; licensed CC BY-SA 3.0. `sabermetricspy.lahman` reads the official download (https://sabr.org/lahman-database/) that you place on disk and computes league constants from it; the library never downloads it and no copy is kept in the repository.
 - Seasonal constants are not distributed with this library (ADR-0068). FanGraphs publishes the Guts! constants and park factors
   itself (https://www.fangraphs.com/guts.aspx?type=cn); its Terms of Service (https://www.fangraphs.com/about/terms-of-service,
   read 2026-10-21) bar unauthorized reproduction or redistribution of its compiled content, so users who want those

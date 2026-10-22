@@ -4,6 +4,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-10-22
+
+Fixes from an independent review of 2.0.0.
+
+### Fixed
+- League OBP, SLG, K% and BB% no longer have hard-coded 2024-ish defaults: a Guts!-only table used to give wrong `OPS+`, `K%+` and `BB%+` for any season with no warning. They now raise `ConstantsNotFoundError` naming the missing field (`WOBAWeights.require`). `docs/CONSTANTS.md` lists exactly what a Guts!-only table supports.
+- `use_constants` no longer discards a table set with `use_guts`; `use_guts(None)` clears it, and an empty table is rejected. A missing FIP park season raises `ConstantsNotFoundError` like the other tables.
+- The source distribution no longer includes `tests/` or `openspec/` (no Savant or FanGraphs samples on PyPI); the 2024 park-factor table moved to local-only test data and the sample constants are cut to a few teams. `Development Status` is now Beta.
+- Specs and docs that still described the nearest-season fallback, bundled tables or downloads were corrected; `docs/CONSTANTS.md` no longer scripts a download of FanGraphs' page.
+
 ## [2.0.0] - 2026-10-22
 
 The library is computation-only again and ships no third-party constants (ADR-0068). Breaking changes.

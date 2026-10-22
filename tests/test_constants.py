@@ -1,4 +1,4 @@
-"""Bundled seasonal constants must equal the published FanGraphs Guts! table and carry provenance."""
+"""The supplied seasonal constants must equal the published FanGraphs Guts! table and carry provenance."""
 
 from __future__ import annotations
 
