@@ -1,0 +1,26 @@
+# One-season (2024) sample for the repository's tests, cut from the full local table. The values are
+# AL and NL pitching totals as used by FanGraphs-method pitcher WAR; they remain its data. The library ships no constants (ADR-0068); see docs/CONSTANTS.md.
+seasons:
+  2024:
+    al:
+      outs: 64617
+      r: 10530
+      er: 9620
+      hr: 2759
+      bb: 7453
+      hbp: 1023
+      so: 20660
+      iffb: 2556
+    nl:
+      outs: 64732
+      r: 10813
+      er: 9921
+      hr: 2694
+      bb: 7476
+      hbp: 997
+      so: 20537
+      iffb: 2284
+    source: FanGraphs leaderboard league totals, all pitchers (AL / NL aggregates;
+      https://www.fangraphs.com/leaders/major-league, API query team=0,ss, lg=al|nl,
+      ind=1)
+    retrieved: '2026-10-18'

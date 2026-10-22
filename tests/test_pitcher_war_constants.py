@@ -45,13 +45,8 @@ def test_only_2016_has_a_published_correction() -> None:
     assert corrected == [2016]
 
 
-def test_unbundled_season_warns_once_and_has_no_correction() -> None:
-    constants._WARNED_WAR_FALLBACKS.discard((1975, 1990))  # pyright: ignore[reportPrivateUsage]
-    with pytest.warns(UserWarning, match=r"1975.*1990"):
-        c = get_pitcher_war_constants(1975)
-    assert c.season == 1975 and c.war_ip_correction is None
-    with warnings.catch_warnings():
-        warnings.simplefilter("error")
+def test_missing_season_raises_instead_of_borrowing_another() -> None:
+    with pytest.raises(constants.ConstantsNotFoundError, match=r"1975.*covers"):
         get_pitcher_war_constants(1975)
 
 

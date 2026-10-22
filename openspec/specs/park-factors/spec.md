@@ -1,7 +1,7 @@
 # park-factors Specification
 
 ## Purpose
-Define how park factors are computed from home and road runs per game, converted to the composite factor and regressed toward neutral, and how the bundled park table records its sources.
+Define how park factors are computed from home and road runs per game, converted to the composite factor and regressed toward neutral, and how the supplied park table records its sources.
 
 ## Requirements
 
@@ -16,13 +16,13 @@ The library SHALL provide functions that compute a raw park factor from home and
 - **WHEN** a composite factor of 1.25 is regressed using 1, 2, 3 and 4 seasons
 - **THEN** the results are 1.15, 1.175, 1.20 and 1.225
 
-### Requirement: Sourced bundled park table
-The bundled park factor table SHALL contain all thirty teams for the stated season with values taken from FanGraphs Guts!, SHALL record its provenance, and SHALL be pinned by a golden fixture.
+### Requirement: Sourced supplied park table
+The supplied park factor table SHALL contain all thirty teams for the stated season with values taken from FanGraphs Guts!, SHALL record its provenance, and SHALL be pinned by a golden fixture.
 
 #### Scenario: Table equals the source
-- **WHEN** the bundled table is compared with the recorded Guts! rows
+- **WHEN** the supplied table is compared with the recorded Guts! rows
 - **THEN** every team's 5-year, 1-year and HR factors are equal
 
 #### Scenario: Unknown park
 - **WHEN** a park or team that is not in the table is requested
-- **THEN** a neutral factor is returned and a warning says the park is not bundled
+- **THEN** a neutral factor is returned and a warning says the park is not supplied

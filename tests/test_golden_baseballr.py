@@ -10,7 +10,7 @@ import polars as pl
 import pytest
 
 import sabermetricspy as sp
-from sabermetricspy.constants import bundled_constants
+from sabermetricspy.constants import constants_table
 from sabermetricspy.types import Metric
 
 FIXTURE = Path(__file__).parent / "golden" / "baseballr" / "baseballr_tieout.json"
@@ -39,8 +39,8 @@ def test_fixture_records_where_it_came_from() -> None:
     assert "fg_guts()" in prov["calls"]
 
 
-def test_bundled_constants_equal_baseballr_fg_guts() -> None:
-    ours = bundled_constants()
+def test_constants_table_equal_baseballr_fg_guts() -> None:
+    ours = constants_table()
     by_season = {row["season"]: row for row in DATA["guts"]}
     assert set(ours) <= set(by_season), "bundled seasons missing from baseballr fg_guts()"
     diffs: list[str] = []

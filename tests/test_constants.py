@@ -8,7 +8,7 @@ from typing import Any
 import pytest
 import yaml
 
-from sabermetricspy.constants import bundled_constants
+from sabermetricspy.constants import constants_table, get_woba_weights
 
 GOLDEN_DIR = Path(__file__).parent / "golden"
 
@@ -44,9 +44,9 @@ def test_guts_snapshot_structure_and_provenance() -> None:
         assert row["w_bb"] < row["w_1b"] < row["w_2b"] < row["w_3b"] < row["w_hr"], year
 
 
-def test_bundled_constants_match_guts_snapshot() -> None:
+def test_constants_table_match_guts_snapshot() -> None:
     snap = _load_snapshot()["seasons"]
-    table = bundled_constants()
+    table = constants_table()
     diffs: list[str] = []
     for year, ref in snap.items():
         if year not in table:
@@ -60,7 +60,7 @@ def test_bundled_constants_match_guts_snapshot() -> None:
 
 
 def test_league_era_fip_xfip_are_not_copies_of_each_other() -> None:
-    table = bundled_constants()
+    table = constants_table()
     copied = [
         year
         for year, w in table.items()
@@ -69,9 +69,9 @@ def test_league_era_fip_xfip_are_not_copies_of_each_other() -> None:
     assert not copied, f"lg_era == lg_fip == lg_xfip (placeholder) in seasons {copied}"
 
 
-@pytest.mark.parametrize("year", sorted(bundled_constants()))
+@pytest.mark.parametrize("year", sorted(constants_table()))
 def test_every_bundled_entry_has_a_source(year: int) -> None:
-    entry = bundled_constants()[year]
+    entry = get_woba_weights(year)
     assert entry.source and entry.source.strip(), f"{year} has no source"
 
 
@@ -114,7 +114,7 @@ def _outs_to_ip(notation: str) -> float:
 
 def test_bundled_league_constants_match_league_totals_snapshot() -> None:
     totals = _load_league_totals()
-    table = bundled_constants()
+    table = constants_table()
     diffs: list[str] = []
     for year, pit in totals["pitching"].items():
         w = table[year]
@@ -140,7 +140,7 @@ def test_bundled_league_constants_match_league_totals_snapshot() -> None:
 
 
 def test_xfip_inputs_absent_before_2002_and_present_after() -> None:
-    table = bundled_constants()
+    table = constants_table()
     for year, w in table.items():
         if year < 2002:
             assert w.lg_xfip is None and w.lg_hr_per_fb is None, year
@@ -155,26 +155,18 @@ def test_cfip_reproduces_league_era_from_league_totals() -> None:
     (up to about 0.0004 in early seasons).
     """
     totals = _load_league_totals()["pitching"]
-    table = bundled_constants()
+    table = constants_table()
     for year, p in totals.items():
         ip = _outs_to_ip(p["ip_notation"])
         raw = (13 * p["hr"] + 3 * (p["bb"] + p["hbp"]) - 2 * p["so"]) / ip
         assert abs(raw + table[year].c_fip - 9 * p["er"] / ip) < 1e-3, year
 
 
-def test_unbundled_season_warns_once_and_names_both_seasons() -> None:
-    import warnings
-
+def test_missing_season_raises_and_names_the_covered_range() -> None:
     from sabermetricspy import constants
 
-    constants._WARNED_FALLBACKS.discard((1975, 1990))  # pyright: ignore[reportPrivateUsage]
-    with pytest.warns(UserWarning, match=r"1975.*1990"):
-        w = constants.get_woba_weights(1975)
-    assert w.season == 1975
-    assert w.w_hr == bundled_constants()[1990].w_hr
-    with warnings.catch_warnings():
-        warnings.simplefilter("error")
-        constants.get_woba_weights(1975)  # same pair: no second warning
+    with pytest.raises(constants.ConstantsNotFoundError, match=r"1975.*covers"):
+        constants.get_woba_weights(1975)
 
 
 def test_bundled_season_does_not_warn() -> None:
@@ -190,7 +182,7 @@ def test_bundled_season_does_not_warn() -> None:
 
 def test_non_pitcher_wrc_per_pa_matches_snapshot() -> None:
     snap = yaml.safe_load((GOLDEN_DIR / "np_wrc_snapshot.yaml").read_text(encoding="utf-8"))
-    table = bundled_constants()
+    table = constants_table()
     for year, row in snap["seasons"].items():
         w = table[year]
         nl = row["nl_wrc"] / row["nl_pa"]
@@ -204,7 +196,7 @@ def test_non_pitcher_wrc_per_pa_matches_snapshot() -> None:
 
 
 def test_wrc_per_pa_for_selects_league_and_falls_back_to_mlb() -> None:
-    w = bundled_constants()[2001]
+    w = get_woba_weights(2001)
     assert w.wrc_per_pa_for("NL") == w.lg_wrc_per_pa_nl
     assert w.wrc_per_pa_for("al") == w.lg_wrc_per_pa_al
     assert w.wrc_per_pa_for("MLB") == w.lg_wrc_per_pa

@@ -70,7 +70,7 @@ def test_known_park_lookup_by_team() -> None:
 
 
 def test_unknown_park_is_neutral_and_warns() -> None:
-    with pytest.warns(UserWarning, match="not bundled"):
+    with pytest.warns(UserWarning, match="not in the park table"):
         pf = sp.get_park_factor("ZZZ")
     assert pf.basic_5yr == 100.0
     with warnings.catch_warnings():

@@ -32,5 +32,5 @@ def test_every_franchise_has_a_factor(season: int, teams: int) -> None:
 def test_unknown_team_or_season_raises_instead_of_defaulting() -> None:
     with pytest.raises(ValueError, match="No FIP park factor"):
         get_fip_park_factor("XXX", 2024)
-    with pytest.raises(ValueError, match="No bundled FIP park factors"):
+    with pytest.raises(ValueError, match="No FIP park factors"):
         get_fip_park_factor("DET", 1980)

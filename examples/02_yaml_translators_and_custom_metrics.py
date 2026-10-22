@@ -2,6 +2,9 @@
 
 Run with:
     uv run python examples/02_yaml_translators_and_custom_metrics.py
+
+Needs seasonal constants, which the library does not ship: set SABERMETRICSPY_CONSTANTS to a directory of them or call
+sp.use_guts("guts.csv") first (see docs/CONSTANTS.md).
 """
 
 from __future__ import annotations

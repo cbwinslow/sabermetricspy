@@ -4,11 +4,15 @@ from __future__ import annotations
 
 from sabermetricspy import evaluation as evaluation
 from sabermetricspy.constants import (
+    ConstantsNotFoundError,
     get_fip_park_factor,
     get_park_factor,
     get_woba_weights,
     load_custom_constants_yaml,
+    load_guts,
     resolve_context,
+    use_constants,
+    use_guts,
 )
 from sabermetricspy.engine import (
     BenchmarkResult,
@@ -38,13 +42,11 @@ from sabermetricspy.expectancy import (
 from sabermetricspy.ids import (
     PlayerRegister,
     TranslationResult,
-    download_register,
     find_players,
     load_register,
     normalize_name,
     player_id,
     translate_ids,
-    update_register,
 )
 from sabermetricspy.models import (
     Log5Model,
@@ -122,7 +124,7 @@ from sabermetricspy.value import (
     WARFramework,
 )
 
-__version__ = "1.5.0"
+__version__ = "2.0.0"
 
 
 def describe(metric: Metric | str) -> MetricSpec:
@@ -157,6 +159,7 @@ __all__ = [
     "CalibrationBin",
     "CalibrationResults",
     "Category",
+    "ConstantsNotFoundError",
     "CountExpectancyMatrix",
     "Direction",
     "EmpiricalBayesResults",
@@ -211,7 +214,6 @@ __all__ = [
     "calculate_suite",
     "count_run_value",
     "describe",
-    "download_register",
     "find_players",
     "formula",
     "get_column_aliases",
@@ -224,6 +226,7 @@ __all__ = [
     "ip_notation_to_outs_scalar",
     "load_custom_constants_yaml",
     "load_custom_metrics_yaml",
+    "load_guts",
     "load_register",
     "load_source_translator_yaml",
     "normalize_columns",
@@ -244,5 +247,6 @@ __all__ = [
     "search_metrics",
     "telemetry",
     "translate_ids",
-    "update_register",
+    "use_constants",
+    "use_guts",
 ]

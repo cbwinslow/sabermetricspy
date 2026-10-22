@@ -32,19 +32,16 @@ not the evidence.
 - Retrosheet: "The information used here was obtained free of charge from and is copyrighted by Retrosheet.
   Interested parties may contact Retrosheet at www.retrosheet.org."
 - Chadwick Bureau Register (https://github.com/chadwickbureau/register): player ids and names, licensed Open Data Commons
-  Attribution License 1.0. It is not bundled; `sabermetricspy.ids` loads or downloads it, and each translation result
+  Attribution License 1.0. It is not bundled and the library never downloads it; `sabermetricspy.ids` loads your copy, and each translation result
   carries this credit, the commit it was downloaded from and the fetch date.
 - Lahman Baseball Database: copyright 1996-2025 by SABR, via the generous donation of Sean Lahman; licensed CC BY-SA 3.0. `sabermetricspy.lahman` downloads it to the user's cache and computes league constants from it; a small sample is kept in `tests/fixtures/lahman` under the same license.
-- Bundled seasonal constants (`src/sabermetricspy/data/constants/`: wOBA weights, FIP and SIERA constants, league run
-  environment, park factors, replacement-level and WAR inputs) are FanGraphs Guts! and leaderboard values recorded with
-  source and retrieval date; the RE24 table is FanGraphs' page, which licenses its run expectancy data from Tom Tango.
-  They remain FanGraphs' data. FanGraphs' Terms of Service (https://www.fangraphs.com/about/terms-of-service, read
-  2026-10-21) say the site is protected as a collective work or compilation (section 8), bar unauthorized reproduction or
-  further distribution of its materials (section 6) and reproducing or reselling content for commercial purposes
-  (section 11). They grant no data license and do not mention automated access. Individual constants are numbers computed
-  from public game data, but the project has not obtained FanGraphs' permission; see `docs/VERIFICATION.md` and ADR-0066.
-- The tests hold recorded FanGraphs and Baseball-Reference leaderboard rows (`tests/golden/`) only to check the library's
-  output against them; they are not part of the installed package.
+- Seasonal constants are not distributed with this library (ADR-0068). FanGraphs publishes the Guts! constants and park factors
+  itself (https://www.fangraphs.com/guts.aspx?type=cn); its Terms of Service (https://www.fangraphs.com/about/terms-of-service,
+  read 2026-10-21) bar unauthorized reproduction or redistribution of its compiled content, so users who want those
+  values obtain them from FanGraphs under its terms. The run expectancy data on FanGraphs is licensed from Tom Tango.
+- The tests compare the library's output with published values from FanGraphs, Baseball-Reference and Baseball Savant.
+  Short, cited samples are kept in `tests/golden/`; the large league-wide compilations stay on the maintainer's machine
+  and are not in the repository.
 - Statcast data belongs to MLB Advanced Media; the library ships only small recorded samples used by tests.
 
 ## Corrections

@@ -10,7 +10,7 @@ Golden fixtures taken from baseballr SHALL record the function call, package ver
 
 #### Scenario: Constants, wOBA and FIP match baseballr
 - **GIVEN** `tests/golden/baseballr/baseballr_tieout.json`
-- **WHEN** bundled constants, `Metric.WOBA` and `Metric.FIP` are computed
+- **WHEN** supplied constants, `Metric.WOBA` and `Metric.FIP` are computed
 - **THEN** they equal `fg_guts()`, `woba_plus()` and `fip_plus()` within baseballr's rounding.
 
 #### Scenario: Fixture provenance
@@ -18,28 +18,10 @@ Golden fixtures taken from baseballr SHALL record the function call, package ver
 - **WHEN** it is reviewed
 - **THEN** its header names the exact baseballr call, version and date the values came from.
 
-### Requirement: Chadwick Register Stays Current
-`update_register()` SHALL re-download the register only when the upstream commit differs from the recorded one and SHALL NOT alter existing files on failure. `load_register()` without a path SHALL do this automatically, at most once a day, use the existing copy with a warning when upstream is unreachable, and never update a caller-supplied path unless asked.
+### Requirement: The Library Never Fetches Data
+The library SHALL perform no network access. Callers supply the Chadwick Register, the Lahman database and seasonal constants as local files; a missing input SHALL fail with an error that says where to obtain it.
 
-#### Scenario: Unchanged commit
-- **GIVEN** a complete local register recorded at the latest upstream commit
-- **WHEN** `update_register()` is called
-- **THEN** nothing is downloaded and `updated` is False.
+#### Scenario: Register missing
+- **WHEN** `load_register()` is called and no register exists at the path or in `$SABERMETRICSPY_REGISTER`
+- **THEN** a `FileNotFoundError` names the Chadwick repository and the setting, and nothing is downloaded.
 
-#### Scenario: Upstream unreachable
-- **WHEN** the latest commit cannot be looked up
-- **THEN** `ConnectionError` is raised and local files are unchanged.
-
-#### Scenario: Default register updates itself
-- **GIVEN** a default register last checked before today and a newer upstream commit
-- **WHEN** `load_register()` is called with no path
-- **THEN** the newer register is downloaded and returned.
-
-#### Scenario: Checked today
-- **GIVEN** a default register already checked today
-- **WHEN** `load_register()` is called
-- **THEN** upstream is not contacted.
-
-#### Scenario: Offline with a copy
-- **WHEN** upstream is unreachable and a copy exists
-- **THEN** the copy is returned with a warning.

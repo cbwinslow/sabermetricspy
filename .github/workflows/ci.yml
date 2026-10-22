@@ -26,5 +26,6 @@ jobs:
           SABERMETRICSPY_REGISTER: ${{ github.workspace }}/chadwick-register
         run: |
           curl -sSL https://github.com/beanumber/abdwr3edata/raw/main/data/retro2016.rda -o retro2016.rda
-          uv run python -c "import sabermetricspy as sp; sp.download_register('chadwick-register')"
+          git clone --depth 1 https://github.com/chadwickbureau/register chadwick-register-repo
+          mkdir -p chadwick-register && cp chadwick-register-repo/data/people*.csv chadwick-register/
           uv run --with pyreadr --with pandas pytest -q tests/test_retrosheet_2016_markov_win_expectancy.py tests/test_retrosheet_2016_count_fit.py tests/test_retrosheet_2016_win_expectancy.py tests/test_retrosheet_2016_linear_weights.py tests/test_markov_transitions.py tests/test_ids_real_register.py

@@ -4,6 +4,28 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-10-22
+
+The library is computation-only again and ships no third-party constants (ADR-0068). Breaking changes.
+
+### Migrating from 1.x
+| 1.x | 2.0.0 |
+|---|---|
+| bundled constants, no setup | call `sp.use_guts("guts.csv")` (a FanGraphs Guts! table you downloaded) or `sp.use_constants(dir)`; see `docs/CONSTANTS.md` |
+| `bundled_constants()` | `constants_table()` |
+| a season missing from the table warned and used the nearest one | raises `ConstantsNotFoundError` |
+| `download_register()`, `update_register()`, automatic register refresh, `$SABERMETRICSPY_AUTO_UPDATE` | download the Chadwick Register yourself (`tools/fetch_register.py` is the old code), then `load_register(path)` or `$SABERMETRICSPY_REGISTER` |
+| `lahman.download_lahman()` | download the official database from sabr.org/lahman-database, then `league_constants(season, lahman_dir=...)` or `$SABERMETRICSPY_LAHMAN` |
+
+### Removed
+- All network access from the package, and the five bundled constants tables (`woba_fangraphs`, `park_factors`, `park_fip`, `pitcher_war`, `league_war`). The large league-wide FanGraphs test compilations are no longer tracked in git (history is not rewritten).
+
+### Added
+- `use_guts`, `load_guts` (a Guts! table as a CSV or frame, web or baseballr column names), `use_constants`, `$SABERMETRICSPY_CONSTANTS`, `constants_table`, `ConstantsNotFoundError`, `docs/CONSTANTS.md`, `tools/fetch_register.py`.
+
+### Changed
+- Tests use a one-season sample (`tests/constants_sample`) when the maintainer's local table is absent; a season outside the sample is reported as skipped, and uncollected modules are listed with a count in the run summary.
+
 ## [1.5.0] - 2026-10-22
 
 ### Added

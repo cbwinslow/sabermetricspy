@@ -16,15 +16,15 @@
 ## Package Structure
 - `src/sabermetricspy/types/`: `StrEnum` definitions (`Metric`, `Stat`, `MetricSuite`, `Category`, `ImplKind`, `Direction`, `Handedness`, `PitchOutcome`, `PlayOutcome`, `BattedBallType`, `BaseState`) and frozen context models.
 - `src/sabermetricspy/schema/`: Canonical column definitions, alias resolution, safe division helpers, and innings (`"6.2"` <-> `20` outs) conversion utilities.
-- `src/sabermetricspy/constants/`: Seasonal constants loader (`wOBA` weights, `FIP` constants, park factors) backed by bundled YAML in `src/sabermetricspy/data/constants/`.
+- `src/sabermetricspy/constants/`: Seasonal constants loader (`wOBA` weights, `FIP` constants, park factors, WAR inputs) reading YAML from a directory the caller supplies (`use_constants`, `$SABERMETRICSPY_CONSTANTS`); no constants are shipped (ADR-0068, `docs/CONSTANTS.md`).
 - `src/sabermetricspy/registry/`: `MetricSpec`, `@register_metric`, topological DAG dependency solver, and `MetricSuite` expansion.
 - `src/sabermetricspy/metrics/`: Pure vectorized `narwhals` expressions for batting, weighted offense, pitching, DIPS, plate discipline, batted-ball, baserunning, fielding, and team estimators.
 - `src/sabermetricspy/engine/`: Two-stage calculation engine (`calculate`, `calculate_suite`, `calculate_available`) returning frozen `CalculationResult`.
 - `src/sabermetricspy/expectancy/`: Empirical state matrices (`RunExpectancyMatrix` RE24, `CountExpectancyMatrix` RE288, `LinearWeightsEstimator`).
 - `src/sabermetricspy/value/`: Park adjustments, replacement level, and modular `WARFramework`.
 - `src/sabermetricspy/models/`: Forecasting and matchup estimators (`MarcelProjector`, `Log5Model`, `MarkovChainModel`).
-- `src/sabermetricspy/ids/`: Chadwick Register player-id crosswalk (`translate_ids`, `find_players`, `player_id`, `load_register`, `download_register`, `update_register`; the default register updates itself, once a day at most); the register is not bundled (ODC-BY 1.0).
-- `src/sabermetricspy/lahman/`: League constants (runs per PA, OBP, SLG, ERA, cFIP, kwERA, caught-stealing run value) computed from the Lahman database downloaded to the user cache (`download_lahman`, `league_constants`); no third-party table is shipped.
+- `src/sabermetricspy/ids/`: Chadwick Register player-id crosswalk (`translate_ids`, `find_players`, `player_id`, `load_register`); the caller downloads the register, the library never does (ODC-BY 1.0).
+- `src/sabermetricspy/lahman/`: League constants (runs per PA, OBP, SLG, ERA, cFIP, kwERA, caught-stealing run value) computed from Lahman files the caller supplies (`league_constants`); the library never downloads them.
 - `src/sabermetricspy/uncertainty/`: Analytical confidence intervals and seeded bootstrap estimator.
 - `src/sabermetricspy/presets/`: Built-in column and event mappers for `retrosheetpy`, `statcast`, and `lahman`.
 - `src/sabermetricspy/telemetry/`: Decorator-based performance telemetry (`@profiled`, `PerformanceTracker`, `sb.telemetry`) and benchmark registry (`@register_benchmark`, `run_registered_benchmarks`).

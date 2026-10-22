@@ -35,7 +35,7 @@ The league correction (a per-inning amount) SHALL be applied only when a sourced
 - **THEN** the published correction of -0.000682902 wins per inning is applied
 
 #### Scenario: Season without a published correction
-- **WHEN** WAR is calculated for a season with no bundled correction and no override
+- **WHEN** WAR is calculated for a season with no supplied correction and no override
 - **THEN** no correction is applied and the metric's caveats state that results are uncorrected
 
 ### Requirement: Mixed starter and reliever lines are handled as published

@@ -16,3 +16,22 @@ site/
 *.duckdb
 *.duckdb.wal
 .DS_Store
+
+# Local-only test data (third-party compilations that are not redistributed; see docs/CONSTANTS.md, ADR-0068)
+tests/_local_full_constants/
+tests/golden/baseballr/baseballr_tieout.json
+tests/golden/guts_snapshot.yaml
+tests/golden/league_totals_snapshot.yaml
+tests/golden/league_war_totals_snapshot.yaml
+tests/golden/league_bb_k_snapshot.yaml
+tests/golden/league_pitching_rates_snapshot.yaml
+tests/golden/league_sbcs_snapshot.yaml
+tests/golden/np_wrc_snapshot.yaml
+tests/golden/pitcher_war.yaml
+tests/golden/pitcher_war_leaderboard.csv
+tests/golden/fg_batting_rates.csv
+tests/golden/fg_pitching_rates.csv
+tests/golden/fg_batting_bb_k.csv
+tests/golden/fg_pitching_xfip.csv
+tests/golden/fg_game_score_v2.csv
+tests/golden/fg_shutdown_meltdown.csv

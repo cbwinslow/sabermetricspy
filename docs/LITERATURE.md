@@ -82,7 +82,7 @@ Source: the [baseballr reference index](https://billpetti.github.io/baseballr/re
 | Statcast helpers | `edge_code`, `edge_frequency` | gap | none; the Edge definition was not retrieved |
 | Statcast helpers | `statline_from_statcast`, `process_statcast_payload`, `label_statcast_imputed_data` | partly covered | `prepare_statcast_pitches` and the statcast preset |
 | Statcast acquisition | `statcast_search` and variants, `statcast_leaderboards` | out of scope | pure-calculation rule |
-| FanGraphs | `fg_guts`, `fg_park`, `fg_park_hand` | out of scope as scrapers | constants are bundled snapshots; park factor calculation is now implemented (ADR-0029) |
+| FanGraphs | `fg_guts`, `fg_park`, `fg_park_hand` | out of scope as scrapers | constants are supplied by the caller (ADR-0068); park factor calculation is now implemented (ADR-0029) |
 | FanGraphs, Baseball Reference, MLB Stats, ESPN, NCAA, Spotrac, Chadwick | all other `fg_*`, `bref_*`, `mlb_*`, `espn_*`, `ncaa_*`, `sptrc_*`, `chadwick_*` functions | out of scope | data acquisition and lookups |
 | Retrosheet | `retrosheet_data` | out of scope | the `retrosheetpy` preset maps its output |
 | Pre-computed datasets | `load_mlb_re24_matrix`, `load_mlb_we_table`, `load_mlb_wpa`, `load_mlb_expected_stats`, `load_mlb_xera`, `load_mlb_oaa`, `load_mlb_catcher_framing`, `load_mlb_stuff_plus`, `load_mlb_command_plus`, `load_mlb_batter_projection` | out of scope as loaders; possible validation targets | would give published reference tables for models that were later removed or never built (as of 1.4.1 only `CountExpectancyMatrix` of those named in the 1.0 audit ships); their contents were not inspected |

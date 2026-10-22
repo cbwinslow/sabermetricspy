@@ -57,29 +57,23 @@ the person was active. The result SHALL list every matching person with their id
 - **WHEN** a name matches nobody
 - **THEN** the result is empty and a single-id request raises an error saying no match was found
 
-### Requirement: Register source, attribution and reproducibility
-The register SHALL be loaded from a path the caller supplies or downloaded to a user cache when the caller asks, never
-bundled in the package. A download SHALL be pinned to a repository commit (the latest on the requested ref unless the
-caller names one) and SHALL record the commit and the fetch date. Every result SHALL carry the register's license name
-(Open Data Commons Attribution License 1.0), the Chadwick Bureau as the source, the commit when known, and the fetch
-date, and the project's credits SHALL state the same.
+### Requirement: Register source and attribution
+The register SHALL be loaded from a path the caller supplies (or `$SABERMETRICSPY_REGISTER`), never bundled in the
+package and never downloaded by the library. Every result SHALL carry the register's license name (Open Data Commons
+Attribution License 1.0), the Chadwick Bureau as the source, and the commit and fetch date when a `provenance.json`
+sits next to the shards, and the project's credits SHALL state the same.
 
 #### Scenario: Offline use
 - **WHEN** the caller supplies a local register path and no network is available
 - **THEN** all translations and lookups work
 
 #### Scenario: No register available
-- **WHEN** no path is given and no cached copy exists and the caller did not ask for a download
-- **THEN** the call fails with an error that says how to supply or download the register
+- **WHEN** no path is given and `$SABERMETRICSPY_REGISTER` is unset or empty
+- **THEN** the call fails with an error that names the Chadwick repository and the setting
 
 #### Scenario: Attribution travels with results
 - **WHEN** a translation completes
-- **THEN** its result metadata names the Chadwick Bureau, the license, the fetch date, and the commit when the register
-  was downloaded with this library
-
-#### Scenario: Pinned download
-- **WHEN** a download names a commit
-- **THEN** the shards come from that commit and the recorded commit equals it
+- **THEN** its result metadata names the Chadwick Bureau, the license, and the fetch date and commit when recorded
 
 ### Requirement: The caller's frame is preserved
 Translating ids SHALL return the caller's own frame type with exactly one column added. Existing columns, their dtypes,

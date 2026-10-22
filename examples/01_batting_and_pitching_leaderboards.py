@@ -2,6 +2,9 @@
 
 Run with:
     uv run python examples/01_batting_and_pitching_leaderboards.py
+
+Needs seasonal constants, which the library does not ship: set SABERMETRICSPY_CONSTANTS to a directory of them or call
+sp.use_guts("guts.csv") first (see docs/CONSTANTS.md).
 """
 
 from __future__ import annotations

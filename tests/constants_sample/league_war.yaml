@@ -1,0 +1,8 @@
+# One-season (2024) sample for the repository's tests, cut from the full local table. The values are
+# MLB season totals from the MLB Stats API; they remain its data. The library ships no constants (ADR-0068); see docs/CONSTANTS.md.
+seasons:
+  2024:
+    games: 2429
+    pa: 182449
+    runs: 21343
+    outs: 129349

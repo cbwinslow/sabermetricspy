@@ -27,7 +27,7 @@ sabermetricspy/
 │                 # and frozen Pydantic value objects (Team, League, Park, SeasonContext)
 ├── schema/       # Canonical column schemas, alias resolution, innings-to-outs conversion,
 │                 # null-handling rules, and Narwhals/Arrow type validation
-├── constants/    # Loader and Pydantic models for bundled YAML seasonal constants
+├── constants/    # Loader and Pydantic models for seasonal constants read from a caller-supplied YAML directory
 │                 # (wOBA weights, FIP constants, park factors, positional adjustments)
 ├── registry/     # MetricSpec, @register_metric decorator, DAG dependency solver,
 │                 # MetricSuite expansion, and Python entry-point plugin discovery
@@ -62,8 +62,7 @@ sabermetricspy/
 ├── uncertainty/  # Analytical binomial/normal intervals & seeded bootstrap estimator
 ├── presets/      # Source column & event-code mappers (retrosheetpy, statcast, lahman, mlb_api)
 ├── adapters/     # Optional thin bridges for external libraries
-└── data/         # Bundled YAML files:
-    ├── constants/        # woba_fangraphs.yaml, fip_constants.yaml, park_factors.yaml
+└── data/         # Bundled YAML files (audit, aliases, presets; no third-party constants):
     ├── presets/          # retrosheetpy.yaml, statcast.yaml, lahman.yaml
     └── entities/         # leagues.yaml, parks.yaml
 ```
@@ -76,9 +75,9 @@ Lower layers never import from higher layers.
 
 ## 3. Constants Provenance & Park Factors
 
-Seasonal constants are bundled FanGraphs data (`data/constants/woba_fangraphs.yaml`, 1990-2026). Each entry records
-its source and retrieval date; league ERA/FIP/xFIP/HR-FB and non-pitcher wRC/PA are optional and absent when
-unpublished (xFIP is null before 2002). Requesting an unbundled season returns the nearest season and emits a
+Seasonal constants are not shipped (ADR-0068): the caller supplies a directory of YAML files (`docs/CONSTANTS.md`).
+Each entry records its source and retrieval date; league ERA/FIP/xFIP/HR-FB and non-pitcher wRC/PA are optional and absent when
+unpublished (xFIP is null before 2002). Requesting a season missing from the table returns the nearest season and emits a
 `UserWarning`. Park factor is a caller input (`SeasonContext.park_factor`, 100 = no adjustment):
 
 ```python

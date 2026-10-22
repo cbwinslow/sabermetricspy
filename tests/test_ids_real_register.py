@@ -1,7 +1,7 @@
 """Opt-in check of the id crosswalk against the real Chadwick Register and published player pages.
 
 Runs only when the register is present, either at `$SABERMETRICSPY_REGISTER` or the default cache directory (fetch it with
-`sabermetricspy.ids.download_register()`; ODC-BY 1.0, credit the Chadwick Bureau). The Retrosheet cross-check also needs
+your own download of the Chadwick Register (https://github.com/chadwickbureau/register); ODC-BY 1.0, credit the Chadwick Bureau). The Retrosheet cross-check also needs
 `SABERMETRICSPY_RETRO2016` (see tests/test_retrosheet_2016_count_fit.py).
 
 Published ids, each read on 2026-10-20:
@@ -32,7 +32,7 @@ from sabermetricspy.ids import (
 _PATH = default_register_path()
 pytestmark = pytest.mark.skipif(
     not (_PATH / "people-0.csv").is_file(),
-    reason="Chadwick Register not found; run sabermetricspy.ids.download_register()",
+    reason="Chadwick Register not found; set SABERMETRICSPY_REGISTER to a downloaded copy",
 )
 
 PUBLISHED = {

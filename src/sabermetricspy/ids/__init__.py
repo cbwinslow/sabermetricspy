@@ -1,20 +1,16 @@
 """Player-id crosswalk and name lookup over the Chadwick Bureau Register.
 
 The register (https://github.com/chadwickbureau/register) is published under the Open Data Commons Attribution License
-1.0 by the Chadwick Bureau. It is not bundled: pass a local copy, or call `download_register` to fetch it and `update_register` to refresh it.
-No function here touches the network unless you call one of those two by name; calculations never do (ADR-0003).
+1.0 by the Chadwick Bureau. It is not bundled and this library never downloads it (ADR-0003, ADR-0068): download it yourself, then pass the path to
+`load_register` or set `$SABERMETRICSPY_REGISTER`.
 """
 
 from __future__ import annotations
 
-import datetime
 import json
 import os
 import re
-import tempfile
 import unicodedata
-import urllib.request
-import warnings
 from collections.abc import Sequence
 from dataclasses import dataclass
 from functools import cached_property, lru_cache
@@ -27,16 +23,13 @@ from narwhals.typing import IntoFrame
 
 from sabermetricspy.telemetry import profiled
 
-REGISTER_REPO = "chadwickbureau/register"
-REGISTER_URL = "https://raw.githubusercontent.com/chadwickbureau/register/{ref}/data"
-REGISTER_API = "https://api.github.com/repos/chadwickbureau/register/commits/{ref}"
+REGISTER_REPO_URL = "https://github.com/chadwickbureau/register"
 REGISTER_SHARDS: tuple[str, ...] = tuple(f"people-{c}.csv" for c in "0123456789abcdef")
 REGISTER_LICENSE = "Open Data Commons Attribution License 1.0 (ODC-BY 1.0)"
 REGISTER_SOURCE = "Chadwick Bureau Register (https://github.com/chadwickbureau/register)"
 REGISTER_ENV = "SABERMETRICSPY_REGISTER"
 _PROVENANCE_FILE = "provenance.json"
 _LEGACY_MARKER = "fetched.txt"
-AUTO_UPDATE_ENV = "SABERMETRICSPY_AUTO_UPDATE"
 
 # Id system name -> register column.
 ID_SYSTEMS: dict[str, str] = {
@@ -123,8 +116,8 @@ def normalize_name(name: str) -> str:
 class PlayerRegister:
     """The Chadwick Register `people` table with where it came from.
 
-    `fetched_on` is the date the files were downloaded by `download_register`; `commit` is the register commit they
-    were downloaded from. Both are None for a register copied some other way.
+    `fetched_on` and `commit` come from an optional `provenance.json` next to the shards (written by whatever downloaded
+    them); both are None when it is absent.
     """
 
     people: pl.DataFrame
@@ -159,7 +152,7 @@ def _typed_people(raw: pl.DataFrame) -> pl.DataFrame:
 
 
 def _read_provenance(root: Path) -> tuple[str | None, str | None]:
-    """(fetched_on, commit) recorded by `download_register`, or from the legacy marker file."""
+    """(fetched_on, commit) from `provenance.json`, or from the legacy marker file."""
     record = root / _PROVENANCE_FILE
     if record.is_file():
         data = json.loads(record.read_text(encoding="utf-8"))
@@ -184,77 +177,25 @@ def _read_register(
     )
 
 
-def _record_check(root: Path) -> None:
-    """Remember that upstream was checked today, so the default register is looked up at most once a day."""
-    record_path = root / _PROVENANCE_FILE
-    if not record_path.is_file():
-        return
-    record = json.loads(record_path.read_text(encoding="utf-8"))
-    record["checked_on"] = datetime.date.today().isoformat()
-    record_path.write_text(json.dumps(record, indent=2), encoding="utf-8")
-
-
-def _checked_today(root: Path) -> bool:
-    record_path = root / _PROVENANCE_FILE
-    if not record_path.is_file():
-        return False
-    checked = json.loads(record_path.read_text(encoding="utf-8")).get("checked_on")
-    return checked == datetime.date.today().isoformat()
-
-
-def _auto_refresh(root: Path, shards: Sequence[str]) -> None:
-    """Bring the default register up to date: download it if absent, re-download if upstream has a newer commit.
-
-    Looks upstream at most once a day. If upstream cannot be reached the existing copy is used and a warning says so;
-    with no existing copy the error is raised.
-    """
-    complete = root.is_dir() and all((root / sh).is_file() for sh in shards)
-    if complete and _checked_today(root):
-        return
-    try:
-        update_register(root, shards=shards)
-    except (ConnectionError, OSError) as err:
-        if not complete:
-            raise FileNotFoundError(
-                f"No Chadwick Register at {root} and it could not be downloaded ({err}). "
-                f"Pass a path to load_register() or set {REGISTER_ENV}."
-            ) from err
-        warnings.warn(
-            f"Could not check for a newer Chadwick Register ({err}); using the copy already at {root}.",
-            UserWarning,
-            stacklevel=4,
-        )
-
-
-def _auto_update_enabled(path: str | Path | None, auto_update: bool | None) -> bool:
-    if auto_update is not None:
-        return auto_update
-    return path is None and os.environ.get(AUTO_UPDATE_ENV, "1") != "0"
-
-
 @profiled(category="ids")
 def load_register(
     path: str | Path | None = None,
     *,
     shards: Sequence[str] = REGISTER_SHARDS,
-    auto_update: bool | None = None,
 ) -> PlayerRegister:
-    """Load the register from a directory of `people-*.csv` shards (or a single CSV file).
+    """Load the register from a directory of `people-*.csv` shards (or a single CSV file) you have downloaded.
 
-    With no path, uses `default_register_path()` and keeps it current by itself: it downloads the register when it is
-    missing and re-downloads it when the Chadwick repository has a newer commit, looking upstream at most once a day.
-    Offline, the existing copy is used with a warning. Set `auto_update=False` or `$SABERMETRICSPY_AUTO_UPDATE=0` to
-    never touch the network; a path you pass is never updated unless you pass `auto_update=True`.
+    With no path, reads `$SABERMETRICSPY_REGISTER`, else `default_register_path()`. The library performs no network
+    access: get the register yourself from https://github.com/chadwickbureau/register (ODC-BY 1.0) and, if you want
+    the result to report where it came from, put a `provenance.json` next to the shards.
     Raises `FileNotFoundError` naming the first missing shard. A register already loaded from the same files is reused;
     a changed file is read again.
     """
     target = Path(path) if path is not None else default_register_path()
-    if _auto_update_enabled(path, auto_update) and not target.is_file():
-        _auto_refresh(target, shards)
-    if path is None and not target.exists():
+    if not target.exists():
         raise FileNotFoundError(
-            f"No Chadwick Register at {target}. Pass a path to load_register(), set {REGISTER_ENV}, "
-            "or fetch it with download_register()."
+            f"No Chadwick Register at {target}. Download it from {REGISTER_REPO_URL}, then pass its path to "
+            f"load_register() or set {REGISTER_ENV}."
         )
     root = target.resolve()
     paths = [root] if root.is_file() else [root / s for s in shards]
@@ -263,106 +204,6 @@ def load_register(
             raise FileNotFoundError(f"Register shard not found: {p}")
     state = tuple((p.stat().st_size, p.stat().st_mtime_ns) for p in paths)
     return _read_register(str(root), tuple(shards), state)
-
-
-def _resolve_commit(ref: str) -> str | None:
-    """The commit SHA a ref points to, from the GitHub API, or None when it cannot be reached."""
-    try:
-        request = urllib.request.Request(
-            REGISTER_API.format(ref=ref), headers={"Accept": "application/vnd.github+json"}
-        )
-        with urllib.request.urlopen(request, timeout=30) as resp:
-            sha = json.loads(resp.read().decode("utf-8")).get("sha")
-        return str(sha) if sha else None
-    except (OSError, ValueError):
-        return None
-
-
-@profiled(category="ids")
-def download_register(
-    dest: str | Path | None = None,
-    *,
-    ref: str = "master",
-    commit: str | None = None,
-    base_url: str = REGISTER_URL,
-    shards: Sequence[str] = REGISTER_SHARDS,
-) -> Path:
-    """Download the register shards to `dest` (default: the user cache), pinned to one commit.
-
-    Pass `commit` to reproduce an earlier download; otherwise the commit `ref` points to is looked up first and the
-    files are read from it, so every shard comes from the same commit. If the commit cannot be looked up the
-    shards are read from `ref` itself, a warning is issued, and the recorded commit is None.
-    `base_url` may contain `{ref}`, which is replaced by the commit (or by `ref` when the commit is unknown).
-    The data is licensed ODC-BY 1.0; credit the Chadwick Bureau when you publish results that use it.
-    """
-    root = Path(dest) if dest is not None else default_register_path()
-    root.mkdir(parents=True, exist_ok=True)
-    pinned = commit or _resolve_commit(ref)
-    if pinned is None:
-        warnings.warn(
-            f"Could not look up the commit for {ref!r}; downloading {ref!r} unpinned, so this download "
-            "cannot be reproduced exactly.",
-            UserWarning,
-            stacklevel=2,
-        )
-    base = base_url.format(ref=pinned or ref)
-    # Fetch every shard into a scratch directory first, so a failure part-way never leaves a mixed old/new register.
-    with tempfile.TemporaryDirectory(dir=root, prefix=".download-") as scratch_name:
-        scratch = Path(scratch_name)
-        for shard in shards:
-            with urllib.request.urlopen(f"{base}/{shard}", timeout=120) as resp:
-                (scratch / shard).write_bytes(resp.read())
-        for shard in shards:
-            os.replace(scratch / shard, root / shard)
-    record = {
-        "fetched_on": datetime.date.today().isoformat(),
-        "checked_on": datetime.date.today().isoformat(),
-        "ref": ref,
-        "commit": pinned,
-        "repository": REGISTER_REPO,
-    }
-    (root / _PROVENANCE_FILE).write_text(json.dumps(record, indent=2), encoding="utf-8")
-    return root
-
-
-@dataclass(frozen=True)
-class UpdateResult:
-    """Outcome of `update_register`: where the register is, whether files changed, and which commits were involved."""
-
-    path: Path
-    updated: bool
-    commit: str | None
-    previous_commit: str | None
-
-
-@profiled(category="ids")
-def update_register(
-    dest: str | Path | None = None,
-    *,
-    ref: str = "master",
-    force: bool = False,
-    shards: Sequence[str] = REGISTER_SHARDS,
-) -> UpdateResult:
-    """Refresh the register only when the upstream repository has a newer commit.
-
-    Looks up the commit `ref` points to and compares it with the commit recorded in `dest`. If they match and every
-    shard is present the files are left alone (`updated=False`); otherwise (or with `force=True`) the register is
-    downloaded again, pinned to that commit, replacing the old shards only after all of them arrived.
-    Raises `ConnectionError` when the upstream commit cannot be looked up, rather than guessing that the cache is current.
-    """
-    root = Path(dest) if dest is not None else default_register_path()
-    _, previous = _read_provenance(root) if root.is_dir() else (None, None)
-    latest = _resolve_commit(ref)
-    if latest is None:
-        raise ConnectionError(
-            f"Could not look up the latest commit of {REGISTER_REPO}@{ref}; the register at {root} was left unchanged."
-        )
-    complete = root.is_dir() and all((root / sh).is_file() for sh in shards)
-    if complete and previous == latest and not force:
-        _record_check(root)
-        return UpdateResult(path=root, updated=False, commit=latest, previous_commit=previous)
-    download_register(root, ref=ref, commit=latest, shards=shards)
-    return UpdateResult(path=root, updated=True, commit=latest, previous_commit=previous)
 
 
 def _as_register(register: PlayerRegister | str | Path | None) -> PlayerRegister:
@@ -604,13 +445,10 @@ __all__ = [
     "REGISTER_SOURCE",
     "PlayerRegister",
     "TranslationResult",
-    "UpdateResult",
     "default_register_path",
-    "download_register",
     "find_players",
     "load_register",
     "normalize_name",
     "player_id",
     "translate_ids",
-    "update_register",
 ]

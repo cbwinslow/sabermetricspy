@@ -7,9 +7,11 @@ from typing import Any
 
 import yaml
 
+from sabermetricspy.constants import constants_dir
+
 ROOT = Path(__file__).parent.parent
 SNAPSHOT = Path(__file__).parent / "golden" / "league_war_totals_snapshot.yaml"
-BUNDLED = ROOT / "src" / "sabermetricspy" / "data" / "constants" / "pitcher_war.yaml"
+BUNDLED = constants_dir() / "pitcher_war.yaml"
 LEAGUE_TOTALS = Path(__file__).parent / "golden" / "league_totals_snapshot.yaml"
 
 FIELDS = ("outs", "r", "er", "hr", "bb", "hbp", "so", "iffb")

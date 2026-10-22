@@ -2,6 +2,9 @@
 
 Savant: Statcast Search > Download CSV gives the pitch-level file read below (a recorded sample of Tarik Skubal's 2024
 pitches is in tests/fixtures/statcast). Season counting stats can come from any source with the usual columns.
+
+Needs seasonal constants, which the library does not ship: set SABERMETRICSPY_CONSTANTS to a directory of them or call
+sp.use_guts("guts.csv") first (see docs/CONSTANTS.md).
 """
 
 from pathlib import Path
@@ -28,7 +31,7 @@ def main() -> None:
     )
     print(physics.df.select("pitcher_id", "avg_velo", "avg_spin", "ivb", "hb", "vaa"))
 
-    # 2. Season totals -> rates. Counts are summed first, then divided; wRC+ uses the bundled 2024 constants.
+    # 2. Season totals -> rates. Counts are summed first, then divided; wRC+ uses the 2024 constants you supply (sp.use_constants or sp.use_guts).
     batters = pl.DataFrame(
         {
             "player_id": ["a", "b"],

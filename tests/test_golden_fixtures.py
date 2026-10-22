@@ -172,9 +172,9 @@ def test_gate_fails_for_a_deliberately_altered_value() -> None:
     assert gate_failures("batting.yaml", batter)
 
 
-def test_fixture_seasons_are_inside_the_bundled_constants_range() -> None:
-    from sabermetricspy.constants import bundled_constants
+def test_fixture_seasons_are_inside_the_constants_table_range() -> None:
+    from sabermetricspy.constants import constants_table
 
-    bundled = bundled_constants()
+    bundled = constants_table()
     for _, entry in _all_entries():
         assert entry["season"] in bundled, entry["id"]

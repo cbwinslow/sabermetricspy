@@ -26,7 +26,7 @@ It integrates seamlessly with [`retrosheetpy`](https://github.com/cbwinslow/retr
   - **Tier 3 (Official Display Labels)**: `"wRC+"`, `"CSW%"`, `"xFIP"`, `"HR"`, `"Outs"`
 - **Two-Stage Additive Engine**: Classify raw pitch/play events into additive counts, sum across any grouping (`by=["player_id", "season"]`) or rolling window, and compute ratios strictly from summed counts.
 - **DAG Dependency Resolution & Suites**: Request `Metric.WRC_PLUS` and `sabermetricspy` automatically resolves `WOBA -> WRAA -> WRC_PLUS`, or run `calculate_suite(df, MetricSuite.TRADITIONAL_BATTING)` / `calculate_available(df)` to compute all supported metrics in a single pass.
-- **Provenance & Bundled YAML Constants**: Every metric carries a frozen `MetricSpec` with its LaTeX formula, primary academic/sabermetric citation, required columns, and seasonal constants (`wOBA`, `FIP`, park factors).
+- **Provenance & Supplied Constants**: Every metric carries a frozen `MetricSpec` with its LaTeX formula, primary academic/sabermetric citation, required columns, and seasonal constants (`wOBA`, `FIP`, park factors).
 - **Scikit-Learn Style Estimators + Statsmodels Diagnostics**:
   - Empirical Expectancy: `RunExpectancyMatrix` (`RE24`), `CountExpectancyMatrix` (`RE288`), `LinearWeightsEstimator`, `WinExpectancyMatrix`, `MarkovWinExpectancy`.
   - Forecasting: `MarcelProjector`, `Log5Model`, `MarkovChainModel` (fitted from play-by-play), and modular `WARFramework`.
@@ -39,6 +39,9 @@ It integrates seamlessly with [`retrosheetpy`](https://github.com/cbwinslow/retr
 import polars as pl
 import sabermetricspy as sp
 from sabermetricspy import Metric, MetricSuite, SeasonContext
+
+# Seasonal constants are supplied by you, not shipped (docs/CONSTANTS.md): a FanGraphs Guts! table you downloaded.
+sp.use_guts("guts.csv")
 
 # 1. Compute specific metrics with full provenance.
 # One call uses one season's constants, so pass a single season's rows (several seasons raise an error).
@@ -83,17 +86,15 @@ print(re24.results.matrix_df)
 
 Statcast, Retrosheet, Baseball-Reference, FanGraphs and Lahman name players differently. `sabermetricspy.ids` translates
 between them using the [Chadwick Bureau Register](https://github.com/chadwickbureau/register) (ODC-BY 1.0; credit the
-Chadwick Bureau). The register is not bundled: download it once, then use it on any Polars, pandas, PyArrow or DuckDB frame.
+Chadwick Bureau). The library never downloads anything (ADR-0068): get the register yourself, then use it on any Polars, pandas, PyArrow or DuckDB frame.
 
 ```python
 import sabermetricspy as sp
 
-sp.download_register()  # ~68 MB into ~/.cache/sabermetricspy, or pass a path
-# Using the default location needs no setup: load_register() / translate_ids() download the register when it is missing
-# and re-download it when the Chadwick repo has a newer commit (checked at most once a day; offline uses your copy).
-# Turn it off with SABERMETRICSPY_AUTO_UPDATE=0, or call sp.update_register() yourself.
+# Download https://github.com/chadwickbureau/register yourself, then point at its `data` folder:
+register = sp.load_register("path/to/register/data")  # or set SABERMETRICSPY_REGISTER
 res = sp.translate_ids(
-    df, "retro", "mlbam"
+    df, "retro", "mlbam", register=register
 )  # adds key_mlbam; res.unmatched, res.release, res.license
 sp.player_id("mlbam", "Mike", "Trout", birth_year=1991)  # 545361
 ```
@@ -102,9 +103,10 @@ Ambiguous names and ids shared by two people raise an error that lists the candi
 
 ## Accuracy and Provenance
 
-- Seasonal constants (wOBA weights, cFIP, league run environment, non-pitcher wRC/PA) are FanGraphs Guts! and
-  leaderboard values for 1990-2026, with source and retrieval date; values with no published source are absent,
-  not defaulted.
+- The library ships no third-party constants and downloads nothing (ADR-0068). Seasonal constants (wOBA weights, cFIP,
+  league run environment, park factors) are a directory of YAML files you supply with `sp.use_constants(path)` or
+  `$SABERMETRICSPY_CONSTANTS`; [Constants](docs/CONSTANTS.md) lists the files, where the values come from, and what the
+  library can compute for you (league constants from your Lahman files, linear weights from your play-by-play).
 - Park-adjusted metrics (`wRC+`, `OPS+`, `ERA+`/`ERA-`/`FIP-`) use a park factor of `100` (no adjustment) unless you
   pass the published one: `SeasonContext(season=2001, league="NL", park_factor=96.0)`.
 - DuckDB input gives the same results as the other backends. It is read into memory once as Arrow, evaluated on Polars, and returned as a DuckDB relation on DuckDB's default connection (ADR-0056); aggregate a table larger than memory in DuckDB first.
@@ -119,6 +121,7 @@ Ambiguous names and ids shared by two people raise an error that lists the candi
 ## Documentation
 
 - [Worked example: Savant CSV to metrics](examples/07_from_savant_csv_to_metrics.py)
+- [Constants: what you supply and the five-line way to get it](docs/CONSTANTS.md)
 - [Architecture Overview](docs/ARCHITECTURE.md)
 - [Methodology Audit](docs/METHODOLOGY.md)
 - [Verification: confirmed, approximate, still to research](docs/VERIFICATION.md)

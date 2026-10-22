@@ -1,0 +1,34 @@
+# One-season (2024) sample for the repository's tests, cut from the full local table. The values are
+# FanGraphs park factors (FIP column); they remain its data. The library ships no constants (ADR-0068); see docs/CONSTANTS.md.
+seasons:
+  2024:
+    ARI: 98
+    ATL: 99
+    BAL: 100
+    BOS: 100
+    CHC: 98
+    CHW: 102
+    CIN: 104
+    CLE: 98
+    COL: 104
+    DET: 101
+    HOU: 99
+    KCR: 101
+    LAA: 99
+    LAD: 102
+    MIA: 100
+    MIL: 99
+    MIN: 99
+    NYM: 99
+    NYY: 102
+    OAK: 97
+    PHI: 103
+    PIT: 100
+    SDP: 100
+    SEA: 96
+    SFG: 96
+    STL: 98
+    TBR: 97
+    TEX: 100
+    TOR: 101
+    WSN: 102

@@ -3,7 +3,7 @@
 This page explains how sabermetricspy decides a number is trustworthy, lists what has and has not been confirmed, and
 keeps the research still to do. The per-metric detail (formula, source link, measured gap) is generated from
 `src/sabermetricspy/data/methodology.yaml` into [METHODOLOGY.md](METHODOLOGY.md); sources and credits are in
-[CREDITS.md](CREDITS.md). Counts below are for 1.4.0 (ADR-0065).
+[CREDITS.md](CREDITS.md). Counts below are for 1.4.0 (ADR-0065). Since 2.0.0 the constants described below as bundled are supplied by the caller (ADR-0068); the checks still run on the maintainer's local copy.
 
 ## The rule
 

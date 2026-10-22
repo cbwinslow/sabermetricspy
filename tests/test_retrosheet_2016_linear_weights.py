@@ -18,7 +18,7 @@ from typing import Any
 import polars as pl
 import pytest
 
-from sabermetricspy.constants import bundled_constants
+from sabermetricspy.constants import get_woba_weights
 from sabermetricspy.expectancy import LinearWeightsEstimator
 
 PATH = os.environ.get("SABERMETRICSPY_RETRO2016")
@@ -97,11 +97,11 @@ def fitted() -> Any:
 
 @pytest.mark.parametrize("event", list(_TOLERANCE))
 def test_weights_are_within_the_measured_gap_of_fangraphs_guts(fitted: Any, event: str) -> None:
-    guts = bundled_constants()[2016]
+    guts = get_woba_weights(2016)
     assert fitted.woba_weights[event] == pytest.approx(
         getattr(guts, _GUTS_FIELD[event]), abs=_TOLERANCE[event]
     )
 
 
 def test_scale_is_within_five_percent_of_guts(fitted: Any) -> None:
-    assert fitted.woba_scale == pytest.approx(bundled_constants()[2016].woba_scale, rel=0.05)
+    assert fitted.woba_scale == pytest.approx(get_woba_weights(2016).woba_scale, rel=0.05)

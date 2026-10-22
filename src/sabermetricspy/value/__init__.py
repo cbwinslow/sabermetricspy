@@ -60,7 +60,7 @@ class WARFramework:
         WAR = (BattingRuns + BaserunningRuns + FieldingRuns + PositionalRuns + LeagueRuns + ReplacementRuns) / RPW
 
     Replacement level is the FanGraphs formula `570 * (G / 2430) * (RPW / lgPA) * PA`, with the season's MLB
-    games and plate appearances taken from the bundled `league_war.yaml` (override with `league_pa` and
+    games and plate appearances taken from the supplied `league_war.yaml` (override with `league_pa` and
     `mlb_games`). Pass `replacement_runs_per_600_pa` to use a flat rate instead (for example Baseball-Reference's
     20.5). Give a `defensive_innings` column (one row per position) for the innings-based positional
     proration; without it the proration is PA / 600, an approximation. See `sabermetricspy.value.position_war`.
@@ -76,7 +76,7 @@ class WARFramework:
         league_pa: float | None = None,
         mlb_games: float | None = None,
     ) -> None:
-        """Replacement level defaults to the FanGraphs formula with the bundled season constants."""
+        """Replacement level defaults to the FanGraphs formula with the supplied season constants."""
         if context is None and season is None:
             warnings.warn(
                 f"WARFramework was given neither a context nor a season, so it uses {DEFAULT_SEASON} constants. "

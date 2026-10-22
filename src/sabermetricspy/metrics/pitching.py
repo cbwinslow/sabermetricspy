@@ -465,7 +465,7 @@ def calc_dice(ctx: EvalContext) -> nw.Expr:
         direction=Direction.LOWER_IS_BETTER,
         formula_latex=r"kwERA = C - 12 \times \left(\frac{SO - BB}{TBF}\right)",
         citation="Tango, T. & The Hardball Times",
-        description="Strikeout-and-walk-based ERA estimator; C is the seasonal FanGraphs constant, or Tango's 5.40 when none is bundled.",
+        description="Strikeout-and-walk-based ERA estimator; C is the seasonal FanGraphs constant, or Tango's 5.40 when none is supplied.",
         caveats=(
             "C is lgERA + 12 (lgSO - lgBB) / lgTBF through 2020 and lgERA + 1.887 from 2021 (measured against FanGraphs); Tango's original uses 5.40.",
         ),
@@ -491,7 +491,7 @@ def calc_kwera(ctx: EvalContext) -> nw.Expr:
             "netGB is ground balls minus fly balls, popups are not subtracted (the FanGraphs definition).",
             "Needs the outs recorded as a starter (`start_outs`, or `start_ip`), which sets the 0.367 starter term.",
             "The per-season constant and the (BB/PA)^2 coefficient are measured from the FanGraphs leaderboard, not published.",
-            "Returns null for seasons without a bundled constant (FanGraphs publishes SIERA from 2002).",
+            "Returns null for seasons without a supplied constant (FanGraphs publishes SIERA from 2002).",
         ),
     )
 )

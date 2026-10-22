@@ -1,0 +1,49 @@
+# One-season (2024) sample for the repository's tests, cut from the full local table. The values are
+# FanGraphs Guts! values and league leaderboard rows; they remain its data. The library ships no constants (ADR-0068); see docs/CONSTANTS.md.
+seasons:
+  2024:
+    siera_constant: 6.0347
+    season: 2024
+    league: MLB
+    lg_woba: 0.31
+    woba_scale: 1.242
+    w_bb: 0.689
+    w_hbp: 0.72
+    w_1b: 0.882
+    w_2b: 1.254
+    w_3b: 1.59
+    w_hr: 2.05
+    r_sb: 0.2
+    r_cs: -0.405
+    lg_r_per_pa: 0.117
+    lg_r_per_w: 9.683
+    c_fip: 3.166
+    lg_era: 4.07894181840083
+    lg_fip: 4.078941491380367
+    lg_xfip: 4.0789415404871905
+    lg_hr_per_fb: 0.116308335
+    lg_obp: 0.3121107
+    lg_slg: 0.399219241
+    lg_k_pct: 0.2258000865995429
+    lg_bb_pct: 0.08182560605977561
+    lg_wrc_per_pa: 0.11701334558708483
+    lg_wrc_per_pa_nl: 0.11958075047281264
+    lg_wrc_per_pa_al: 0.11442403596329677
+    lg_bb_pct_nl: 0.082402768
+    lg_bb_pct_al: 0.081245321
+    lg_k_pct_nl: 0.225878988
+    lg_k_pct_al: 0.225703465
+    lg_pit_bb_pct_nl: 0.08164067618922814
+    lg_pit_bb_pct_al: 0.08201195021842711
+    lg_pit_k_pct_nl: 0.2242716114096012
+    lg_pit_k_pct_al: 0.22734025110864134
+    source: FanGraphs Guts! constants (https://www.fangraphs.com/guts.aspx?type=cn);
+      league totals, non-pitcher wRC/PA and per-league non-pitcher BB%/K% and per-league
+      pitcher BB/TBF and SO/TBF from FanGraphs leaderboards (team=0,ss; pos=np)
+    retrieved: '2026-10-18'
+    lg_wsb: 0.007892754239289595
+    kwera_constant: 5.965941818400831
+    lg_era_al: 4.01968522215516
+    lg_era_nl: 4.13809244268677
+    lg_fip_al: 4.093387529597474
+    lg_fip_nl: 4.063562256689118

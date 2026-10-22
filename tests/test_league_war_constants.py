@@ -10,7 +10,7 @@ import pytest
 import yaml
 
 import sabermetricspy as sp
-from sabermetricspy.constants import bundled_constants, get_league_war_constants
+from sabermetricspy.constants import constants_table, get_league_war_constants, get_woba_weights
 from sabermetricspy.value import WARFramework
 
 ROWS = yaml.safe_load(
@@ -25,7 +25,7 @@ KNOWN_GUTS_GAP = {1998}
 
 def test_runs_per_win_from_league_totals_equals_guts_for_every_season() -> None:
     """Guts prints R/W to three decimals; the formula from MLB runs and outs must agree within that rounding."""
-    guts = bundled_constants()
+    guts = constants_table()
     seasons = sorted(set(guts) - KNOWN_GUTS_GAP)
     assert len(seasons) >= 36
     for season in seasons:
@@ -34,7 +34,7 @@ def test_runs_per_win_from_league_totals_equals_guts_for_every_season() -> None:
 
 
 def test_known_gap_season_is_still_the_measured_size() -> None:
-    gap = get_league_war_constants(1998).runs_per_win - bundled_constants()[1998].lg_r_per_w
+    gap = get_league_war_constants(1998).runs_per_win - get_woba_weights(1998).lg_r_per_w
     assert gap == pytest.approx(0.009, abs=0.0005)
 
 

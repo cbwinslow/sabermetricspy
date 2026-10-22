@@ -6,7 +6,7 @@ import polars as pl
 import pytest
 
 import sabermetricspy as sp
-from sabermetricspy.constants import bundled_constants, get_woba_weights
+from sabermetricspy.constants import constants_table, get_woba_weights
 from sabermetricspy.types import Metric
 from sabermetricspy.types.context import SeasonContext
 
@@ -24,7 +24,7 @@ def test_fip_minus_uses_the_printed_formula_with_the_own_league_fip() -> None:
     assert res.df["fip_minus"][0] == pytest.approx(100 * 1.86 * 1.04 / 3.66, abs=1e-9)
 
 
-@pytest.mark.parametrize("season", sorted(bundled_constants()))
+@pytest.mark.parametrize("season", sorted(constants_table()))
 def test_league_fips_average_to_the_published_mlb_league_fip(season: int) -> None:
     from sabermetricspy.constants import _load_pitcher_war_table  # pyright: ignore[reportPrivateUsage]
 

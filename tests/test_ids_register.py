@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
@@ -13,17 +12,14 @@ import polars as pl
 import pyarrow as pa
 import pytest
 
-import sabermetricspy.ids as ids_module
 from sabermetricspy.ids import (
     ID_SYSTEMS,
     REGISTER_LICENSE,
-    download_register,
     find_players,
     load_register,
     normalize_name,
     player_id,
     translate_ids,
-    update_register,
 )
 
 HEADER = (
@@ -176,7 +172,7 @@ def test_missing_default_register_says_how_to_get_it(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.setenv("SABERMETRICSPY_REGISTER", str(tmp_path / "absent"))
-    with pytest.raises(FileNotFoundError, match="download_register"):
+    with pytest.raises(FileNotFoundError, match="chadwickbureau"):
         load_register()
 
 
@@ -317,224 +313,6 @@ def test_no_match_and_missing_id_raise(register_dir: Path) -> None:
 
 def test_all_id_systems_map_to_register_columns() -> None:
     assert set(ID_SYSTEMS.values()) <= set(COLS)
-
-
-def _commit_dir(root: Path, commit: str, ids: str) -> None:
-    """A fake register commit: `<root>/<commit>/data/people-*.csv`, one shard per entry in SHARDS."""
-    data = root / commit / "data"
-    data.mkdir(parents=True)
-    for name in SHARDS:
-        row = _row(
-            key_uuid=f"{commit}-{name[7]}",
-            key_mlbam=ids,
-            key_retro=f"r{commit}{name[7]}",
-            name_last="Zed",
-            name_first="Zoe",
-        )
-        (data / name).write_text("\n".join([HEADER, row]) + "\n", encoding="utf-8")
-
-
-def test_download_is_pinned_to_a_commit_and_records_it(tmp_path: Path) -> None:
-    served = tmp_path / "served"
-    _commit_dir(served, "c1", "111")
-    _commit_dir(served, "c2", "222")
-    template = served.as_uri() + "/{ref}/data"
-    first = download_register(tmp_path / "one", commit="c1", base_url=template, shards=SHARDS)
-    second = download_register(tmp_path / "two", commit="c2", base_url=template, shards=SHARDS)
-    reg1, reg2 = load_register(first, shards=SHARDS), load_register(second, shards=SHARDS)
-    assert reg1.commit == "c1" and reg2.commit == "c2"
-    assert set(reg1.people["key_mlbam"].to_list()) == {111}
-    assert set(reg2.people["key_mlbam"].to_list()) == {222}
-    assert reg1.fetched_on is not None and len(reg1.fetched_on) == 10
-
-
-def test_download_resolves_the_ref_to_a_commit(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    served = tmp_path / "served"
-    _commit_dir(served, "abc", "333")
-    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: "abc")  # pyright: ignore[reportUnknownLambdaType]
-    dest = download_register(
-        tmp_path / "d", base_url=served.as_uri() + "/{ref}/data", shards=SHARDS
-    )
-    assert load_register(dest, shards=SHARDS).commit == "abc"
-
-
-def test_download_without_a_resolvable_commit_warns_and_records_none(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    served = tmp_path / "served"
-    _commit_dir(served, "master", "444")
-    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: None)  # pyright: ignore[reportUnknownLambdaType]
-    with pytest.warns(UserWarning, match="unpinned"):
-        dest = download_register(
-            tmp_path / "d", base_url=served.as_uri() + "/{ref}/data", shards=SHARDS
-        )
-    assert load_register(dest, shards=SHARDS).commit is None
-
-
-def test_update_skips_download_when_commit_unchanged(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    served = tmp_path / "served"
-    _commit_dir(served, "c1", "111")
-    dest = download_register(
-        tmp_path / "d", commit="c1", base_url=served.as_uri() + "/{ref}/data", shards=SHARDS
-    )
-    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: "c1")  # pyright: ignore[reportUnknownLambdaType]
-    monkeypatch.setattr(ids_module, "download_register", _must_not_download)
-    result = update_register(dest, shards=SHARDS)
-    assert not result.updated and result.commit == "c1" and result.previous_commit == "c1"
-
-
-def _must_not_download(*args: Any, **kwargs: Any) -> Path:
-    raise AssertionError("download_register must not run when the commit is unchanged")
-
-
-def test_update_downloads_when_a_newer_commit_exists(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    served = tmp_path / "served"
-    _commit_dir(served, "c1", "111")
-    _commit_dir(served, "c2", "222")
-    template = served.as_uri() + "/{ref}/data"
-    dest = download_register(tmp_path / "d", commit="c1", base_url=template, shards=SHARDS)
-    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: "c2")  # pyright: ignore[reportUnknownLambdaType]
-    monkeypatch.setattr(ids_module, "REGISTER_URL", template)
-    real = download_register
-    monkeypatch.setattr(
-        ids_module,
-        "download_register",
-        lambda d, **kw: real(d, base_url=template, **kw),  # pyright: ignore[reportUnknownLambdaType]
-    )
-    result = update_register(dest, shards=SHARDS)
-    assert result.updated and result.previous_commit == "c1" and result.commit == "c2"
-    reg = load_register(dest, shards=SHARDS)
-    assert reg.commit == "c2" and set(reg.people["key_mlbam"].to_list()) == {222}
-
-
-def test_update_raises_when_upstream_cannot_be_reached_and_keeps_files(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    served = tmp_path / "served"
-    _commit_dir(served, "c1", "111")
-    dest = download_register(
-        tmp_path / "d", commit="c1", base_url=served.as_uri() + "/{ref}/data", shards=SHARDS
-    )
-    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: None)  # pyright: ignore[reportUnknownLambdaType]
-    with pytest.raises(ConnectionError, match="left unchanged"):
-        update_register(dest, shards=SHARDS)
-    assert load_register(dest, shards=SHARDS).commit == "c1"
-
-
-def test_failed_download_leaves_the_old_register_intact(tmp_path: Path) -> None:
-    served = tmp_path / "served"
-    _commit_dir(served, "c1", "111")
-    _commit_dir(served, "c2", "222")
-    (served / "c2" / "data" / SHARDS[-1]).unlink()
-    template = served.as_uri() + "/{ref}/data"
-    dest = download_register(tmp_path / "d", commit="c1", base_url=template, shards=SHARDS)
-    with pytest.raises(OSError):
-        download_register(dest, commit="c2", base_url=template, shards=SHARDS)
-    reg = load_register(dest, shards=SHARDS)
-    assert reg.commit == "c1" and set(reg.people["key_mlbam"].to_list()) == {111}
-
-
-def _serve_two_commits(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> str:
-    """Two fake upstream commits on disk; downloads read from them instead of GitHub. Returns the URL template."""
-    served = tmp_path / "served"
-    _commit_dir(served, "c1", "111")
-    _commit_dir(served, "c2", "222")
-    template = served.as_uri() + "/{ref}/data"
-    real = download_register
-    monkeypatch.setattr(
-        ids_module,
-        "download_register",
-        lambda d, **kw: real(d, base_url=template, **kw),  # pyright: ignore[reportUnknownLambdaType]
-    )
-    return template
-
-
-def _default_register(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
-    monkeypatch.setenv("SABERMETRICSPY_REGISTER", str(tmp_path / "default"))
-    monkeypatch.setenv("SABERMETRICSPY_AUTO_UPDATE", "1")
-    return tmp_path / "default"
-
-
-def test_default_register_is_downloaded_automatically_when_missing(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    _serve_two_commits(tmp_path, monkeypatch)
-    root = _default_register(tmp_path, monkeypatch)
-    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: "c1")  # pyright: ignore[reportUnknownLambdaType]
-    monkeypatch.setattr(ids_module, "REGISTER_SHARDS", SHARDS)
-    reg = load_register(shards=SHARDS)
-    assert reg.commit == "c1" and root.is_dir()
-
-
-def test_default_register_updates_itself_when_upstream_has_a_newer_commit(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    template = _serve_two_commits(tmp_path, monkeypatch)
-    root = _default_register(tmp_path, monkeypatch)
-    download_register(root, commit="c1", base_url=template, shards=SHARDS)
-    record = json.loads((root / "provenance.json").read_text(encoding="utf-8"))
-    record["checked_on"] = "2020-01-01"  # last checked long ago
-    (root / "provenance.json").write_text(json.dumps(record), encoding="utf-8")
-    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: "c2")  # pyright: ignore[reportUnknownLambdaType]
-    reg = load_register(shards=SHARDS)
-    assert reg.commit == "c2" and set(reg.people["key_mlbam"].to_list()) == {222}
-
-
-def test_default_register_is_looked_up_at_most_once_a_day(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    template = _serve_two_commits(tmp_path, monkeypatch)
-    root = _default_register(tmp_path, monkeypatch)
-    download_register(root, commit="c1", base_url=template, shards=SHARDS)  # checked today
-
-    def boom(ref: str) -> str:
-        raise AssertionError("upstream must not be contacted twice in one day")
-
-    monkeypatch.setattr(ids_module, "_resolve_commit", boom)
-    assert load_register(shards=SHARDS).commit == "c1"
-
-
-def test_offline_default_register_uses_the_copy_it_has_and_warns(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    template = _serve_two_commits(tmp_path, monkeypatch)
-    root = _default_register(tmp_path, monkeypatch)
-    download_register(root, commit="c1", base_url=template, shards=SHARDS)
-    record = json.loads((root / "provenance.json").read_text(encoding="utf-8"))
-    record["checked_on"] = "2020-01-01"
-    (root / "provenance.json").write_text(json.dumps(record), encoding="utf-8")
-    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: None)  # pyright: ignore[reportUnknownLambdaType]
-    with pytest.warns(UserWarning, match="using the copy already"):
-        reg = load_register(shards=SHARDS)
-    assert reg.commit == "c1"
-
-
-def test_offline_with_no_register_raises_file_not_found(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    _default_register(tmp_path, monkeypatch)
-    monkeypatch.setattr(ids_module, "_resolve_commit", lambda ref: None)  # pyright: ignore[reportUnknownLambdaType]
-    with pytest.raises(FileNotFoundError, match="could not be downloaded"):
-        load_register(shards=SHARDS)
-
-
-def test_explicit_path_and_opt_out_never_touch_the_network(
-    register_dir: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    def boom(ref: str) -> str:
-        raise AssertionError("no network expected")
-
-    monkeypatch.setattr(ids_module, "_resolve_commit", boom)
-    load_register(register_dir, shards=SHARDS)  # explicit path
-    monkeypatch.setenv("SABERMETRICSPY_REGISTER", str(register_dir))
-    monkeypatch.setenv("SABERMETRICSPY_AUTO_UPDATE", "0")
-    load_register(shards=SHARDS)  # default location, opted out
 
 
 def test_cache_follows_the_files(register_dir: Path, tmp_path: Path) -> None:

@@ -1,0 +1,45 @@
+# One-season (2024) sample for the repository's tests, cut from the full local table. The values are
+# FanGraphs Guts! park factors (six parks); they remain its data. The library ships no constants (ADR-0068); see docs/CONSTANTS.md.
+parks:
+  BOS:
+    park_id: BOS
+    team_id: BOS
+    season: 2024
+    basic_5yr: 103.0
+    basic_1yr: 102.0
+    hr_factor: 98.0
+  NYY:
+    park_id: NYY
+    team_id: NYY
+    season: 2024
+    basic_5yr: 100.0
+    basic_1yr: 101.0
+    hr_factor: 104.0
+  OAK:
+    park_id: OAK
+    team_id: OAK
+    season: 2024
+    basic_5yr: 96.0
+    basic_1yr: 100.0
+    hr_factor: 90.0
+  SEA:
+    park_id: SEA
+    team_id: SEA
+    season: 2024
+    basic_5yr: 94.0
+    basic_1yr: 89.0
+    hr_factor: 96.0
+  COL:
+    park_id: COL
+    team_id: COL
+    season: 2024
+    basic_5yr: 112.0
+    basic_1yr: 108.0
+    hr_factor: 107.0
+  LAD:
+    park_id: LAD
+    team_id: LAD
+    season: 2024
+    basic_5yr: 99.0
+    basic_1yr: 97.0
+    hr_factor: 110.0
