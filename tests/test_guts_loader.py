@@ -82,3 +82,12 @@ def test_a_guts_table_alone_does_not_invent_league_rates() -> None:
 def test_a_table_missing_a_column_says_which() -> None:
     with pytest.raises(ValueError, match="c_fip"):
         sp.load_guts(pl.DataFrame(WEB).drop("cFIP"))
+
+
+def test_a_guts_table_alone_does_not_assume_zero_league_stolen_base_runs() -> None:
+    sp.use_guts(pl.DataFrame(WEB))
+    runners = pl.DataFrame(
+        {"sb": [10], "cs": [2], "h": [100], "b2": [20], "b3": [2], "hr": [15], "bb": [40]}
+    )
+    with pytest.raises(ConstantsNotFoundError, match="lg_wsb"):
+        sp.calculate(runners, [sp.Metric.WSB], context=sp.SeasonContext(season=2030))

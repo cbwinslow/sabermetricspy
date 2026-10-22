@@ -117,8 +117,9 @@ class WOBAWeights(BaseModel):
         default=None,
         description="AL strikeouts per batter faced, all pitchers, the pitcher K%+ denominator (None when unsourced)",
     )
-    lg_wsb: float = Field(
-        default=0.0, description="League stolen base runs per opportunity (1B + uBB + HBP)"
+    lg_wsb: float | None = Field(
+        default=None,
+        description="League stolen base runs per opportunity (1B + uBB + HBP); None when not supplied",
     )
     source: str = Field(default="FanGraphs Guts!", description="Provenance source")
     retrieved: str | None = Field(default=None, description="Date the values were retrieved (ISO)")

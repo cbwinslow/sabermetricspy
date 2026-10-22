@@ -31,6 +31,7 @@ A season missing from your table raises `ConstantsNotFoundError`; the library ne
 | wOBA, wRAA, FIP, the batting rate metrics | `OPS+` (`lg_obp`, `lg_slg`), `K%+` and `BB%+` (`lg_k_pct`, `lg_bb_pct`, and the league versions): raise `ConstantsNotFoundError` naming the field |
 | wRC+ is computed, but with league runs per PA (which includes pitchers) | exact wRC+ needs `lg_wrc_per_pa` (non-pitcher wRC/PA) |
 | kwERA, using Tango's 5.40 when no seasonal constant is given | the seasonal kwERA constant (`kwera_constant`; Lahman computes it through 2020) |
+| | wSB, BsR and Off (`lg_wsb`, league stolen-base runs per opportunity; raise `ConstantsNotFoundError`) |
 | | xFIP (`lg_hr_per_fb`), SIERA (`siera_constant`), FIP- / ERA- / ERA+ (league ERA and FIP): null |
 
 ## Constants directory (park factors, WAR inputs)

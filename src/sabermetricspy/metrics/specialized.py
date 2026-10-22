@@ -534,7 +534,7 @@ def calc_wsb(ctx: EvalContext) -> nw.Expr:
     w = ctx.weights
     hbp = nw.col("hbp") if "hbp" in ctx.available_columns else nw.lit(0)
     opp = nw.col("b1") + nw.col("ubb") + hbp
-    return nw.col("sb") * w.r_sb + nw.col("cs") * w.r_cs - w.lg_wsb * opp
+    return nw.col("sb") * w.r_sb + nw.col("cs") * w.r_cs - w.require("lg_wsb") * opp
 
 
 @register_metric(

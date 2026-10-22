@@ -22,6 +22,7 @@ def test_example_runs(script: Path) -> None:
         [sys.executable, "-I", "-X", "utf8", str(script)],
         capture_output=True,
         text=True,
+        encoding="utf-8",
         timeout=300,
         env=env,
         check=False,

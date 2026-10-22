@@ -4,6 +4,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [2.0.2] - 2026-10-22
+
+### Fixed
+- League stolen-base runs per opportunity (`lg_wsb`) no longer defaults to 0: wSB, BsR and Off silently dropped the league term under a Guts!-only table. They now raise `ConstantsNotFoundError` naming `lg_wsb`; `docs/CONSTANTS.md` lists it.
+- The source distribution no longer picks up README files below the project root; the examples test decodes subprocess output as UTF-8.
+
 ## [2.0.1] - 2026-10-22
 
 Fixes from an independent review of 2.0.0.

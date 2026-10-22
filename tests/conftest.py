@@ -1,10 +1,10 @@
-"""Test setup: no network, and seasonal constants come from the full local table when it exists, else a one-season sample.
+"""Test setup: no network, and seasonal constants come from the full local table when it exists, else a small sample.
 
 The library ships no third-party constants (ADR-0068). The full FanGraphs constants table and the large FanGraphs
 leaderboard fixtures are kept on the maintainer's machine only (`tests/_local_full_constants` and the files in
 `LOCAL_ONLY`; all git-ignored). Without them:
 
-- tests use the one-season sample in `tests/constants_sample`;
+- tests use the small sample in `tests/constants_sample`;
 - a test that asks for a season outside the sample raises `ConstantsNotFoundError` and is reported as skipped (the
   library has no fallback to another season, so this cannot hide a wrong number);
 - a test module that reads a missing local-only fixture is not collected, and the run header and summary list how many
@@ -73,7 +73,7 @@ def pytest_ignore_collect(collection_path: Path, config: pytest.Config) -> bool 
 
 
 def pytest_report_header(config: pytest.Config) -> list[str]:
-    mode = "full local constants" if HAVE_FULL else "one-season sample constants"
+    mode = "full local constants" if HAVE_FULL else "small sample constants"
     return [f"sabermetricspy tests: {mode}"]
 
 

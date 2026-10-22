@@ -50,5 +50,5 @@ def test_bundled_lg_wsb_is_the_fangraphs_definition_for_every_season() -> None:
 def test_wsb_reproduces_fangraphs(player: tuple[str, int, int, int, int, int, int, float]) -> None:
     _, b1, bb, ibb, hbp, sb, cs, published = player
     w = get_woba_weights(2024)
-    got = sb * w.r_sb + cs * w.r_cs - w.lg_wsb * (b1 + bb + hbp - ibb)
+    got = sb * w.r_sb + cs * w.r_cs - w.require("lg_wsb") * (b1 + bb + hbp - ibb)
     assert got == pytest.approx(published, abs=0.002)

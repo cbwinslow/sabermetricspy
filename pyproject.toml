@@ -1,6 +1,6 @@
 [project]
 name = "sabermetricspy"
-version = "2.0.1"
+version = "2.0.2"
 description = "Fast, strongly-typed, dataframe-agnostic baseball sabermetrics calculation engine, expectancy matrix builder, and forecasting library."
 readme = "README.md"
 license = "Apache-2.0"
@@ -92,7 +92,7 @@ packages = ["src/sabermetricspy"]
 include = [
   "src",
   "docs",
-  "README.md",
+  "/README.md",
   "LICENSE",
   "CHANGELOG.md",
   "AGENTS.md",

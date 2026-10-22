@@ -53,7 +53,7 @@ def test_invalid_inputs_are_rejected() -> None:
 
 
 @pytest.mark.full_constants
-def test_bundled_table_covers_thirty_teams_and_equals_guts() -> None:
+def test_supplied_table_covers_thirty_teams_and_equals_guts() -> None:
     if not GUTS_FILE.exists():
         pytest.skip("needs the local park_factors_2024.yaml")
     GUTS = yaml.safe_load(GUTS_FILE.read_text("utf-8"))
