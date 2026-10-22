@@ -16,7 +16,7 @@ EXAMPLES = sorted((Path(__file__).parent.parent / "examples").glob("*.py"))
 def test_example_runs(script: Path) -> None:
     env = {**os.environ, "PYTHONUTF8": "1"}
     done = subprocess.run(
-        [sys.executable, "-I", str(script)],
+        [sys.executable, "-I", "-X", "utf8", str(script)],
         capture_output=True,
         text=True,
         timeout=300,

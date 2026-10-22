@@ -118,6 +118,7 @@ Ambiguous names and ids shared by two people raise an error that lists the candi
 
 ## Documentation
 
+- [Worked example: Savant CSV to metrics](examples/07_from_savant_csv_to_metrics.py)
 - [Architecture Overview](docs/ARCHITECTURE.md)
 - [Methodology Audit](docs/METHODOLOGY.md)
 - [Verification: confirmed, approximate, still to research](docs/VERIFICATION.md)

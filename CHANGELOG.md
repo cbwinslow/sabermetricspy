@@ -5,6 +5,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 ## [Unreleased]
 
 ### Added
+- `examples/07_from_savant_csv_to_metrics.py`: a short worked example from a Savant CSV and season totals to metrics with provenance; `docs/RELEASING.md`: the release and PyPI checklist.
 - `.github/workflows/publish.yml`: PyPI trusted-publishing workflow that runs when a GitHub release is published (needs a one-time pending-publisher setup on pypi.org).
 
 ### Documented
