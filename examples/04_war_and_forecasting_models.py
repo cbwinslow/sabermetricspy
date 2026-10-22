@@ -1,4 +1,4 @@
-"""Demo 04: Wins Above Replacement (fWAR/bWAR), Marcel Projections, Log5, Markov Chains, Monte Carlo & Uncertainty.
+"""Demo 04: Wins Above Replacement (fWAR/bWAR), Marcel Projections, Log5 & Uncertainty.
 
 Run with:
     uv run python examples/04_war_and_forecasting_models.py

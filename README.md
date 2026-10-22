@@ -28,8 +28,8 @@ It integrates seamlessly with [`retrosheetpy`](https://github.com/cbwinslow/retr
 - **DAG Dependency Resolution & Suites**: Request `Metric.WRC_PLUS` and `sabermetricspy` automatically resolves `WOBA -> WRAA -> WRC_PLUS`, or run `calculate_suite(df, MetricSuite.TRADITIONAL_BATTING)` / `calculate_available(df)` to compute all supported metrics in a single pass.
 - **Provenance & Bundled YAML Constants**: Every metric carries a frozen `MetricSpec` with its LaTeX formula, primary academic/sabermetric citation, required columns, and seasonal constants (`wOBA`, `FIP`, park factors).
 - **Scikit-Learn Style Estimators + Statsmodels Diagnostics**:
-  - Empirical Expectancy: `RunExpectancyMatrix` (`RE24`), `CountExpectancyMatrix` (`RE288`), `LinearWeightsEstimator`, `WinExpectancyMatrix`.
-  - Forecasting & Simulation: `MarcelProjector`, `Log5Model`, `MarkovChainModel`, and modular `WARFramework`.
+  - Empirical Expectancy: `RunExpectancyMatrix` (`RE24`), `CountExpectancyMatrix` (`RE288`), `LinearWeightsEstimator`, `WinExpectancyMatrix`, `MarkovWinExpectancy`.
+  - Forecasting: `MarcelProjector`, `Log5Model`, `MarkovChainModel` (fitted from play-by-play), and modular `WARFramework`.
 
 ---
 
@@ -108,10 +108,12 @@ Ambiguous names and ids shared by two people raise an error that lists the candi
 - Park-adjusted metrics (`wRC+`, `OPS+`, `ERA+`/`ERA-`/`FIP-`) use a park factor of `100` (no adjustment) unless you
   pass the published one: `SeasonContext(season=2001, league="NL", park_factor=96.0)`.
 - DuckDB input gives the same results as the other backends. It is read into memory once as Arrow, evaluated on Polars, and returned as a DuckDB relation on DuckDB's default connection (ADR-0056); aggregate a table larger than memory in DuckDB first.
-- In 1.0.2, 110 of 137 metrics and 5 of 15 models `match` their published method; 24 metrics and 9 models are
-  `approximate` with the size of the gap in [Methodology Audit](docs/METHODOLOGY.md), and 4 items are `experimental` and warn
-  when used. [Verification](docs/VERIFICATION.md) lists what is confirmed, what is not, and the research still to do.
-- Every metric reports a `reference_status` (`matches`, `approximate`, `divergent`, `unverified`) against its
+- In 1.4.1, 108 of 133 metrics and 4 of 12 models `match` their published method; 24 metrics and 8 models are
+  `approximate` with the size of the gap in [Methodology Audit](docs/METHODOLOGY.md), and 1 metric (`bsr`) is `experimental` and warns
+  when used. Of the 108, 87 reproduce a recorded outside value in a test; the other 21 are checked against their
+  published formula only, and the audit says so. [Verification](docs/VERIFICATION.md) lists what is confirmed, what is not,
+  and the research still to do.
+- Every metric reports a `reference_status` (`matches`, `approximate`, `divergent`, `experimental`, `unverified`) against its
   published method; see [Methodology Audit](docs/METHODOLOGY.md). Published-value tests live in `tests/golden/`.
 
 ## Documentation

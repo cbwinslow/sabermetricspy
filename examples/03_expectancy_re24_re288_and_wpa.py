@@ -1,4 +1,4 @@
-"""Demo 03: Empirical Run Expectancy (RE24), 288-State Count Expectancy (RE288), Linear Weights, and Win Probability (WPA & LI).
+"""Demo 03: Empirical Run Expectancy (RE24), 288-State Count Expectancy (RE288), Linear Weights, and Win Expectancy.
 
 Run with:
     uv run python examples/03_expectancy_re24_re288_and_wpa.py
@@ -23,7 +23,9 @@ def main() -> None:
         sys.stdout.reconfigure(encoding="utf-8")
 
     print("=" * 88)
-    print("SABERMETRICSPY DEMO 03: RE24, 288-STATE COUNT EXPECTANCY (RE288), LINEAR WEIGHTS & WPA")
+    print(
+        "SABERMETRICSPY DEMO 03: RE24, 288-STATE COUNT EXPECTANCY (RE288), LINEAR WEIGHTS & WIN EXPECTANCY"
+    )
     print("=" * 88)
 
     # 1. 24-State Run Expectancy Matrix (RE24) & Steal Breakeven Rates

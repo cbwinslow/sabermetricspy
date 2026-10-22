@@ -85,7 +85,7 @@ Source: the [baseballr reference index](https://billpetti.github.io/baseballr/re
 | FanGraphs | `fg_guts`, `fg_park`, `fg_park_hand` | out of scope as scrapers | constants are bundled snapshots; park factor calculation is now implemented (ADR-0029) |
 | FanGraphs, Baseball Reference, MLB Stats, ESPN, NCAA, Spotrac, Chadwick | all other `fg_*`, `bref_*`, `mlb_*`, `espn_*`, `ncaa_*`, `sptrc_*`, `chadwick_*` functions | out of scope | data acquisition and lookups |
 | Retrosheet | `retrosheet_data` | out of scope | the `retrosheetpy` preset maps its output |
-| Pre-computed datasets | `load_mlb_re24_matrix`, `load_mlb_we_table`, `load_mlb_wpa`, `load_mlb_expected_stats`, `load_mlb_xera`, `load_mlb_oaa`, `load_mlb_catcher_framing`, `load_mlb_stuff_plus`, `load_mlb_command_plus`, `load_mlb_batter_projection` | out of scope as loaders; possible validation targets | would give published reference tables for the six unverified models (`WinProbabilityModel`, `CountExpectancyMatrix`, `OutsAboveAverageModel`, `CatcherFramingModel`, `PitchQualityModel`, `ExpectedOutcomeModel`); their contents were not inspected |
+| Pre-computed datasets | `load_mlb_re24_matrix`, `load_mlb_we_table`, `load_mlb_wpa`, `load_mlb_expected_stats`, `load_mlb_xera`, `load_mlb_oaa`, `load_mlb_catcher_framing`, `load_mlb_stuff_plus`, `load_mlb_command_plus`, `load_mlb_batter_projection` | out of scope as loaders; possible validation targets | would give published reference tables for models that were later removed or never built (as of 1.4.1 only `CountExpectancyMatrix` of those named in the 1.0 audit ships); their contents were not inspected |
 | Visualizations | `ggspraychart`, `ggpitchzone` | out of scope | plotting |
 
 ## Coverage of each requested source

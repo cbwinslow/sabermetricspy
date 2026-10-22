@@ -1,6 +1,6 @@
 [project]
 name = "sabermetricspy"
-version = "1.4.1"
+version = "1.4.2"
 description = "Fast, strongly-typed, dataframe-agnostic baseball sabermetrics calculation engine, expectancy matrix builder, and forecasting library."
 readme = "README.md"
 license = "Apache-2.0"
@@ -50,9 +50,7 @@ pandas = ["pandas>=2.2.0"]
 pyarrow = ["pyarrow>=16.0.0"]
 duckdb = ["duckdb>=1.0.0"]
 retrosheet = ["retrosheetpy>=0.1.0", "chadwickpy>=0.4.0"]
-adapters = ["pybaseball>=2.2.7"]
-bayesian = ["pymc>=5.15.0"]
-all = ["sabermetricspy[retrosheet,adapters]"]
+all = ["sabermetricspy[pandas,pyarrow,duckdb,retrosheet]"]
 
 [project.urls]
 Homepage = "https://github.com/cbwinslow/sabermetricspy"

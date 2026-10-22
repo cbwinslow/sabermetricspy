@@ -103,6 +103,7 @@ def main() -> None:
         {
             "player_id": ["Tarik Skubal", "Chris Sale", "Zack Wheeler", "Emmanuel Clase"],
             "ip": ["192.0", "177.2", "200.0", "74.1"],
+            "start_ip": ["192.0", "177.2", "200.0", "0.0"],  # innings as a starter (SIERA)
             "bf": [756, 702, 787, 275],
             "h": [142, 141, 139, 42],
             "r": [54, 48, 62, 10],

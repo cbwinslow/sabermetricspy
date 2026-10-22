@@ -1,4 +1,4 @@
-"""Empirical Run Expectancy (RE24), Count Expectancy (RE288), Linear Weights, Steal Breakeven, and Win Probability (WPA, LI) estimators."""
+"""Empirical Run Expectancy (RE24), Count Expectancy (RE288), Linear Weights, Steal Breakeven, and Markov Win Expectancy estimators."""
 
 from __future__ import annotations
 

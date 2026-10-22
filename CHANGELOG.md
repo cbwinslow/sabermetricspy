@@ -4,6 +4,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [1.4.2] - 2026-10-21
+
+Release-readiness cleanup after an independent review.
+
+### Fixed
+- Examples 01 and 05 crashed (SIERA now needs `start_ip`; `total_break` was removed in 1.0.1). `tests/test_examples.py` now runs every example so they cannot drift again.
+- Specs, docstrings, README and docs no longer describe removed items (head-to-head Pythagorean spec deleted; `TOTAL_BREAK`, `WHIFF_PER_100`, `TWO_STRIKE_CHASE_PCT`, `WGDP` removed from the registry specs).
+- The unused `bayesian` and `adapters` extras are dropped and `all` now covers pandas, pyarrow, duckdb and the Retrosheet tools.
+- CI also runs the opt-in Markov win-expectancy check against Retrosheet 2016.
+
 ## [1.4.1] - 2026-10-21
 
 ### Documented

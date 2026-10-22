@@ -10,15 +10,15 @@ keeps the research still to do. The per-metric detail (formula, source link, mea
 A metric or model is shipped as supported only if it uses a widely documented method **and** reproduces a value that
 someone else published, in a test (CLAUDE.md rule 7). Each item carries one status:
 
-| Status | Meaning | Items (1.3.0) |
+| Status | Meaning | Items (1.4.1) |
 |---|---|---|
-| `matches` | reproduces the published method and, where an outside number exists, that number | 110 of 136 metrics, 4 of 15 models |
-| `approximate` | follows the published method but a measured gap remains, or the outside source is a black box | 22 metrics, 8 models |
+| `matches` | reproduces the published method and, where an outside number exists, that number | 108 of 133 metrics, 4 of 12 models |
+| `approximate` | follows the published method but a measured gap remains, or the outside source is a black box | 24 metrics, 8 models |
 | `experimental` | no consensus method or no reproducible outside value; warns every time it is used | 1 metric, 0 models |
 
 Each item also records how strong its evidence is: `golden` (a test compares it with a recorded outside value, 87
-`matches` metrics), `primary` (the formula was checked against the published definition text, 16) or `secondary` (a
-reputable but non-primary description, 7). The 23 `primary`/`secondary` entries have **no outside number reproduced**;
+`matches` metrics), `primary` (the formula was checked against the published definition text, 14) or `secondary` (a
+reputable but non-primary description, 7). The 21 `primary`/`secondary` entries have **no outside number reproduced**;
 they are listed under "Research still to do".
 
 ## Confirmed against outside values
@@ -53,7 +53,7 @@ they are listed under "Research still to do".
 | Marcel (hitters, pitchers) | hitter home runs 0.28 off on average; pitcher innings for single-role pitchers within 1 IP for over 80% | Tango's rebaseline step is undefined; the pitcher regression (266.67 IP) is inferred from his reliability column |
 | `vaa` | Woo -3.703 against -3.7; Ryan -3.847 against -3.9 | third-party published values; Savant does not publish VAA |
 | `LinearWeightsEstimator` | -0.001 to +0.031 per weight; scale 1.251 vs 1.212 (Retrosheet 2016) | FanGraphs' RE24 and event definitions are not fully published |
-| `haa`, `xbh` and the 23 formula-only `matches` | no outside number reproduced | see below |
+| `haa`, `xbh` and the 21 formula-only `matches` | no outside number reproduced | see below |
 
 ## Experimental (warns on use)
 
@@ -124,5 +124,5 @@ pitcher WAR's park factor and yearly league correction; Savant's Whiff% definiti
 6. DER: a published value that uses actual reached-on-error. Done in 1.1.0: XBT%, popup rate, VAA (third-party values).
 7. Done 2026-10-21 for LinearWeightsEstimator: on Retrosheet 2016 the weights are within 0.001 to 0.031 of Guts! (scale 1.251 vs 1.212), so it stays approximate; the remaining gap needs FanGraphs' unpublished RE24 and event definitions. Still open: MonteCarloSimulator on the fitted matrix; Marcel pitcher regression amounts and Tango's published files.
 8. Bundle league PA and games per season so the position-player WAR default uses the FanGraphs replacement formula (the 2026 constants are done, see 1.0.3).
-9. Outside numbers for the formula-only `matches` (done 2026-10-21 for `xfip`, `shutdown`, `meltdown`, `rc_basic`, `rc_tech`, `pu_pct`, `xbt_pct`, `Log5Model`, `EmpiricalBayesShrinker`; `game_score_v2` moved to `approximate`, FanGraphs' GSv2 is one point lower on 34 of 55 starts). Added in 1.3.0: 833 qualified batter-seasons and 2,005 pitcher-seasons of FanGraphs leaderboards (2005, 2012, 2016, 2019, 2022, 2024) now pin obp, slg, iso, bb_pct, k_pct, bb_to_k, k_minus_bb_pct, pit_k_pct, pit_bb_pct, pit_k_minus_bb_pct, pit_k_to_bb (to the fourth decimal), ip (the notation conversion only, a round trip) and ra9 (equals ERA on the 170 pitcher-seasons without unearned runs); `der` is `approximate` against Baseball-Reference's DefEff for all 30 teams of 2016 (library 0.0025 higher on average, 0.0047 at most, probably because Baseball-Reference estimates reached-on-error; unconfirmed). Still without an outside value, only a checked formula: ubb, xbh, base_runs, seca, gpa, ta, off, dice, dips_bop_pct, bf_per_ip, cg_pct, qs_pct, sv_pct, err_pct, avg_extension, bauer_units, effective_velo, sweet_spot_pct. RC/27, QERA, Speed Score, the rule-based Markov chain, Monte Carlo and the head-to-head Pythagorean had no published value and were removed in 1.4.0. Several are plain ratios of counting stats (cg_pct, qs_pct, sv_pct, err_pct, bf_per_ip, ra9, ubb, xbh) which rule 7 allows with a hand-computed test; `off` and `sweet_spot_pct` are `approximate` (Off was not compared with the FanGraphs column and uses the experimental `bsr`; sweet spot is 0.5 to 2.1 points high on Savant's integer-rounded launch angles).
+9. Outside numbers for the formula-only `matches` (done 2026-10-21 for `xfip`, `shutdown`, `meltdown`, `rc_basic`, `rc_tech`, `pu_pct`, `xbt_pct`, `Log5Model`, `EmpiricalBayesShrinker`; `game_score_v2` moved to `approximate`, FanGraphs' GSv2 is one point lower on 34 of 55 starts). Added in 1.3.0: 833 qualified batter-seasons and 2,005 pitcher-seasons of FanGraphs leaderboards (2005, 2012, 2016, 2019, 2022, 2024) now pin obp, slg, iso, bb_pct, k_pct, bb_to_k, pit_k_pct, pit_bb_pct, pit_k_minus_bb_pct, pit_k_to_bb (to the fourth decimal), and `k_minus_bb_pct` equals the difference of FanGraphs' published batter K% and BB%, ip (the notation conversion only, a round trip) and ra9 (equals ERA on the 170 pitcher-seasons without unearned runs); `der` is `approximate` against Baseball-Reference's DefEff for all 30 teams of 2016 (library 0.0025 higher on average, 0.0047 at most, probably because Baseball-Reference estimates reached-on-error; unconfirmed). Still without an outside value, only a checked formula: ubb, xbh, base_runs, seca, gpa, ta, off, dice, dips_bop_pct, bf_per_ip, cg_pct, qs_pct, sv_pct, err_pct, avg_extension, bauer_units, effective_velo, sweet_spot_pct. RC/27, QERA, Speed Score, the rule-based Markov chain, Monte Carlo and the head-to-head Pythagorean had no published value and were removed in 1.4.0. Several are plain ratios of counting stats (cg_pct, qs_pct, sv_pct, err_pct, bf_per_ip, ra9, ubb, xbh) which rule 7 allows with a hand-computed test; `off` and `sweet_spot_pct` are `approximate` (Off was not compared with the FanGraphs column and uses the experimental `bsr`; sweet spot is 0.5 to 2.1 points high on Savant's integer-rounded launch angles).
 10. Most golden fixtures come from a few players and seasons (Skubal 2024, 2001 pitchers); widen them.

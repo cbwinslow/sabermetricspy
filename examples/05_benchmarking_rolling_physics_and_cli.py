@@ -115,7 +115,7 @@ def main() -> None:
         by="pitcher_id",
         preset="statcast",
     )
-    print("\n[3] Pitch-Tracking Physics (VAA, IVB, HB, Total Break) & Statcast Expected Metrics:")
+    print("\n[3] Pitch-Tracking Physics (VAA, IVB, HB) & Statcast Expected Metrics:")
     print(
         physics_res.df.select(
             "pitcher_id",
@@ -125,7 +125,6 @@ def main() -> None:
             "avg_extension",
             "ivb",
             "hb",
-            "total_break",
             "vaa",
             "xba",
             "xslg",

@@ -91,11 +91,11 @@ The library SHALL provide `calculate_rolling()` that sums additive counting colu
 - **THEN** the engine sums `ab`, `h`, `bb`, `hbp`, `sf`, `pa`, `b1`, `b2`, `b3`, `hr`, `ibb` over each 3-game window per player prior to dividing, matching exact multi-game cumulative rates.
 
 ### Requirement: Pitch-Tracking Physics and Statcast Expected Metrics
-The registry and `statcast` YAML translator SHALL support Statcast expected metrics (`XBA`, `XSLG`, `XWOBA`, `WOBA_MINUS_XWOBA`, `BA_MINUS_XBA` in `MetricSuite.STATCAST_EXPECTED`) and pitch-tracking kinematics (`AVG_VELO`, `AVG_SPIN`, `AVG_EXTENSION`, `IVB`, `HB`, `TOTAL_BREAK`, `EFFECTIVE_VELO`, `VAA` in `MetricSuite.PITCH_PHYSICS`).
+The registry and `statcast` YAML translator SHALL support Statcast expected metrics (`XBA`, `XSLG`, `XWOBA`, `WOBA_MINUS_XWOBA`, `BA_MINUS_XBA` in `MetricSuite.STATCAST_EXPECTED`) and pitch-tracking kinematics (`AVG_VELO`, `AVG_SPIN`, `AVG_EXTENSION`, `IVB`, `HB`, `EFFECTIVE_VELO`, `VAA` in `MetricSuite.PITCH_PHYSICS`).
 
 #### Scenario: Computing VAA, IVB, HB, and xwOBA from Statcast pitch records
 - **WHEN** a user passes Statcast pitch data with `release_speed`, `release_spin_rate`, `release_extension`, `pfx_x`, `pfx_z`, `vy0`, `vz0`, `ay`, `az`, and `estimated_woba_using_speedangle` to `sb.calculate_suite(df, [MetricSuite.PITCH_PHYSICS, MetricSuite.STATCAST_EXPECTED], preset="statcast", by="pitcher_id")`
-- **THEN** the engine computes accurate `avg_velo`, `avg_spin`, `ivb`, `hb`, `total_break`, `vaa`, and `xwoba`.
+- **THEN** the engine computes accurate `avg_velo`, `avg_spin`, `ivb`, `hb`, `vaa`, and `xwoba`.
 
 ### Requirement: Command-Line Interface (`sabermetrics`)
 The package SHALL expose a `sabermetrics` CLI supporting `list`, `info`, `suites`, and `benchmark` subcommands.
