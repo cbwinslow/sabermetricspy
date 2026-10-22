@@ -4,6 +4,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+### Added
+- `.github/workflows/publish.yml`: PyPI trusted-publishing workflow that runs when a GitHub release is published (needs a one-time pending-publisher setup on pypi.org).
+
+### Documented
+- FanGraphs Terms of Service findings for the bundled constants and test fixtures (`docs/CREDITS.md`, ADR-0066).
+
 ## [1.4.2] - 2026-10-21
 
 Release-readiness cleanup after an independent review.
