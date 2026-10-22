@@ -24,6 +24,7 @@
 - `src/sabermetricspy/value/`: Park adjustments, replacement level, and modular `WARFramework`.
 - `src/sabermetricspy/models/`: Forecasting and matchup estimators (`MarcelProjector`, `Log5Model`, `MarkovChainModel`).
 - `src/sabermetricspy/ids/`: Chadwick Register player-id crosswalk (`translate_ids`, `find_players`, `player_id`, `load_register`, `download_register`, `update_register`; the default register updates itself, once a day at most); the register is not bundled (ODC-BY 1.0).
+- `src/sabermetricspy/lahman/`: League constants (runs per PA, OBP, SLG, ERA, cFIP, kwERA, caught-stealing run value) computed from the Lahman database downloaded to the user cache (`download_lahman`, `league_constants`); no third-party table is shipped.
 - `src/sabermetricspy/uncertainty/`: Analytical confidence intervals and seeded bootstrap estimator.
 - `src/sabermetricspy/presets/`: Built-in column and event mappers for `retrosheetpy`, `statcast`, and `lahman`.
 - `src/sabermetricspy/telemetry/`: Decorator-based performance telemetry (`@profiled`, `PerformanceTracker`, `sb.telemetry`) and benchmark registry (`@register_benchmark`, `run_registered_benchmarks`).

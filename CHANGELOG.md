@@ -4,12 +4,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-10-22
+
 ### Added
+- `sabermetricspy.lahman` (`download_lahman`, `league_constants`, `LeagueConstants`): league runs per PA, OBP, SLG, ERA, cFIP, kwERA constant and the caught-stealing run value computed from the Lahman database, with no third-party table shipped (ADR-0067). Matches the bundled FanGraphs values within their rounding for 1990-2025; tests use a small CC BY-SA Lahman sample.
 - `examples/07_from_savant_csv_to_metrics.py`: a short worked example from a Savant CSV and season totals to metrics with provenance; `docs/RELEASING.md`: the release and PyPI checklist.
 - `.github/workflows/publish.yml`: PyPI trusted-publishing workflow that runs when a GitHub release is published (needs a one-time pending-publisher setup on pypi.org).
 
 ### Documented
-- FanGraphs Terms of Service findings for the bundled constants and test fixtures (`docs/CREDITS.md`, ADR-0066).
+- FanGraphs Terms of Service findings for the bundled constants and test fixtures (`docs/CREDITS.md`). ADR-0066: the owner chose not to redistribute FanGraphs values, so the bundled table is to be replaced by values built from open data; wOBA weights, park factors and batted-ball constants still need a play-by-play source. Until then the package is not published to PyPI.
 
 ## [1.4.2] - 2026-10-21
 

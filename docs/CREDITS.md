@@ -34,7 +34,7 @@ not the evidence.
 - Chadwick Bureau Register (https://github.com/chadwickbureau/register): player ids and names, licensed Open Data Commons
   Attribution License 1.0. It is not bundled; `sabermetricspy.ids` loads or downloads it, and each translation result
   carries this credit, the commit it was downloaded from and the fetch date.
-- Lahman Baseball Database: copyright 1996-2025 by SABR, via the generous donation of Sean Lahman; licensed CC BY-SA 3.0.
+- Lahman Baseball Database: copyright 1996-2025 by SABR, via the generous donation of Sean Lahman; licensed CC BY-SA 3.0. `sabermetricspy.lahman` downloads it to the user's cache and computes league constants from it; a small sample is kept in `tests/fixtures/lahman` under the same license.
 - Bundled seasonal constants (`src/sabermetricspy/data/constants/`: wOBA weights, FIP and SIERA constants, league run
   environment, park factors, replacement-level and WAR inputs) are FanGraphs Guts! and leaderboard values recorded with
   source and retrieval date; the RE24 table is FanGraphs' page, which licenses its run expectancy data from Tom Tango.
