@@ -345,9 +345,7 @@ def get_fip_park_factor(team: str, season: int) -> float:
     """
     table = _load_fip_park_table()
     if season not in table:
-        raise ValueError(
-            f"No FIP park factors for season {season}; available: {min(table)}-{max(table)}."
-        )
+        raise _missing_season("FIP park factors", season, table)
     key = _TEAM_ALIASES.get(team.upper(), team.upper())
     if key not in table[season]:
         raise ValueError(

@@ -105,6 +105,7 @@ include = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+markers = ["full_constants: needs the maintainer's full local constants table (skipped on a clean clone)"]
 
 [tool.coverage.run]
 source = ["sabermetricspy"]

@@ -85,6 +85,15 @@ def pytest_terminal_summary(terminalreporter: Any, exitstatus: int, config: pyte
         terminalreporter.line(f"{len(set(_NOT_COLLECTED))} modules not collected")
 
 
+def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
+    if HAVE_FULL:
+        return
+    skip = pytest.mark.skip(reason="needs the full local constants table")
+    for item in items:
+        if "full_constants" in item.keywords:
+            item.add_marker(skip)
+
+
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo[Any]) -> Any:
     """In sample mode, turn 'season not in the table' (setup or call) into a reported skip."""

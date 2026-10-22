@@ -23,6 +23,7 @@ ROWS = yaml.safe_load(
 KNOWN_GUTS_GAP = {1998}
 
 
+@pytest.mark.full_constants
 def test_runs_per_win_from_league_totals_equals_guts_for_every_season() -> None:
     """Guts prints R/W to three decimals; the formula from MLB runs and outs must agree within that rounding."""
     guts = constants_table()

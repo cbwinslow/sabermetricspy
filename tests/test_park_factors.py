@@ -52,6 +52,7 @@ def test_invalid_inputs_are_rejected() -> None:
         raw_park_factor(4.0, 0.0, teams=30)
 
 
+@pytest.mark.full_constants
 def test_bundled_table_covers_thirty_teams_and_equals_guts() -> None:
     assert len(GUTS["teams"]) == 30
     for team, row in GUTS["teams"].items():
