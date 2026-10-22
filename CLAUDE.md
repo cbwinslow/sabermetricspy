@@ -17,6 +17,7 @@
 - `src/sabermetricspy/types/`: `StrEnum` definitions (`Metric`, `Stat`, `MetricSuite`, `Category`, `ImplKind`, `Direction`, `Handedness`, `PitchOutcome`, `PlayOutcome`, `BattedBallType`, `BaseState`) and frozen context models.
 - `src/sabermetricspy/schema/`: Canonical column definitions, alias resolution, safe division helpers, and innings (`"6.2"` <-> `20` outs) conversion utilities.
 - `src/sabermetricspy/constants/`: Seasonal constants loader (`wOBA` weights, `FIP` constants, park factors, WAR inputs) reading YAML from a directory the caller supplies (`use_constants`, `$SABERMETRICSPY_CONSTANTS`); no constants are shipped (ADR-0068, `docs/CONSTANTS.md`).
+- `src/sabermetricspy/fetch/`: On-request fetch of Guts!, park factors and league totals into the user cache (`update_constants`, `sabermetrics constants update`); the only network code in the package (ADR-0069).
 - `src/sabermetricspy/registry/`: `MetricSpec`, `@register_metric`, topological DAG dependency solver, and `MetricSuite` expansion.
 - `src/sabermetricspy/metrics/`: Pure vectorized `narwhals` expressions for batting, weighted offense, pitching, DIPS, plate discipline, batted-ball, baserunning, fielding, and team estimators.
 - `src/sabermetricspy/engine/`: Two-stage calculation engine (`calculate`, `calculate_suite`, `calculate_available`) returning frozen `CalculationResult`.

@@ -79,6 +79,31 @@ def _cmd_benchmark(rows: int, groups: int, repeats: int, *, registered: bool = F
     return 0
 
 
+def _cmd_constants(args: argparse.Namespace) -> int:
+    from sabermetricspy.constants import constants_dir
+    from sabermetricspy.types.context import ConstantsNotFoundError
+
+    if args.constants_action == "path":
+        try:
+            print(constants_dir())
+        except ConstantsNotFoundError as exc:
+            print(exc, file=sys.stderr)
+            return 1
+        return 0
+    from sabermetricspy.fetch import FetchError, update_constants
+
+    try:
+        report = update_constants(args.dir, first_season=args.first_season)
+    except FetchError as exc:
+        print(f"update failed: {exc}", file=sys.stderr)
+        return 1
+    print(f"constants in {report.directory}")
+    for name, seasons in report.fetched.items():
+        span = f"{min(seasons)}-{max(seasons)}" if seasons else "nothing new"
+        print(f"  {name}: {len(seasons)} seasons fetched ({span})")
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Entry point for the `sabermetrics` CLI."""
     reconf = getattr(sys.stdout, "reconfigure", None)
@@ -124,7 +149,23 @@ def main(argv: Sequence[str] | None = None) -> int:
         help="Run all @register_benchmark subsystem workloads across engine, translator, expectancy, valuation, and forecasting.",
     )
 
+    p_const = sub.add_parser(
+        "constants", help="Fetch or locate the seasonal constants tables (ADR-0069)."
+    )
+    const_sub = p_const.add_subparsers(dest="constants_action", required=True)
+    p_update = const_sub.add_parser(
+        "update",
+        help="Fetch Guts!, park factors and league totals to your cache; only missing seasons plus the latest two.",
+    )
+    p_update.add_argument("--dir", default=None, help="Destination (default: the cache directory).")
+    p_update.add_argument(
+        "--first-season", type=int, default=1990, help="First season (default: 1990)."
+    )
+    const_sub.add_parser("path", help="Print the directory constants are read from.")
+
     args = parser.parse_args(list(argv) if argv is not None else None)
+    if args.subcommand == "constants":
+        return _cmd_constants(args)
     if args.subcommand == "list":
         return _cmd_list(args.category)
     if args.subcommand == "info":

@@ -1,6 +1,6 @@
 # ADR-0068: Computation-Only Again, with Constants the Caller Supplies
 
-Status: Accepted
+Status: Accepted; network use amended by ADR-0069 (fetch on request, still no redistribution)
 
 ## Context
 ADR-0003 says the library does no network I/O. By 1.5.0 it did: `ids` downloaded the Chadwick Register (and refreshed it in the background once a day), and `lahman` downloaded the Lahman files from the owner's unofficial mirror. Separately, the package shipped FanGraphs-derived constant tables, and FanGraphs' Terms of Service bar unauthorized reproduction or redistribution of its compiled content (ADR-0066). The owner decided not to ask FanGraphs and not to redistribute their values.

@@ -16,6 +16,24 @@ The package SHALL contain no third-party constants tables. Constants SHALL be re
 - **WHEN** `use_constants(path)` names a directory with `woba_fangraphs.yaml`
 - **THEN** `get_woba_weights(season)` returns that file's values for the season
 
+### Requirement: Constants are fetched only on request
+The package MAY download the Guts! constants, park factors and league totals to the caller's cache directory, but only through `sabermetricspy.fetch.update_constants` or `sabermetrics constants update`. It SHALL NOT fetch on import, at install, in the background or during a calculation, and SHALL NOT ship or redistribute the fetched tables. `constants_dir()` SHALL read `use_constants`, then `$SABERMETRICSPY_CONSTANTS`, then the cache directory (ADR-0069).
+
+#### Scenario: Nothing set and nothing cached
+- **WHEN** a metric needs constants, no directory is set and the cache is empty
+- **THEN** `ConstantsNotFoundError` is raised naming `sabermetrics constants update`, and no request is made
+
+#### Scenario: Rerun in a later season
+- **WHEN** `update_constants` runs again with older seasons already held
+- **THEN** only missing seasons and the latest two are requested
+
+### Requirement: Updates are incremental, atomic and loud
+A rerun of `update_constants` SHALL fetch only seasons not held plus the latest two, SHALL write each file atomically, and SHALL raise `FetchError` on a changed page layout, a missing column or a team with no abbreviation instead of writing a partial table.
+
+#### Scenario: Page layout changed
+- **WHEN** a FanGraphs page no longer embeds its table
+- **THEN** `FetchError` is raised and the table that failed is not written
+
 ### Requirement: Season coverage and sourcing
 Every entry in a supplied table SHALL record its source and retrieval date, and a constant with no source MUST be absent rather than filled with a default or copied from another field. League ERA, FIP, xFIP and HR/FB values are present only when taken from a cited source.
 

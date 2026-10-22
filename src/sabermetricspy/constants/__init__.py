@@ -1,6 +1,6 @@
 """Seasonal constants (wOBA weights, FIP and park factors, WAR inputs) read from YAML files you supply.
 
-The library ships no third-party constants and downloads none (ADR-0068): point it at a directory with
+The library ships no third-party constants (ADR-0068); `sabermetricspy.fetch` fetches them on request (ADR-0069). Point it at a directory with
 `use_constants` or `$SABERMETRICSPY_CONSTANTS`. `docs/CONSTANTS.md` lists the files, their fields and where
 the values come from.
 """
@@ -35,6 +35,7 @@ CONSTANTS_FILES: tuple[str, ...] = (
     "league_war.yaml",
 )
 GUTS_URL = "https://www.fangraphs.com/guts.aspx?type=cn"
+GUTS_FILE = "guts.csv"
 
 
 _constants_override: Path | None = None
@@ -52,17 +53,30 @@ def use_constants(path: str | Path | None) -> None:
     _TABLES.clear()
 
 
+def default_cache_dir() -> Path:
+    """Where `update_constants` keeps the tables it fetches: `$XDG_CACHE_HOME`, `%LOCALAPPDATA%` or `~/.cache`."""
+    base = os.environ.get("XDG_CACHE_HOME") or os.environ.get("LOCALAPPDATA")
+    root = Path(base) if base else Path.home() / ".cache"
+    return root / "sabermetricspy" / "constants"
+
+
 def constants_dir() -> Path:
-    """The directory seasonal constants are read from: `use_constants`, else `$SABERMETRICSPY_CONSTANTS`."""
+    """The directory seasonal constants are read from.
+
+    `use_constants`, else `$SABERMETRICSPY_CONSTANTS`, else the cache directory `update_constants` fills.
+    """
     if _constants_override is not None:
         return _constants_override
     env = os.environ.get(CONSTANTS_ENV)
     if env:
         return Path(env)
+    cache = default_cache_dir()
+    if cache.is_dir() and any((cache / name).is_file() for name in (*CONSTANTS_FILES, GUTS_FILE)):
+        return cache
     raise ConstantsNotFoundError(
-        "No seasonal constants directory is set. sabermetricspy ships no constants and downloads none: call "
-        f"use_constants(path), use_guts(table) or set {CONSTANTS_ENV}. wOBA weights and league constants can be taken from "
-        f"FanGraphs' Guts! page ({GUTS_URL}) under its terms, or computed from your own data (see docs/CONSTANTS.md)."
+        "No seasonal constants found. sabermetricspy ships no constants (ADR-0068); fetch them to your own machine "
+        "with `sabermetrics constants update` (or sabermetricspy.fetch.update_constants()), or call "
+        f"use_constants(path), use_guts(table) or set {CONSTANTS_ENV}. See docs/CONSTANTS.md."
     )
 
 
@@ -170,6 +184,9 @@ def _load_default_woba_table() -> dict[int, WOBAWeights]:
         return dict(_GUTS_OVERRIDE)
 
     def build() -> dict[int, WOBAWeights]:
+        root = constants_dir()
+        if not (root / "woba_fangraphs.yaml").is_file() and (root / GUTS_FILE).is_file():
+            return load_guts(root / GUTS_FILE)
         raw = _constants_yaml("woba_fangraphs.yaml")
         return {
             int(yr): WOBAWeights.model_validate(vals) for yr, vals in raw.get("seasons", {}).items()

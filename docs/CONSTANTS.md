@@ -1,18 +1,36 @@
 # Seasonal constants: what you supply and where it comes from
 
-sabermetricspy ships **no** third-party constants and downloads **nothing** (ADR-0003, ADR-0068). Metrics that need a
-season's constants (wOBA, wRC+, FIP and the rest) read them from a table you provide. This page says what the library
-needs, the quickest way to get it, and what it can compute for you.
+sabermetricspy ships **no** third-party constants (ADR-0068) and fetches them only when you ask (ADR-0069). Metrics that
+need a season's constants (wOBA, wRC+, FIP and the rest) read them at run time from tables on your machine; nothing is
+baked into the formulas. This page says what the library needs, how to fetch and refresh it, and what it can compute.
 
-## The quickest start: a FanGraphs Guts! table
+## The quickest start: fetch them
 
-wOBA, wRAA and FIP need only the Guts! constants. Get them yourself, for your own use and under FanGraphs'
-[terms of service](https://www.fangraphs.com/about/terms-of-service); the library does not redistribute them, and this
-page does not automate the download.
+```text
+sabermetrics constants update
+```
 
-- In a browser, open the [Guts! constants page](https://www.fangraphs.com/guts.aspx?type=cn) and save the page, or copy
-  the table into a spreadsheet and save it as `guts.csv`.
-- Or in R, `baseballr::fg_guts()` returns the same table: `write.csv(baseballr::fg_guts(), "guts.csv", row.names = FALSE)`.
+or `sabermetricspy.fetch.update_constants()` from Python. This mirrors R's `baseballr` (`fg_guts`, `fg_park`) and
+writes to your cache directory (`sabermetrics constants path` prints it), which the library then reads with no further
+setup:
+
+| File | From | Fetched |
+|---|---|---|
+| `guts.csv` | FanGraphs Guts! constants, 1871 on | whole, every run |
+| `park_fip.yaml`, `park_factors.yaml` | FanGraphs park factors, 1990 on | missing seasons plus the latest two |
+| `league_war.yaml` | MLB Stats API team totals, 1990 on | missing seasons plus the latest two |
+
+**Refresh once a season** (and after the season ends, since the latest two seasons are refetched while their totals
+move): rerun the same command. It is safe to repeat. Use the data under FanGraphs'
+[terms of service](https://www.fangraphs.com/about/terms-of-service); the library fetches for your own use and never
+redistributes the tables. Nothing is fetched on import or by a calculation: a missing table raises
+`ConstantsNotFoundError` pointing at this command.
+
+## Supplying a Guts! table yourself
+
+If you cannot fetch (offline, or you want to pin a copy), save the table as `guts.csv` by hand (copy it from the
+[Guts! page](https://www.fangraphs.com/guts.aspx?type=cn), or in R `write.csv(baseballr::fg_guts(), "guts.csv",
+row.names = FALSE)`) and point at it:
 
 ```python
 import sabermetricspy as sp
@@ -45,8 +63,11 @@ call `sp.use_constants(path)` (or set `SABERMETRICSPY_CONSTANTS`). Every file is
 | `woba_fangraphs.yaml` | the same fields as Guts!, plus league ERA/FIP/xFIP, HR/FB, wRC/PA, SIERA and kwERA constants (`seasons: {2024: {...}}`; fields in `sabermetricspy.types.context.WOBAWeights`) | Guts! for the weights; the league fields can be computed (below) |
 | `park_factors.yaml` | `parks: {COL: {park_id, team_id, season, basic_5yr, basic_1yr, hr_factor}}` | FanGraphs park factors page (`guts.aspx?type=pf`) |
 | `park_fip.yaml` | `seasons: {2024: {NYY: 102, ...}}`, the park input of FIP- and pitcher WAR | FanGraphs park factors page, FIP column |
-| `pitcher_war.yaml` | `seasons: {2024: {al: {...}, nl: {...}}}` league pitching totals | league totals (below) |
-| `league_war.yaml` | `seasons: {2024: {games, pa, runs, outs}}` | league totals (below) |
+| `pitcher_war.yaml` | `seasons: {2024: {al: {...}, nl: {...}}}` league pitching totals | FanGraphs leaderboard league totals; **not fetched yet**, supply it yourself |
+| `league_war.yaml` | `seasons: {2024: {games, pa, runs, outs}}` | fetched by `update_constants` (MLB Stats API) |
+
+Files `update_constants` writes (`guts.csv`, `park_fip.yaml`, `park_factors.yaml`, `league_war.yaml`) sit in the same
+directory; `woba_fangraphs.yaml`, when you add it, takes precedence over `guts.csv` for the wOBA table.
 
 ## What the library computes from data you hold
 

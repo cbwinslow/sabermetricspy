@@ -40,7 +40,7 @@ import polars as pl
 import sabermetricspy as sp
 from sabermetricspy import Metric, MetricSuite, SeasonContext
 
-# Seasonal constants are supplied by you, not shipped (docs/CONSTANTS.md): a FanGraphs Guts! table you downloaded.
+# Seasonal constants are not shipped: run `sabermetrics constants update` once (docs/CONSTANTS.md), or point at a Guts! table you saved.
 sp.use_guts("guts.csv")
 
 # 1. Compute specific metrics with full provenance.
@@ -103,8 +103,8 @@ Ambiguous names and ids shared by two people raise an error that lists the candi
 
 ## Accuracy and Provenance
 
-- The library ships no third-party constants and downloads nothing (ADR-0068). Seasonal constants (wOBA weights, cFIP,
-  league run environment, park factors) are a directory of YAML files you supply with `sp.use_constants(path)` or
+- The library ships no third-party constants (ADR-0068) and fetches them only when you run `sabermetrics constants update` (ADR-0069). Seasonal constants (wOBA weights, cFIP,
+  league run environment, park factors) are read from your cache, or a directory you set with `sp.use_constants(path)` or
   `$SABERMETRICSPY_CONSTANTS`; [Constants](docs/CONSTANTS.md) lists the files, where the values come from, and what the
   library can compute for you (league constants from your Lahman files, linear weights from your play-by-play).
 - Park-adjusted metrics (`wRC+`, `OPS+`, `ERA+`/`ERA-`/`FIP-`) use a park factor of `100` (no adjustment) unless you

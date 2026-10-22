@@ -75,7 +75,7 @@ Lower layers never import from higher layers.
 
 ## 3. Constants Provenance & Park Factors
 
-Seasonal constants are not shipped (ADR-0068): the caller supplies a directory of YAML files (`docs/CONSTANTS.md`).
+Seasonal constants are not shipped (ADR-0068): `sabermetrics constants update` fetches them to the caller's cache on request (ADR-0069), or the caller supplies a directory of YAML files (`docs/CONSTANTS.md`).
 Each entry records its source and retrieval date; league ERA/FIP/xFIP/HR-FB and non-pitcher wRC/PA are optional and absent when
 unpublished (xFIP is null before 2002). Requesting a season missing from the table returns the nearest season and emits a
 `UserWarning`. Park factor is a caller input (`SeasonContext.park_factor`, 100 = no adjustment):
