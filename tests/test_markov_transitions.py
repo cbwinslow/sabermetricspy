@@ -241,35 +241,3 @@ def test_state_distribution_validates_its_arguments() -> None:
         model.state_distribution(1, start=(0, "___"))
     with pytest.raises(ValueError, match="0 or more"):
         model.state_distribution(-1)
-
-
-def test_event_probability_fit_gap_to_the_fitted_chain_is_as_documented(
-    retro_model: MarkovChainModel,
-) -> None:
-    """The figures quoted in docs/METHODOLOGY.md for MarkovChainModel.fit() on 2016 league-average event rates."""
-    import pyreadr  # pyright: ignore[reportMissingImports]
-
-    events = pl.from_pandas(pyreadr.read_r(PATH)["retro2016"]).filter(pl.col("bat_event_fl"))
-    n = events.height
-    count = {
-        code: events.filter(pl.col("event_cd") == code).height
-        for code in (14, 15, 16, 20, 21, 22, 23)
-    }
-    simplified = MarkovChainModel().fit(
-        p_1b=count[20] / n,
-        p_2b=count[21] / n,
-        p_3b=count[22] / n,
-        p_hr=count[23] / n,
-        p_bb=(count[14] + count[15] + count[16]) / n,
-    )
-    approx, fitted = simplified.results, retro_model.results
-    quoted = {  # state: (event-probability fit, fitted chain)
-        "0|---": (0.479, 0.485),
-        "0|1--": (0.846, 0.848),
-        "0|123": (2.131, 2.212),
-    }
-    for state, (a, b) in quoted.items():
-        assert approx.state_expected_runs[state] == pytest.approx(a, abs=5e-4), state
-        assert fitted.state_expected_runs[state] == pytest.approx(b, abs=5e-4), state
-    assert approx.expected_pa_per_half_inning == pytest.approx(4.41, abs=5e-3)
-    assert fitted.expected_pa_per_half_inning == pytest.approx(4.27, abs=5e-3)

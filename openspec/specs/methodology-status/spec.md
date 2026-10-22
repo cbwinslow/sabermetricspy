@@ -9,8 +9,8 @@ TBD - created by archiving change v1-0-1-methodology-cleanup. Update Purpose aft
 Metrics and models with no consensus method or no reproducible outside value SHALL carry the `experimental` status and SHALL emit a `UserWarning` each time they are calculated or constructed.
 
 #### Scenario: Calculating an experimental metric
-- **WHEN** `calculate` is asked for `rc27`
-- **THEN** a `UserWarning` naming `rc27` and the reason is emitted and the value is still returned.
+- **WHEN** `calculate` is asked for `bsr`
+- **THEN** a `UserWarning` naming `bsr` and the reason is emitted and the value is still returned.
 
 ### Requirement: Documented Divergences Are Bounded
 A fixture entry that documents a divergence from an outside value SHALL still fail its test if the gap exceeds the measured bound.

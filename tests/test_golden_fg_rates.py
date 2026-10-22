@@ -19,7 +19,7 @@ from sabermetricspy import Metric
 GOLDEN = Path(__file__).parent / "golden"
 BAT = pl.read_csv(GOLDEN / "fg_batting_rates.csv")
 PIT = pl.read_csv(GOLDEN / "fg_pitching_rates.csv")
-HALF_UNIT = 5.5e-5
+HALF_UNIT = 5.5e-5  # FanGraphs prints four decimals; ERA is off by 5.14e-5 at worst, so the bound is empirical
 
 
 def _worst(got: pl.Series, published: pl.Series) -> float:
@@ -65,15 +65,17 @@ def test_pitcher_rates_match_fangraphs(metric: Metric, column: str) -> None:
     assert _worst(got, PIT[column]) < HALF_UNIT
 
 
-def test_innings_are_outs_over_three_and_agree_with_the_published_notation() -> None:
+def test_innings_notation_round_trips_through_outs() -> None:
+    """The fixture stores outs converted from FanGraphs' notation; this checks the conversion, not an independent total."""
     got = sp.calculate(PIT, [Metric.IP]).df["ip"]
     whole = PIT["pub_ip"].floor()
     thirds = ((PIT["pub_ip"] - whole) * 10).round()
     assert _worst(got, whole + thirds / 3) < 1e-9
 
 
-def test_runs_per_nine_is_era_when_every_run_is_earned() -> None:
-    """RA9 and ERA share 9 * runs / IP; with earned runs in the run column the result is FanGraphs' ERA."""
-    frame = PIT.select("outs", pl.col("er").alias("ra"))
-    got = sp.calculate(frame, [Metric.RA9]).df["ra9"]
-    assert _worst(got, PIT["pub_era"]) < HALF_UNIT
+def test_runs_per_nine_equals_the_published_era_where_every_run_is_earned() -> None:
+    """RA9 and ERA share 9 * runs / IP; on the pitcher-seasons with no unearned runs FanGraphs' ERA is the RA9."""
+    clean = PIT.filter(pl.col("r") == pl.col("er"))
+    got = sp.calculate(clean.select("outs", pl.col("r").alias("ra")), [Metric.RA9]).df["ra9"]
+    assert clean.height == 170
+    assert _worst(got, clean["pub_era"]) < HALF_UNIT

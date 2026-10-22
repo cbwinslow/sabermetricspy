@@ -22,7 +22,7 @@
 - `src/sabermetricspy/engine/`: Two-stage calculation engine (`calculate`, `calculate_suite`, `calculate_available`) returning frozen `CalculationResult`.
 - `src/sabermetricspy/expectancy/`: Empirical state matrices (`RunExpectancyMatrix` RE24, `CountExpectancyMatrix` RE288, `LinearWeightsEstimator`).
 - `src/sabermetricspy/value/`: Park adjustments, replacement level, and modular `WARFramework`.
-- `src/sabermetricspy/models/`: Forecasting and matchup estimators (`MarcelProjector`, `Log5Model`, `MarkovChainModel`, `MonteCarloSimulator`).
+- `src/sabermetricspy/models/`: Forecasting and matchup estimators (`MarcelProjector`, `Log5Model`, `MarkovChainModel`).
 - `src/sabermetricspy/ids/`: Chadwick Register player-id crosswalk (`translate_ids`, `find_players`, `player_id`, `load_register`, `download_register`, `update_register`; the default register updates itself, once a day at most); the register is not bundled (ODC-BY 1.0).
 - `src/sabermetricspy/uncertainty/`: Analytical confidence intervals and seeded bootstrap estimator.
 - `src/sabermetricspy/presets/`: Built-in column and event mappers for `retrosheetpy`, `statcast`, and `lahman`.

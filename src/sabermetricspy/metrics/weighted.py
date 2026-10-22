@@ -250,30 +250,6 @@ def calc_base_runs(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
-        metric=Metric.RC27,
-        display_name="RC/27",
-        category=Category.WEIGHTED_OFFENSE,
-        kind=ImplKind.DETERMINISTIC,
-        required_columns=("h", "b2", "b3", "hr", "bb", "ab"),
-        optional_columns=("ibb", "hbp", "sb", "cs", "gidp", "sh", "sf"),
-        requires=(Metric.RC_TECH,),
-        direction=Direction.HIGHER_IS_BETTER,
-        formula_latex=r"RC/27 = 27 \times \frac{RC_{tech}}{AB - H + SH + SF + CS + GIDP}",
-        citation="James, B. (1985) Baseball Abstract",
-        description="Runs Created per 27 offensive outs.",
-    )
-)
-def calc_rc27(ctx: EvalContext) -> nw.Expr:
-    cs = nw.col("cs") if "cs" in ctx.available_columns else nw.lit(0)
-    gidp = nw.col("gidp") if "gidp" in ctx.available_columns else nw.lit(0)
-    sh = nw.col("sh") if "sh" in ctx.available_columns else nw.lit(0)
-    sf = nw.col("sf") if "sf" in ctx.available_columns else nw.lit(0)
-    outs_made = nw.col("ab") - nw.col("h") + sh + sf + cs + gidp
-    return safe_div(27.0 * nw.col("rc_tech"), outs_made)
-
-
-@register_metric(
-    MetricSpec(
         metric=Metric.GPA,
         display_name="GPA",
         category=Category.WEIGHTED_OFFENSE,

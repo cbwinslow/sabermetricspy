@@ -42,7 +42,7 @@ All metric calculations SHALL accept Polars `DataFrame`/`LazyFrame`, pandas `Dat
 - **THEN** the call and its materialization finish in under 10 seconds
 
 ### Requirement: Empirical Expectancy and Forecasting Models
-The library SHALL provide `scikit-learn`-style estimators (`RunExpectancyMatrix`, `CountExpectancyMatrix`, `LinearWeightsEstimator`, `MarcelProjector`, `Log5Model`, `MarkovChainModel`, `MonteCarloSimulator`) that expose frozen `.results` objects with statistical diagnostics and uncertainty intervals.
+The library SHALL provide `scikit-learn`-style estimators (`RunExpectancyMatrix`, `CountExpectancyMatrix`, `LinearWeightsEstimator`, `MarcelProjector`, `Log5Model`, `MarkovChainModel`) that expose frozen `.results` objects with statistical diagnostics and uncertainty intervals.
 
 #### Scenario: Fitting RE24 Run Expectancy Matrix and valuing plays
 - **WHEN** `RunExpectancyMatrix().fit(events_df)` is called on play-by-play records and `.transform(events_df)` is executed

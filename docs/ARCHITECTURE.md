@@ -9,7 +9,7 @@
 4. **Innings Stored as Integer Outs**: Innings pitched are represented internally as integer `outs` (`1 IP = 3 outs`). Baseball display notation (`"6.2"` = 20 outs) is parsed at ingestion boundaries and formatted only for display.
 5. **Immutable Results & Provenance**:
    - Stateless calculations return a frozen `CalculationResult` containing `.df` (native DataFrame), `.specs` (`dict[str, MetricSpec]`), `.context` (`SeasonContext`), and `.summary()`.
-   - Fitted estimators (`RunExpectancyMatrix`, `CountExpectancyMatrix`, `LinearWeightsEstimator`, `MarcelProjector`, `Log5Model`, `MarkovChainModel`, `MonteCarloSimulator`) implement a `scikit-learn`-style `.fit()` / `.transform()` / `.predict()` interface with a frozen `statsmodels`-style `.results` diagnostics object (standard errors, confidence intervals, residuals, goodness-of-fit, seeded bootstrap intervals).
+   - Fitted estimators (`RunExpectancyMatrix`, `CountExpectancyMatrix`, `LinearWeightsEstimator`, `MarcelProjector`, `Log5Model`, `MarkovChainModel`) implement a `scikit-learn`-style `.fit()` / `.transform()` / `.predict()` interface with a frozen `statsmodels`-style `.results` diagnostics object (standard errors, confidence intervals, residuals, goodness-of-fit, seeded bootstrap intervals).
 6. **Strict Null & Zero-Denominator Semantics**:
    - Missing counting stats coerce to `0` only at the ingestion preset boundary.
    - Missing physical measurements (`launch_speed`, `launch_angle`, `release_spin_rate`) remain `null`/`NaN`.

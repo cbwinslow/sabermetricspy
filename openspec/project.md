@@ -40,7 +40,7 @@ Every symbol, enum, column, and display label in `sabermetricspy` follows a stri
    - Missing counting stats coerce to `0` only at the ingestion preset edge.
    - Missing physical measurements (`launch_speed`, `release_spin_rate`) remain `null`/`NaN`.
    - Any ratio with a zero denominator returns `null`/`NaN` (never `inf` or `ZeroDivisionError`).
-5. **Immutable Results & Provenance**: Stateless calculations return a frozen `CalculationResult` (`.df`, `.specs`, `.context`, `.summary()`). Fitted estimators (`RunExpectancyMatrix`, `LinearWeightsEstimator`, `MarcelProjector`, `Log5Model`, `MarkovChainModel`, `MonteCarloSimulator`) follow a `scikit-learn` (`fit`/`predict`/`transform`) API paired with frozen `statsmodels`-style `.results` diagnostics.
+5. **Immutable Results & Provenance**: Stateless calculations return a frozen `CalculationResult` (`.df`, `.specs`, `.context`, `.summary()`). Fitted estimators (`RunExpectancyMatrix`, `LinearWeightsEstimator`, `MarcelProjector`, `Log5Model`, `MarkovChainModel`) follow a `scikit-learn` (`fit`/`predict`/`transform`) API paired with frozen `statsmodels`-style `.results` diagnostics.
 6. **Code vs. YAML Separation**:
    - Python (`StrEnum` + `@register_metric` + Pydantic `MetricSpec`) defines core metrics, types, and mathematical expressions.
    - Bundled YAML (`src/sabermetricspy/data/`) stores seasonal constants (wOBA weights, FIP constants, park factors), source presets (`retrosheetpy`, `statcast`, `lahman`), and user-extensible custom formulas.

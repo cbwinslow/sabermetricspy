@@ -52,8 +52,6 @@ from sabermetricspy.models import (
     MarcelResults,
     MarkovChainModel,
     MarkovInningResults,
-    MonteCarloSimulationResults,
-    MonteCarloSimulator,
 )
 from sabermetricspy.presets import (
     SourceTranslator,
@@ -124,7 +122,7 @@ from sabermetricspy.value import (
     WARFramework,
 )
 
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 
 
 def describe(metric: Metric | str) -> MetricSpec:
@@ -181,8 +179,6 @@ __all__ = [
     "MetricRegistry",
     "MetricSpec",
     "MetricSuite",
-    "MonteCarloSimulationResults",
-    "MonteCarloSimulator",
     "ParkFactor",
     "PerformanceTracker",
     "PitchOutcome",

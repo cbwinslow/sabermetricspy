@@ -10,7 +10,6 @@ import polars as pl
 from narwhals.typing import IntoFrame
 from pydantic import BaseModel, ConfigDict, Field
 
-from sabermetricspy.methodology import warn_experimental
 from sabermetricspy.schema import require_no_nulls, require_values, to_polars_df
 from sabermetricspy.telemetry import profiled
 
@@ -263,31 +262,6 @@ class Log5Model:
         return num / den
 
     @staticmethod
-    def extended_pythagorean_home_win_prob(
-        *,
-        runs_scored_home: float,
-        runs_allowed_home: float,
-        runs_scored_away: float,
-        runs_allowed_away: float,
-        league_runs: float,
-        exponent: float,
-    ) -> float:
-        """Probability the home team wins, extending James's Pythagorean formula to a head-to-head matchup.
-
-        Cleary, Jeffries, Miller, Miller, Murray and Skiera (head-to-head Pythagorean): the home team's runs scored
-        and allowed are rescaled by the opponent's, relative to the league average `league_runs`:
-            RS_adj = RS_h * RA_a / R,   RA_adj = RA_h * RS_a / R
-            P(home wins) = RS_adj^g / (RS_adj^g + RA_adj^g)
-        Runs may be per game or totals as long as all four and `league_runs` use the same unit. The exponent is
-        required because sources differ (the paper cites Baseball-Reference's 1.87 and notes 1.83 is also common).
-        """
-        warn_experimental("Log5Model.extended_pythagorean_home_win_prob", stacklevel=3)
-        rs_adj = runs_scored_home * runs_allowed_away / league_runs
-        ra_adj = runs_allowed_home * runs_scored_away / league_runs
-        num = rs_adj**exponent
-        return num / (num + ra_adj**exponent)
-
-    @staticmethod
     def batter_pitcher_matchup_rate(
         batter_rate: float,
         pitcher_rate: float,
@@ -357,18 +331,12 @@ class MarkovInningResults(BaseModel):
 
 
 class MarkovChainModel:
-    """Exact 24-State Absorbing Markov Chain model of a baseball half-inning.
+    """Exact 24-state absorbing Markov chain of a baseball half-inning, estimated from play-by-play.
 
-    Two ways to build the chain: `fit_transitions` estimates it from play-by-play (Albert, Baumer & Marchi, ABDWR 3e
-    chapter 9.2); `fit` builds it from event probabilities with fixed advancement rules chosen for this library.
-    Event-probability Markov models of baseball appear in Bukiet, Harold & Palacios (1997, Operations Research
-    45(1)), which was behind a paywall and was not read; its rules are not used here.
-
-    Given a batter or lineup's plate-appearance event probabilities (`p_1b`, `p_2b`, `p_3b`, `p_hr`,
-    `p_bb`, `p_out`), constructs the `24 x 24` transient state transition matrix `Q` and expected
-    immediate run reward vector `r`, then solves the exact fundamental matrix:
-        `N = (I - Q)^(-1)`
-        `E[Runs | state] = N @ r`
+    `fit_transitions` is the construction in Albert, Baumer & Marchi, *Analyzing Baseball Data with R* (3rd ed.),
+    chapter 9.2: the observed frequency of each next base-out state gives the transition matrix `P`, three outs is
+    the absorbing state, `N = (I - Q)^-1` counts visits to each state, and expected runs from a state are `N @ r`.
+    Event-probability chains with hand-chosen advancement rules were removed in 1.4.0 (no published method).
     """
 
     STATES: tuple[tuple[int, str], ...] = tuple(
@@ -383,7 +351,9 @@ class MarkovChainModel:
     @property
     def results(self) -> MarkovInningResults:
         if self._results is None:
-            raise RuntimeError("MarkovChainModel is not fitted yet. Call .fit(...) first.")
+            raise RuntimeError(
+                "MarkovChainModel is not fitted yet. Call .fit_transitions(df) first."
+            )
         return self._results
 
     @profiled(category="forecasting")
@@ -510,208 +480,6 @@ class MarkovChainModel:
             dist = nxt
         return dist
 
-    @profiled(category="forecasting")
-    def fit(
-        self,
-        *,
-        p_1b: float,
-        p_2b: float,
-        p_3b: float,
-        p_hr: float,
-        p_bb: float,
-        p_out: float | None = None,
-    ) -> Self:
-        """Solve the 24-state absorbing Markov chain for the supplied event probabilities."""
-        warn_experimental("MarkovChainModel", stacklevel=3)
-        pos_sum = p_1b + p_2b + p_3b + p_hr + p_bb
-        out_prob = (1.0 - pos_sum) if p_out is None else p_out
-        total = pos_sum + out_prob
-        if total <= 0:
-            raise ValueError("Sum of event probabilities must be positive.")
-        # Normalize to sum to 1.0
-        p1, p2, p3, phr, pbb, po = (
-            p_1b / total,
-            p_2b / total,
-            p_3b / total,
-            p_hr / total,
-            p_bb / total,
-            out_prob / total,
-        )
-
-        state_to_idx = {s: idx for idx, s in enumerate(self.STATES)}
-        q_mat = np.zeros((24, 24), dtype=np.float64)
-        r_vec = np.zeros(24, dtype=np.float64)
-
-        for idx, (outs, bases) in enumerate(self.STATES):
-            r1 = 1 if bases[0] == "1" else 0
-            r2 = 1 if bases[1] == "2" else 0
-            r3 = 1 if bases[2] == "3" else 0
-            num_runners = r1 + r2 + r3
-
-            # 1. Out: outs + 1, runners stay, 0 runs
-            if outs + 1 < 3:
-                q_mat[idx, state_to_idx[(outs + 1, bases)]] += po
-
-            # 2. Walk / HBP: forces runners
-            if r1 == 0:
-                new_b_bb = f"1{bases[1]}{bases[2]}"
-                runs_bb = 0
-            elif r2 == 0:
-                new_b_bb = f"12{bases[2]}"
-                runs_bb = 0
-            elif r3 == 0:
-                new_b_bb = "123"
-                runs_bb = 0
-            else:
-                new_b_bb = "123"
-                runs_bb = 1
-            q_mat[idx, state_to_idx[(outs, new_b_bb)]] += pbb
-            r_vec[idx] += pbb * runs_bb
-
-            # 3. Single: runner on 2B and 3B score, runner on 1B advances to 2B
-            runs_1b = r2 + r3
-            new_b_1b = f"1{'2' if r1 else '-'}-"
-            q_mat[idx, state_to_idx[(outs, new_b_1b)]] += p1
-            r_vec[idx] += p1 * runs_1b
-
-            # 4. Double: runner on 2B and 3B score, runner on 1B advances to 3B
-            runs_2b = r2 + r3
-            new_b_2b = f"-2{'3' if r1 else '-'}"
-            q_mat[idx, state_to_idx[(outs, new_b_2b)]] += p2
-            r_vec[idx] += p2 * runs_2b
-
-            # 5. Triple: all baserunners score, batter on 3B
-            runs_3b = num_runners
-            q_mat[idx, state_to_idx[(outs, "--3")]] += p3
-            r_vec[idx] += p3 * runs_3b
-
-            # 6. Home Run: all baserunners + batter score, bases empty
-            runs_hr = num_runners + 1
-            q_mat[idx, state_to_idx[(outs, "---")]] += phr
-            r_vec[idx] += phr * runs_hr
-
-        # Fundamental matrix N = (I - Q)^(-1)
-        ident = np.eye(24, dtype=np.float64)
-        n_mat = np.linalg.inv(ident - q_mat)
-        expected_runs_by_state = n_mat @ r_vec
-        expected_pa_from_start = float(np.sum(n_mat[0, :]))
-        er_half_inning = float(expected_runs_by_state[0])
-
-        state_dict = {
-            f"{outs}|{bases}": float(expected_runs_by_state[i])
-            for i, (outs, bases) in enumerate(self.STATES)
-        }
-        self._results = MarkovInningResults(
-            expected_runs_per_half_inning=er_half_inning,
-            expected_runs_per_9_innings=er_half_inning * 9.0,
-            expected_pa_per_half_inning=expected_pa_from_start,
-            state_expected_runs=state_dict,
-        )
-        return self
-
-
-class MonteCarloSimulationResults(BaseModel):
-    """Frozen summary statistics from a seeded Monte Carlo baseball simulation."""
-
-    model_config = ConfigDict(frozen=True)
-
-    n_simulations: int
-    seed: int
-    mean_runs_per_game: float
-    std_runs_per_game: float
-    median_runs_per_game: float
-    ci_95_lower: float
-    ci_95_upper: float
-    shutout_prob: float
-
-
-class MonteCarloSimulator:
-    """Seeded Monte Carlo 9-inning game simulator parameterized by event probabilities."""
-
-    def __init__(self, *, n_simulations: int = 2000, seed: int = 42, innings: int = 9) -> None:
-        self.n_simulations = n_simulations
-        self.seed = seed
-        self.innings = innings
-        self._results: MonteCarloSimulationResults | None = None
-
-    @property
-    def results(self) -> MonteCarloSimulationResults:
-        if self._results is None:
-            raise RuntimeError(
-                "MonteCarloSimulator has not been run yet. Call .simulate(...) first."
-            )
-        return self._results
-
-    @profiled(category="forecasting")
-    def simulate(
-        self,
-        *,
-        p_1b: float,
-        p_2b: float,
-        p_3b: float,
-        p_hr: float,
-        p_bb: float,
-    ) -> MonteCarloSimulationResults:
-        """Simulate `n_simulations` games of `innings` innings and return frozen distribution diagnostics."""
-        warn_experimental("MonteCarloSimulator", stacklevel=3)
-        pos_sum = p_1b + p_2b + p_3b + p_hr + p_bb
-        p_out = max(0.0, 1.0 - pos_sum)
-        probs = np.array([p_out, p_bb, p_1b, p_2b, p_3b, p_hr], dtype=np.float64)
-        probs = probs / probs.sum()
-
-        rng = np.random.default_rng(self.seed)
-        game_runs = np.zeros(self.n_simulations, dtype=np.int64)
-
-        for g_idx in range(self.n_simulations):
-            total_r = 0
-            for _ in range(self.innings):
-                outs = 0
-                r1, r2, r3 = 0, 0, 0
-                while outs < 3:
-                    ev = int(rng.choice(6, p=probs))
-                    if ev == 0:  # out
-                        outs += 1
-                    elif ev == 1:  # walk/hbp
-                        if r1 and r2 and r3:
-                            total_r += 1
-                        elif r1 and r2:
-                            r3 = 1
-                        elif r1:
-                            r2 = 1
-                        else:
-                            r1 = 1
-                    elif ev == 2:  # single
-                        total_r += r2 + r3
-                        r3 = 0
-                        r2 = r1
-                        r1 = 1
-                    elif ev == 3:  # double
-                        total_r += r2 + r3
-                        r3 = r1
-                        r2 = 1
-                        r1 = 0
-                    elif ev == 4:  # triple
-                        total_r += r1 + r2 + r3
-                        r3 = 1
-                        r2 = 0
-                        r1 = 0
-                    else:  # home run
-                        total_r += r1 + r2 + r3 + 1
-                        r1, r2, r3 = 0, 0, 0
-            game_runs[g_idx] = total_r
-
-        self._results = MonteCarloSimulationResults(
-            n_simulations=self.n_simulations,
-            seed=self.seed,
-            mean_runs_per_game=float(np.mean(game_runs)),
-            std_runs_per_game=float(np.std(game_runs, ddof=1)),
-            median_runs_per_game=float(np.median(game_runs)),
-            ci_95_lower=float(np.percentile(game_runs, 2.5)),
-            ci_95_upper=float(np.percentile(game_runs, 97.5)),
-            shutout_prob=float(np.mean(game_runs == 0)),
-        )
-        return self._results
-
 
 __all__ = [
     "Log5Model",
@@ -719,6 +487,4 @@ __all__ = [
     "MarcelResults",
     "MarkovChainModel",
     "MarkovInningResults",
-    "MonteCarloSimulationResults",
-    "MonteCarloSimulator",
 ]

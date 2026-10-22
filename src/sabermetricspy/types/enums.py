@@ -320,7 +320,6 @@ class Metric(StrEnum):
     OPS_PLUS = "ops_plus"
     RC_BASIC = "rc_basic"
     RC_TECH = "rc_tech"
-    RC27 = "rc27"
     BASE_RUNS = "base_runs"
     GPA = "gpa"
     TA = "ta"
@@ -328,7 +327,6 @@ class Metric(StrEnum):
     # Baserunning
     SB_PCT = "sb_pct"
     WSB = "wsb"
-    SPEED_SCORE = "speed_score"
     XBT_PCT = "xbt_pct"
     BSR = "bsr"
 
@@ -362,7 +360,6 @@ class Metric(StrEnum):
     XFIP = "xfip"
     KWERA = "kwera"
     DICE = "dice"
-    QERA = "qera"
     DIPS_BOP_PCT = "dips_bop_pct"
     SIERA = "siera"
     ERA_PLUS = "era_plus"

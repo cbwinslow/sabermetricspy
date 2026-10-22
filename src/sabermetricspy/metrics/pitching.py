@@ -727,27 +727,6 @@ def calc_bb_pct_plus(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
-        metric=Metric.QERA,
-        display_name="QERA",
-        category=Category.DEFENSE_INDEPENDENT_PITCHING,
-        kind=ImplKind.DETERMINISTIC,
-        required_columns=("so", "bb", "gb", "bbe", "bf"),
-        direction=Direction.LOWER_IS_BETTER,
-        formula_latex=r"QERA = \left(2.69 - 0.66\frac{GB}{BBE} + 3.88\frac{BB}{TBF} - 3.40\frac{SO}{TBF}\right)^2",
-        citation="Silver, N. (2006) Baseball Prospectus; Basco, D. & Davies, M. (2010) SABR BRJ",
-        description="Nate Silver's Quick ERA estimator combining ground-ball rate, walk rate, and strikeout rate.",
-    )
-)
-def calc_qera(ctx: EvalContext) -> nw.Expr:
-    gb_rate = safe_div(nw.col("gb"), nw.col("bbe"))
-    bb_rate = safe_div(nw.col("bb"), nw.col("bf"))
-    so_rate = safe_div(nw.col("so"), nw.col("bf"))
-    root = 2.69 - 0.66 * gb_rate + 3.88 * bb_rate - 3.40 * so_rate
-    return root * root
-
-
-@register_metric(
-    MetricSpec(
         metric=Metric.DIPS_BOP_PCT,
         display_name="BOP% (DIPS)",
         category=Category.DEFENSE_INDEPENDENT_PITCHING,

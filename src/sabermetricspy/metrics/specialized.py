@@ -539,65 +539,6 @@ def calc_wsb(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
-        metric=Metric.SPEED_SCORE,
-        display_name="Spd",
-        category=Category.BASERUNNING,
-        kind=ImplKind.DETERMINISTIC,
-        required_columns=("sb", "cs", "h", "b2", "b3", "hr", "bb", "ab", "r", "so"),
-        optional_columns=("hbp",),
-        requires=(Metric.B1,),
-        direction=Direction.HIGHER_IS_BETTER,
-        formula_latex=(
-            r"Spd = \frac{f_1 + f_2 + f_3 + f_4}{4}, \quad f_i \in [0, 10], \quad "
-            r"f_1 = 20\left(\frac{SB + 3}{SB + CS + 7} - 0.4\right), "
-            r"f_2 = \frac{1}{0.07}\sqrt{\frac{SB + CS}{1B + BB + HBP}}, "
-            r"f_3 = \frac{3B}{(AB - HR - SO)(0.0016)}, "
-            r"f_4 = 25\left(\frac{R - HR}{H + BB + HBP - HR} - 0.1\right)"
-        ),
-        citation="James, B. (1987) Baseball Abstract; Wikipedia (Speed Score); FanGraphs Library (Spd)",
-        description="Bill James's Speed Score, the average of four factors each limited to 0 to 10.",
-        caveats=(
-            "Implements the four-factor form; James's original also averages a GIDP factor and a defensive position and range factor, which are not implemented.",
-            "Walks in the attempt-rate and runs-scored denominators include intentional walks.",
-        ),
-    )
-)
-def calc_speed_score(ctx: EvalContext) -> nw.Expr:
-    hbp = nw.col("hbp") if "hbp" in ctx.available_columns else nw.lit(0)
-
-    def limit(factor: nw.Expr) -> nw.Expr:
-        """Limit a factor to the 0-10 scale; NaN and null (zero denominators) stay undefined."""
-        return (
-            nw.when(factor.is_nan())
-            .then(factor)
-            .when(factor < 0.0)
-            .then(0.0)
-            .when(factor > 10.0)
-            .then(10.0)
-            .otherwise(factor)
-        )
-
-    # f1: stolen-base percentage: 20 * ((SB + 3) / (SB + CS + 7) - 0.4)
-    f1 = limit((safe_div(nw.col("sb") + 3.0, nw.col("sb") + nw.col("cs") + 7.0) - 0.4) * 20.0)
-    # f2: attempt rate: sqrt((SB + CS) / (1B + BB + HBP)) / 0.07
-    f2 = limit(
-        safe_div(nw.col("sb") + nw.col("cs"), nw.col("b1") + nw.col("bb") + hbp) ** 0.5 / 0.07
-    )
-    # f3: triples rate: (3B / (AB - HR - SO)) / 0.0016
-    f3 = limit(safe_div(nw.col("b3"), nw.col("ab") - nw.col("hr") - nw.col("so")) / 0.0016)
-    # f4: runs scored: 25 * ((R - HR) / (H + BB + HBP - HR) - 0.1)
-    f4 = limit(
-        (
-            safe_div(nw.col("r") - nw.col("hr"), nw.col("h") + nw.col("bb") + hbp - nw.col("hr"))
-            - 0.1
-        )
-        * 25.0
-    )
-    return (f1 + f2 + f3 + f4) / 4.0
-
-
-@register_metric(
-    MetricSpec(
         metric=Metric.TC,
         display_name="TC",
         category=Category.FIELDING,

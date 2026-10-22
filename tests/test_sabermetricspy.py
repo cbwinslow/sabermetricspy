@@ -18,10 +18,8 @@ from sabermetricspy import (
     LinearWeightsEstimator,
     Log5Model,
     MarcelProjector,
-    MarkovChainModel,
     Metric,
     MetricSuite,
-    MonteCarloSimulator,
     RunExpectancyMatrix,
     SeasonContext,
     Stat,
@@ -463,15 +461,7 @@ def test_re24_linear_weights_war_and_forecasting_models() -> None:
     assert math.isclose(Log5Model.team_matchup_prob(0.500, 0.500), 0.500, rel_tol=1e-9)
     assert Log5Model.batter_pitcher_matchup_rate(0.300, 0.280, 0.250) > 0.300
 
-    # 5. MarkovChainModel & MonteCarloSimulator
-    mc_chain = MarkovChainModel().fit(p_1b=0.15, p_2b=0.05, p_3b=0.005, p_hr=0.035, p_bb=0.09)
-    assert 3.5 <= mc_chain.results.expected_runs_per_9_innings <= 6.5
-
-    sim = MonteCarloSimulator(n_simulations=300, seed=42)
-    sim_res = sim.simulate(p_1b=0.15, p_2b=0.05, p_3b=0.005, p_hr=0.035, p_bb=0.09)
-    assert abs(sim_res.mean_runs_per_game - mc_chain.results.expected_runs_per_9_innings) < 0.6
-
-    # 6. Uncertainty intervals
+    # 5. Uncertainty intervals
     ci_bin = binomial_rate_interval(180, 600)
     assert ci_bin.ci_lower < 0.300 < ci_bin.ci_upper
     ci_boot = bootstrap_interval([0.280, 0.300, 0.310, 0.295, 0.315], n_resamples=200, seed=42)
@@ -905,7 +895,7 @@ def test_decorator_telemetry_and_benchmark_registry() -> None:
 def test_advanced_metrics_and_modeled_estimators() -> None:
     """Verify 105+ metrics, vectorized Position-Player WAR, and EmpiricalBayesShrinker."""
     with sp.telemetry.session() as tracker:
-        # 1. Mathematical identities on newly added metrics (GPA, ERR_PCT, BAUER_UNITS, CLUTCH, QERA, DIPS_BOP_PCT)
+        # 1. Mathematical identities on newly added metrics (GPA, ERR_PCT, BAUER_UNITS, CLUTCH, DIPS_BOP_PCT)
         df_ident = pl.DataFrame(
             {
                 "ab": [500],
@@ -944,7 +934,6 @@ def test_advanced_metrics_and_modeled_estimators() -> None:
                 Metric.BAUER_UNITS,
                 Metric.PLI,
                 Metric.CLUTCH,
-                Metric.QERA,
                 Metric.DIPS_BOP_PCT,
             ],
         )

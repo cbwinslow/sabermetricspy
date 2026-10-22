@@ -89,7 +89,6 @@ def test_matching_metrics_record_a_verifying_source() -> None:
         "rc_tech",
         "dice",
         "hard_hit_pct",
-        "sweet_spot_pct",
     ],
 )
 def test_verified_metrics_are_recorded_as_matching(name: str) -> None:
@@ -106,16 +105,12 @@ def test_woba_links_the_fangraphs_library() -> None:
         "ops_plus",
         "fip_minus",
         "pythagenpat_win_pct",
+        "sweet_spot_pct",
+        "off",
     ],
 )
 def test_known_approximations_are_labeled(name: str) -> None:
     assert metric_entries()[name].status in (ReferenceStatus.APPROXIMATE, ReferenceStatus.DIVERGENT)
-
-
-def test_speed_score_records_the_four_factor_form() -> None:
-    entry = metric_entries()["speed_score"]
-    assert entry.status is ReferenceStatus.EXPERIMENTAL
-    assert "six-factor" in entry.note
 
 
 def test_siera_names_the_version_and_what_is_measured() -> None:
@@ -224,28 +219,19 @@ def test_audited_entries_cite_a_source_url() -> None:
         assert entry.source_url.startswith("http"), f"{name}: no source URL"
 
 
-@pytest.mark.parametrize("name", ["rc27", "bsr", "speed_score", "qera"])
+@pytest.mark.parametrize("name", ["bsr"])
 def test_quarantined_metrics_are_labeled_experimental(name: str) -> None:
     assert metric_entries()[name].status is ReferenceStatus.EXPERIMENTAL
 
 
 def test_warn_experimental_names_the_item() -> None:
-    with pytest.warns(UserWarning, match="rc27 is experimental"):
-        warn_experimental("rc27")
+    with pytest.warns(UserWarning, match="bsr is experimental"):
+        warn_experimental("bsr")
 
 
 def test_engine_warns_when_an_experimental_metric_is_calculated() -> None:
     df = pl.DataFrame(
-        {
-            "ab": [500],
-            "h": [150],
-            "bb": [50],
-            "hbp": [5],
-            "sf": [4],
-            "b2": [30],
-            "b3": [2],
-            "hr": [20],
-        }
+        {"sb": [10], "cs": [2], "h": [150], "b2": [30], "b3": [2], "hr": [20], "bb": [50]}
     )
-    with pytest.warns(UserWarning, match="rc27 is experimental"):
-        sp.calculate(df, [Metric.RC27], season=2024)
+    with pytest.warns(UserWarning, match="bsr is experimental"):
+        sp.calculate(df, [Metric.BSR], season=2024)

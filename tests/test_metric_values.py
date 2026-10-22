@@ -77,16 +77,6 @@ _BR_B = 1.1 * (1.4 * TB - 0.6 * 30 - 3 * 4 + 0.1 * (12 + 1 - 2) + 0.9 * (3 - 1 -
 BASE_RUNS = (30 + 12 + 1 - 4 - 0.5 * 2) * _BR_B / (_BR_B + (100 - 30 + 1 + 2)) + 4
 
 WSB_1B = 100 - 20 - 2 - 15  # singles in the speed/wSB line: h=100,b2=20,b3=2,hr=15
-SPEED = (
-    (  # Bill James four-factor Speed Score; 1B=100, BB=60, HBP=4, SO=100, each factor within 0-10
-        ((10 + 3) / (10 + 2 + 7) - 0.4) * 20  # f1: stolen-base percentage
-        + math.sqrt((10 + 2) / (100 + 60 + 4)) / 0.07  # f2: attempt rate
-        + (5 / (500 - 20 - 100)) / 0.0016  # f3: triples rate
-        + 25 * ((90 - 20) / (150 + 60 + 4 - 20) - 0.1)  # f4: runs scored
-    )
-    / 4.0
-)
-
 # (metric, inputs, expected, SeasonContext kwargs)
 CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     # ---- batting ----
@@ -164,12 +154,6 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
     (Metric.BF_PER_IP, dict(bf=27, outs=18), 3 * 27 / 18, {}),
     (Metric.K_PCT_PLUS, dict(so=9, bf=27), 100 * (9 / 27) / W.lg_k_pct, {}),
     (Metric.BB_PCT_PLUS, dict(bb=3, bf=27), 100 * (3 / 27) / W.lg_bb_pct, {}),
-    (
-        Metric.QERA,
-        dict(so=60, bb=15, gb=120, bbe=200, bf=300),
-        (2.69 - 0.66 * 120 / 200 + 3.88 * 15 / 300 - 3.40 * 60 / 300) ** 2,
-        {},
-    ),
     (Metric.DIPS_BOP_PCT, dict(hr=5, bb=15, so=60, bf=300, hbp=2), (5 + 15 + 2 + 60) / 300, {}),
     # ---- plate discipline ----
     (Metric.SWING_PCT, dict(swings=50, pitches=100), 0.5, {}),
@@ -252,12 +236,6 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
         dict(lg_wsb=0.02),
     ),
     (
-        Metric.SPEED_SCORE,
-        dict(sb=10, cs=2, h=150, b2=25, b3=5, hr=20, bb=60, ab=500, r=90, ibb=5, hbp=4, so=100),
-        SPEED,
-        {},
-    ),
-    (
         Metric.BSR,
         dict(
             sb=10,
@@ -311,12 +289,6 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
         BASE_RUNS,
         {},
     ),  # Smyth version 2 (1.1)
-    (
-        Metric.RC27,
-        dict(**BAT, ibb=2, hbp=1, sb=3, cs=1, gidp=2, sh=1, sf=1),
-        27 * RC_TECH / (100 - 30 + 1 + 1 + 1 + 2),
-        {},
-    ),
     (Metric.GPA, dict(**BAT, hbp=1, sf=1), (1.8 * OBP + SLG) / 4, {}),
     (
         Metric.TA,

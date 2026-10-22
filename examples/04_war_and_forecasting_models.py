@@ -13,8 +13,6 @@ import polars as pl
 from sabermetricspy import (
     Log5Model,
     MarcelProjector,
-    MarkovChainModel,
-    MonteCarloSimulator,
     WARFramework,
     binomial_rate_interval,
     bootstrap_interval,
@@ -99,31 +97,7 @@ def main() -> None:
         f"\n[4] Bill James Log5 Matchup (.310 Batter vs .215 Pitcher in .245 League): {log5_prob:.3f}"
     )
 
-    # 4. Exact Absorbing Markov Chain Half-Inning Run Distribution (Bukiet, Harold & Palacios 1997)
-    markov = MarkovChainModel().fit(
-        p_1b=0.145,
-        p_2b=0.046,
-        p_3b=0.004,
-        p_hr=0.042,
-        p_bb=0.088,
-    )
-    print("\n[5] Exact Absorbing Markov Chain Half-Inning Run Distribution:")
-    print(f"  - Expected Runs / Half-Inning: {markov.results.expected_runs_per_half_inning:.3f}")
-    print(f"  - Expected Runs / 9 Innings:   {markov.results.expected_runs_per_9_innings:.2f}")
-
-    # 5. Vectorized Monte Carlo Inning Simulator (Cross-Checking Analytical Markov Chain)
-    mc = MonteCarloSimulator(n_simulations=2_000, seed=42).simulate(
-        p_1b=0.145,
-        p_2b=0.046,
-        p_3b=0.004,
-        p_hr=0.042,
-        p_bb=0.088,
-    )
-    print(
-        f"\n[6] Monte Carlo Simulation (2,000 Games): Mean={mc.mean_runs_per_game:.2f} ± {mc.std_runs_per_game:.2f} runs/9"
-    )
-
-    # 6. Credible & Confidence Uncertainty Intervals for Small Samples
+    # 4. Credible & Confidence Uncertainty Intervals for Small Samples
     ci_wilson = binomial_rate_interval(successes=18, trials=50)
     ci_boot = bootstrap_interval(
         [102.4, 105.1, 98.7, 108.9, 111.2, 95.4, 104.0, 106.8], n_resamples=1000, seed=42

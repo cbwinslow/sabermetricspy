@@ -4,6 +4,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-10-21
+
+Review-driven cleanup (ADR-0065).
+
+### Removed
+- Metrics `rc27`, `qera` and `speed_score`; `MarkovChainModel.fit` (event-probability chain; `fit_transitions` stays), `MonteCarloSimulator` and `Log5Model.extended_pythagorean_home_win_prob`: no published value or documented method.
+
+### Changed
+- `off` and `sweet_spot_pct` are `approximate` (not compared with the FanGraphs Off column and built on experimental `bsr`; sweet spot measured 0.5 to 2.1 points high). Notes for `ip`, `ra9`, `k_minus_bb_pct` and `der` state exactly what their tests show; the DER mean gap is 0.0025 and its cause is unconfirmed.
+
 ## [1.3.0] - 2026-10-21
 
 ### Added

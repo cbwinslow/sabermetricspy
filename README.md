@@ -29,7 +29,7 @@ It integrates seamlessly with [`retrosheetpy`](https://github.com/cbwinslow/retr
 - **Provenance & Bundled YAML Constants**: Every metric carries a frozen `MetricSpec` with its LaTeX formula, primary academic/sabermetric citation, required columns, and seasonal constants (`wOBA`, `FIP`, park factors).
 - **Scikit-Learn Style Estimators + Statsmodels Diagnostics**:
   - Empirical Expectancy: `RunExpectancyMatrix` (`RE24`), `CountExpectancyMatrix` (`RE288`), `LinearWeightsEstimator`, `WinExpectancyMatrix`.
-  - Forecasting & Simulation: `MarcelProjector`, `Log5Model`, `MarkovChainModel`, `MonteCarloSimulator`, and modular `WARFramework`.
+  - Forecasting & Simulation: `MarcelProjector`, `Log5Model`, `MarkovChainModel`, and modular `WARFramework`.
 
 ---
 

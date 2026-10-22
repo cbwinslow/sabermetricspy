@@ -17,7 +17,7 @@ def main() -> None:
     print("=" * 96)
 
     with sb.telemetry.session() as tracker:
-        # 1. New Registry Metrics (GPA, TA, RC/27, QERA, DIPS BOP%, Bauer Units, Clutch, REW)
+        # 1. New Registry Metrics (GPA, TA, DIPS BOP%, Bauer Units, Clutch, REW)
         print("\n[1] Newly Added Batting, Pitching/DIPS, Physics, & Expectancy Metrics:")
         season_df = pl.DataFrame(
             {
@@ -59,10 +59,7 @@ def main() -> None:
             [
                 Metric.GPA,
                 Metric.TA,
-                Metric.RC27,
-                Metric.WGDP,
                 Metric.BSR,
-                Metric.QERA,
                 Metric.DIPS_BOP_PCT,
                 Metric.BAUER_UNITS,
                 Metric.PLI,
@@ -76,9 +73,7 @@ def main() -> None:
                 "player_id",
                 "gpa",
                 "ta",
-                "rc27",
                 "bsr",
-                "qera",
                 "bauer_units",
                 "clutch",
                 "rew",
