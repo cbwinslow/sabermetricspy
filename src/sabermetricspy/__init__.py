@@ -55,6 +55,12 @@ from sabermetricspy.models import (
     MarkovChainModel,
     MarkovInningResults,
 )
+from sabermetricspy.models.glicko2 import (
+    GLICKO2_SCALE,
+    Glicko2Rating,
+    glicko2_expected_score,
+    glicko2_update,
+)
 from sabermetricspy.presets import (
     SourceTranslator,
     get_source_translator,
@@ -114,6 +120,8 @@ from sabermetricspy.types import (
 from sabermetricspy.uncertainty import (
     EmpiricalBayesResults,
     EmpiricalBayesShrinker,
+    JamesSteinResults,
+    JamesSteinShrinker,
     UncertaintyInterval,
     binomial_rate_interval,
     bootstrap_interval,
@@ -148,6 +156,7 @@ def search_metrics(
 
 
 __all__ = [
+    "GLICKO2_SCALE",
     "POSITIONAL_ADJUSTMENTS_PER_162",
     "REGISTRY",
     "WALSH_COUNT_RUN_VALUES",
@@ -167,8 +176,11 @@ __all__ = [
     "EvalContext",
     "EvidenceTier",
     "ExecutionProfile",
+    "Glicko2Rating",
     "Handedness",
     "ImplKind",
+    "JamesSteinResults",
+    "JamesSteinShrinker",
     "LinearWeightsEstimator",
     "LinearWeightsResults",
     "Log5Model",
@@ -222,6 +234,8 @@ __all__ = [
     "get_registered_benchmarks",
     "get_source_translator",
     "get_woba_weights",
+    "glicko2_expected_score",
+    "glicko2_update",
     "ip_expr_to_outs",
     "ip_notation_to_outs_scalar",
     "load_custom_constants_yaml",

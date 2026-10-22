@@ -1,0 +1,106 @@
+# DRAFT golden fixture: Diebold-Mariano statistic (native) and Harvey-Leybourne-Newbold (HLN) correction.
+# Entry style of sabermetricspy tests/golden/*.yaml (entries: id, source_url, retrieved, inputs, published, tolerance) plus `locator` and `basis`.
+#
+# IMPORTANT, evidence level: NEITHER paper prints a numeric example that a test can recompute (dossiers/diebold_mariano_hln.md sections 1 and 4).
+# Rows therefore carry one of three `basis` labels and none is a "published paper value":
+#   hand-arithmetic         : closed-form arithmetic on the quoted DM (1995) statistic S1 = dbar / sqrt(2 pi fhat_d(0) / T), written out in `derivation`.
+#   reference-implementation: output of statsmodels 0.15.0 `statsmodels.tsa.stattools.diebold_mariano_test` (BSD licence), run 2026-10-22 under Python 3.12.14,
+#                             scipy 1.18.1, numpy 2.5.4 (tieouts/diebold_mariano_hln/run_output.txt). This is an independent implementation, not a paper value.
+#   hln-secondary           : the HLN factor sqrt((T+1-2h+h(h-1)/T)/T) and t(T-1) reference are quoted from the statsmodels docs
+#                             (sources/statsmodels_dm_docs/dm_test.txt lines 395-402, secondary). The HLN 1997 primary (IJF 13:281-291) was NOT obtained: UNVERIFIED against it.
+# Sources: Diebold and Mariano, J. Business & Economic Statistics 20(1):134-144 (2002 reprint of the 1995 paper), sources/diebold_mariano_1995/dm1995.pdf (pdf p.3, text lines 117-160);
+#          statsmodels docs https://www.statsmodels.org/dev/generated/statsmodels.tsa.stattools.diebold_mariano_test.html retrieved 2026-10-22.
+# Licence / attribution: statsmodels BSD-3 (numbers reused as test targets, cite statsmodels 0.15.0); DM paper: JSTOR terms, only the statistic's definition is paraphrased.
+# Variance estimator: Bartlett (Newey-West) weights 1 - k/h at lags 1..h-1, autocovariances divided by T (ddof 0): this is what agrees with statsmodels with lags = h-1.
+#   DM (1995) itself prescribes the UNIFORM window (weights 1) at truncation lag h-1; that variant has no outside implementation and can give a non-positive variance
+#   (h = 2 on the 12-point sample), so it is listed in `not_frozen` and is not asserted.
+# Tolerances: statistic and p-value 1e-9 absolute / relative-1e-6 for tiny p. Our float arithmetic agreed with statsmodels to 1e-15; 1e-9 leaves room for another BLAS or scipy build
+#   without hiding a formula error (a wrong HAC weight changes the statistic in the 2nd digit). Hand-arithmetic rows 1e-12.
+entries:
+- id: dm_hand_h1_d1234
+  basis: hand-arithmetic
+  inputs: {loss_differential: [1, 2, 3, 4], horizon: 1, harvey_adj: false}
+  published: {statistic: 4.47213595499958}
+  tolerance: {statistic: 1.0e-12}
+  derivation: dbar = 2.5; gamma0 = mean((d-dbar)^2) = (2.25+.25+.25+2.25)/4 = 1.25; S = 2.5 / sqrt(1.25/4) = 2*sqrt(5)
+- id: dm_hand_h1_d1234_hln
+  basis: hand-arithmetic + hln-secondary
+  inputs: {loss_differential: [1, 2, 3, 4], horizon: 1, harvey_adj: true}
+  published: {statistic: 3.872983346207417, hln_factor: 0.8660254037844386}
+  tolerance: {statistic: 1.0e-12, hln_factor: 1.0e-12}
+  derivation: factor = sqrt((4+1-2+0)/4) = sqrt(3/4); stat = 2*sqrt(5)*sqrt(3)/2 = sqrt(15); compared with t(T-1 = 3) (p-value left to scipy, not frozen)
+- id: dm_hand_h2_d1234_bartlett
+  basis: hand-arithmetic
+  inputs: {loss_differential: [1, 2, 3, 4], horizon: 2, harvey_adj: false, window: bartlett}
+  published: {statistic: 4.0}
+  tolerance: {statistic: 1.0e-12}
+  derivation: dc = [-1.5,-.5,.5,1.5]; gamma1 = (.75-.25+.75)/4 = .3125; lrv = 1.25 + 2*(1-1/2)*.3125 = 1.5625; S = 2.5 / sqrt(1.5625/4) = 4
+- id: dm_hand_h2_d1234_bartlett_hln
+  basis: hand-arithmetic + hln-secondary
+  inputs: {loss_differential: [1, 2, 3, 4], horizon: 2, harvey_adj: true, window: bartlett}
+  published: {statistic: 2.449489742783178, hln_factor: 0.6123724356957945}
+  tolerance: {statistic: 1.0e-12, hln_factor: 1.0e-12}
+  derivation: factor = sqrt((4+1-4+2/4)/4) = sqrt(3/8); stat = 4*sqrt(3/8) = sqrt(6)
+- id: dm_hand_zero_mean_differential
+  basis: hand-arithmetic
+  inputs: {loss_differential: [1, -1, 1, -1], horizon: 1, harvey_adj: false}
+  published: {statistic: 0.0}
+  tolerance: {statistic: 1.0e-12}
+  derivation: dbar = 0 so S = 0 (two-sided p = 1)
+- id: dm_statsmodels_h1
+  basis: reference-implementation
+  inputs: &sample {e1: [1.2, -0.5, 0.8, -1.1, 0.3, 0.9, -0.7, 1.5, -0.2, 0.6, -1.0, 0.4], e2: [0.9, -0.2, 0.4, -0.6, 0.5, 0.3, -0.4, 0.8, -0.3, 0.1, -0.5, 0.2], loss_power: 2, horizon: 1, harvey_adj: false}
+  published: {statistic: 3.6945256453113697, pvalue: 0.00022029765992621594}
+  tolerance: {statistic: 1.0e-9, pvalue: 1.0e-9}
+  source_url: https://www.statsmodels.org/dev/generated/statsmodels.tsa.stattools.diebold_mariano_test.html
+  locator: run_output.txt line "statsmodels h=1 harvey_adj=False"
+  retrieved: '2026-10-22'
+- id: dm_statsmodels_h1_hln
+  basis: reference-implementation + hln-secondary
+  inputs: {e1: [1.2, -0.5, 0.8, -1.1, 0.3, 0.9, -0.7, 1.5, -0.2, 0.6, -1.0, 0.4], e2: [0.9, -0.2, 0.4, -0.6, 0.5, 0.3, -0.4, 0.8, -0.3, 0.1, -0.5, 0.2], loss_power: 2, horizon: 1, harvey_adj: true}
+  published: {statistic: 3.5372390031220835, pvalue: 0.004655242485519604, hln_factor: 0.9574271077563381}
+  tolerance: {statistic: 1.0e-9, pvalue: 1.0e-9, hln_factor: 1.0e-12}
+  source_url: https://www.statsmodels.org/dev/generated/statsmodels.tsa.stattools.diebold_mariano_test.html
+  locator: run_output.txt line "statsmodels h=1 harvey_adj=True"
+  retrieved: '2026-10-22'
+- id: dm_statsmodels_h2
+  basis: reference-implementation
+  inputs: {e1: [1.2, -0.5, 0.8, -1.1, 0.3, 0.9, -0.7, 1.5, -0.2, 0.6, -1.0, 0.4], e2: [0.9, -0.2, 0.4, -0.6, 0.5, 0.3, -0.4, 0.8, -0.3, 0.1, -0.5, 0.2], loss_power: 2, horizon: 2, harvey_adj: false, window: bartlett}
+  published: {statistic: 5.335639169257284, pvalue: 9.52085707150549e-08}
+  tolerance: {statistic: 1.0e-9, pvalue: 1.0e-14}
+  source_url: https://www.statsmodels.org/dev/generated/statsmodels.tsa.stattools.diebold_mariano_test.html
+  locator: run_output.txt line "statsmodels h=2 harvey_adj=False"
+  retrieved: '2026-10-22'
+- id: dm_statsmodels_h2_hln
+  basis: reference-implementation + hln-secondary
+  inputs: {e1: [1.2, -0.5, 0.8, -1.1, 0.3, 0.9, -0.7, 1.5, -0.2, 0.6, -1.0, 0.4], e2: [0.9, -0.2, 0.4, -0.6, 0.5, 0.3, -0.4, 0.8, -0.3, 0.1, -0.5, 0.2], loss_power: 2, horizon: 2, harvey_adj: true, window: bartlett}
+  published: {statistic: 4.6633879761335635, pvalue: 0.0006899087221338852, hln_factor: 0.8740073734751262}
+  tolerance: {statistic: 1.0e-9, pvalue: 1.0e-9, hln_factor: 1.0e-12}
+  source_url: https://www.statsmodels.org/dev/generated/statsmodels.tsa.stattools.diebold_mariano_test.html
+  locator: run_output.txt line "statsmodels h=2 harvey_adj=True"
+  retrieved: '2026-10-22'
+- id: dm_statsmodels_h3
+  basis: reference-implementation
+  inputs: {e1: [1.2, -0.5, 0.8, -1.1, 0.3, 0.9, -0.7, 1.5, -0.2, 0.6, -1.0, 0.4], e2: [0.9, -0.2, 0.4, -0.6, 0.5, 0.3, -0.4, 0.8, -0.3, 0.1, -0.5, 0.2], loss_power: 2, horizon: 3, harvey_adj: false, window: bartlett}
+  published: {statistic: 6.18570442241968, pvalue: 6.182575786059503e-10}
+  tolerance: {statistic: 1.0e-9, pvalue: 1.0e-15}
+  source_url: https://www.statsmodels.org/dev/generated/statsmodels.tsa.stattools.diebold_mariano_test.html
+  locator: run_output.txt line "statsmodels h=3 harvey_adj=False"
+  retrieved: '2026-10-22'
+- id: dm_statsmodels_h3_hln
+  basis: reference-implementation + hln-secondary
+  inputs: {e1: [1.2, -0.5, 0.8, -1.1, 0.3, 0.9, -0.7, 1.5, -0.2, 0.6, -1.0, 0.4], e2: [0.9, -0.2, 0.4, -0.6, 0.5, 0.3, -0.4, 0.8, -0.3, 0.1, -0.5, 0.2], loss_power: 2, horizon: 3, harvey_adj: true, window: bartlett}
+  published: {statistic: 4.890228726855626, pvalue: 0.00047901262211523, hln_factor: 0.7905694150420949}
+  tolerance: {statistic: 1.0e-9, pvalue: 1.0e-9, hln_factor: 1.0e-12}
+  source_url: https://www.statsmodels.org/dev/generated/statsmodels.tsa.stattools.diebold_mariano_test.html
+  locator: run_output.txt line "statsmodels h=3 harvey_adj=True"
+  retrieved: '2026-10-22'
+not_frozen:
+- id: dm_uniform_window_h2
+  inputs: {same 12-point sample: yes, horizon: 2, window: uniform}
+  observed: NaN (the uniform-window long-run variance estimate is negative); DM 1995 says treat it as 0 and reject the null. No outside implementation, not asserted.
+- id: dm_uniform_window_h3
+  inputs: {same 12-point sample: yes, horizon: 3, window: uniform}
+  observed: statistic 11.074863488759279 (no HLN) and 8.755448349979478 (HLN), prototype only (repro.py). No outside implementation, not asserted.
+- id: dm_earlier_note_values
+  observed: the earlier note's -1.30531 etc. used ddof 0, h = 1 and different data; not re-checked (dossier section 4).

@@ -1,0 +1,198 @@
+# DRAFT golden fixture: Efron and Morris (1975) James-Stein estimator on the 1970 batting averages (arcsine transform).
+# Same entry style as sabermetricspy tests/golden/*.yaml (entries: id, source_url, retrieved, inputs, published, tolerance); `locator` and `basis` added.
+#
+# Source (primary): B. Efron and C. Morris, "Data analysis using Stein's estimator and its generalizations", J. Amer. Statist. Assoc. 70(350):311-319 (1975),
+#   DOI 10.1080/01621459.1975.10479864. Copy read: UC Merced course PDF, https://faculty.ucmerced.edu/jvevea/classes/290_21/readings/week%204/Efron%20and%20Morris.pdf
+#   local: sources/efron_morris_1975_jasa/efron_morris_1975_ucmerced.pdf (sha256 542361e5c05a...). PDF p.3 = JASA p.312 (eqs 2.1-2.5); PDF p.4 = JASA p.313 (Tables 1-2).
+#   Values were read from RENDERED PAGE IMAGES (the OCR text layer scrambles the tables). Retrieved 2026-10-22.
+# Licence / attribution: Taylor & Francis, all rights reserved; the numbers (facts) are reused, the article text is not. Cite the paper in the docstring.
+#
+# Method: X = sqrt(45) * arcsin(2 y - 1), y = hits/45;  c = 1 - (k-3)/V,  V = sum (X - Xbar)^2;  estimate = Xbar + c (X - Xbar);
+#   retransform  p_hat = (sin(estimate / sqrt(45)) + 1) / 2.     k = 18 players.
+# Tolerances:
+#   stein_retransformed 0.0005: the paper prints 3 decimals (half unit = 0.0005); the computed values round to the printed column on 18/18 rows (max diff 0.0).
+#   x_transformed 0.005 and theta_transformed 0.015: Table 1 prints 2 decimals; theta is computed by the paper from rest-of-season averages printed to 3 decimals,
+#     d(theta)/dp is about 15-17, so rounding of p alone moves theta by up to 0.0084, plus 0.005 for printing -> 0.015 (observed max 0.0102).
+#   shrink (k-3)/V and c: 0.0005 (3 printed decimals).  TSE: 0.02 (the printed 17.56 and 5.01 sit within 0.02 of the exact-input values 17.571 and 4.999;
+#     the paper computed them from its rounded columns, which give 17.558 and 5.016).  efficiency 0.02 (printed 3.50 = 17.56/5.01; exact-input ratio 3.515).
+# DO NOT assert the printed Xbar = -3.275 or the eq. (2.5) intercept -2.59: they contradict the paper's own Table 1 and Table 2 (see `excluded`).
+entries:
+- id: em1975_01_clemente
+  basis: printed
+  player: Clemente
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 1
+  retrieved: '2026-10-22'
+  inputs: {h: 18, ab: 45, rest_of_season_average: 0.346, rest_of_season_ab: 367}
+  published: {x_transformed: -1.35, theta_transformed: -2.1, stein_retransformed: 0.29}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_02_f_robinson
+  basis: printed
+  player: F. Robinson
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 2
+  retrieved: '2026-10-22'
+  inputs: {h: 17, ab: 45, rest_of_season_average: 0.298, rest_of_season_ab: 426}
+  published: {x_transformed: -1.66, theta_transformed: -2.79, stein_retransformed: 0.286}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_03_f_howard
+  basis: printed
+  player: F. Howard
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 3
+  retrieved: '2026-10-22'
+  inputs: {h: 16, ab: 45, rest_of_season_average: 0.276, rest_of_season_ab: 521}
+  published: {x_transformed: -1.97, theta_transformed: -3.11, stein_retransformed: 0.281}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_04_johnstone
+  basis: printed
+  player: Johnstone
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 4
+  retrieved: '2026-10-22'
+  inputs: {h: 15, ab: 45, rest_of_season_average: 0.222, rest_of_season_ab: 275}
+  published: {x_transformed: -2.28, theta_transformed: -3.96, stein_retransformed: 0.277}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_05_berry
+  basis: printed
+  player: Berry
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 5
+  retrieved: '2026-10-22'
+  inputs: {h: 14, ab: 45, rest_of_season_average: 0.273, rest_of_season_ab: 418}
+  published: {x_transformed: -2.6, theta_transformed: -3.17, stein_retransformed: 0.273}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_06_spencer
+  basis: printed
+  player: Spencer
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 6
+  retrieved: '2026-10-22'
+  inputs: {h: 14, ab: 45, rest_of_season_average: 0.27, rest_of_season_ab: 466}
+  published: {x_transformed: -2.6, theta_transformed: -3.2, stein_retransformed: 0.273}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_07_kessinger
+  basis: printed
+  player: Kessinger
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 7
+  retrieved: '2026-10-22'
+  inputs: {h: 13, ab: 45, rest_of_season_average: 0.263, rest_of_season_ab: 586}
+  published: {x_transformed: -2.92, theta_transformed: -3.32, stein_retransformed: 0.268}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_08_l_alvarado
+  basis: printed
+  player: L. Alvarado
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 8
+  retrieved: '2026-10-22'
+  inputs: {h: 12, ab: 45, rest_of_season_average: 0.21, rest_of_season_ab: 138}
+  published: {x_transformed: -3.26, theta_transformed: -4.15, stein_retransformed: 0.264}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_09_santo
+  basis: printed
+  player: Santo
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 9
+  retrieved: '2026-10-22'
+  inputs: {h: 11, ab: 45, rest_of_season_average: 0.269, rest_of_season_ab: 510}
+  published: {x_transformed: -3.6, theta_transformed: -3.23, stein_retransformed: 0.259}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_10_swoboda
+  basis: printed
+  player: Swoboda
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 10
+  retrieved: '2026-10-22'
+  inputs: {h: 11, ab: 45, rest_of_season_average: 0.23, rest_of_season_ab: 200}
+  published: {x_transformed: -3.6, theta_transformed: -3.83, stein_retransformed: 0.259}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_11_unser
+  basis: printed
+  player: Unser
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 11
+  retrieved: '2026-10-22'
+  inputs: {h: 10, ab: 45, rest_of_season_average: 0.264, rest_of_season_ab: 277}
+  published: {x_transformed: -3.95, theta_transformed: -3.3, stein_retransformed: 0.254}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_12_williams
+  basis: printed
+  player: Williams
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 12
+  retrieved: '2026-10-22'
+  inputs: {h: 10, ab: 45, rest_of_season_average: 0.256, rest_of_season_ab: 270}
+  published: {x_transformed: -3.95, theta_transformed: -3.43, stein_retransformed: 0.254}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_13_scott
+  basis: printed
+  player: Scott
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 13
+  retrieved: '2026-10-22'
+  inputs: {h: 10, ab: 45, rest_of_season_average: 0.303, rest_of_season_ab: 435}
+  published: {x_transformed: -3.95, theta_transformed: -2.71, stein_retransformed: 0.254}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_14_petrocelli
+  basis: printed
+  player: Petrocelli
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 14
+  retrieved: '2026-10-22'
+  inputs: {h: 10, ab: 45, rest_of_season_average: 0.264, rest_of_season_ab: 538}
+  published: {x_transformed: -3.95, theta_transformed: -3.3, stein_retransformed: 0.254}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_15_e_rodriguez
+  basis: printed
+  player: E. Rodriguez
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 15
+  retrieved: '2026-10-22'
+  inputs: {h: 10, ab: 45, rest_of_season_average: 0.226, rest_of_season_ab: 186}
+  published: {x_transformed: -3.95, theta_transformed: -3.89, stein_retransformed: 0.254}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_16_campaneris
+  basis: printed
+  player: Campaneris
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 16
+  retrieved: '2026-10-22'
+  inputs: {h: 9, ab: 45, rest_of_season_average: 0.285, rest_of_season_ab: 558}
+  published: {x_transformed: -4.32, theta_transformed: -2.98, stein_retransformed: 0.249}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_17_munson
+  basis: printed
+  player: Munson
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 17
+  retrieved: '2026-10-22'
+  inputs: {h: 8, ab: 45, rest_of_season_average: 0.316, rest_of_season_ab: 408}
+  published: {x_transformed: -4.7, theta_transformed: -2.53, stein_retransformed: 0.244}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_18_alvis
+  basis: printed
+  player: Alvis
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.313 Tables 1-2 (PDF p.4), row 18
+  retrieved: '2026-10-22'
+  inputs: {h: 7, ab: 45, rest_of_season_average: 0.2, rest_of_season_ab: 70}
+  published: {x_transformed: -5.1, theta_transformed: -4.32, stein_retransformed: 0.239}
+  tolerance: {x_transformed: 0.005, theta_transformed: 0.015, stein_retransformed: 0.0005}
+- id: em1975_group_scalars
+  basis: printed
+  source_url: https://doi.org/10.1080/01621459.1975.10479864
+  locator: JASA p.312 below eq. (2.4)-(2.5) and p.313 text under Table 1
+  retrieved: '2026-10-22'
+  inputs: {group: all 18 rows above, k: 18, n: 45}
+  published: {shrink_k_minus_3_over_V: 0.791, c: 0.209, tau_hat: 0.514, tse_mle_transformed: 17.56, tse_stein_transformed: 5.01, efficiency: 3.5, stein_closer_count: 15, xbar_table1_column_mean: -3.317}
+  tolerance: {shrink_k_minus_3_over_V: 0.0005, c: 0.0005, tau_hat: 0.0005, tse_mle_transformed: 0.02, tse_stein_transformed: 0.02, efficiency: 0.02, stein_closer_count: 0, xbar_table1_column_mean: 0.001}
+  notes: >
+    tau_hat 0.514 is the standard deviation tau = sqrt(1/shrink - 1), not tau^2 (0.264). xbar_table1_column_mean is NOT a printed scalar: it is the mean of the printed
+    Table 1 X column (-3.3172; exact arcsine values give -3.3166), which is what the paper's Table 2 actually uses.
+excluded:
+- id: em1975_printed_xbar_minus_3_275
+  reason: JASA p.312 prints "The value of X-bar is -3.275" and eq. (2.5) intercept -2.59 (= .791 x -3.275). Both contradict the paper's own Table 1 (column mean -3.317) and Table 2
+    (reproduced on 18/18 rows only with -3.317; with -3.275 every estimate moves up about .002). Cause of the slip not stated; recorded, not tested.
+- id: em1975_limited_translation_s08_s09
+  reason: Table 2 columns for s = 0.9 and 0.8 depend on tabled constants D_{k-1}(s) from the paper's ref [6], which was not obtained; the s = 0.8 column is only reproduced by clipping at the printed bound 0.68. Out of scope for the first implementation.

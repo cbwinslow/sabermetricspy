@@ -24,6 +24,13 @@ See `CITATION.cff` (GitHub shows a "Cite this repository" button).
 | SIERA | Swartz and Seidman, Baseball Prospectus (2010 coefficients) |
 | Statcast fields, barrels, run values | MLB Baseball Savant |
 | Game Score 2.0 | Tom Tango, via FanGraphs |
+| Power-Speed Number | Bill James (Baseball Abstract; the retrieved sources disagree on 1980 or 1983); Baseball-Reference and SABR (Sciarretta 1983) for the published values |
+| Extrapolated Runs (XR, XRR) | Jim Furtado, *The 1999 Big Bad Baseball Annual*, via Baseball Think Factory |
+| Ranked probability score | Edward Epstein (1969) and Allan Murphy (1971), Journal of Applied Meteorology; Brier (1950) and Murphy (1973) for the score decomposition |
+| Expected and maximum calibration error | Naeini, Cooper and Hauskrecht (2015, AAAI); Guo, Pleiss, Sun and Weinberger (2017, ICML) |
+| Diebold-Mariano test | Francis Diebold and Roberto Mariano (1995), Journal of Business and Economic Statistics |
+| Arcsine James-Stein shrinkage | Bradley Efron and Carl Morris (1975), Journal of the American Statistical Association |
+| Glicko-2 rating update | Mark Glickman, glicko.net |
 
 Where a name above could not be traced to a page we read, METHODOLOGY.md says so instead; this table is a summary,
 not the evidence.

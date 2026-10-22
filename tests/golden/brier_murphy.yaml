@@ -1,0 +1,81 @@
+# DRAFT golden fixture: Brier score (1950) and the Murphy (1973) REL - RES + UNC partition, with the bin-convention rows that document how
+# sabermetricspy.evaluation.calibration_table (left-closed floor(p*n) bins) differs from right-closed (lo, hi] bins (Guo 2017, scikit-learn).
+# Entry style of sabermetricspy tests/golden/*.yaml (entries: id, source_url, retrieved, inputs, published, tolerance) plus `locator` and `basis`.
+#
+# Sources (primary, scanned images, read from page images; retrieved 2026-10-22; see dossiers/brier_murphy_decomposition.md):
+#   Brier, G. W. (1950), Monthly Weather Review 78(1):1-3, https://journals.ametsoc.org/view/journals/mwre/78/1/1520-0493_1950_078_0001_vofeit_2_0_co_2.pdf ,
+#     sources/brier_1950_mwr/brier1950.pdf p.2 (Table 1: P = 0.19; constant 0.3 gives P' = 0.42; constant 0.2 gives 0.44).
+#   Murphy, A. H. (1973), J. Applied Meteorology 12(4):595-600, sources/murphy_1973_vector_partition/murphy1973.pdf p.597 (Table 1/2: UNC 0.480, REL 0.136, RES 0.330, PS 0.286).
+# Licence / attribution: AMS journals, no licence in the files; numbers (facts) reused. Cite Brier (1950) and Murphy (1973) in docstrings (already cited in evaluation/__init__.py).
+# Scale warning: Brier (1950) eq. (2) with r = 2 classes and Murphy's vector PS both sum over BOTH states, so they are exactly TWICE the single-event Brier score used by
+#   sabermetricspy.brier_score (mean (p - y)^2). Rows give the printed vector-form value and `single_event` = printed / 2.
+# Tolerances: Brier printed to 2 decimals -> 0.005; Murphy printed to 3 decimals -> 0.0005 (single-event halves 0.00025). Decomposition rows on the 10-point fixture: 1e-6.
+# Rows with basis repo-test come from the repository's own hand-computed test tests/test_evaluation.py (read only).
+# Rows with basis prototype-computed are a LIBRARY-COMPUTED fixture (no paper prints them): y = [0,0,1,1,1,0,1,0,1,1], p = [.1,.2,.8,.65,.9,.4,.3,.5,.7,.95].
+entries:
+- id: brier1950_table1_P
+  basis: printed
+  source_url: https://journals.ametsoc.org/view/journals/mwre/78/1/1520-0493_1950_078_0001_vofeit_2_0_co_2.pdf
+  locator: Brier 1950 p.2, Table 1 ("P = 1/10 (0.7^2 + 0.1^2 + 0.2^2 + ... + 0.1^2) = 0.19")
+  retrieved: '2026-10-22'
+  inputs: {forecast: [0.7, 0.9, 0.8, 0.4, 0.2, 0.0, 0.0, 0.0, 0.0, 0.1], observed: [0, 1, 1, 1, 0, 0, 0, 0, 0, 0]}
+  published: {brier_two_class: 0.19, brier_single_event: 0.095, constant_0_3_two_class: 0.42, constant_0_2_two_class: 0.44}
+  tolerance: {brier_two_class: 0.005, brier_single_event: 0.0025, constant_0_3_two_class: 0.005, constant_0_2_two_class: 0.005}
+  note: single_event = 0.19 / 2 (derived, not printed). The constant 0.3 is the base rate (3 of 10), eq. (4) P' = 1 - sum p_j^2 = 1 - (0.3^2 + 0.7^2).
+- id: murphy1973_table1_partition
+  basis: printed
+  source_url: https://journals.ametsoc.org/view/journals/apme/12/4/1520-0450_1973_012_0595_anvpot_2_0_co_2.pdf
+  locator: Murphy 1973 p.597 (PS(d,d) = 0.480; reliability 0.136; new resolution 0.330; PS(r,d) = 0.286 = 0.480 + 0.136 - 0.330)
+  retrieved: '2026-10-22'
+  inputs: {forecast: [0.2, 0.6, 0.9, 0.2, 0.1, 0.2, 0.4, 0.7, 0.8, 0.2], observed: [0, 1, 1, 0, 0, 0, 1, 1, 1, 1], grouping: distinct forecast values}
+  published: {unc_vector: 0.480, rel_vector: 0.136, res_vector: 0.330, ps_vector: 0.286}
+  tolerance: {unc_vector: 0.0005, rel_vector: 0.0005, res_vector: 0.0005, ps_vector: 0.0005}
+  single_event_equivalents: {uncertainty: 0.24, reliability: 0.068, resolution: 0.165, brier_score: 0.143}
+- id: repo_test_two_point_forecasts
+  basis: repo-test
+  source_url: C:\Users\blain\projects\sabermetricspy\tests\test_evaluation.py (test_murphy_decomposition_is_exact_for_discrete_forecasts)
+  retrieved: '2026-10-22'
+  inputs: {forecast: [0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7], observed: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0], n_bins: 10}
+  published: {brier_score: 0.17, reliability: 0.01, resolution: 0.09, uncertainty: 0.25, within_bin_remainder: 0.0}
+  tolerance: {brier_score: 1.0e-12, reliability: 1.0e-12, resolution: 1.0e-12, uncertainty: 1.0e-12, within_bin_remainder: 1.0e-12}
+  note: hand arithmetic in the repo test comment; forecasts are constant within bins and away from edges, so every bin convention gives the same answer.
+- id: ten_point_m5_right_closed
+  basis: prototype-computed
+  inputs: {n_bins: 5, closed: right}
+  published: {reliability: 0.0592083, resolution: 0.19, uncertainty: 0.24, brier_score: 0.1215, within_bin_remainder: 0.0122917}
+  tolerance: {reliability: 1.0e-6, resolution: 1.0e-6, uncertainty: 1.0e-6, brier_score: 1.0e-6, within_bin_remainder: 1.0e-6}
+- id: ten_point_m5_left_closed_library_floor
+  basis: prototype-computed
+  inputs: {n_bins: 5, closed: left}
+  published: {reliability: 0.0792083, resolution: 0.19, uncertainty: 0.24, brier_score: 0.1215, within_bin_remainder: -0.0077083}
+  tolerance: {reliability: 1.0e-6, resolution: 1.0e-6, uncertainty: 1.0e-6, brier_score: 1.0e-6, within_bin_remainder: 1.0e-6}
+  note: equals the current library formula idx = min(int(p*n), n-1); the earlier note's 0.0792083 / 0.19 / 0.1292 was this convention.
+- id: ten_point_m10_right_closed
+  basis: prototype-computed
+  inputs: {n_bins: 10, closed: right}
+  published: {reliability: 0.121375, resolution: 0.24, uncertainty: 0.24, brier_score: 0.1215, within_bin_remainder: 0.000125}
+  tolerance: {reliability: 1.0e-6, resolution: 1.0e-6, uncertainty: 1.0e-6, brier_score: 1.0e-6, within_bin_remainder: 1.0e-6}
+- id: ten_point_m10_left_closed_exact_library_floor
+  basis: prototype-computed
+  inputs: {n_bins: 10, closed: left}
+  published: {reliability: 0.121375, resolution: 0.24, uncertainty: 0.24, brier_score: 0.1215, within_bin_remainder: 0.000125}
+  tolerance: {reliability: 1.0e-6, resolution: 1.0e-6, uncertainty: 1.0e-6, brier_score: 1.0e-6, within_bin_remainder: 1.0e-6}
+  correction: >
+    The dossier (section 4 and 5) lists 10-bin "left-closed (exact edges)" as REL 0.08075 / RES 0.19 and explains the library's 0.121375 as a float trap.
+    The probe shows the opposite: np.searchsorted(side="right") on float edges np.linspace(0,1,11) mis-bins the forecasts .3, .6, .7 (edges 0.30000000000000004 ...), which produced 0.08075.
+    Exact [lo, hi) assignment (exact decimals, and the library's floor(p*n), which is exact for these values) gives 0.121375, equal to right-closed here because every bin then holds
+    one distinct forecast value. So the library's floor(p*n) IS left-closed for this fixture. See tieouts/ece_mce_calibration/bin_edge_float_probe_output.txt: floor(p*M) can fail only for M >= 50.
+- id: ten_point_distinct_values_exact_identity
+  basis: prototype-computed
+  inputs: {grouping: distinct forecast values}
+  published: {reliability: 0.1215, resolution: 0.24, uncertainty: 0.24, brier_score: 0.1215, within_bin_remainder: 0.0}
+  tolerance: {reliability: 1.0e-9, resolution: 1.0e-9, uncertainty: 1.0e-9, brier_score: 1.0e-9, within_bin_remainder: 1.0e-9}
+  note: Murphy's own grouping (constant forecast within each subcollection) makes BS = REL - RES + UNC exact.
+- id: repo_test_remainder_four_points
+  basis: repo-test
+  source_url: C:\Users\blain\projects\sabermetricspy\tests\test_evaluation.py (test_calibration_reports_remainder_when_forecasts_vary_within_a_bin)
+  retrieved: '2026-10-22'
+  inputs: {forecast: [0.31, 0.39, 0.7, 0.7], observed: [0, 1, 1, 1], n_bins: 10}
+  published: {brier_score: 0.16205, within_bin_remainder: -0.0192}
+  tolerance: {brier_score: 1.0e-12, within_bin_remainder: 1.0e-9}
+  note: hand-computed in the repo test comment (BS .16205; REL .05625 - RES .0625 + UNC .1875 = .18125).

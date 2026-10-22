@@ -210,6 +210,121 @@ def calc_rc_tech(ctx: EvalContext) -> nw.Expr:
     return safe_div(a * b, c)
 
 
+# Furtado's published Extrapolated Runs weights (The 1999 Big Bad Baseball Annual; Baseball Think Factory "Introducing XR").
+# Fixed constants of the method, not seasonal values. Fitted to 1955-1997 seasons.
+XR_WEIGHTS: dict[str, float] = {
+    "b1": 0.50,
+    "b2": 0.72,
+    "b3": 1.04,
+    "hr": 1.44,
+    "unintentional_walk_hbp": 0.34,
+    "ibb": 0.25,
+    "sb": 0.18,
+    "cs": -0.32,
+    "non_strikeout_out": -0.090,
+    "so": -0.098,
+    "gidp": -0.37,
+    "sf": 0.37,
+    "sh": 0.04,
+}
+XRR_WEIGHTS: dict[str, float] = {
+    "b1": 0.50,
+    "b2": 0.72,
+    "b3": 1.04,
+    "hr": 1.44,
+    "walk_hbp": 0.33,
+    "sb": 0.18,
+    "cs": -0.32,
+    "out": -0.098,
+}
+
+
+def _count_or_zero(ctx: EvalContext, name: str) -> nw.Expr:
+    return nw.col(name) if name in ctx.available_columns else nw.lit(0)
+
+
+@register_metric(
+    MetricSpec(
+        metric=Metric.XR,
+        display_name="XR",
+        category=Category.WEIGHTED_OFFENSE,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("h", "b2", "b3", "hr", "bb", "ab", "so"),
+        optional_columns=("ibb", "hbp", "sb", "cs", "gidp", "sf", "sh"),
+        requires=(Metric.B1,),
+        direction=Direction.HIGHER_IS_BETTER,
+        formula_latex=(
+            r"XR = .50\,1B + .72\,2B + 1.04\,3B + 1.44\,HR + .34\,(HBP + BB - IBB) + .25\,IBB"
+            r" + .18\,SB - .32\,CS - .090\,(AB - H - SO) - .098\,SO - .37\,GIDP + .37\,SF + .04\,SH"
+        ),
+        citation="Furtado, J. (1999) Extrapolated Runs, The 1999 Big Bad Baseball Annual",
+        description="Furtado's linear-weights run estimator fitted to 1955-1997 seasons.",
+        caveats=(
+            "bb is total walks including intentional walks; the formula subtracts ibb from the .34 group and credits it at .25.",
+            "Absent optional columns count as 0 (as for rc_tech); so is required because strikeouts and other outs have different weights.",
+            "The published weights were fitted to 1955-1997; earlier seasons are outside the documented scope.",
+        ),
+    )
+)
+def calc_xr(ctx: EvalContext) -> nw.Expr:
+    w = XR_WEIGHTS
+    hbp, ibb, sb, cs = (_count_or_zero(ctx, c) for c in ("hbp", "ibb", "sb", "cs"))
+    gidp, sf, sh = (_count_or_zero(ctx, c) for c in ("gidp", "sf", "sh"))
+    so = nw.col("so")
+    return (
+        w["b1"] * nw.col("b1")
+        + w["b2"] * nw.col("b2")
+        + w["b3"] * nw.col("b3")
+        + w["hr"] * nw.col("hr")
+        + w["unintentional_walk_hbp"] * (hbp + nw.col("bb") - ibb)
+        + w["ibb"] * ibb
+        + w["sb"] * sb
+        + w["cs"] * cs
+        + w["non_strikeout_out"] * (nw.col("ab") - nw.col("h") - so)
+        + w["so"] * so
+        + w["gidp"] * gidp
+        + w["sf"] * sf
+        + w["sh"] * sh
+    )
+
+
+@register_metric(
+    MetricSpec(
+        metric=Metric.XRR,
+        display_name="XRR",
+        category=Category.WEIGHTED_OFFENSE,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("h", "b2", "b3", "hr", "bb", "ab"),
+        optional_columns=("hbp", "sb", "cs"),
+        requires=(Metric.B1,),
+        direction=Direction.HIGHER_IS_BETTER,
+        formula_latex=(
+            r"XRR = .50\,1B + .72\,2B + 1.04\,3B + 1.44\,HR + .33\,(HBP + BB)"
+            r" + .18\,SB - .32\,CS - .098\,(AB - H)"
+        ),
+        citation="Furtado, J. (1999) Extrapolated Runs Reduced, The 1999 Big Bad Baseball Annual",
+        description="Furtado's reduced Extrapolated Runs, using only the commonly available counting stats.",
+        caveats=(
+            "The printed formula has an unbalanced parenthesis; it is read as -.098 x (AB - H), which reproduces the printed example.",
+            "Absent optional columns count as 0.",
+        ),
+    )
+)
+def calc_xrr(ctx: EvalContext) -> nw.Expr:
+    w = XRR_WEIGHTS
+    hbp, sb, cs = (_count_or_zero(ctx, c) for c in ("hbp", "sb", "cs"))
+    return (
+        w["b1"] * nw.col("b1")
+        + w["b2"] * nw.col("b2")
+        + w["b3"] * nw.col("b3")
+        + w["hr"] * nw.col("hr")
+        + w["walk_hbp"] * (hbp + nw.col("bb"))
+        + w["sb"] * sb
+        + w["cs"] * cs
+        + w["out"] * (nw.col("ab") - nw.col("h"))
+    )
+
+
 @register_metric(
     MetricSpec(
         metric=Metric.BASE_RUNS,

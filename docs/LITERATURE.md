@@ -118,3 +118,18 @@ OpenAlex and arXiv query totals (2026-10-18):
 
 The full metadata digest (titles, authors, years, venues, licenses as returned, landing links) is saved in
 [`literature/digest-2026-10-18.json`](literature/digest-2026-10-18.json).
+
+## Added from the 2026-10-22 research round (not catalogue entries)
+
+These were found by a separate research pass with its own evidence library, not by the sweep above; each has an ADR.
+
+| Method | Source read | Record |
+|---|---|---|
+| Power-Speed Number | SABR Baseball Research Journal (Sciarretta 1983); Baseball-Reference leaders; Wikipedia | ADR-0070 |
+| Extrapolated Runs, Extrapolated Runs Reduced | Furtado (1999), Baseball Think Factory | ADR-0071 |
+| Calibration bins, Brier and Murphy decomposition | Brier (1950); Murphy (1973); Guo et al. (2017) | ADR-0072 |
+| Expected and maximum calibration error | Naeini et al. (2015); Guo et al. (2017) | ADR-0073 |
+| Arcsine James-Stein shrinkage | Efron and Morris (1975) | ADR-0074 |
+| Ranked probability score | Epstein (1969); Murphy (1971) | ADR-0075 |
+| Diebold-Mariano test | Diebold and Mariano (1995); Harvey, Leybourne and Newbold (1997) read, correction not applied | ADR-0076 |
+| Glicko-2 rating update | Glickman, "Example of the Glicko-2 system" (2022) | ADR-0077 |

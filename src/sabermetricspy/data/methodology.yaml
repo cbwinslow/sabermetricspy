@@ -667,6 +667,21 @@ metrics:
     evidence: golden
     source_url: https://www.retrosheet.org/Research/HardegreeG/Base-Advance-Average.pdf
     note: Reproduces every row of the paper's worked half-inning (bases advanced and opportunities per plate appearance; totals 14 and 57 as printed) from base states and runs, plus the 4-for-10 bases-loaded walk and 10-for-10 grand slam it describes; tests/golden/base_advance_sample_inning.yaml. The paper prints .245 for 14/57 = .2456 (truncated). Steals are not counted.
+  power_speed_number:
+    status: matches
+    evidence: golden
+    source_url: https://www.baseball-reference.com/leaders/power_speed_number_career.shtml
+    note: 'Bill James''s Power-Speed Number, the harmonic mean 2 HR SB / (HR + SB) (SABR Baseball Research Journal, Sciarretta 1983; Wikipedia). Reproduces Baseball-Reference''s career Power-Speed # for Bonds (613.90), Henderson (490.41) and Mays (447.93) and five season values printed by SABR and Wikipedia (Ohtani 2024 56.39, Acuna 2023 52.51, Murphy 1983 32.7, Morgan 1973 37.5, Mays 1955 32.6) from Lahman 2025 home run and stolen base totals (tests/golden/power_speed_number.yaml). Career values apply the formula to career totals. Null when HR + SB is 0 (library convention, ADR-0008 and ADR-0046). Wikipedia''s Mays 447.1 is stale (338 SB). Sources disagree on whether the 1980 or 1983 Abstract introduced it.'
+  xr:
+    status: matches
+    evidence: golden
+    source_url: http://www.baseballthinkfactory.org/btf/scholars/furtado/articles/IntroducingXR.htm
+    note: 'Furtado''s Extrapolated Runs (The 1999 Big Bad Baseball Annual), a linear-weights run estimator fitted to 1955-1997 seasons. The article''s printed example, Mark McGwire 1998 (AB 509, H 152, 2B 21, HR 70, BB 162, IBB 28, HBP 6, SB 1, SO 155, GIDP 8, SF 4), gives XR 166.35, reproduced exactly (tests/golden/extrapolated_runs.yaml); the same 14 inputs equal the Lahman 2025 row. The example is the author''s own computation, so it validates the arithmetic and inputs, not the estimator''s accuracy. bb is total walks including intentional walks. The XRB variant is not implemented: its printed example (169.03) only reproduces with a walk weight of .35, not the printed .34.'
+  xrr:
+    status: matches
+    evidence: golden
+    source_url: http://www.baseballthinkfactory.org/btf/scholars/furtado/articles/IntroducingXR.htm
+    note: 'Furtado''s Extrapolated Runs Reduced, the same method with only commonly available counts. The printed McGwire 1998 example gives 167.05; the library computes 167.054, inside the printed rounding (tests/golden/extrapolated_runs.yaml). The printed formula has an unbalanced parenthesis, read as -.098 x (AB - H), which reproduces the example. The example is the author''s own computation.'
 models:
   WARFramework.calculate_pitcher_war_df:
     status: approximate
@@ -727,4 +742,44 @@ models:
     status: matches
     evidence: golden
     source_url: http://varianceexplained.org/r/empirical_bayes_baseball/
-    note: 'Posterior mean (k + a) / (n + a + b), equivalent to shrinkage weight M / (n + M) toward the population mean, is the standard beta-binomial result. With David Robinson''s prior Beta(78.661, 224.875) (explicit prior=, fitted by him to Lahman batting averages with 500 or more at bats) it reproduces ten of his printed worked examples to three decimals, for example Hornsby 2930 of 8173 gives .355 and Bergen 516 of 3028 gives .178, and his 4 for 10 example gives .264 (tests/test_model_audit.py). Tango''s ballast form gives his Mets 12-13 example (12 + 39) / (25 + 78) = .495. The default fit is a different, standard procedure: beta-binomial maximum likelihood on counts (no clamps; tests/test_empirical_bayes_fit.py recovers simulated strengths of 10, 100 and 1000), so it does not reproduce Robinson''s prior, which came from a beta fit to rates of 500-AB players on a Lahman release he does not name. Efron and Morris (1975) was not retrievable.'
+    note: 'Posterior mean (k + a) / (n + a + b), equivalent to shrinkage weight M / (n + M) toward the population mean, is the standard beta-binomial result. With David Robinson''s prior Beta(78.661, 224.875) (explicit prior=, fitted by him to Lahman batting averages with 500 or more at bats) it reproduces ten of his printed worked examples to three decimals, for example Hornsby 2930 of 8173 gives .355 and Bergen 516 of 3028 gives .178, and his 4 for 10 example gives .264 (tests/test_model_audit.py). Tango''s ballast form gives his Mets 12-13 example (12 + 39) / (25 + 78) = .495. The default fit is a different, standard procedure: beta-binomial maximum likelihood on counts (no clamps; tests/test_empirical_bayes_fit.py recovers simulated strengths of 10, 100 and 1000), so it does not reproduce Robinson''s prior, which came from a beta fit to rates of 500-AB players on a Lahman release he does not name. Efron and Morris (1975) use a different method, the arcsine James-Stein rule, which JamesSteinShrinker implements and reproduces.'
+  evaluation.brier_score:
+    status: matches
+    evidence: golden
+    source_url: https://journals.ametsoc.org/view/journals/mwre/78/1/1520-0493_1950_078_0001_vofeit_2_0_co_2.pdf
+    note: 'Mean of (forecast - outcome)^2, the single-event form of Brier (1950). Brier''s eq. (2) sums over both classes and is exactly twice this value; his printed example (P = 0.19 on ten rain forecasts, constant forecasts of 0.3 and 0.2 giving 0.42 and 0.44) reproduces as 0.095 here (tests/golden/brier_murphy.yaml). Raises ValueError on probabilities outside [0, 1] or outcomes other than 0 and 1.'
+  evaluation.calibration_table:
+    status: matches
+    evidence: golden
+    source_url: https://journals.ametsoc.org/view/journals/apme/12/4/1520-0450_1973_012_0595_anvpot_2_0_co_2.pdf
+    note: 'Equal-width bins with the Murphy (1973) partition BS = REL - RES + UNC plus the reported within-bin remainder (exact only when the forecast is constant within every bin). Murphy''s printed ten-forecast example (UNC 0.480, REL 0.136, RES 0.330, PS 0.286, two-state vector form, exactly twice the single-event values used here) reproduces as 0.24, 0.068, 0.165 and 0.143 (tests/golden/brier_murphy.yaml). Bins are right-closed by default, (k/n, (k+1)/n], as in scikit-learn and Guo et al. 2017; closed="left" gives the earlier [k/n, (k+1)/n) behaviour (ADR-0072). Only a forecast exactly on an inner edge changes bin. The bin-convention rows of the fixture are library-computed, not paper values.'
+  evaluation.expected_calibration_error:
+    status: matches
+    evidence: primary
+    source_url: https://arxiv.org/abs/1706.04599
+    note: 'Event form of Naeini, Cooper and Hauskrecht (2015), ECE = sum_i P(i) |o_i - e_i| over equal-width bins, with the right-closed bins ((m-1)/M, m/M] of Guo et al. (2017, eq. 3). The definitions are quoted from the papers, which print no numeric example, so the tests (tests/golden/ece_mce.yaml) are hand arithmetic and library-computed rows, not published values. It is not Guo''s predicted-class form (confidence of the top class), and equal-frequency bins are not implemented. Raises ValueError on invalid input; empty bins are skipped.'
+  evaluation.maximum_calibration_error:
+    status: matches
+    evidence: primary
+    source_url: https://arxiv.org/abs/1706.04599
+    note: 'MCE = max_i |o_i - e_i| over occupied equal-width bins (Naeini et al. 2015; Guo et al. 2017, eq. 5), same binning as expected_calibration_error. Guo et al. note it is very sensitive to the binning scheme and ill-suited to small samples. Definitions quoted from the papers, which print no numeric example; tests are hand arithmetic and library-computed rows (tests/golden/ece_mce.yaml).'
+  JamesSteinShrinker:
+    status: matches
+    evidence: golden
+    source_url: https://doi.org/10.1080/01621459.1975.10479864
+    note: 'Efron and Morris (1975, JASA 70:311-319): the arcsine variance-stabilising transform x = sqrt(n) arcsin(2y - 1) followed by the James-Stein rule delta_i = xbar + (1 - (k - 3)/V)(x_i - xbar), transformed back. Reproduces all 18 printed retransformed estimates of their 1970 first-45-at-bat data (Clemente .290 ... Alvis .239), the shrinkage constants (k-3)/V = .791 and c = .209, and the total squared errors 17.56 (MLE) and 5.01 (Stein) on the transformed scale, efficiency 3.50, Stein closer for 15 of 18 (tests/golden/efron_morris_james_stein.yaml). The paper prints Xbar = -3.275 and an intercept of -2.59, which contradict its own Table 1 (column mean -3.317, the value Table 2 actually needs); the tests use -3.317. Requires equal trials for every player; raises ValueError when V <= k - 3 because the paper prints no positive-part rule. Not the same estimator as EmpiricalBayesShrinker (Beta-binomial).'
+  evaluation.ranked_probability_score:
+    status: matches
+    evidence: golden
+    source_url: https://journals.ametsoc.org/view/journals/apme/8/6/1520-0450_1969_008_0985_assfpf_2_0_co_2.pdf
+    note: 'Ranked probability score for K ordered categories (Epstein 1969; Murphy 1971): the sum of squared differences between the forecast and observed cumulative distributions, divided by K - 1 by default, lower is better; Epstein''s positively oriented score is 1 minus it, and for K = 2 it equals the Brier score. Reproduces 60 of the 62 printed cells of Epstein''s Tables 1 and 2 (tests/golden/rps_epstein_1969.yaml). The two other cells, the forecast (0, 1/6, 1/3, 1/3, 1/6, 0) with category 3 or 4 observed, print 0.92 while the formula gives 0.9389; a second reading of the page image confirms the printed value, so the paper itself is inconsistent there and those cells are excluded. Propriety is quoted from Murphy 1971 (proof not read). Raises ValueError on invalid input.'
+  evaluation.diebold_mariano_test:
+    status: matches
+    evidence: primary
+    source_url: https://www.sas.upenn.edu/~fdiebold/papers/paper68/pa.dm.pdf
+    note: 'Diebold and Mariano (1995, J. Business and Economic Statistics 13:253-263): the loss differential d_t = g(e_a,t) - g(e_b,t), the null E[d_t] = 0 and the statistic mean(d) / sqrt(lrv / T) are quoted from the paper, which prints no numeric example. Tests (tests/golden/diebold_mariano.yaml) are closed-form hand arithmetic and the recorded output of statsmodels 0.15.0 diebold_mariano_test with lags = horizon - 1, which the Bartlett-weight long-run variance used here reproduces to about 1e-15 for horizons 1, 2 and 3. The paper''s uniform lag window can give a non-positive variance (it does on the 12-point test sample at horizon 2), so Bartlett weights are used; for horizon 1 the two coincide. The Harvey-Leybourne-Newbold small-sample correction is not applied: their paper (1997) derives it for the uniform-window estimator. Positive statistic means forecast A has the larger loss; two-sided normal p-value; rows must be in time order.'
+  glicko2_update:
+    status: matches
+    evidence: golden
+    source_url: https://www.glicko.net/glicko/glicko2.pdf
+    note: 'Glickman''s Glicko-2 rating update for one rating period (glicko2_update, glicko2_expected_score), implemented step by step as printed, including the Illinois-algorithm volatility iteration with epsilon 1e-6. Reproduces every printed value of the worked example in tests/golden/glicko2.yaml: mu and phi, g and E, v = 1.7785, Delta = -0.4834, the volatility bracket, sigma'' = 0.05999, phi'' = 0.8722, mu'' = -0.2069, r'' = 1464.06 and RD'' = 151.52 (full precision 1464.0507 and 151.5165; the printed figures come from rounded intermediates and the printed sigma'' is truncated). tau has no default (Glickman calls 0.3 to 1.2 reasonable). The method has no home-field term. The only outside evidence is the author''s own worked example, and no baseball use was found.'

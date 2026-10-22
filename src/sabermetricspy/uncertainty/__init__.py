@@ -60,7 +60,9 @@ def _beta_binomial_mle(k: np.ndarray[Any, Any], n: np.ndarray[Any, Any]) -> tupl
 
 
 class EmpiricalBayesShrinker:
-    """Beta-Binomial Empirical Bayes shrinkage estimator for baseball rate statistics (Efron & Morris 1975; Tango 2007).
+    """Beta-Binomial Empirical Bayes shrinkage estimator for baseball rate statistics (Tango 2007; Robinson 2015).
+
+    Efron and Morris (1975) use a different method, the arcsine James-Stein rule: see `JamesSteinShrinker`.
 
     Learns the population Beta prior `(alpha_0, beta_0)` from observed player successes `k_i` and
     trials `n_i` by beta-binomial maximum likelihood (with optional explicit `stabilization_trials` override),
@@ -169,6 +171,131 @@ class EmpiricalBayesShrinker:
             pl.Series(f"{pfx}_std", eb_std),
             pl.Series(f"{pfx}_ci_lower", ci_low),
             pl.Series(f"{pfx}_ci_upper", ci_high),
+        )
+        if isinstance(df, pl.DataFrame):
+            return out_pl
+        arrow_tbl = out_pl.to_arrow()
+        if type(df).__module__.startswith("pandas"):
+            return arrow_tbl.to_pandas()
+        return arrow_tbl
+
+
+class JamesSteinResults(BaseModel):
+    """Fitted quantities of the Efron-Morris (1975) arcsine James-Stein rule."""
+
+    model_config = ConfigDict(frozen=True)
+
+    success_col: str
+    trials_col: str
+    trials: int
+    n_groups: int
+    grand_mean: float
+    total_ss: float
+    shrinkage: float
+    factor: float
+    tau_hat: float
+
+
+class JamesSteinShrinker:
+    """Efron and Morris (1975) James-Stein shrinkage of batting averages after an arcsine transform.
+
+    With every player observed over the same number of trials `n` (45 at bats in the paper), each hit rate `y = h / n`
+    is transformed to `x = sqrt(n) * arcsin(2 y - 1)`, which has approximately unit variance. The rule is
+    `delta_i = xbar + (1 - (k - 3) / V) * (x_i - xbar)` with `V = sum (x_i - xbar)^2` and `k` players, and the
+    estimate is transformed back with `(sin(delta_i / sqrt(n)) + 1) / 2`. Players must have equal trials; for unequal
+    trials use `EmpiricalBayesShrinker`. `fit` raises `ValueError` when `V <= k - 3`, because the paper prints no
+    positive-part rule (ADR-0074).
+    """
+
+    def __init__(
+        self, *, success_col: str = "h", trials_col: str = "ab", output_prefix: str = "js"
+    ) -> None:
+        self.success_col = success_col
+        self.trials_col = trials_col
+        self.output_prefix = output_prefix
+        self._results: JamesSteinResults | None = None
+
+    @property
+    def results(self) -> JamesSteinResults:
+        if self._results is None:
+            raise RuntimeError("JamesSteinShrinker is not fitted yet. Call .fit(df) first.")
+        return self._results
+
+    def _arrays(
+        self, df: IntoFrame
+    ) -> tuple[pl.DataFrame, np.ndarray[Any, Any], np.ndarray[Any, Any]]:
+        nw_df = normalize_columns(nw.from_native(df))
+        pl_df = to_polars_df(nw.to_native(nw_df))
+        for col in (self.success_col, self.trials_col):
+            if pl_df[col].null_count() > 0:
+                raise ValueError(f"Column {col!r} contains nulls.")
+        h = pl_df[self.success_col].to_numpy().astype(np.float64)
+        n = pl_df[self.trials_col].to_numpy().astype(np.float64)
+        return pl_df, h, n
+
+    @staticmethod
+    def _transform(h: np.ndarray[Any, Any], n: float) -> np.ndarray[Any, Any]:
+        return np.sqrt(n) * np.arcsin(2.0 * (h / n) - 1.0)
+
+    @profiled(category="uncertainty")
+    def fit(self, df: IntoFrame) -> Self:
+        """Estimate the grand mean and the shrinkage factor on the arcsine scale."""
+        _, h, n_arr = self._arrays(df)
+        k = len(h)
+        if k < 4:
+            raise ValueError(
+                "The James-Stein rule needs at least 4 players (k - 3 must be positive)."
+            )
+        if not np.all(n_arr == n_arr[0]) or n_arr[0] <= 0:
+            raise ValueError(
+                "All players must have the same positive number of trials; use EmpiricalBayesShrinker for unequal trials."
+            )
+        n = float(n_arr[0])
+        if np.any((h < 0) | (h > n)):
+            raise ValueError("Successes must lie between 0 and the number of trials.")
+        x = self._transform(h, n)
+        xbar = float(np.mean(x))
+        v = float(np.sum((x - xbar) ** 2))
+        if v <= 1e-12:
+            raise ValueError(
+                "All players have the same rate, so there is nothing to shrink (V = 0)."
+            )
+        shrink = (k - 3) / v
+        if shrink >= 1.0:
+            raise ValueError(
+                "V <= k - 3: the shrinkage factor is not positive and the source defines no positive-part rule."
+            )
+        self._results = JamesSteinResults(
+            success_col=self.success_col,
+            trials_col=self.trials_col,
+            trials=int(n),
+            n_groups=k,
+            grand_mean=xbar,
+            total_ss=v,
+            shrinkage=shrink,
+            factor=1.0 - shrink,
+            tau_hat=float(np.sqrt(1.0 / shrink - 1.0)),
+        )
+        return self
+
+    @profiled(category="uncertainty")
+    def transform(self, df: IntoFrame) -> Any:
+        """Attach the raw rate, the James-Stein estimate and the shrinkage weight."""
+        res = self.results
+        pl_df, h, n_arr = self._arrays(df)
+        if not np.all(n_arr == res.trials):
+            raise ValueError(f"Rows must have the fitted number of trials ({res.trials}).")
+        if np.any((h < 0) | (h > res.trials)):
+            raise ValueError("Successes must lie between 0 and the number of trials.")
+        n = float(res.trials)
+        x = self._transform(h, n)
+        delta = res.grand_mean + res.factor * (x - res.grand_mean)
+        estimate = (np.sin(delta / np.sqrt(n)) + 1.0) / 2.0
+        pfx = self.output_prefix
+        out_pl = pl_df.with_columns(
+            pl.Series(f"{pfx}_raw_rate", h / n),
+            pl.Series(f"{pfx}_rate", estimate),
+            pl.Series(f"{pfx}_shrinkage", np.full(len(h), res.shrinkage)),
         )
         if isinstance(df, pl.DataFrame):
             return out_pl

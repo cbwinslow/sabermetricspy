@@ -1229,3 +1229,25 @@ def calc_rew(ctx: EvalContext) -> nw.Expr:
 )
 def calc_base_advance_average(ctx: EvalContext) -> nw.Expr:
     return safe_div(nw.col("bases_advanced"), nw.col("base_advance_opps"))
+
+
+@register_metric(
+    MetricSpec(
+        metric=Metric.POWER_SPEED_NUMBER,
+        display_name="PSN",
+        category=Category.BATTING,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("hr", "sb"),
+        direction=Direction.HIGHER_IS_BETTER,
+        formula_latex=r"PSN = \frac{2 \cdot HR \cdot SB}{HR + SB}",
+        citation="James, B., Baseball Abstract (1980 per Lederer 2004; 1983 per Sciarretta 1983); SABR Baseball Research Journal",
+        description="Harmonic mean of home runs and stolen bases (Power-Speed Number).",
+        caveats=(
+            "A career value applies the formula to career totals; summing season values does not reproduce Baseball-Reference.",
+            "Null when HR + SB is 0.",
+        ),
+    )
+)
+def calc_power_speed_number(ctx: EvalContext) -> nw.Expr:
+    hr, sb = nw.col("hr"), nw.col("sb")
+    return safe_div(2.0 * hr * sb, hr + sb)

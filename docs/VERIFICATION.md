@@ -126,3 +126,22 @@ pitcher WAR's park factor and yearly league correction; Savant's Whiff% definiti
 8. Bundle league PA and games per season so the position-player WAR default uses the FanGraphs replacement formula (the 2026 constants are done, see 1.0.3).
 9. Outside numbers for the formula-only `matches` (done 2026-10-21 for `xfip`, `shutdown`, `meltdown`, `rc_basic`, `rc_tech`, `pu_pct`, `xbt_pct`, `Log5Model`, `EmpiricalBayesShrinker`; `game_score_v2` moved to `approximate`, FanGraphs' GSv2 is one point lower on 34 of 55 starts). Added in 1.3.0: 833 qualified batter-seasons and 2,005 pitcher-seasons of FanGraphs leaderboards (2005, 2012, 2016, 2019, 2022, 2024) now pin obp, slg, iso, bb_pct, k_pct, bb_to_k, pit_k_pct, pit_bb_pct, pit_k_minus_bb_pct, pit_k_to_bb (to the fourth decimal), and `k_minus_bb_pct` equals the difference of FanGraphs' published batter K% and BB%, ip (the notation conversion only, a round trip) and ra9 (equals ERA on the 170 pitcher-seasons without unearned runs); `der` is `approximate` against Baseball-Reference's DefEff for all 30 teams of 2016 (library 0.0025 higher on average, 0.0047 at most, probably because Baseball-Reference estimates reached-on-error; unconfirmed). Still without an outside value, only a checked formula: ubb, xbh, base_runs, seca, gpa, ta, off, dice, dips_bop_pct, bf_per_ip, cg_pct, qs_pct, sv_pct, err_pct, avg_extension, bauer_units, effective_velo, sweet_spot_pct. RC/27, QERA, Speed Score, the rule-based Markov chain, Monte Carlo and the head-to-head Pythagorean had no published value and were removed in 1.4.0. Several are plain ratios of counting stats (cg_pct, qs_pct, sv_pct, err_pct, bf_per_ip, ra9, ubb, xbh) which rule 7 allows with a hand-computed test; `off` and `sweet_spot_pct` are `approximate` (Off was not compared with the FanGraphs column and uses the experimental `bsr`; sweet spot is 0.5 to 2.1 points high on Savant's integer-rounded launch angles).
 10. Most golden fixtures come from a few players and seasons (Skubal 2024, 2001 pitchers); widen them.
+
+## Added after 2.0.2 (unreleased): the 2026-10-22 research round
+
+Eight methods were added from a documented research pass (ADR-0070 to ADR-0077). The counts above are for 1.4.1 and have
+not been recomputed. What each addition is confirmed against:
+
+| Addition | Outside value reproduced | Evidence tier |
+|---|---|---|
+| `power_speed_number` | Baseball-Reference career values (Bonds 613.90, Henderson 490.41, Mays 447.93) and five SABR/Wikipedia season values | `golden` |
+| `xr`, `xrr` | Furtado's printed McGwire 1998 example (166.35, 167.05); this is the author's own computation, so it validates arithmetic and inputs, not the estimator's accuracy. XRB is not implemented because its printed example is inconsistent | `golden` |
+| `calibration_table` bins, `brier_score` | Brier (1950) and Murphy (1973) printed examples (the library values are half of the printed two-class values) | `golden` |
+| `ranked_probability_score` | 60 of 62 printed cells of Epstein's Tables 1 and 2; the paper prints the other two inconsistently | `golden` |
+| `JamesSteinShrinker` | all 18 printed estimates, constants and errors of Efron and Morris (1975) | `golden` |
+| `glicko2_update` | every printed value of Glickman's worked example (author's own example; no baseball use found) | `golden` |
+| `expected_calibration_error`, `maximum_calibration_error` | none: the papers print no numeric example; tests are hand arithmetic and library-computed rows | `primary` |
+| `diebold_mariano_test` | none printed; hand arithmetic and statsmodels 0.15.0 output agree to about 1e-15; the Harvey-Leybourne-Newbold correction is not applied | `primary` |
+
+Not added, and why (details in the research notes): Brown (2008) shrinkage (24 of 59 printed cells unexplained), XRB,
+calibration slope and Hosmer-Lemeshow, Shin de-vig, Bradley-Terry and Lindsey-based items (papers not obtained).

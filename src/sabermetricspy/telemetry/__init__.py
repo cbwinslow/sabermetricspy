@@ -571,6 +571,50 @@ def _ensure_builtin_benchmarks() -> None:
         return eb.fit(df).transform(df)
 
     @register_benchmark(
+        name="evaluation.ranked_probability_score", category="evaluation", default_rows=100_000
+    )
+    def _bench_rps(rows: int = 100_000) -> Any:
+        from sabermetricspy.evaluation import ranked_probability_score
+
+        idx = pl.int_range(0, rows, eager=True)
+        a = (idx % 7).cast(pl.Float64) / 10.0
+        df = pl.DataFrame({"a": a, "b": 0.3, "c": 0.7 - a, "obs": idx % 3})
+        return ranked_probability_score(df, ["a", "b", "c"], "obs")
+
+    @register_benchmark(
+        name="evaluation.diebold_mariano_test", category="evaluation", default_rows=100_000
+    )
+    def _bench_dm(rows: int = 100_000) -> Any:
+        from sabermetricspy.evaluation import diebold_mariano_test
+
+        idx = pl.int_range(0, rows, eager=True).cast(pl.Float64)
+        df = pl.DataFrame(
+            {
+                "y": (idx % 10.0),
+                "a": (idx % 10.0) + (idx % 3.0),
+                "b": (idx % 10.0) + (idx % 5.0) / 2,
+            }
+        )
+        return diebold_mariano_test(df, "y", "a", "b", horizon=3)
+
+    @register_benchmark(name="models.glicko2_update", category="models", default_rows=2_000)
+    def _bench_glicko2(rows: int = 2_000) -> Any:
+        from sabermetricspy.models.glicko2 import glicko2_update
+
+        games = [(1400.0 + (i * 37) % 300, 30.0 + (i * 11) % 200, float(i % 2)) for i in range(10)]
+        return [glicko2_update(1500.0 + i % 50, 200.0, 0.06, games, tau=0.5) for i in range(rows)]
+
+    @register_benchmark(
+        name="uncertainty.james_stein", category="uncertainty", default_rows=100_000
+    )
+    def _bench_james_stein(rows: int = 100_000) -> Any:
+        from sabermetricspy.uncertainty import JamesSteinShrinker
+
+        idx = pl.int_range(0, rows, eager=True)
+        df = pl.DataFrame({"h": 5 + (idx * 7) % 30, "ab": pl.repeat(45, rows, eager=True)})
+        return JamesSteinShrinker().fit(df).transform(df)
+
+    @register_benchmark(
         name="evaluation.calibration_table", category="evaluation", default_rows=100_000
     )
     def _bench_calibration(rows: int = 100_000) -> Any:
@@ -579,6 +623,18 @@ def _ensure_builtin_benchmarks() -> None:
             {"p": (idx % 100).cast(pl.Float64) / 100.0, "y": (idx % 3 == 0).cast(pl.Int64)}
         )
         return calibration_table(df, "p", "y")
+
+    @register_benchmark(
+        name="evaluation.expected_calibration_error", category="evaluation", default_rows=100_000
+    )
+    def _bench_ece(rows: int = 100_000) -> Any:
+        from sabermetricspy.evaluation import expected_calibration_error
+
+        idx = pl.int_range(0, rows, eager=True)
+        df = pl.DataFrame(
+            {"p": (idx % 100).cast(pl.Float64) / 100.0, "y": (idx % 3 == 0).cast(pl.Int64)}
+        )
+        return expected_calibration_error(df, "p", "y")
 
 
 def get_registered_benchmarks() -> dict[str, BenchmarkEntry]:

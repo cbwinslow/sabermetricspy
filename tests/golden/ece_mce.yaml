@@ -1,0 +1,74 @@
+# DRAFT golden fixture: Expected / Maximum Calibration Error (ECE, MCE), binary-event form, with the bin-convention variants.
+# Entry style of sabermetricspy tests/golden/*.yaml (entries: id, source_url, retrieved, inputs, published, tolerance) plus `locator` and `basis`.
+#
+# IMPORTANT, evidence level: neither paper prints a numeric example (dossiers/ece_mce_calibration.md section 4), so NO row is a published paper value.
+#   hand-arithmetic          : worked by hand from the quoted definitions (derivation given).
+#   prototype-computed       : the 10-point fixture computed by tieouts/ece_mce_calibration/check_fixture.py (two independent bin assignments agree) and, for the
+#                              right-closed rows, cross-checked against scikit-learn 1.9.1 `calibration_curve` (prob_true / prob_pred) when scikit-learn is installed.
+# Definitions quoted (retrieved 2026-10-22):
+#   Naeini, Cooper, Hauskrecht 2015, AAAI-15, https://ojs.aaai.org/index.php/AAAI/article/download/9602/9461 , sources/naeini_2015_aaai/naeini2015.pdf pdf p.3 (text lines 262-285):
+#     "ECE = sum_i P(i) |o_i - e_i|, MCE = max_i |o_i - e_i|"; o_i = observed positive fraction in bin i, e_i = mean predicted probability, P(i) = share of instances.
+#     Edge closure and equal-width vs equal-frequency are NOT stated.
+#   Guo et al. 2017, arXiv:1706.04599, sources/guo_2017_calibration/arxiv1706.04599.pdf pdf p.2-3: bins I_m = ((m-1)/M, m/M] (right-closed); ECE = sum |B_m|/n |acc(B_m) - conf(B_m)| (eq. 3), MCE = max (eq. 5); M = 15 in their experiments.
+#   scikit-learn 1.9.1 calibration_curve: np.searchsorted(bins[1:-1], y_prob) => right-closed (lo, hi]; uniform edges np.linspace(0, 1, n_bins + 1).
+# Licence / attribution: Naeini AAAI (no licence stated), Guo arXiv (licence not checked), scikit-learn BSD-3. Only definitions are used; cite both papers in the docstring.
+# Tolerance: 1e-9 absolute. These are sums of a few products of decimals; the two independent implementations agree to ~1e-16. A wrong edge convention changes ECE by >= 0.04.
+# Fixture used by every ten_point row: y = [0,0,1,1,1,0,1,0,1,1], p = [.1,.2,.8,.65,.9,.4,.3,.5,.7,.95] (a LIBRARY-COMPUTED fixture, not from a paper).
+# Convention warning recorded for the spec: forecasts exactly on an edge (.2, .4, .5, .3 ...) are what make the conventions differ; real forecasts rarely sit on edges.
+entries:
+- id: ece_hand_m2_right
+  basis: hand-arithmetic
+  inputs: {p: [0.2, 0.5, 0.5, 0.9], y: [0, 0, 1, 1], n_bins: 2, closed: right, strategy: uniform, form: event}
+  published: {ece: 0.075, mce: 0.1}
+  tolerance: {ece: 1.0e-9, mce: 1.0e-9}
+  derivation: bin (0,.5] holds .2,.5,.5 (mean .4, rate 1/3, weight 3/4); bin (.5,1] holds .9 (rate 1, weight 1/4). ECE = 3/4*|1/3-.4| + 1/4*|1-.9| = .05+.025; MCE = max(.0667,.1)
+- id: ece_hand_m2_left
+  basis: hand-arithmetic
+  inputs: {p: [0.2, 0.5, 0.5, 0.9], y: [0, 0, 1, 1], n_bins: 2, closed: left, strategy: uniform, form: event}
+  published: {ece: 0.075, mce: 0.2}
+  tolerance: {ece: 1.0e-9, mce: 1.0e-9}
+  derivation: bin [0,.5) holds .2 (rate 0, gap .2, weight 1/4); bin [.5,1] holds .5,.5,.9 (mean .6333, rate 2/3, gap .0333, weight 3/4). ECE = .05 + .025; MCE = .2
+- id: ece_ten_m5_right
+  basis: prototype-computed
+  inputs: {p: &p10 [0.1, 0.2, 0.8, 0.65, 0.9, 0.4, 0.3, 0.5, 0.7, 0.95], y: &y10 [0, 0, 1, 1, 1, 0, 1, 0, 1, 1], n_bins: 5, closed: right, strategy: uniform, form: event}
+  published: {ece: 0.21, mce: 0.5}
+  tolerance: {ece: 1.0e-9, mce: 1.0e-9}
+  bins: {count: [2, 2, 1, 3, 2], mean_forecast: [0.15, 0.35, 0.5, 0.7166666666666667, 0.925], observed_rate: [0.0, 0.5, 0.0, 1.0, 1.0]}
+  bins_tolerance: 1.0e-9
+  cross_check: scikit-learn 1.9.1 calibration_curve(y, p, n_bins=5, strategy="uniform") gives prob_true [0, .5, 0, 1, 1], prob_pred [.15, .35, .5, .7167, .925] (run_output.txt of the dossier)
+- id: ece_ten_m5_left
+  basis: prototype-computed
+  inputs: {p: *p10, y: *y10, n_bins: 5, closed: left, strategy: uniform, form: event}
+  published: {ece: 0.25, mce: 0.45}
+  tolerance: {ece: 1.0e-9, mce: 1.0e-9}
+- id: ece_ten_m10_right
+  basis: prototype-computed
+  inputs: {p: *p10, y: *y10, n_bins: 10, closed: right, strategy: uniform, form: event}
+  published: {ece: 0.29, mce: 0.7}
+  tolerance: {ece: 1.0e-9, mce: 1.0e-9}
+- id: ece_ten_m10_left_exact
+  basis: prototype-computed
+  inputs: {p: *p10, y: *y10, n_bins: 10, closed: left, strategy: uniform, form: event}
+  published: {ece: 0.29, mce: 0.7}
+  tolerance: {ece: 1.0e-9, mce: 1.0e-9}
+  correction: >
+    The dossier table lists 0.25 / 0.5 for M=10 left-closed. That came from np.searchsorted(side="right") on float edges np.linspace(0,1,11), whose entries
+    0.30000000000000004, 0.6000000000000001 and 0.7000000000000001 are above the decimals .3, .6, .7, so those forecasts fell in the LOWER bin (right-closed behaviour). With exact
+    [lo, hi) assignment (exact decimal arithmetic, equal to floor(p*10) here) every forecast sits in its own bin and ECE = 0.29, MCE = 0.7, the same as right-closed.
+- id: ece_ten_m5_equal_frequency
+  basis: prototype-computed
+  inputs: {p: *p10, y: *y10, n_bins: 5, closed: right, strategy: quantile, form: event}
+  published: {ece: 0.14, mce: 0.25}
+  tolerance: {ece: 1.0e-9, mce: 1.0e-9}
+  caveat: edges are np.percentile(p, linspace(0, 100, M+1)) with linear interpolation, right-closed via searchsorted; other quantile definitions or tie rules give other numbers (implementation-defined, see spec question).
+- id: ece_ten_m10_equal_frequency
+  basis: prototype-computed
+  inputs: {p: *p10, y: *y10, n_bins: 10, closed: right, strategy: quantile, form: event}
+  published: {ece: 0.29, mce: 0.7}
+  tolerance: {ece: 1.0e-9, mce: 1.0e-9}
+- id: ece_ten_m5_guo_confidence_right
+  basis: prototype-computed
+  inputs: {p: *p10, y: *y10, n_bins: 5, closed: right, strategy: uniform, form: confidence}
+  published: {ece: 0.15, mce: 0.45}
+  tolerance: {ece: 1.0e-9, mce: 1.0e-9}
+  caveat: Guo-style predicted-class form for a binary classifier, conf = max(p, 1-p), yhat = 1[p > 0.5], acc = 1[yhat == y]. Not part of the recommended first implementation (event form only).

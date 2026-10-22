@@ -308,7 +308,9 @@ GOLDEN_COVERED = {m.value for m, _ in BATTING_METRICS.values()} | {
     m.value for m, _ in PITCHING_METRICS.values()
 }
 # `off` composes wRAA, BsR and league constants; its formula recomputation is in tests/test_game_score_and_off.py.
-TABLE_COVERED = {m.value for m, *_ in CASES} | {"off"}
+# `power_speed_number`, `xr` and `xrr` are checked against published values in tests/test_golden_power_speed_number.py
+# and tests/test_golden_extrapolated_runs.py.
+TABLE_COVERED = {m.value for m, *_ in CASES} | {"off", "power_speed_number", "xr", "xrr"}
 
 
 def _context(kwargs: dict[str, Any]) -> SeasonContext:

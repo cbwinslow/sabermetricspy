@@ -1,0 +1,38 @@
+# DRAFT golden fixture: Furtado Extrapolated Runs (XR) and Extrapolated Runs Reduced (XRR). XRB IS HELD BACK (see `held_back`).
+# Entry style of sabermetricspy tests/golden/*.yaml (entries: id, source_url, retrieved, inputs, published, tolerance) plus `locator` and `basis`.
+#
+# Source (primary, author's article): Jim Furtado, "Introducing XR", 1999 Big Bad Baseball Annual; hosted at
+#   http://www.baseballthinkfactory.org/btf/scholars/furtado/articles/IntroducingXR.htm   local: sources/furtado_introducing_xr/IntroducingXR.htm.txt
+#   formulas lines 164-173, "A player example" lines 198-207 (Mark McGwire 1998). Retrieved 2026-10-22 (sha256 3baad07d465e...).
+# Input cross-check: SABR Lahman Baseball Database 2025, Batting.csv, row mcgwima01/1998 (one stint): all 14 inputs equal the article's line
+#   (Lahman licence: CC BY-SA 3.0 Unported, readme2025.txt section 0.1).
+# Licence / attribution: no licence stated for the article; only the formula coefficients and one printed example (facts) are reused. Cite Furtado (1999).
+# Tolerances: printed to 2 decimals -> 0.005. XR computes to exactly 166.35; XRR to 167.054 (diff 0.004, inside the printed rounding).
+# Rule 7 caveat: the printed example is the author's own computation, so it validates the arithmetic and inputs, not an independent estimate of runs.
+entries:
+- id: xr_xrr_mcgwire_1998
+  basis: printed
+  player: Mark McGwire
+  source_url: http://www.baseballthinkfactory.org/btf/scholars/furtado/articles/IntroducingXR.htm
+  locator: "IntroducingXR.htm.txt lines 201-205 ('XR=...=166.35 ... XRR=167.05')"
+  retrieved: '2026-10-22'
+  inputs: {ab: 509, h: 152, b2: 21, b3: 0, hr: 70, bb: 162, ibb: 28, hbp: 6, sb: 1, cs: 0, so: 155, gidp: 8, sf: 4, sh: 0}
+  published: {xr: 166.35, xrr: 167.05}
+  tolerance: {xr: 0.005, xrr: 0.005}
+# Hand arithmetic from the formula lines (NOT printed values): one event of each kind, every other input 0. bb is TOTAL walks including ibb.
+- {id: xr_unit_home_run, basis: hand-arithmetic, inputs: {ab: 1, h: 1, hr: 1}, published: {xr: 1.44, xrr: 1.44}, tolerance: {xr: 1.0e-12, xrr: 1.0e-12}, note: 1.44*HR; AB-H-K = 0}
+- {id: xr_unit_walk, basis: hand-arithmetic, inputs: {bb: 1}, published: {xr: 0.34, xrr: 0.33}, tolerance: {xr: 1.0e-12, xrr: 1.0e-12}, note: .34*(HP+TBB-IBB) vs .33*(HP+TBB)}
+- {id: xr_unit_intentional_walk, basis: hand-arithmetic, inputs: {bb: 1, ibb: 1}, published: {xr: 0.25, xrr: 0.33}, tolerance: {xr: 1.0e-12, xrr: 1.0e-12}, note: IBB leaves the .34 group and gets .25 in XR; XRR does not distinguish}
+- {id: xr_unit_strikeout, basis: hand-arithmetic, inputs: {ab: 1, so: 1}, published: {xr: -0.098, xrr: -0.098}, tolerance: {xr: 1.0e-12, xrr: 1.0e-12}, note: -.098*K and AB-H-K = 0; XRR -.098*(AB-H)}
+- {id: xr_unit_non_k_out, basis: hand-arithmetic, inputs: {ab: 1}, published: {xr: -0.09, xrr: -0.098}, tolerance: {xr: 1.0e-12, xrr: 1.0e-12}, note: -.090*(AB-H-K) vs -.098*(AB-H)}
+- {id: xr_unit_sacrifice_fly, basis: hand-arithmetic, inputs: {sf: 1}, published: {xr: 0.37, xrr: 0.0}, tolerance: {xr: 1.0e-12, xrr: 1.0e-12}, note: +.37*SF only in XR}
+- {id: xr_unit_gidp, basis: hand-arithmetic, inputs: {ab: 1, gidp: 1}, published: {xr: -0.46, xrr: -0.098}, tolerance: {xr: 1.0e-12, xrr: 1.0e-12}, note: -.090 for the out, -.37 for GIDP (XR only)}
+held_back:
+- id: xrb_mcgwire_1998
+  status: HELD BACK, do not freeze
+  published_printed: {xrb: 169.03}
+  printed_formula_gives: 167.408
+  reason: >
+    The printed XRB formula (.34 x TBB, -.096 x (AB-H)) gives 167.408 on the printed inputs, 1.622 below the printed 169.03. Only a walk weight of .35 reproduces
+    it (169.028). Nothing in the retrieved files prints .35, and the article's prose does not explain the gap. Inconsistency inside Furtado's own article; XRB is not
+    implemented until a second printing settles .34 versus .35.

@@ -320,6 +320,8 @@ class Metric(StrEnum):
     OPS_PLUS = "ops_plus"
     RC_BASIC = "rc_basic"
     RC_TECH = "rc_tech"
+    XR = "xr"
+    XRR = "xrr"
     BASE_RUNS = "base_runs"
     GPA = "gpa"
     TA = "ta"
@@ -329,6 +331,9 @@ class Metric(StrEnum):
     WSB = "wsb"
     XBT_PCT = "xbt_pct"
     BSR = "bsr"
+
+    # Power and speed combined
+    POWER_SPEED_NUMBER = "power_speed_number"
 
     # Traditional Pitching
     IP = "ip"

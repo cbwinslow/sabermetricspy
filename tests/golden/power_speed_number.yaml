@@ -1,0 +1,30 @@
+# DRAFT golden fixture: Power-Speed Number (PSN) = 2 * HR * SB / (HR + SB). Entry style of sabermetricspy tests/golden/*.yaml
+# (entries: id, source_url, retrieved, inputs, published, tolerance) plus `locator` and `basis`.
+#
+# Printed values come from three sources (all retrieved 2026-10-22, see dossiers/power_speed_number.md section 1):
+#   SABR  Sciarretta (1983) "Thunder and Lightning: Players With Power and Speed", BRJ: https://sabr.org/journal/article/thunder-and-lightning-players-with-power-and-speed/
+#         (sources/sabr_brj_thunder_lightning/article.html.txt; formula "2(HR x SB) / HR+ SB"; Murphy 1983 32.7, Morgan 37.5, Mays 1955 32.6)
+#   WIKI  Wikipedia "Power-speed number" https://en.wikipedia.org/wiki/Power%E2%80%93speed_number (CC BY-SA 4.0; sources/wikipedia_power_speed/; Ohtani 56.39, Acuna 52.51, Bonds 613.9, Henderson 490.4)
+#   BREF  Baseball-Reference career leaders https://www.baseball-reference.com/leaders/power_speed_number_career.shtml (sources/bref_power_speed_leaders/career.shtml.txt lines 154-156:
+#         Bonds 613.90, Henderson 490.41, Mays 447.93)
+# HR and SB inputs: SABR Lahman Baseball Database 2025 Batting.csv, summed over stints (CC BY-SA 3.0 Unported, per its readme2025.txt section 0.1).
+# Attribution: cite Bill James (Baseball Abstract; 1980 per Lederer 2004, 1983 per Sciarretta, unresolved), the SABR Lahman database and Baseball-Reference as sources of the values.
+# Career rows apply the formula to CAREER TOTALS (a sum of season PSNs does not reproduce 613.9).
+# Tolerances: values printed to 2 decimals -> 0.005 (half the last digit; observed max error 0.0012); printed to 1 decimal -> 0.05 (observed max 0.0376, Morgan 37.4624 vs 37.5).
+# Wikipedia's Mays career 447.1 is stale (it equals 338 SB; Lahman and B-R have 339 SB and 447.93), so the B-R value is used; recorded in `excluded`.
+entries:
+- {id: psn_ohtani_2024, basis: printed, source: WIKI, source_url: 'https://en.wikipedia.org/wiki/Power%E2%80%93speed_number', retrieved: '2026-10-22', inputs: {hr: 54, sb: 59}, published: {psn: 56.39}, tolerance: {psn: 0.005}}
+- {id: psn_acuna_2023, basis: printed, source: WIKI, source_url: 'https://en.wikipedia.org/wiki/Power%E2%80%93speed_number', retrieved: '2026-10-22', inputs: {hr: 41, sb: 73}, published: {psn: 52.51}, tolerance: {psn: 0.005}}
+- {id: psn_murphy_1983, basis: printed, source: SABR, source_url: 'https://sabr.org/journal/article/thunder-and-lightning-players-with-power-and-speed/', retrieved: '2026-10-22', inputs: {hr: 36, sb: 30}, published: {psn: 32.7}, tolerance: {psn: 0.05}}
+- {id: psn_morgan_1973, basis: printed, source: SABR, source_url: 'https://sabr.org/journal/article/thunder-and-lightning-players-with-power-and-speed/', retrieved: '2026-10-22', inputs: {hr: 26, sb: 67}, published: {psn: 37.5}, tolerance: {psn: 0.05}}
+- {id: psn_mays_1955, basis: printed, source: SABR, source_url: 'https://sabr.org/journal/article/thunder-and-lightning-players-with-power-and-speed/', retrieved: '2026-10-22', inputs: {hr: 51, sb: 24}, published: {psn: 32.6}, tolerance: {psn: 0.05}}
+- {id: psn_bonds_career, basis: printed, source: BREF, source_url: 'https://www.baseball-reference.com/leaders/power_speed_number_career.shtml', retrieved: '2026-10-22', inputs: {hr: 762, sb: 514}, published: {psn: 613.90}, tolerance: {psn: 0.005}}
+- {id: psn_henderson_career, basis: printed, source: BREF, source_url: 'https://www.baseball-reference.com/leaders/power_speed_number_career.shtml', retrieved: '2026-10-22', inputs: {hr: 297, sb: 1406}, published: {psn: 490.41}, tolerance: {psn: 0.005}}
+- {id: psn_mays_career, basis: printed, source: BREF, source_url: 'https://www.baseball-reference.com/leaders/power_speed_number_career.shtml', retrieved: '2026-10-22', inputs: {hr: 660, sb: 339}, published: {psn: 447.93}, tolerance: {psn: 0.005}}
+# Hand arithmetic from the quoted formula (NOT printed values; unit-test rows, basis says so):
+- {id: psn_equal_counts, basis: hand-arithmetic, inputs: {hr: 10, sb: 10}, published: {psn: 10.0}, tolerance: {psn: 1.0e-12}, note: harmonic mean of equal numbers is that number}
+- {id: psn_one_component_zero, basis: hand-arithmetic, inputs: {hr: 0, sb: 5}, published: {psn: 0.0}, tolerance: {psn: 1.0e-12}, note: 2*0*5/5 = 0}
+- {id: psn_both_zero, basis: convention, inputs: {hr: 0, sb: 0}, published: {psn: null}, tolerance: {psn: 0}, note: denominator 0; library null-on-zero-denominator rule (ADR-0008/0046) gives null; dossier proposed 0 (owner decision O-PSN-1)}
+excluded:
+- id: psn_mays_career_wikipedia_447_1
+  reason: Wikipedia prints 447.1, which equals 2*660*338/998; Lahman 2025 and Baseball-Reference have 339 SB and print 447.93. Stale value, not tested.

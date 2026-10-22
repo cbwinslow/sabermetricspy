@@ -4,6 +4,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+### Added
+- `power_speed_number` (PSN, Bill James): harmonic mean of home runs and stolen bases, `2 HR SB / (HR + SB)`, null when HR + SB is 0. Reproduces Baseball-Reference's career values and SABR/Wikipedia season values (ADR-0070).
+- `xr` and `xrr` (Furtado's Extrapolated Runs and Extrapolated Runs Reduced), weighted-offense run estimators with fixed published weights; the article's McGwire 1998 example reproduces (ADR-0071). XRB is not implemented (its printed example is inconsistent).
+- `evaluation.expected_calibration_error` and `evaluation.maximum_calibration_error` (event form, equal-width right-closed bins, optional weights) (ADR-0073).
+- `JamesSteinShrinker` (Efron and Morris 1975 arcsine James-Stein rule for equal-trial data); reproduces the paper's 18 printed estimates (ADR-0074). The `EmpiricalBayesShrinker` docstring no longer cites the 1975 paper for its Beta-binomial method.
+- `evaluation.ranked_probability_score` for ordered-category forecasts (Epstein 1969; Murphy 1971), reproducing 60 of 62 printed table cells (ADR-0075).
+- `evaluation.diebold_mariano_test` (Diebold-Mariano 1995, Bartlett long-run variance; HLN correction not applied) (ADR-0076).
+- `glicko2_update`, `glicko2_expected_score` and `Glicko2Rating` (Glicko-2 rating update for one rating period); reproduces Glickman's worked example (ADR-0077).
+
+### Changed
+- `calibration_table` bins are now right-closed by default, `(k/n, (k+1)/n]`, as in scikit-learn and Guo et al.; a new `closed="left"` option keeps the previous `[k/n, (k+1)/n)` behaviour. Only a forecast exactly on an inner bin edge changes bin. `floor(p * n)` mis-binned some decimal edges for large n (ADR-0072).
+
 ## [2.0.2] - 2026-10-22
 
 ### Fixed
