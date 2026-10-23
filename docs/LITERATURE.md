@@ -133,3 +133,7 @@ These were found by a separate research pass with its own evidence library, not 
 | Ranked probability score | Epstein (1969); Murphy (1971) | ADR-0075 |
 | Diebold-Mariano test | Diebold and Mariano (1995); Harvey, Leybourne and Newbold (1997) read, correction not applied | ADR-0076 |
 | Glicko-2 rating update | Glickman, "Example of the Glicko-2 system" (2022) | ADR-0077 |
+| Isolated Discipline (IsoD) | Bill James; Tom Tango | ADR-0078 |
+| Batter's Run Average (BRA) | Cramer, D. and Palmer, P., Baseball Research Journal (1974) | ADR-0078 |
+| Estimated Runs Produced (ERP) | Paul Johnson (1985); Jim Furtado (1999) | ADR-0078 |
+

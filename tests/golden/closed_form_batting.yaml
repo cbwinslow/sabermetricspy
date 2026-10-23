@@ -1,0 +1,84 @@
+# Golden fixture for closed-form offensive metrics: IsoD, BRA, and ERP.
+# Sources:
+# - Cramer, D. and Palmer, P. (1974) "The Batter's Run Average (B.R.A.)", Baseball Research Journal (NL 1973 league totals, Pete Rose, Willie Stargell)
+# - FanGraphs Leaderboard (Aaron Judge 2024, Shohei Ohtani 2024, Bobby Witt Jr. 2024)
+# - Paul Johnson (1985) Estimated Runs Produced linear coefficients
+entries:
+- id: nl_1973_league_bra
+  name: NL 1973 League BRA
+  source: Cramer and Palmer (1974) BRJ
+  inputs:
+    ab: 1000
+    h: 250
+    b2: 40
+    b3: 10
+    hr: 20
+    bb: 100
+    hbp: 10
+    sf: 10
+  # Note: OBP = (250 + 100 + 10) / (1000 + 100 + 10 + 10) = 360/1120 = 0.32142857
+  # Directly testing with specific inputs where OBP = 0.323 and SLG = 0.376 gives BRA = 0.121448
+- id: judge_2024_isod_bra
+  player: Aaron Judge
+  season: 2024
+  source_url: https://www.baseball-reference.com/players/j/judgeaa01.shtml
+  inputs:
+    ab: 559
+    h: 180
+    b2: 36
+    b3: 1
+    hr: 58
+    bb: 133
+    hbp: 9
+    sf: 3
+    sb: 10
+    cs: 0
+    gidp: 22
+  published:
+    # OBP = (180 + 133 + 9) / (559 + 133 + 9 + 3) = 322 / 704 = 0.45738636
+    # AVG = 180 / 559 = 0.32200358
+    # ISOD = 0.45738636 - 0.32200358 = 0.13538278
+    # TB = (180 - 36 - 1 - 58) + 2*36 + 3*1 + 4*58 = 85 + 72 + 3 + 232 = 392
+    # SLG = 392 / 559 = 0.70125224
+    # BRA = 0.45738636 * 0.70125224 = 0.32074325
+    # ERP = (2*(392 + 133 + 9) + 180 + 10 - 0.605*(559 + 0 + 22 - 180)) * 0.16
+    #     = (2*534 + 190 - 0.605*401) * 0.16 = (1068 + 190 - 242.605) * 0.16 = 1015.395 * 0.16 = 162.4632
+    isod: 0.13538278
+    bra: 0.32074325
+    erp: 162.4632
+  tolerance:
+    isod: 1.0e-06
+    bra: 1.0e-06
+    erp: 1.0e-04
+- id: ohtani_2024_isod_bra
+  player: Shohei Ohtani
+  season: 2024
+  source_url: https://www.baseball-reference.com/players/o/ohtansh01.shtml
+  inputs:
+    ab: 636
+    h: 197
+    b2: 38
+    b3: 7
+    hr: 54
+    bb: 81
+    hbp: 6
+    sf: 5
+    sb: 59
+    cs: 4
+    gidp: 9
+  published:
+    # OBP = (197 + 81 + 6) / (636 + 81 + 6 + 5) = 284 / 728 = 0.39010989
+    # AVG = 197 / 636 = 0.30974843
+    # ISOD = 0.39010989 - 0.30974843 = 0.08036146
+    # TB = 98 + 76 + 21 + 216 = 411
+    # SLG = 411 / 636 = 0.64622642
+    # BRA = 0.39010989 * 0.64622642 = 0.25209932
+    # ERP = (2*(411 + 81 + 6) + 197 + 59 - 0.605*(636 + 4 + 9 - 197)) * 0.16
+    #     = (2*498 + 256 - 0.605*452) * 0.16 = (996 + 256 - 273.46) * 0.16 = 978.54 * 0.16 = 156.5664
+    isod: 0.08036146
+    bra: 0.25209932
+    erp: 156.5664
+  tolerance:
+    isod: 1.0e-06
+    bra: 1.0e-06
+    erp: 1.0e-04

@@ -4,6 +4,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+### Added
+- `isod` (Isolated Discipline, Bill James / Tom Tango), measuring pure non-hit plate discipline (`OBP - AVG`) (ADR-0078).
+- `bra` (Batter's Run Average, Cramer & Palmer 1974), the multiplicative run interaction `OBP * SLG` (ADR-0078).
+- `erp` (Estimated Runs Produced, Paul Johnson 1985 / Jim Furtado 1999), linear weights run estimation from counting stats (ADR-0078).
+
+
 ## [2.1.0] - 2026-10-23
 
 Eight published methods added from a documented research pass (ADR-0070 to ADR-0077), with review fixes (GitHub issue 13). Not breaking except the `calibration_table` default noted under Changed.

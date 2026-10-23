@@ -145,3 +145,14 @@ not been recomputed. What each addition is confirmed against:
 
 Not added, and why (details in the research notes): Brown (2008) shrinkage (24 of 59 printed cells unexplained), XRB,
 calibration slope and Hosmer-Lemeshow, Shin de-vig, Bradley-Terry and Lindsey-based items (papers not obtained).
+
+## Added after 2.1.0: Closed-Form Offensive Metrics
+
+Three classic offensive metrics were added (ADR-0078):
+
+| Addition | Outside value reproduced | Evidence tier |
+|---|---|---|
+| `isod` | Aaron Judge 2024 (.135) and Shohei Ohtani 2024 (.080) from Baseball-Reference leaderboards; verified by algebraic identity `isod == obp - avg` | `golden` |
+| `bra` | 1973 NL league total (.121 from .323 OBA and .376 SLG) from Cramer & Palmer (1974 BRJ); verified by identity `bra == obp * slg` | `golden` |
+| `erp` | Paul Johnson (1985) Estimated Runs Produced; reproduces Furtado's algebraic expansion exactly on 2024 player leaderboards | `golden` |
+

@@ -177,6 +177,25 @@ def calc_iso(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
+        metric=Metric.ISOD,
+        display_name="IsoD",
+        category=Category.BATTING,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("h", "ab", "bb"),
+        optional_columns=("hbp", "sf"),
+        requires=(Metric.AVG, Metric.OBP),
+        direction=Direction.HIGHER_IS_BETTER,
+        formula_latex=r"IsoD = OBP - AVG",
+        citation="James, B.; Tango, T. (2006)",
+        description="Isolated discipline (non-hit on-base rate).",
+    )
+)
+def calc_isod(ctx: EvalContext) -> nw.Expr:
+    return nw.col("obp") - nw.col("avg")
+
+
+@register_metric(
+    MetricSpec(
         metric=Metric.BABIP,
         display_name="BABIP",
         category=Category.BATTING,

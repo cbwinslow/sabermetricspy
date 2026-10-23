@@ -405,3 +405,52 @@ def calc_ta(ctx: EvalContext) -> nw.Expr:
     num = nw.col("tb") + nw.col("bb") + hbp + sb
     den = nw.col("ab") - nw.col("h") + cs + gidp
     return safe_div(num, den)
+
+
+@register_metric(
+    MetricSpec(
+        metric=Metric.BRA,
+        display_name="BRA",
+        category=Category.WEIGHTED_OFFENSE,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("h", "b2", "b3", "hr", "bb", "ab"),
+        optional_columns=("hbp", "sf"),
+        requires=(Metric.OBP, Metric.SLG),
+        direction=Direction.HIGHER_IS_BETTER,
+        formula_latex=r"BRA = OBP \times SLG",
+        citation="Cramer, D. & Palmer, P. (1974) The Batter's Run Average, Baseball Research Journal",
+        description="Batter's Run Average measuring multiplicative on-base and slugging interaction.",
+    )
+)
+def calc_bra(ctx: EvalContext) -> nw.Expr:
+    return nw.col("obp") * nw.col("slg")
+
+
+@register_metric(
+    MetricSpec(
+        metric=Metric.ERP,
+        display_name="ERP",
+        category=Category.WEIGHTED_OFFENSE,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("h", "b2", "b3", "hr", "bb", "ab"),
+        optional_columns=("hbp", "sb", "cs", "gidp"),
+        requires=(Metric.TB,),
+        direction=Direction.HIGHER_IS_BETTER,
+        formula_latex=r"ERP = (2(TB + BB + HBP) + H + SB - 0.605(AB + CS + GIDP - H)) \times 0.16",
+        citation="Johnson, P. (1985) Bill James Baseball Abstract; Furtado, J. (1999)",
+        description="Paul Johnson's Estimated Runs Produced linear run estimator.",
+    )
+)
+def calc_erp(ctx: EvalContext) -> nw.Expr:
+    hbp = nw.col("hbp") if "hbp" in ctx.available_columns else nw.lit(0)
+    sb = nw.col("sb") if "sb" in ctx.available_columns else nw.lit(0)
+    cs = nw.col("cs") if "cs" in ctx.available_columns else nw.lit(0)
+    gidp = nw.col("gidp") if "gidp" in ctx.available_columns else nw.lit(0)
+    inner = (
+        2.0 * (nw.col("tb") + nw.col("bb") + hbp)
+        + nw.col("h")
+        + sb
+        - 0.605 * (nw.col("ab") + cs + gidp - nw.col("h"))
+    )
+    return inner * 0.16
+

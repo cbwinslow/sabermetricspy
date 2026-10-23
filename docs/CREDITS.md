@@ -31,6 +31,9 @@ See `CITATION.cff` (GitHub shows a "Cite this repository" button).
 | Diebold-Mariano test | Francis Diebold and Roberto Mariano (1995), Journal of Business and Economic Statistics |
 | Arcsine James-Stein shrinkage | Bradley Efron and Carl Morris (1975), Journal of the American Statistical Association |
 | Glicko-2 rating update | Mark Glickman, glicko.net |
+| Batter's Run Average | Dick Cramer and Pete Palmer (1974), Baseball Research Journal / SABR |
+| Estimated Runs Produced | Paul Johnson (1985), Bill James Baseball Abstract |
+
 
 Where a name above could not be traced to a page we read, METHODOLOGY.md says so instead; this table is a summary,
 not the evidence.

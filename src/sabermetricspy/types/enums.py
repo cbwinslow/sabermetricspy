@@ -298,6 +298,7 @@ class Metric(StrEnum):
     SLG = "slg"
     OPS = "ops"
     ISO = "iso"
+    ISOD = "isod"
     BABIP = "babip"
     SECA = "seca"
     HR_PCT = "hr_pct"
@@ -322,7 +323,9 @@ class Metric(StrEnum):
     RC_TECH = "rc_tech"
     XR = "xr"
     XRR = "xrr"
+    ERP = "erp"
     BASE_RUNS = "base_runs"
+    BRA = "bra"
     GPA = "gpa"
     TA = "ta"
 
