@@ -74,3 +74,21 @@ def test_ece_is_between_zero_and_mce_and_both_within_unit_interval(
     ece = ev.expected_calibration_error(df, "p", "y", n_bins=n_bins)
     mce = ev.maximum_calibration_error(df, "p", "y", n_bins=n_bins)
     assert 0.0 <= ece <= mce + 1e-12 <= 1.0 + 1e-12
+
+
+def test_bins_equal_the_recorded_scikit_learn_calibration_curve_output() -> None:
+    """Outside check: per-bin counts, mean forecasts and observed rates equal scikit-learn 1.9.1 calibration_curve
+    (recorded in the fixture's `bins` field for the five-bin right-closed row), the independent implementation of the
+    same binning that ECE and MCE are built on."""
+    entry = next(e for e in load_entries("ece_mce.yaml") if e["id"] == "ece_ten_m5_right")
+    i, recorded = entry["inputs"], entry["bins"]
+    res = ev.calibration_table(
+        pl.DataFrame({"p": i["p"], "y": i["y"]}), "p", "y", n_bins=5, closed="right"
+    )
+    assert [b.count for b in res.bins] == recorded["count"]
+    assert [b.mean_forecast for b in res.bins] == pytest.approx(
+        recorded["mean_forecast"], abs=entry["bins_tolerance"]
+    )
+    assert [b.observed_rate for b in res.bins] == pytest.approx(
+        recorded["observed_rate"], abs=entry["bins_tolerance"]
+    )
