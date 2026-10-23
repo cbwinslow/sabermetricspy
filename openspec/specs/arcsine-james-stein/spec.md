@@ -1,7 +1,7 @@
 # arcsine-james-stein Specification
 
 ## Purpose
-TBD - created by archiving change add-published-methods-round-2. Update Purpose after archive.
+Provide the Efron-Morris arcsine variance-stabilized James-Stein shrinkage estimator for multi-player rate parameters with equal trials.
 
 ## Requirements
 

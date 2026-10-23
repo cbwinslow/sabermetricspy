@@ -1,7 +1,7 @@
 # diebold-mariano-test Specification
 
 ## Purpose
-TBD - created by archiving change add-published-methods-round-2. Update Purpose after archive.
+Provide the Diebold-Mariano hypothesis test for evaluating the statistical significance of predictive accuracy differences between two competing forecasting models.
 
 ## Requirements
 

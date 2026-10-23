@@ -1,7 +1,7 @@
 # power-speed-number Specification
 
 ## Purpose
-TBD - created by archiving change add-published-methods-round-2. Update Purpose after archive.
+Provide Bill James's Power-Speed Number metric for assessing the balance and magnitude of a player's home run and stolen base production.
 
 ## Requirements
 

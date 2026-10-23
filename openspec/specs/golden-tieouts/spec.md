@@ -1,7 +1,7 @@
 # golden-tieouts Specification
 
 ## Purpose
-TBD - created by archiving change v1-golden-tieouts-and-readiness. Update Purpose after archive.
+Verify that core sabermetric calculations, constants, and models exactly reproduce verified external benchmarks and golden fixtures without internet access.
 
 ## Requirements
 

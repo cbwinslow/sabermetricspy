@@ -1,7 +1,7 @@
 # extrapolated-runs Specification
 
 ## Purpose
-TBD - created by archiving change add-published-methods-round-2. Update Purpose after archive.
+Provide Jim Furtado's Extrapolated Runs (XR and XRR) linear-weight estimators for evaluating total run contribution from offensive counting statistics.
 
 ## Requirements
 

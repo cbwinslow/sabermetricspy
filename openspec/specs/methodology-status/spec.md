@@ -1,7 +1,7 @@
 # methodology-status Specification
 
 ## Purpose
-TBD - created by archiving change v1-0-1-methodology-cleanup. Update Purpose after archive.
+Track evidence tiers, outside value tie-outs, and experimental warnings across all registered metrics, models, and estimators in the library.
 
 ## Requirements
 

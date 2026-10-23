@@ -1,7 +1,7 @@
 # calibration-bin-convention Specification
 
 ## Purpose
-TBD - created by archiving change add-published-methods-round-2. Update Purpose after archive.
+Specify binning boundaries for calibration curves and Brier score decompositions, defaulting to right-closed intervals with configurable left-closed behavior.
 
 ## Requirements
 
