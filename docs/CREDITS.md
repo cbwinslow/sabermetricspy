@@ -33,6 +33,8 @@ See `CITATION.cff` (GitHub shows a "Cite this repository" button).
 | Glicko-2 rating update | Mark Glickman, glicko.net |
 | Batter's Run Average | Dick Cramer and Pete Palmer (1974), Baseball Research Journal / SABR |
 | Estimated Runs Produced | Paul Johnson (1985), Bill James Baseball Abstract |
+| Component ERA (ERC) | Bill James (2004), The Bill James Handbook |
+| Pythagenport | Clay Davenport & Keith Woolner (1999), Baseball Prospectus #342 |
 
 
 Where a name above could not be traced to a page we read, METHODOLOGY.md says so instead; this table is a summary,

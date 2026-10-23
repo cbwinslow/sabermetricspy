@@ -368,6 +368,7 @@ class Metric(StrEnum):
     XFIP = "xfip"
     KWERA = "kwera"
     DICE = "dice"
+    ERC = "erc"
     DIPS_BOP_PCT = "dips_bop_pct"
     SIERA = "siera"
     ERA_PLUS = "era_plus"
@@ -450,6 +451,7 @@ class Metric(StrEnum):
     WIN_PCT = "win_pct"
     PYTHAG_WIN_PCT = "pythag_win_pct"
     PYTHAGENPAT_WIN_PCT = "pythagenpat_win_pct"
+    PYTHAGENPORT_WIN_PCT = "pythagenport_win_pct"
     PYTHAG_WINS = "pythag_wins"
     PYTHAG_LUCK = "pythag_luck"
 

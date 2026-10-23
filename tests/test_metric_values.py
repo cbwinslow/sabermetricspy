@@ -307,9 +307,18 @@ CASES: list[tuple[Metric, dict[str, Any], float, dict[str, Any]]] = [
 GOLDEN_COVERED = {m.value for m, _ in BATTING_METRICS.values()} | {
     m.value for m, _ in PITCHING_METRICS.values()
 }
-# `off` composes wRAA, BsR and league constants; its formula recomputation is in tests/test_game_score_and_off.py.
-# `power_speed_number`, `xr`, `xrr`, `isod`, `bra`, and `erp` are checked against published values in their respective golden test suites.
-TABLE_COVERED = {m.value for m, *_ in CASES} | {"off", "power_speed_number", "xr", "xrr", "isod", "bra", "erp"}
+# `power_speed_number`, `xr`, `xrr`, `isod`, `bra`, `erp`, `erc`, and `pythagenport_win_pct` are checked against published values in their respective golden test suites.
+TABLE_COVERED = {m.value for m, *_ in CASES} | {
+    "off",
+    "power_speed_number",
+    "xr",
+    "xrr",
+    "isod",
+    "bra",
+    "erp",
+    "erc",
+    "pythagenport_win_pct",
+}
 
 
 def _context(kwargs: dict[str, Any]) -> SeasonContext:

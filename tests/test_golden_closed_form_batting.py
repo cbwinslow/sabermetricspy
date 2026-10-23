@@ -28,7 +28,9 @@ def test_closed_form_metrics_match_fixture(entry: dict[str, Any]) -> None:
 
     for metric_name, expected_val in entry["published"].items():
         tol = entry["tolerance"].get(metric_name, 1e-5)
-        assert res[metric_name] == pytest.approx(expected_val, abs=tol), f"{entry['id']} {metric_name}"
+        assert res[metric_name] == pytest.approx(expected_val, abs=tol), (
+            f"{entry['id']} {metric_name}"
+        )
 
 
 def test_bra_cramer_palmer_1973_league_worked_example() -> None:
@@ -84,7 +86,12 @@ def test_erp_missing_optional_columns_defaults_to_zero() -> None:
     res = sp.calculate(df, [Metric.ERP]).df["erp"][0]
 
     # Without optional columns: tb = 91 + 50 + 12 + 80 = 233
-    tb = (row["h"] - row["b2"] - row["b3"] - row["hr"]) + 2 * row["b2"] + 3 * row["b3"] + 4 * row["hr"]
+    tb = (
+        (row["h"] - row["b2"] - row["b3"] - row["hr"])
+        + 2 * row["b2"]
+        + 3 * row["b3"]
+        + 4 * row["hr"]
+    )
     expected = (2.0 * (tb + row["bb"]) + row["h"] - 0.605 * (row["ab"] - row["h"])) * 0.16
     assert res == pytest.approx(expected, abs=1e-9)
 
@@ -117,8 +124,12 @@ def test_isod_and_bra_identities(
     b2 = min(b2, h - hr)
     b3 = min(b3, h - hr - b2)
 
-    df = pl.DataFrame([{"ab": ab, "h": h, "bb": bb, "hbp": hbp, "sf": sf, "hr": hr, "b2": b2, "b3": b3}])
-    res = sp.calculate(df, [Metric.AVG, Metric.OBP, Metric.SLG, Metric.ISOD, Metric.BRA]).df.row(0, named=True)
+    df = pl.DataFrame(
+        [{"ab": ab, "h": h, "bb": bb, "hbp": hbp, "sf": sf, "hr": hr, "b2": b2, "b3": b3}]
+    )
+    res = sp.calculate(df, [Metric.AVG, Metric.OBP, Metric.SLG, Metric.ISOD, Metric.BRA]).df.row(
+        0, named=True
+    )
 
     assert math.isclose(res["isod"], res["obp"] - res["avg"], abs_tol=1e-9)
     assert math.isclose(res["bra"], res["obp"] * res["slg"], abs_tol=1e-9)
@@ -162,4 +173,3 @@ def test_multi_backend_interoperability_closed_form() -> None:
         assert pytest.approx(val_pl) == val_pa
         assert pytest.approx(val_pl) == val_pd
         assert pytest.approx(val_pl) == val_duck
-

@@ -453,4 +453,3 @@ def calc_erp(ctx: EvalContext) -> nw.Expr:
         - 0.605 * (nw.col("ab") + cs + gidp - nw.col("h"))
     )
     return inner * 0.16
-

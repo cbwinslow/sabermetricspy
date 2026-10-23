@@ -730,6 +730,33 @@ def calc_pythagenpat_win_pct(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
+        metric=Metric.PYTHAGENPORT_WIN_PCT,
+        display_name="Pythagenport W%",
+        category=Category.TEAM,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("rs", "ra", "w", "l"),
+        direction=Direction.HIGHER_IS_BETTER,
+        formula_latex=r"\gamma = 1.50 \times \log_{10}\left(\frac{RS + RA}{G}\right) + 0.45, \quad W\% = \frac{RS^\gamma}{RS^\gamma + RA^\gamma}",
+        citation="Davenport, C. & Woolner, K. (1999) Revisiting the Pythagorean Theorem, Baseball Prospectus",
+        description="Pythagenport expected winning percentage with Davenport & Woolner's dynamic base-10 logarithmic exponent.",
+        caveats=("Returns null when games (w + l) is zero, or when (RS + RA) is non-positive.",),
+    )
+)
+def calc_pythagenport_win_pct(ctx: EvalContext) -> nw.Expr:
+    g = (nw.col("w") + nw.col("l")).cast(nw.Float64)
+    rpg = safe_div(nw.col("rs") + nw.col("ra"), g)
+    gamma = (
+        nw.when((~rpg.is_null()) & (rpg > 0.0))
+        .then(1.50 * rpg.log(10) + 0.45)
+        .otherwise(nw.lit(None, dtype=nw.Float64))
+    )
+    rs_g = nw.col("rs").cast(nw.Float64) ** gamma
+    ra_g = nw.col("ra").cast(nw.Float64) ** gamma
+    return safe_div(rs_g, rs_g + ra_g)
+
+
+@register_metric(
+    MetricSpec(
         metric=Metric.PYTHAG_WINS,
         display_name="Pythag W",
         category=Category.TEAM,

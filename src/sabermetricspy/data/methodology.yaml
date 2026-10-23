@@ -197,6 +197,11 @@ metrics:
     evidence: golden
     source_url: https://library.fangraphs.com/pitching/era-fip-xfip/
     note: 'FIP- = 100 * (rawFIP + c_league) * (2 - PF/100) / lgERA_league, where c_league is the pitcher''s own league constant (FanGraphs sets the FIP constant per league so that league FIP equals league ERA; here cFIP + lgERA - lgFIP for the AL or NL) and PF is the FIP column of the FanGraphs park factors page. The FanGraphs Library gives only the ERA- form and does not document the league constant, so that part is measured. Against 32 FanGraphs pitcher seasons from 2011, 2019, 2024 and 2025 (tests/golden/fip_minus_fangraphs.yaml, retrieved 2026-10-21) the mean absolute error is 0.19 points and the largest 0.53; the FanGraphs park column is a whole number, which alone moves FIP- by up to 0.6. The seven 2000, 2001 and 2024 fixtures in tests/golden/pitching.yaml, including the Johnson and Schilling pair that once looked inconsistent, are within 0.25 points once given the FIP column (it exists for every season from 1990; it is supplied as the supplied constants park_fip.yaml, get_fip_park_factor(team, season)). Using the MLB-wide constant instead (the method before 1.1.0) gave a mean error of about 1.8, and the Basic 5-year park factor instead of the FIP column left the 2000 and 2001 fixtures 1.3 to 2.1 off.'
+  erc:
+    status: matches
+    evidence: golden
+    source_url: https://tangotiger.net/wiki_archive/Component_ERA.html
+    note: Bill James's Component ERA (2004 Bill James Handbook; ESPN Sortable Stats), estimating earned run average from component events (H, HR, BB, HBP, IBB, BF, outs) without sequencing noise. Continuous at threshold 2.24 (2.24 * 0.75 == 2.24 - 0.56 == 1.68) and falls back to the 0.475 walk coefficient when IBB is unavailable (tests/golden/erc_and_pythagenport.yaml).
   erp:
     status: matches
     evidence: golden
@@ -432,6 +437,11 @@ metrics:
     evidence: primary
     source_url: https://www.baseball-reference.com/about/war_explained_runs_to_wins.shtml
     note: Default exponent is (runs per game)^0.287; Baseball-Reference uses 0.285 and sources conflict on which is canonical. Set SeasonContext.pythagenpat_exponent to choose.
+  pythagenport_win_pct:
+    status: matches
+    evidence: golden
+    source_url: https://www.baseballprospectus.com/news/article/342/
+    note: Clay Davenport and Keith Woolner's Pythagenport (Baseball Prospectus 1999 article 342), using the dynamic base-10 logarithmic exponent gamma = 1.50 * log10(RPG) + 0.45. Reproduces the 1998 Yankees tie-out (.6798 win pct, 110.8 wins in 162 games) and Bob Gibson 1968 5.03 RPG exponent 1.50 (tests/golden/erc_and_pythagenport.yaml).
   qs_pct:
     status: matches
     evidence: secondary

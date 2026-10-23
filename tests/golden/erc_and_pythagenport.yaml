@@ -1,0 +1,58 @@
+# Golden fixtures for Component ERA (ERC) and Pythagenport Winning Percentage
+# Sources:
+# - Bill James (2004) The Bill James Handbook; TangoTiger Wiki (Component ERA)
+# - Davenport, C. & Woolner, K. (1999) 'Revisiting the Pythagorean Theorem', Baseball Prospectus #342
+
+pythagenport:
+  - label: "1998 Yankees (BP #342 tie-out)"
+    rs: 965
+    ra: 656
+    w: 114
+    l: 48
+    expected_pythagenport_win_pct: 0.6797866308
+    tolerance: 0.0001
+  - label: "2016 Rangers (Wikipedia 82-80 expected record)"
+    rs: 765
+    ra: 757
+    w: 95
+    l: 67
+    expected_pythagenport_win_pct: 0.5050085185
+    tolerance: 0.0001
+  - label: "Equal runs scored and allowed (exact 0.500)"
+    rs: 700
+    ra: 700
+    w: 81
+    l: 81
+    expected_pythagenport_win_pct: 0.5000000000
+    tolerance: 0.000001
+
+component_era:
+  - label: "Standard line with IBB (raw >= 2.24)"
+    h: 150
+    hr: 20
+    bb: 50
+    hbp: 5
+    ibb: 2
+    outs: 600
+    bf: 800
+    expected_erc: 2.277650453125
+    tolerance: 0.000001
+  - label: "Fallback line without IBB (raw >= 2.24)"
+    h: 150
+    hr: 20
+    bb: 50
+    hbp: 5
+    outs: 600
+    bf: 800
+    expected_erc: 2.236657515625
+    tolerance: 0.000001
+  - label: "Suppressed line (raw < 2.24, scaled by 0.75)"
+    h: 50
+    hr: 5
+    bb: 15
+    hbp: 1
+    ibb: 0
+    outs: 600
+    bf: 700
+    expected_erc: 0.24509739375
+    tolerance: 0.000001

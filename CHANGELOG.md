@@ -8,6 +8,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 - `isod` (Isolated Discipline, Bill James / Tom Tango), measuring pure non-hit plate discipline (`OBP - AVG`) (ADR-0078).
 - `bra` (Batter's Run Average, Cramer & Palmer 1974), the multiplicative run interaction `OBP * SLG` (ADR-0078).
 - `erp` (Estimated Runs Produced, Paul Johnson 1985 / Jim Furtado 1999), linear weights run estimation from counting stats (ADR-0078).
+- `erc` (Component ERA, Bill James), estimating earned run average from component events with a continuous piecewise spline at 2.24 (ADR-0079).
+- `pythagenport_win_pct` (Pythagenport W%, Davenport & Woolner 1999), dynamic base-10 log exponent winning percentage estimator (ADR-0079).
 
 
 ## [2.1.0] - 2026-10-23

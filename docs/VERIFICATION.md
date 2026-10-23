@@ -156,3 +156,12 @@ Three classic offensive metrics were added (ADR-0078):
 | `bra` | 1973 NL league total (.121 from .323 OBA and .376 SLG) from Cramer & Palmer (1974 BRJ); verified by identity `bra == obp * slg` | `golden` |
 | `erp` | Paul Johnson (1985) Estimated Runs Produced; reproduces Furtado's algebraic expansion exactly on 2024 player leaderboards | `golden` |
 
+## Added after 2.1.0: Component ERA and Pythagenport
+
+Two closed-form estimators were added (ADR-0079):
+
+| Addition | Outside value reproduced | Evidence tier |
+|---|---|---|
+| `erc` | Bill James Component ERA (*2004 Bill James Handbook*; Tango wiki); continuous spline at 2.24 meeting at 1.68; verified against golden vectors and no-IBB fallback | `golden` |
+| `pythagenport_win_pct` | Clay Davenport & Keith Woolner (1999 BP #342) 1998 Yankees tie-out (.6798 win pct) and Bob Gibson 1968 5.03 RPG exponent 1.50 | `golden` |
+

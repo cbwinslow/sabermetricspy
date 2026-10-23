@@ -457,6 +457,55 @@ def calc_dice(ctx: EvalContext) -> nw.Expr:
 
 @register_metric(
     MetricSpec(
+        metric=Metric.ERC,
+        display_name="ERC",
+        category=Category.DEFENSE_INDEPENDENT_PITCHING,
+        kind=ImplKind.DETERMINISTIC,
+        required_columns=("h", "hr", "bb", "outs", "bf"),
+        optional_columns=("hbp", "ibb"),
+        direction=Direction.LOWER_IS_BETTER,
+        formula_latex=(
+            r"PTB = 0.89(1.255(H - HR) + 4HR) + 0.56(BB + HBP - IBB), \quad "
+            r"raw = \frac{9(H + BB + HBP) \times PTB}{BF \times IP}, \quad "
+            r"ERC = \begin{cases} raw \times 0.75 & raw < 2.24 \\ raw - 0.56 & raw \ge 2.24 \end{cases}"
+        ),
+        citation="James, B. (2004) The Bill James Handbook; Tango, T. Component ERA, TangoTiger Wiki; ESPN Sortable Stats",
+        description="Bill James's Component ERA estimating earned run average from component events.",
+        caveats=(
+            "When intentional walks (ibb) are unavailable, uses the standard fallback PTB = 0.89*(1.255*(H-HR)+4*HR) + 0.475*(BB+HBP).",
+            "Returns null when BF or IP (outs) is zero.",
+        ),
+    )
+)
+def calc_erc(ctx: EvalContext) -> nw.Expr:
+    h = nw.col("h").cast(nw.Float64)
+    hr = nw.col("hr").cast(nw.Float64)
+    bb = nw.col("bb").cast(nw.Float64)
+    hbp = nw.col("hbp").cast(nw.Float64) if "hbp" in ctx.available_columns else nw.lit(0.0)
+    bf = nw.col("bf").cast(nw.Float64)
+    outs = nw.col("outs").cast(nw.Float64)
+    ip = outs / 3.0
+
+    batted_ptb = 0.89 * (1.255 * (h - hr) + 4.0 * hr)
+    if "ibb" in ctx.available_columns:
+        ibb = nw.col("ibb").cast(nw.Float64)
+        walk_ptb = 0.56 * (bb + hbp - ibb)
+    else:
+        walk_ptb = 0.475 * (bb + hbp)
+    ptb = batted_ptb + walk_ptb
+
+    raw = safe_div((h + bb + hbp) * ptb * 9.0, bf * ip)
+    return (
+        nw.when(raw.is_null())
+        .then(nw.lit(None, dtype=nw.Float64))
+        .when(raw < 2.24)
+        .then(raw * 0.75)
+        .otherwise(raw - 0.56)
+    )
+
+
+@register_metric(
+    MetricSpec(
         metric=Metric.KWERA,
         display_name="kwERA",
         category=Category.DEFENSE_INDEPENDENT_PITCHING,
