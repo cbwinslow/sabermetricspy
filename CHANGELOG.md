@@ -4,6 +4,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-10-23
+
+Eight published methods added from a documented research pass (ADR-0070 to ADR-0077), with review fixes (GitHub issue 13). Not breaking except the `calibration_table` default noted under Changed.
+
 ### Fixed
 - Glicko-2: the volatility search is bounded and raises `ValueError` instead of hanging or dividing by zero; `games` may be a generator or an array. `ranked_probability_score` accepts forecasts rounded to a few decimals (row sums within 0.001). Review fixes from GitHub issue 13.
 
