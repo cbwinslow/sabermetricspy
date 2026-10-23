@@ -1,4 +1,4 @@
-# DRAFT golden fixture: Expected / Maximum Calibration Error (ECE, MCE), binary-event form, with the bin-convention variants.
+# Golden fixture: Expected / Maximum Calibration Error (ECE, MCE), binary-event form, with the bin-convention variants.
 # Entry style of sabermetricspy tests/golden/*.yaml (entries: id, source_url, retrieved, inputs, published, tolerance) plus `locator` and `basis`.
 #
 # IMPORTANT, evidence level: neither paper prints a numeric example (dossiers/ece_mce_calibration.md section 4), so NO row is a published paper value.

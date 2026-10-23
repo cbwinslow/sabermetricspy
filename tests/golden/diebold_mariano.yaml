@@ -1,4 +1,4 @@
-# DRAFT golden fixture: Diebold-Mariano statistic (native) and Harvey-Leybourne-Newbold (HLN) correction.
+# Golden fixture: Diebold-Mariano statistic (native) and Harvey-Leybourne-Newbold (HLN) correction.
 # Entry style of sabermetricspy tests/golden/*.yaml (entries: id, source_url, retrieved, inputs, published, tolerance) plus `locator` and `basis`.
 #
 # IMPORTANT, evidence level: NEITHER paper prints a numeric example that a test can recompute (dossiers/diebold_mariano_hln.md sections 1 and 4).

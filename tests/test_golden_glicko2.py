@@ -144,3 +144,23 @@ def test_invalid_input_raises() -> None:
         sp.glicko2_update(1500.0, 200.0, 0.06, [(1500.0, 0.0, 1.0)], tau=0.5)
     with pytest.raises(TypeError):
         sp.glicko2_update(1500.0, 200.0, 0.06, games)  # type: ignore[call-arg]
+
+
+def test_a_generator_of_games_gives_the_same_answer_as_a_list() -> None:
+    from_list = sp.glicko2_update(1500.0, 200.0, 0.06, GAMES, tau=0.5)
+    from_generator = sp.glicko2_update(1500.0, 200.0, 0.06, (g for g in GAMES), tau=0.5)
+    assert from_generator == from_list
+
+
+def test_a_numpy_array_of_games_is_accepted() -> None:
+    import numpy as np
+
+    arr = np.array(GAMES)
+    assert sp.glicko2_update(1500.0, 200.0, 0.06, arr, tau=0.5).rating == pytest.approx(
+        1464.0507, abs=1e-3
+    )  # type: ignore[arg-type]
+
+
+def test_a_degenerate_volatility_search_raises_value_error_not_a_hang() -> None:
+    with pytest.raises(ValueError):
+        sp.glicko2_update(1500.0, 200.0, 1e-300, GAMES, tau=1e-9)

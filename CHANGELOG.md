@@ -4,6 +4,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 
 ## [Unreleased]
 
+### Fixed
+- Glicko-2: the volatility search is bounded and raises `ValueError` instead of hanging or dividing by zero; `games` may be a generator or an array. `ranked_probability_score` accepts forecasts rounded to a few decimals (row sums within 0.001). Review fixes from GitHub issue 13.
+
 ### Added
 - `power_speed_number` (PSN, Bill James): harmonic mean of home runs and stolen bases, `2 HR SB / (HR + SB)`, null when HR + SB is 0. Reproduces Baseball-Reference's career values and SABR/Wikipedia season values (ADR-0070).
 - `xr` and `xrr` (Furtado's Extrapolated Runs and Extrapolated Runs Reduced), weighted-offense run estimators with fixed published weights; the article's McGwire 1998 example reproduces (ADR-0071). XRB is not implemented (its printed example is inconsistent).
@@ -14,7 +17,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Design 
 - `glicko2_update`, `glicko2_expected_score` and `Glicko2Rating` (Glicko-2 rating update for one rating period); reproduces Glickman's worked example (ADR-0077).
 
 ### Changed
-- `calibration_table` bins are now right-closed by default, `(k/n, (k+1)/n]`, as in scikit-learn and Guo et al.; a new `closed="left"` option keeps the previous `[k/n, (k+1)/n)` behaviour. Only a forecast exactly on an inner bin edge changes bin. `floor(p * n)` mis-binned some decimal edges for large n (ADR-0072).
+- `calibration_table` bins are now right-closed by default, `(k/n, (k+1)/n]`, as in scikit-learn and Guo et al.; a new `closed="left"` option keeps the previous `[k/n, (k+1)/n)` behaviour. Only a forecast exactly on an inner bin edge changes bin (rounded forecasts such as 0.1, 0.2 or 0.5 often do); pass `closed="left"` to keep the old results. `floor(p * n)` mis-binned some decimal edges for large n (ADR-0072).
 
 ## [2.0.2] - 2026-10-22
 

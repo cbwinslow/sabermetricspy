@@ -757,7 +757,7 @@ models:
     status: matches
     evidence: primary
     source_url: https://arxiv.org/abs/1706.04599
-    note: 'Event form of Naeini, Cooper and Hauskrecht (2015), ECE = sum_i P(i) |o_i - e_i| over equal-width bins, with the right-closed bins ((m-1)/M, m/M] of Guo et al. (2017, eq. 3). The definitions are quoted from the papers, which print no numeric example, so the tests (tests/golden/ece_mce.yaml) are hand arithmetic and library-computed rows, not published values. It is not Guo''s predicted-class form (confidence of the top class), and equal-frequency bins are not implemented. Raises ValueError on invalid input; empty bins are skipped.'
+    note: 'Event form of Naeini, Cooper and Hauskrecht (2015), ECE = sum_i P(i) |o_i - e_i| over equal-width bins, with the right-closed bins ((m-1)/M, m/M] of Guo et al. (2017, eq. 3). The definitions are quoted from the papers, which print no numeric example, so the tests (tests/golden/ece_mce.yaml) are hand arithmetic and library-computed rows, not published values. It is not Guo''s predicted-class form (confidence of the top class), and equal-frequency bins are not implemented. Raises ValueError on invalid input; empty bins are skipped. Rule 7 note: no outside number is reproduced, so this is shipped under an explicit exception (ADR-0073) that the owner has not yet confirmed (GitHub issue 13).'
   evaluation.maximum_calibration_error:
     status: matches
     evidence: primary

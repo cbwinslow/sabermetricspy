@@ -1,4 +1,4 @@
-# DRAFT golden fixture: Furtado Extrapolated Runs (XR) and Extrapolated Runs Reduced (XRR). XRB IS HELD BACK (see `held_back`).
+# Golden fixture: Furtado Extrapolated Runs (XR) and Extrapolated Runs Reduced (XRR). XRB IS HELD BACK (see `held_back`).
 # Entry style of sabermetricspy tests/golden/*.yaml (entries: id, source_url, retrieved, inputs, published, tolerance) plus `locator` and `basis`.
 #
 # Source (primary, author's article): Jim Furtado, "Introducing XR", 1999 Big Bad Baseball Annual; hosted at

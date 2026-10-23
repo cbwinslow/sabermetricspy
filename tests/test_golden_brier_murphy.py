@@ -41,10 +41,10 @@ def test_calibration_table_matches_the_fixture(entry: dict[str, Any]) -> None:
         got = ev.brier_score(df, "p", "y")
         assert got == pytest.approx(published["brier_single_event"], abs=tol["brier_single_event"])
         assert 2 * got == pytest.approx(published["brier_two_class"], abs=tol["brier_two_class"])
-        base = sum(inputs["observed"]) / len(inputs["observed"])
-        assert 1 - (base**2 + (1 - base) ** 2) == pytest.approx(
-            published["constant_0_3_two_class"], abs=0.005
-        )
+        # Brier's constant forecasts scored against the same ten outcomes: 0.3 (the base rate) gives 0.42, 0.2 gives 0.44.
+        for const, key in ((0.3, "constant_0_3_two_class"), (0.2, "constant_0_2_two_class")):
+            flat = pl.DataFrame({"p": [const] * len(inputs["observed"]), "y": inputs["observed"]})
+            assert 2 * ev.brier_score(flat, "p", "y") == pytest.approx(published[key], abs=tol[key])
         return
     if (
         "single_event_equivalents" in entry

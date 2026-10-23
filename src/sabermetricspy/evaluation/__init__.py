@@ -336,8 +336,10 @@ def ranked_probability_score(
     k = prob.shape[1]
     if np.any((prob < 0.0) | (prob > 1.0)):
         raise ValueError("Probability forecasts must lie in [0, 1].")
-    if not np.allclose(prob.sum(axis=1), 1.0, rtol=0.0, atol=1e-8):
-        raise ValueError("Each row of forecast probabilities must sum to 1.")
+    if not np.allclose(prob.sum(axis=1), 1.0, rtol=0.0, atol=1e-3):
+        raise ValueError(
+            "Each row of forecast probabilities must sum to 1 (within 0.001, so rounded forecasts are accepted)."
+        )
     if np.any(pos_raw != np.round(pos_raw)) or np.any((pos_raw < 0) | (pos_raw > k - 1)):
         raise ValueError(f"Outcomes must be integer positions between 0 and {k - 1}.")
     pos = pos_raw.astype(int)

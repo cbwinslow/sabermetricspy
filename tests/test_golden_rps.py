@@ -112,3 +112,11 @@ def test_score_lies_between_zero_and_one(weights: list[int], data: st.DataObject
     forecast = [w / total for w in weights]
     pos = data.draw(st.integers(0, len(forecast) - 1))
     assert -1e-12 <= _rps(forecast, pos) <= 1.0 + 1e-12
+
+
+def test_probabilities_rounded_to_four_decimals_are_accepted() -> None:
+    df = pl.DataFrame({"a": [0.3333], "b": [0.3333], "c": [0.3333], "obs": [1]})
+    assert ev.ranked_probability_score(df, ["a", "b", "c"], "obs") >= 0.0
+    bad = pl.DataFrame({"a": [0.3], "b": [0.3], "c": [0.3], "obs": [1]})
+    with pytest.raises(ValueError, match="sum to 1"):
+        ev.ranked_probability_score(bad, ["a", "b", "c"], "obs")

@@ -1,4 +1,4 @@
-# DRAFT golden fixture: Brier score (1950) and the Murphy (1973) REL - RES + UNC partition, with the bin-convention rows that document how
+# Golden fixture: Brier score (1950) and the Murphy (1973) REL - RES + UNC partition, with the bin-convention rows that document how
 # sabermetricspy.evaluation.calibration_table (left-closed floor(p*n) bins) differs from right-closed (lo, hi] bins (Guo 2017, scikit-learn).
 # Entry style of sabermetricspy tests/golden/*.yaml (entries: id, source_url, retrieved, inputs, published, tolerance) plus `locator` and `basis`.
 #
@@ -33,7 +33,7 @@ entries:
   single_event_equivalents: {uncertainty: 0.24, reliability: 0.068, resolution: 0.165, brier_score: 0.143}
 - id: repo_test_two_point_forecasts
   basis: repo-test
-  source_url: C:\Users\blain\projects\sabermetricspy\tests\test_evaluation.py (test_murphy_decomposition_is_exact_for_discrete_forecasts)
+  source_url: tests/test_evaluation.py (test_murphy_decomposition_is_exact_for_discrete_forecasts)
   retrieved: '2026-10-22'
   inputs: {forecast: [0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7], observed: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0], n_bins: 10}
   published: {brier_score: 0.17, reliability: 0.01, resolution: 0.09, uncertainty: 0.25, within_bin_remainder: 0.0}
@@ -73,7 +73,7 @@ entries:
   note: Murphy's own grouping (constant forecast within each subcollection) makes BS = REL - RES + UNC exact.
 - id: repo_test_remainder_four_points
   basis: repo-test
-  source_url: C:\Users\blain\projects\sabermetricspy\tests\test_evaluation.py (test_calibration_reports_remainder_when_forecasts_vary_within_a_bin)
+  source_url: tests/test_evaluation.py (test_calibration_reports_remainder_when_forecasts_vary_within_a_bin)
   retrieved: '2026-10-22'
   inputs: {forecast: [0.31, 0.39, 0.7, 0.7], observed: [0, 1, 1, 1], n_bins: 10}
   published: {brier_score: 0.16205, within_bin_remainder: -0.0192}

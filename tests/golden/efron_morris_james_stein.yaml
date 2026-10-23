@@ -1,4 +1,4 @@
-# DRAFT golden fixture: Efron and Morris (1975) James-Stein estimator on the 1970 batting averages (arcsine transform).
+# Golden fixture: Efron and Morris (1975) James-Stein estimator on the 1970 batting averages (arcsine transform).
 # Same entry style as sabermetricspy tests/golden/*.yaml (entries: id, source_url, retrieved, inputs, published, tolerance); `locator` and `basis` added.
 #
 # Source (primary): B. Efron and C. Morris, "Data analysis using Stein's estimator and its generalizations", J. Amer. Statist. Assoc. 70(350):311-319 (1975),

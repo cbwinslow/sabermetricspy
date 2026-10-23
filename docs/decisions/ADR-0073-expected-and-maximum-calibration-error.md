@@ -10,6 +10,8 @@ Add `expected_calibration_error` and `maximum_calibration_error` to `sabermetric
 
 Defaults adopted without an owner answer (research spec `ece_mce_calibration`, O-ECE-1 to O-ECE-5): ship as `matches`/`primary` rather than `experimental`; event form, equal-width, right-closed, 10 bins; the same `closed` default as `calibration_table`; a `weight_col` extension; return a float.
 
+**Rule 7 exception, stated plainly:** CLAUDE.md rule 7 asks for a reproduced outside value; none exists for ECE or MCE (neither paper prints one), so these two functions are shipped as a recorded exception. The owner has not confirmed it (GitHub issue 13); if refused, mark both `experimental` or remove them.
+
 ## Alternatives
 - Ship as `experimental` (warns), not chosen now because the definition is standard and quoted from two papers; revisit if the owner holds that a definition without a printed numeric example fails rule 7.
 - Equal-frequency (quantile) bins, not chosen now because no source fixes the edge definition, interpolation or tie handling; revisit if a source does.

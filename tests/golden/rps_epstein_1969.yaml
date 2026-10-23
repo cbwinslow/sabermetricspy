@@ -1,4 +1,4 @@
-# DRAFT golden fixture: Ranked Probability Score. Printed values are Epstein's positively oriented S_j (1 = perfect, 0 = worst);
+# Golden fixture: Ranked Probability Score. Printed values are Epstein's positively oriented S_j (1 = perfect, 0 = worst);
 # the proposed library score is the negatively oriented, 1/(K-1)-normalised loss  rps = 1 - S_j  (identity checked exactly in the dossier and in check_fixture.py).
 # Entry style of sabermetricspy tests/golden/*.yaml (entries: id, source_url, retrieved, inputs, published, tolerance) plus `locator` and `basis`.
 #

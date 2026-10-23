@@ -1,4 +1,4 @@
-# DRAFT golden fixture: Power-Speed Number (PSN) = 2 * HR * SB / (HR + SB). Entry style of sabermetricspy tests/golden/*.yaml
+# Golden fixture: Power-Speed Number (PSN) = 2 * HR * SB / (HR + SB). Entry style of sabermetricspy tests/golden/*.yaml
 # (entries: id, source_url, retrieved, inputs, published, tolerance) plus `locator` and `basis`.
 #
 # Printed values come from three sources (all retrieved 2026-10-22, see dossiers/power_speed_number.md section 1):

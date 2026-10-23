@@ -1,4 +1,4 @@
-# DRAFT golden fixture: Glicko-2 rating update, Glickman's worked example. Same entry style as sabermetricspy tests/golden/*.yaml
+# Golden fixture: Glicko-2 rating update, Glickman's worked example. Same entry style as sabermetricspy tests/golden/*.yaml
 # (entries: id, source_url, retrieved, inputs, published, tolerance), plus `locator` and `basis` keys.
 #
 # Source (primary, author's own page): Mark E. Glickman, "Example of the Glicko-2 system", Boston University, 2022-03-22.

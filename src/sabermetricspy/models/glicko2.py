@@ -8,7 +8,7 @@ adjustment are not part of the method and are not applied (ADR-0077).
 from __future__ import annotations
 
 import math
-from collections.abc import Sequence
+from collections.abc import Iterable
 
 from pydantic import BaseModel, ConfigDict
 
@@ -18,6 +18,7 @@ from sabermetricspy.telemetry import profiled
 GLICKO2_SCALE = 173.7178
 _CENTRE = 1500.0
 _SCORES = (0.0, 0.5, 1.0)
+_MAX_ITERATIONS = 1000
 
 
 class Glicko2Rating(BaseModel):
@@ -68,9 +69,17 @@ def _new_volatility(
         k = 1
         while f(a - k * tau) < 0.0:
             k += 1
+            if k > _MAX_ITERATIONS:
+                raise ValueError("Could not bracket the new volatility; check tau and volatility.")
         big_b = a - k * tau
     f_a, f_b = f(big_a), f(big_b)
+    iterations = 0
     while abs(big_b - big_a) > epsilon:
+        iterations += 1
+        if iterations > _MAX_ITERATIONS or f_b == f_a:
+            raise ValueError(
+                "The volatility iteration did not converge; check tau, volatility and epsilon."
+            )
         big_c = big_a + (big_a - big_b) * f_a / (f_b - f_a)
         f_c = f(big_c)
         if f_c * f_b <= 0.0:
@@ -86,7 +95,7 @@ def glicko2_update(
     rating: float = 1500.0,
     rd: float = 350.0,
     volatility: float = 0.06,
-    games: Sequence[tuple[float, float, float]] = (),
+    games: Iterable[tuple[float, float, float]] = (),
     *,
     tau: float,
     epsilon: float = 1e-6,
@@ -98,6 +107,7 @@ def glicko2_update(
     constant that constrains the change in volatility, has no default: Glickman calls 0.3 to 1.2 reasonable and says
     it should be tested for the application. Raises `ValueError` for invalid input.
     """
+    games = tuple(games)  # read more than once below, so a generator or array is materialised first
     numbers = [rating, rd, volatility, tau, epsilon]
     for o_rating, o_rd, score in games:
         numbers += [o_rating, o_rd, score]
@@ -112,7 +122,7 @@ def glicko2_update(
 
     mu = (rating - _CENTRE) / GLICKO2_SCALE
     phi = rd / GLICKO2_SCALE
-    if not games:
+    if len(games) == 0:
         phi_star = math.sqrt(phi * phi + volatility * volatility)
         return Glicko2Rating(rating=rating, rd=GLICKO2_SCALE * phi_star, volatility=volatility)
 
